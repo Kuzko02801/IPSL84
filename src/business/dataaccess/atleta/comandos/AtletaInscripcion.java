@@ -46,6 +46,7 @@ public class AtletaInscripcion {
 			if(!hayPlazasLibres())
 				throw new BusinessDataException("No hay plazas libres.");
 			
+			
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 			ps.setString(1, atleta.email);
 			ps.setString(2, carrera.carrera_id);
