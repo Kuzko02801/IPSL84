@@ -40,7 +40,7 @@ public class AtletaInscripcion {
 				throw new BusinessDataException("La carrera no existe.");
 			
 			// Inscripcion abierta.
-			if(!inscripcionAbierta())
+			if(inscripcionAbierta())
 				throw new BusinessDataException("Estas fuera del plazo de inscripción.");
 			
 			// Checkeo de plazas. 
@@ -117,13 +117,13 @@ public class AtletaInscripcion {
 			ps = con.prepareStatement(SqlStatements.SQL_SELECT_CARRERA);
 			ps.setString(1, carrera.carrera_id);
 			rs = ps.executeQuery();
-			if (!rs.next())
-				return false;
+			if (rs.next())
+				return true;
 		} finally {
 			rs.close();
 			ps.close();
 		}
-		return true;
+		return false;
 	}
 
 }
