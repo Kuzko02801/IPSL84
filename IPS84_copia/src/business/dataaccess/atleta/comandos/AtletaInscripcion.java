@@ -6,7 +6,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.UUID;
 
 import business.dataaccess.BusinessDataException;
 import business.dataaccess.datainformation.SqlStatements;
@@ -15,6 +14,7 @@ import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoInscripcion;
+import business.dataaccess.util.Check;
 
 public class AtletaInscripcion {
 
@@ -36,7 +36,7 @@ public class AtletaInscripcion {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 
 			// Check if the race exists.
-			if (!raceExists())
+			if (!Check.raceExists(con, carrera.carrera_id))
 				throw new BusinessDataException("La carrera no existe.");
 			
 			// Inscripcion abierta.
@@ -45,16 +45,15 @@ public class AtletaInscripcion {
 			
 			// Checkeo de plazas. 
 			if(!hayPlazasLibres())
-				throw new BusinessDataException("No hay plazas libres.");
+				throw new BusinessDataException("No hay plazas libres.");			
 			
-			id_carrera = UUID.randomUUID().toString();
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 			ps.setString(1, atleta.email);
 			ps.setString(2, carrera.carrera_id);
 			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);								
 			ps.setString(4, seleccionarCategoria());
 			ps.setDate(5, fechaActual());
-			ps.setString(6, id_carrera);
+			ps.setString(6, carrera.carrera_id);
 
 			ps.executeUpdate();
 
@@ -110,20 +109,6 @@ public class AtletaInscripcion {
 			return false;
 	}
 
-	private boolean raceExists() throws SQLException {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		try {
-			ps = con.prepareStatement(SqlStatements.SQL_SELECT_CARRERA);
-			ps.setString(1, carrera.carrera_id);
-			rs = ps.executeQuery();
-			if (rs.next())
-				return true;
-		} finally {
-			rs.close();
-			ps.close();
-		}
-		return false;
-	}
+	
 
 }

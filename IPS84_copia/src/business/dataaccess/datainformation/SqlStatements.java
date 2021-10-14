@@ -13,7 +13,7 @@ public class SqlStatements {
 	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, cuota, id, plazas_maximas, cierre, apertura, estado) "
 												  + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	// For testing
-	public static final String SQL_TESTING_INSERT_ATLETA = "insert into atleta (email, nombre, fechaNacimiento, sexo) values (?, ?, ?, ?)";
+	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?)";
 	
 	
 }

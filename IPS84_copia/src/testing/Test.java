@@ -1,7 +1,6 @@
 package testing;
 
 import java.sql.Connection;
-
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
@@ -9,10 +8,10 @@ import java.sql.SQLException;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
-import business.dataaccess.dto.infoadicional.Tipo;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
+import business.dataaccess.dto.infoadicional.Tipo;
 
 public class Test {
 
@@ -26,8 +25,7 @@ public class Test {
 	
 	public void addAtleta(String dni, String email, String nombre, Date fechaDeNacimiento, Genero genero) {
 		
-		try {
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+		try {			
 			ps = con.prepareStatement(SqlStatements.SQL_TESTING_INSERT_ATLETA);
 
 			ps.setString(1, email);
