@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import business.dataaccess.BusinessDataException;
 import business.dataaccess.datainformation.SqlStatements;
@@ -30,7 +31,7 @@ public class AtletaInscripcion {
 	public void inscribirAtleta() {
 
 		PreparedStatement ps = null;
-
+		String id_carrera = "";
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 
@@ -46,13 +47,14 @@ public class AtletaInscripcion {
 			if(!hayPlazasLibres())
 				throw new BusinessDataException("No hay plazas libres.");
 			
-			
+			id_carrera = UUID.randomUUID().toString();
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 			ps.setString(1, atleta.email);
 			ps.setString(2, carrera.carrera_id);
-			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);						
-			ps.setDate(4, fechaActual());						
-			ps.setString(5, seleccionarCategoria());
+			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);								
+			ps.setString(4, seleccionarCategoria());
+			ps.setDate(5, fechaActual());
+			ps.setString(6, id_carrera);
 
 			ps.executeUpdate();
 
@@ -94,7 +96,6 @@ public class AtletaInscripcion {
 				if(carrera.plazasMaximas <= rs.getInt(1))
 					return false;
 			}
-
 		} finally {
 			rs.close();
 			ps.close();
@@ -118,7 +119,6 @@ public class AtletaInscripcion {
 			rs = ps.executeQuery();
 			if (!rs.next())
 				return false;
-
 		} finally {
 			rs.close();
 			ps.close();

@@ -12,7 +12,8 @@ import business.dataaccess.atleta.comandos.AtletaInscripcion;
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.CarreraDto;
-import business.dataaccess.dto.infoadicional.EstadoInscripcion;
+import business.dataaccess.dto.infoadicional.EstadoCarrera;
+
 
 public class CrearCarrera {
 	private CarreraDto carrera;
@@ -32,10 +33,16 @@ public class CrearCarrera {
 			id = UUID.randomUUID().toString();
 			ps.setString(1, carrera.nombre);
 			ps.setDate(2, new Date(System.currentTimeMillis()));
-			ps.
+			ps.setString(3, carrera.tipo.label);
+			ps.setDouble(4, carrera.distancia);
+			ps.setDouble(5, carrera.cuota);
+			ps.setString(6, id);
+			ps.setInt(7, carrera.plazasMaximas);
+			ps.setDate(8, carrera.cierre);
+			ps.setDate(9, carrera.apertura);
+			ps.setString(10, EstadoCarrera.NO_COMENZADA.toString());			
 			
-			
-			
+			ps.close();
 			con.close();
 
 		} catch (SQLException e) {
