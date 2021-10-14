@@ -31,7 +31,11 @@ public class CarreraServiceImpl implements CarreraService{
 	
 	@Override
 	public void crearCarrera(CarreraDto carrera) {
+<<<<<<< HEAD
 		new CrearCarrera(carrera).crearCarrera();
+=======
+		// TODO Auto-generated method stub
+>>>>>>> branch 'master' of https://github.com/Kuzko02801/IPSL84.git
 		
 	}
 
