@@ -7,6 +7,8 @@ import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.CarreraDto;
 
 public interface CarreraService {
-	public void crearCarrera(AtletaDto atleta, CarreraDto carrera) throws BusinessDataException;
-	public TableModel tablaCarreras();
+	public void crearCarrera(CarreraDto carrera) throws BusinessDataException;
+	public TableModel devolverCarrerasPropiasParticipante();
+	public TableModel devolverCarrerasValidas();
+	public TableModel devolverCarrerasOrganizador();
 }
