@@ -19,8 +19,7 @@ public class CarreraServiceImpl implements CarreraService{
 
 	@Override
 	public TableModel devolverCarrerasValidas() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DevolverCarrerasValidas().devolverCarreras();
 	}
 
 	@Override

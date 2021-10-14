@@ -7,8 +7,6 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.util.UUID;
 
-import business.dataaccess.BusinessDataException;
-import business.dataaccess.atleta.comandos.AtletaInscripcion;
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.CarreraDto;
@@ -22,6 +20,11 @@ public class CrearCarrera {
 	}
 	public void crearCarrera() {
 
+		try {
+			DriverManager.registerDriver(new org.sqlite.JDBC());
+		} catch (SQLException e1) {
+			System.out.println("Ha fallado el register del driver");
+		}
 		PreparedStatement ps = null;
 		Connection con= null;
 		String id = null;

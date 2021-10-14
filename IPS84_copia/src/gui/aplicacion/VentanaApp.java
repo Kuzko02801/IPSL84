@@ -6,13 +6,12 @@ import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Connection;
-import java.sql.Date;
-import java.sql.DriverManager;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
+import javax.mail.internet.AddressException;
+import javax.mail.internet.InternetAddress;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -30,15 +29,19 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 
-import business.dataaccess.datainformation.SqliteConnectionInfo;
-import business.dataaccess.dto.infoadicional.Genero;
-import net.proteanit.sql.DbUtils;
-import testing.Test;
+import business.dataaccess.DataAccessFactory;
 import javax.swing.SwingConstants;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaApp extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel pnPrincipal;
 	private JPanel pnParticipante;
 	private JPanel pnBotonesParticipante;
@@ -46,7 +49,7 @@ public class VentanaApp extends JFrame {
 	private JScrollPane scrollPaneTabla;
 	private JTable tablaCarrerasParticipante;
 	private JButton btOrdenar;
-	private JComboBox cbCarreras;
+	private JComboBox<String> cbCarreras;
 	private JMenuBar menuBar;
 	private JMenu mnCuenta;
 	private JMenu mnOrganizador;
@@ -60,11 +63,11 @@ public class VentanaApp extends JFrame {
 	private JPanel pnBotonesOrganizador;
 	private JPanel pnBotonesOrdenarParticipante_1;
 	private JButton btMostrarClasificaciones;
-	private JComboBox cbClasificaciones;
+	private JComboBox<String> cbClasificaciones;
 	private JPanel pnBotonesInscribirseParticipante_1;
 	private JButton btInscribirseParticipante_1;
 	private JLabel lbIDCarreraParticipante_1;
-	private JTextField textField;
+	private JTextField txIdOrganizador;
 	private JPanel pnTablasOrganizador;
 	private JScrollPane scrollPaneCarrerasOrganizador;
 	private JScrollPane scrollPaneParticipantes;
@@ -77,7 +80,7 @@ public class VentanaApp extends JFrame {
 	private JScrollPane scrollPaneClasificacionesMujer;
 	private JTable tablaClasificacionesHombre;
 	private JTable tablaClasificacionesMujer;
-	private JTextField txIdCarreraValida;
+	private JTextField txIdCarreraValidaOrganizador;
 	private JMenuItem mntmNewMenuItem;
 	private JMenuItem mntmNewMenuItem_1;
 	private JButton btMostrarCarreras;
@@ -96,9 +99,10 @@ public class VentanaApp extends JFrame {
 	private JTextField txCuotaCarrera;
 	private JTextField txFechaApertura;
 	private JTextField txFechaCierre;
-	private JComboBox cbTipoCarrera;
+	private JComboBox<String> cbTipoCarrera;
 	private JButton btCrearCarrera;
 	private JButton btCrearCarreraOrganizador;
+	private JTextField txIdCarreraValidaParticipante;
 
 	/**
 	 * Launch the application.
@@ -233,7 +237,7 @@ public class VentanaApp extends JFrame {
 						Class[] columnTypes = new Class[] { Object.class, String.class, String.class, String.class,
 								String.class, Integer.class, Integer.class, String.class, Integer.class };
 
-						public Class getColumnClass(int columnIndex) {
+						public Class<?> getColumnClass(int columnIndex) {
 							return columnTypes[columnIndex];
 						}
 					});
@@ -246,7 +250,7 @@ public class VentanaApp extends JFrame {
 			btOrdenar = new JButton("Mostrar");
 			btOrdenar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
+					mostrarCarrerasParticipante();
 				}
 			});
 			btOrdenar.setForeground(new Color(184, 220, 245));
@@ -255,12 +259,13 @@ public class VentanaApp extends JFrame {
 		return btOrdenar;
 	}
 
-	private JComboBox getCbCarreras() {
+	private JComboBox<String> getCbCarreras() {
 		if (cbCarreras == null) {
-			cbCarreras = new JComboBox();
+			cbCarreras = new JComboBox<String>();
 			cbCarreras.setForeground(new Color(184, 220, 245));
 			cbCarreras.setBackground(new Color(50, 130, 181));
-			cbCarreras.setModel(new DefaultComboBoxModel(new String[] { "Mis carreras", "Todas las carreras" }));
+			cbCarreras
+					.setModel(new DefaultComboBoxModel<String>(new String[] { "Todas las carreras", "Mis carreras" }));
 		}
 		return cbCarreras;
 	}
@@ -306,26 +311,31 @@ public class VentanaApp extends JFrame {
 			pnBotonesInscribirseParticipante = new JPanel();
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
-			gl_pnBotonesInscribirseParticipante
-					.setHorizontalGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186,
-											GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-											.addComponent(getLbIDCarreraParticipante())
-											.addComponent(getTxIdCarreraParticipante(), GroupLayout.PREFERRED_SIZE, 114,
-													GroupLayout.PREFERRED_SIZE))
-									.addGap(436)));
-			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
-					.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-							.addComponent(getLbIDCarreraParticipante()).addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.DEFAULT_SIZE, 24,
-											Short.MAX_VALUE)
-									.addComponent(getTxIdCarreraParticipante(), GroupLayout.DEFAULT_SIZE, 24,
-											Short.MAX_VALUE))));
+						.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+							.addComponent(getLbIDCarreraParticipante())
+							.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+								.addComponent(getTxIdCarreraParticipante(), GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(getTxIdCarreraValidaParticipante(), GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)))
+						.addGap(256))
+			);
+			gl_pnBotonesInscribirseParticipante.setVerticalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addComponent(getLbIDCarreraParticipante())
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getBtInscribirseParticipante(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(getTxIdCarreraParticipante(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)))
+					.addGroup(Alignment.TRAILING, gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addContainerGap(25, Short.MAX_VALUE)
+						.addComponent(getTxIdCarreraValidaParticipante(), GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
+			);
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
@@ -334,6 +344,13 @@ public class VentanaApp extends JFrame {
 	private JButton getBtInscribirseParticipante() {
 		if (btInscribirseParticipante == null) {
 			btInscribirseParticipante = new JButton("Inscribirse/pagar");
+			btInscribirseParticipante.setEnabled(false);
+			btInscribirseParticipante.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					inscribirsePagar();
+				}
+
+			});
 			btInscribirseParticipante.setForeground(new Color(184, 220, 245));
 			btInscribirseParticipante.setBackground(new Color(50, 130, 181));
 		}
@@ -343,6 +360,12 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxIdCarreraParticipante() {
 		if (txIdCarreraParticipante == null) {
 			txIdCarreraParticipante = new JTextField();
+			txIdCarreraParticipante.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarIdValidaParticipante();
+				}
+			});
 			txIdCarreraParticipante.setColumns(10);
 		}
 		return txIdCarreraParticipante;
@@ -461,10 +484,10 @@ public class VentanaApp extends JFrame {
 		return btMostrarClasificaciones;
 	}
 
-	private JComboBox getCbClasificaciones() {
+	private JComboBox<String> getCbClasificaciones() {
 		if (cbClasificaciones == null) {
-			cbClasificaciones = new JComboBox();
-			cbClasificaciones.setModel(new DefaultComboBoxModel(new String[] { "Absolutas", "Por sexo" }));
+			cbClasificaciones = new JComboBox<String>();
+			cbClasificaciones.setModel(new DefaultComboBoxModel<String>(new String[] { "Absolutas", "Por sexo" }));
 			cbClasificaciones.setForeground(new Color(184, 220, 245));
 			cbClasificaciones.setBackground(new Color(50, 130, 181));
 		}
@@ -485,10 +508,10 @@ public class VentanaApp extends JFrame {
 							.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
 									.addComponent(getLbIDCarreraParticipante_1())
 									.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup()
-											.addComponent(getTextField_1(), GroupLayout.PREFERRED_SIZE, 114,
+											.addComponent(getTxIdOrganizador(), GroupLayout.PREFERRED_SIZE, 114,
 													GroupLayout.PREFERRED_SIZE)
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(getTextField_1_1(), GroupLayout.PREFERRED_SIZE, 174,
+											.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.PREFERRED_SIZE, 174,
 													GroupLayout.PREFERRED_SIZE)
 											.addGap(10).addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE,
 													117, GroupLayout.PREFERRED_SIZE)))
@@ -500,7 +523,7 @@ public class VentanaApp extends JFrame {
 							.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
 									.addGroup(Alignment.TRAILING, gl_pnBotonesInscribirseParticipante_1
 											.createParallelGroup(Alignment.BASELINE)
-											.addComponent(getTextField_1_1(), GroupLayout.DEFAULT_SIZE, 25,
+											.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.DEFAULT_SIZE, 25,
 													Short.MAX_VALUE)
 											.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 23,
 													GroupLayout.PREFERRED_SIZE))
@@ -508,7 +531,7 @@ public class VentanaApp extends JFrame {
 											.createParallelGroup(Alignment.BASELINE)
 											.addComponent(getBtInscribirseParticipante_1(), GroupLayout.DEFAULT_SIZE,
 													24, Short.MAX_VALUE)
-											.addComponent(getTextField_1(), GroupLayout.DEFAULT_SIZE, 24,
+											.addComponent(getTxIdOrganizador(), GroupLayout.DEFAULT_SIZE, 24,
 													Short.MAX_VALUE)))));
 			pnBotonesInscribirseParticipante_1.setLayout(gl_pnBotonesInscribirseParticipante_1);
 		}
@@ -538,12 +561,18 @@ public class VentanaApp extends JFrame {
 		return lbIDCarreraParticipante_1;
 	}
 
-	private JTextField getTextField_1() {
-		if (textField == null) {
-			textField = new JTextField();
-			textField.setColumns(10);
+	private JTextField getTxIdOrganizador() {
+		if (txIdOrganizador == null) {
+			txIdOrganizador = new JTextField();
+			txIdOrganizador.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyTyped(KeyEvent e) {
+					comprobarIdValidaParticipante();
+				}
+			});
+			txIdOrganizador.setColumns(10);
 		}
-		return textField;
+		return txIdOrganizador;
 	}
 
 	private JPanel getPnTablasOrganizador() {
@@ -591,10 +620,11 @@ public class VentanaApp extends JFrame {
 			tablaParticipantes = new JTable();
 			tablaParticipantes.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "DNI", "Nombre",
 					"Categor\u00EDa", "Fecha inscripci\u00F3n", "Estado inscripci\u00F3n" }) {
+
 				Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class,
 						String.class };
 
-				public Class getColumnClass(int columnIndex) {
+				public Class<?> getColumnClass(int columnIndex) {
 					return columnTypes[columnIndex];
 				}
 			});
@@ -617,7 +647,7 @@ public class VentanaApp extends JFrame {
 					new String[] { "Posici\u00F3n", "Sexo", "Nombre", "Tiempo" }) {
 				Class[] columnTypes = new Class[] { Object.class, Object.class, String.class, String.class };
 
-				public Class getColumnClass(int columnIndex) {
+				public Class<?> getColumnClass(int columnIndex) {
 					return columnTypes[columnIndex];
 				}
 			});
@@ -672,7 +702,7 @@ public class VentanaApp extends JFrame {
 					new String[] { "Posici\u00F3n", "Sexo", "Nombre", "Tiempo" }) {
 				Class[] columnTypes = new Class[] { Integer.class, String.class, String.class, String.class };
 
-				public Class getColumnClass(int columnIndex) {
+				public Class<?> getColumnClass(int columnIndex) {
 					return columnTypes[columnIndex];
 				}
 			});
@@ -687,7 +717,7 @@ public class VentanaApp extends JFrame {
 					new String[] { "Posici\u00F3n", "Sexo", "Nombre", "Tiempo" }) {
 				Class[] columnTypes = new Class[] { Integer.class, String.class, Object.class, String.class };
 
-				public Class getColumnClass(int columnIndex) {
+				public Class<?> getColumnClass(int columnIndex) {
 					return columnTypes[columnIndex];
 				}
 			});
@@ -695,14 +725,14 @@ public class VentanaApp extends JFrame {
 		return tablaClasificacionesMujer;
 	}
 
-	private JTextField getTextField_1_1() {
-		if (txIdCarreraValida == null) {
-			txIdCarreraValida = new JTextField();
-			txIdCarreraValida.setText("La carrera (valida)");
-			txIdCarreraValida.setEditable(false);
-			txIdCarreraValida.setColumns(10);
+	private JTextField getTxIdCarreraValidaOrganizador() {
+		if (txIdCarreraValidaOrganizador == null) {
+			txIdCarreraValidaOrganizador = new JTextField();
+			txIdCarreraValidaOrganizador.setText("No es v\u00E1lida");
+			txIdCarreraValidaOrganizador.setEditable(false);
+			txIdCarreraValidaOrganizador.setColumns(10);
 		}
-		return txIdCarreraValida;
+		return txIdCarreraValidaOrganizador;
 	}
 
 	private JMenuItem getMntmNewMenuItem() {
@@ -748,72 +778,90 @@ public class VentanaApp extends JFrame {
 			pnCrearCarrera = new JPanel();
 			pnCrearCarrera.setBackground(new Color(50, 130, 181));
 			GroupLayout gl_pnCrearCarrera = new GroupLayout(pnCrearCarrera);
-			gl_pnCrearCarrera.setHorizontalGroup(
-				gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-						.addContainerGap(533, Short.MAX_VALUE)
-						.addComponent(getBtCrearCarrera(), GroupLayout.PREFERRED_SIZE, 208, GroupLayout.PREFERRED_SIZE)
-						.addGap(39))
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-						.addGap(28)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(getLbTipoCarrera(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(getLbPlazasCarrera(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(getLblCuotaCarrera(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(getLbFechaApertura(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(getLbFechaCierre(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(getLbDistanciaCarrera(), GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE))
-							.addComponent(getLbNombreCarrera(), GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-							.addComponent(getLbCrearCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
-							.addComponent(getCbTipoCarrera(), Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(getTxFechaCierre(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-							.addComponent(getTxFechaApertura(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-							.addComponent(getTxCuotaCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-							.addComponent(getTxPlazasCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-							.addComponent(getTxDistanciaCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152, Short.MAX_VALUE)
-							.addComponent(getTxNombreCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE))
-						.addGap(343))
-			);
-			gl_pnCrearCarrera.setVerticalGroup(
-				gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(getLbCrearCarrera(), GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-							.addComponent(getLbNombreCarrera(), GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
-							.addComponent(getTxNombreCarrera(), GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getTxDistanciaCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-							.addComponent(getLbDistanciaCarrera(), GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getCbTipoCarrera(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getLbTipoCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getLbPlazasCarrera(), GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getTxPlazasCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getLblCuotaCarrera(), GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getTxCuotaCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getLbFechaApertura(), GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getTxFechaApertura(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getTxFechaCierre(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-							.addComponent(getLbFechaCierre(), GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-						.addGap(33)
-						.addComponent(getBtCrearCarrera(), GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
-						.addContainerGap())
-			);
+			gl_pnCrearCarrera.setHorizontalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap(533, Short.MAX_VALUE)
+							.addComponent(getBtCrearCarrera(), GroupLayout.PREFERRED_SIZE, 208,
+									GroupLayout.PREFERRED_SIZE)
+							.addGap(39))
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addGap(28)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(getLbTipoCarrera(), GroupLayout.DEFAULT_SIZE,
+													GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(getLbPlazasCarrera(), GroupLayout.DEFAULT_SIZE,
+													GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(getLblCuotaCarrera(), GroupLayout.DEFAULT_SIZE,
+													GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(getLbFechaApertura(), GroupLayout.DEFAULT_SIZE,
+													GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(getLbFechaCierre(), GroupLayout.DEFAULT_SIZE,
+													GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(getLbDistanciaCarrera(), GroupLayout.PREFERRED_SIZE, 188,
+													GroupLayout.PREFERRED_SIZE))
+									.addComponent(getLbNombreCarrera(), GroupLayout.PREFERRED_SIZE, 153,
+											GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+									.addComponent(getLbCrearCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 211,
+											Short.MAX_VALUE)
+									.addComponent(getCbTipoCarrera(), Alignment.LEADING, 0, GroupLayout.DEFAULT_SIZE,
+											Short.MAX_VALUE)
+									.addComponent(getTxFechaCierre(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152,
+											Short.MAX_VALUE)
+									.addComponent(getTxFechaApertura(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+											152, Short.MAX_VALUE)
+									.addComponent(getTxCuotaCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 152,
+											Short.MAX_VALUE)
+									.addComponent(getTxPlazasCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+											152, Short.MAX_VALUE)
+									.addComponent(getTxDistanciaCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+											152, Short.MAX_VALUE)
+									.addComponent(getTxNombreCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+											211, Short.MAX_VALUE))
+							.addGap(343)));
+			gl_pnCrearCarrera.setVerticalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
+							.addComponent(
+									getLbCrearCarrera(), GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+									.addComponent(getLbNombreCarrera(), GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE)
+									.addComponent(getTxNombreCarrera(), GroupLayout.DEFAULT_SIZE, 30, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getTxDistanciaCarrera(), GroupLayout.DEFAULT_SIZE, 29,
+											Short.MAX_VALUE)
+									.addComponent(getLbDistanciaCarrera(), GroupLayout.PREFERRED_SIZE, 29,
+											GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getCbTipoCarrera(), GroupLayout.PREFERRED_SIZE,
+											GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+									.addComponent(getLbTipoCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLbPlazasCarrera(), GroupLayout.PREFERRED_SIZE, 29,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getTxPlazasCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLblCuotaCarrera(), GroupLayout.PREFERRED_SIZE, 29,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getTxCuotaCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLbFechaApertura(), GroupLayout.PREFERRED_SIZE, 29,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getTxFechaApertura(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(
+									gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+											.addComponent(getTxFechaCierre(), GroupLayout.DEFAULT_SIZE, 29,
+													Short.MAX_VALUE)
+											.addComponent(getLbFechaCierre(), GroupLayout.PREFERRED_SIZE, 29,
+													GroupLayout.PREFERRED_SIZE))
+							.addGap(33).addComponent(getBtCrearCarrera(), GroupLayout.DEFAULT_SIZE, 40, Short.MAX_VALUE)
+							.addContainerGap()));
 			pnCrearCarrera.setLayout(gl_pnCrearCarrera);
 		}
 		return pnCrearCarrera;
@@ -933,11 +981,11 @@ public class VentanaApp extends JFrame {
 		return txFechaCierre;
 	}
 
-	private JComboBox getCbTipoCarrera() {
+	private JComboBox<String> getCbTipoCarrera() {
 		if (cbTipoCarrera == null) {
-			cbTipoCarrera = new JComboBox();
+			cbTipoCarrera = new JComboBox<String>();
 			cbTipoCarrera.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
-			cbTipoCarrera.setModel(new DefaultComboBoxModel(new String[] { "Asfalto", "Monta\u00F1a" }));
+			cbTipoCarrera.setModel(new DefaultComboBoxModel<String>(new String[] { "Asfalto", "Monta\u00F1a" }));
 		}
 		return cbTipoCarrera;
 	}
@@ -971,6 +1019,16 @@ public class VentanaApp extends JFrame {
 		}
 		return btCrearCarreraOrganizador;
 	}
+	
+	private JTextField getTxIdCarreraValidaParticipante() {
+		if (txIdCarreraValidaParticipante == null) {
+			txIdCarreraValidaParticipante = new JTextField();
+			txIdCarreraValidaParticipante.setText("No es v\u00E1lida");
+			txIdCarreraValidaParticipante.setEditable(false);
+			txIdCarreraValidaParticipante.setColumns(10);
+		}
+		return txIdCarreraValidaParticipante;
+	}
 
 	private void mostrarPanelParticipante() {
 		CardLayout cl = (CardLayout) (pnPrincipal.getLayout());
@@ -983,24 +1041,30 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorCarreras() {
+		cargarCarrerasOrganizador();
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnCarrerasOrganizador");
 	}
 
 	private void mostrarPanelOrganizadorParticipantes() {
+		cargarInscritosCarrera();
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnParticipantesOrganizador");
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesAbsolutas() {
+		cargarClasificacionesAbsolutas();
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesSexo() {
+		cargarClasificacionesFemeninas();
+		cargarClasificacionesMasculinas();
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnClasificacionesSexo");
 	}
+
 	private void mostrarPanelOrganizadorCrearCarrera() {
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnCrearCarreras");
@@ -1016,15 +1080,35 @@ public class VentanaApp extends JFrame {
 
 	}
 
+	// METODOS QUE CONECTAN CON LA LOGICA
+	// TODO
 	private void crearCarrera() {
-		String nombre=getTxNombreCarrera().getText();
-		//String tipo=getCbTipoCarrera();
-		
+		// String nombre=getTxNombreCarrera().getText();
+		// String tipo=getCbTipoCarrera();
+
+	}
+
+	private void inscribirsePagar() {
+		// comprobar si es una inscripcion o un pago
+		// inscripcion
+		VentanaPedirEmail v = new VentanaPedirEmail(this);
+		v.setVisible(true);
+		// pago
+
+	}
+
+	private void mostrarCarrerasParticipante() {
+		if (getCbCarreras().getSelectedIndex() == 0) {
+			cargarTodasCarrerasParticipante();
+		} else {
+			cargarPropiasCarrerasParticipante();
+		}
 	}
 
 	private void cargarTodasCarrerasParticipante() {
-
-		tablaCarrerasParticipante.setModel(null);
+		new DataAccessFactory();
+		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasValidas();
+		tablaCarrerasParticipante.setModel(tm);
 
 	}
 
@@ -1034,7 +1118,16 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void cargarCarrerasOrganizador() {
+		new DataAccessFactory();
+		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasOrganizador();
+		tablaCarrerasOrganizador.setModel(tm);
+	}
 
+	private void cargarInscritosCarrera() {
+		String id = getTxIdOrganizador().getText();
+		new DataAccessFactory();
+		TableModel tm = DataAccessFactory.forInscripcionService().devolverParticipantesCarrera(id);
+		tablaCarrerasOrganizador.setModel(tm);
 	}
 
 	private void cargarClasificacionesAbsolutas() {
@@ -1048,4 +1141,32 @@ public class VentanaApp extends JFrame {
 	private void cargarClasificacionesFemeninas() {
 
 	}
+
+	public void inscribirAtletaCarrera(String email) {
+		// String idCarrera=getTxIdCarreraParticipante().getText();
+		// algo como un objeto atleta tendria que ir aqui
+		// TODO
+	}
+	private void comprobarIdValidaParticipante() {
+		if(idValida(getTxIdCarreraParticipante().getText())) {
+			getTxIdCarreraValidaParticipante().setText("Válida");
+			getBtInscribirseParticipante().setEnabled(true);
+		}else {
+			getTxIdCarreraValidaParticipante().setText("No es valida");
+			getBtInscribirseParticipante().setEnabled(false);
+		}
+	}
+
+	
+	private boolean idValida(String id) {
+		System.out.println("entra aqui");
+		System.out.println(id);
+		//si alguna carrera tiene la misma id se considera valida
+		if(id.contentEquals("aaa")) {
+			return true;
+		}
+		return false;
+	}
+	
+	
 }
