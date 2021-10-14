@@ -2,10 +2,8 @@ package business.dataaccess.carrera.comandos;
 
 import javax.swing.table.TableModel;
 
-import business.dataaccess.BusinessDataException;
-import business.dataaccess.atleta.comandos.AtletaInscripcion;
 import business.dataaccess.carrera.CarreraService;
-import business.dataaccess.dto.AtletaDto;
+
 import business.dataaccess.dto.CarreraDto;
 
 public class CarreraServiceImpl implements CarreraService{
@@ -13,8 +11,7 @@ public class CarreraServiceImpl implements CarreraService{
 
 	@Override
 	public TableModel devolverCarrerasPropiasParticipante() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DevolverCarrerasPropiasParticipante().devolverCarreras();
 	}
 
 	@Override
@@ -24,13 +21,17 @@ public class CarreraServiceImpl implements CarreraService{
 
 	@Override
 	public TableModel devolverCarrerasOrganizador() {
-		// TODO Auto-generated method stub
-		return null;
+		return new DevolverCarrerasOrganizador().devolverCarreras();
 	}
 	
 	@Override
 	public void crearCarrera(CarreraDto carrera) {
 		new CrearCarrera(carrera).crearCarrera();		
+	}
+
+	@Override
+	public boolean existeCarrera(String id) {
+		return new ExisteCarrera(id).existeCarrera();
 	}
 
 	
