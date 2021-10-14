@@ -1,7 +1,7 @@
 package business.dataaccess.dto.infoadicional;
 
 public enum EstadoCarrera {
-	FINALIZADA("finalizada"), EN_PROGRESO("en progreso"), NO_COMENZADA("no comenzada");
+	FINALIZADA("finalizada"), EN_PROGRESO("en_progreso"), NO_COMENZADA("no_comenzada");
 	
 public final String label;
 	

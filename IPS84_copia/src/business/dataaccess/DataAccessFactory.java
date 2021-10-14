@@ -3,9 +3,11 @@ package business.dataaccess;
 import business.dataaccess.atleta.comandos.AtletaServiceImpl;
 
 
-public class DataAcessFactory {
+public class DataAccessFactory {
 
-	public static AtletaServiceImpl inscribir() {
+	public static AtletaServiceImpl forAtletaService() {
 		return new AtletaServiceImpl();
 	}
+	
+	
 }

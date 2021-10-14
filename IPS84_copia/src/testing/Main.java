@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.sql.Date;
 
+import business.dataaccess.DataAccessFactory;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.infoadicional.Genero;
 
@@ -46,6 +47,10 @@ public class Main {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+	}
+	
+	public void penes() {
+		DataAccessFactory.forAtletaService().inscribirAtleta(null, null);
 	}
 
 }

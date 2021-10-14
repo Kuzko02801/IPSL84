@@ -8,7 +8,7 @@ public class AtletaServiceImpl implements AtletaService{
 		
 	
 	@Override
-	public void inscribirAtleta(AtletaDto atleta, CarreraDto carrera) throws BusinessDataException {
+	public void inscribirAtleta(AtletaDto atleta, CarreraDto carrera) {
 		new AtletaInscripcion(atleta, carrera).inscribirAtleta();
 	}
 

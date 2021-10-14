@@ -27,7 +27,7 @@ public class AtletaInscripcion {
 		this.carrera = carrera;
 	}
 
-	public void inscribirAtleta() throws BusinessDataException {
+	public void inscribirAtleta() {
 
 		PreparedStatement ps = null;
 
@@ -59,8 +59,8 @@ public class AtletaInscripcion {
 			ps.close();
 			con.close();
 
-		} catch (SQLException e) {
-			e.printStackTrace();
+		} catch (BusinessDataException | SQLException e) {
+			throw new RuntimeException(e);
 		}
 
 	}
