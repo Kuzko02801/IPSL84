@@ -30,8 +30,8 @@ public class CarreraServiceImpl implements CarreraService{
 	}
 	
 	@Override
-	public void crearCarrera(CarreraDto carrera) throws BusinessDataException {
-		// TODO Auto-generated method stub
+	public void crearCarrera(CarreraDto carrera) {
+		new CrearCarrera(carrera).crearCarrera();
 		
 	}
 
