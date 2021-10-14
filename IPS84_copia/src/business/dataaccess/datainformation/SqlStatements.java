@@ -8,4 +8,6 @@ public class SqlStatements {
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into atleta (email, nombre, fechaNacimiento, sexo) values (?, ?, ?, ?)";
 	public static final String SQL_TESTING_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, cuota, id, plazasmaximas, cierre, apertura, estado, plazaslibres) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
 }
+

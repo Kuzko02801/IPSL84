@@ -8,4 +8,6 @@ public class DataAcessFactory {
 	public static AtletaServiceImpl inscribir() {
 		return new AtletaServiceImpl();
 	}
+	
+	
 }
