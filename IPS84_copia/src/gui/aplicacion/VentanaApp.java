@@ -1,35 +1,40 @@
 package gui.aplicacion;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
 import java.awt.CardLayout;
+import java.awt.Color;
+import java.awt.EventQueue;
+import java.awt.Font;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
-import javax.swing.JScrollPane;
-import java.awt.GridLayout;
-import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.JTable;
-import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableCellRenderer;
-
-import java.awt.Font;
-import java.awt.Color;
-import javax.swing.border.LineBorder;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JMenuBar;
-import javax.swing.JMenu;
-import javax.swing.JTextField;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
-import java.awt.SystemColor;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
+import javax.swing.JPanel;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.JTextField;
+import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.border.EmptyBorder;
+import javax.swing.table.DefaultTableModel;
+
+import business.dataaccess.datainformation.SqliteConnectionInfo;
+import business.dataaccess.dto.infoadicional.Genero;
+import net.proteanit.sql.DbUtils;
+import testing.Test;
 
 public class VentanaApp extends JFrame {
 
@@ -220,6 +225,11 @@ public class VentanaApp extends JFrame {
 	private JButton getBtOrdenar() {
 		if (btOrdenar == null) {
 			btOrdenar = new JButton("Mostrar");
+			btOrdenar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					
+				}
+			});
 			btOrdenar.setForeground(new Color(184,220,245));
 			btOrdenar.setBackground(new Color(50, 130, 181));
 		}
@@ -582,9 +592,9 @@ public class VentanaApp extends JFrame {
 			gl_pnClasificacionesSexo.setHorizontalGroup(
 				gl_pnClasificacionesSexo.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnClasificacionesSexo.createSequentialGroup()
-						.addComponent(getScrollPaneClasificacionesHombre(), GroupLayout.PREFERRED_SIZE, 376, GroupLayout.PREFERRED_SIZE)
+						.addComponent(getScrollPaneClasificacionesHombre(), GroupLayout.DEFAULT_SIZE, 376, Short.MAX_VALUE)
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getScrollPaneClasificacionesMujer(), GroupLayout.DEFAULT_SIZE, 374, Short.MAX_VALUE))
+						.addComponent(getScrollPaneClasificacionesMujer(), GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
 			);
 			gl_pnClasificacionesSexo.setVerticalGroup(
 				gl_pnClasificacionesSexo.createParallelGroup(Alignment.LEADING)
@@ -726,6 +736,28 @@ public class VentanaApp extends JFrame {
 		}else if(cbClasificaciones.getSelectedIndex()==1) {
 			mostrarPanelOrganizadorClasificacionesSexo();
 		}
+		
+	}
+	
+	private void cargarTodasCarrerasParticipante() {
+		
+		tablaCarrerasParticipante.setModel(null);
+		
+	}
+	private void cargarPropiasCarrerasParticipante() {
+		tablaCarrerasParticipante.setModel(null);
+		
+	}
+	private void cargarCarrerasOrganizador() {
+		
+	}
+	private void cargarClasificacionesAbsolutas() {
+		
+	}
+	private void cargarClasificacionesMasculinas() {
+		
+	}
+	private void cargarClasificacionesFemeninas() {
 		
 	}
 }
