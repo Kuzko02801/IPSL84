@@ -1,9 +1,11 @@
 package business.dataaccess.carrera.comandos;
 
 import java.sql.Connection;
+import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import business.dataaccess.BusinessDataException;
 import business.dataaccess.atleta.comandos.AtletaInscripcion;
@@ -20,15 +22,20 @@ public class CrearCarrera {
 	public void crearCarrera() {
 
 		PreparedStatement ps = null;
-		Connection con=null;
-		
+		Connection con= null;
+		String id = null;
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			//cosas de crear carreras
+			
+			ps = con.prepareStatement(SqlStatements.SQL_INSERT_CARRERA);
+						
+			id = UUID.randomUUID().toString();
+			ps.setString(1, carrera.nombre);
+			ps.setDate(2, new Date(System.currentTimeMillis()));
+			ps.
 			
 			
 			
-		
 			con.close();
 
 		} catch (SQLException e) {

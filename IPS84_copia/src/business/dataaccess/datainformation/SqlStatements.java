@@ -10,9 +10,11 @@ public class SqlStatements {
 														+ "where ins.id_carrera = ? "
 														+ "and ins.email_atleta = at.email"
 														+ "order by fecha_inscripcion asc, estado asc";
+	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, cuota, id, plazasmaximas, cierre, apertura, estado, plazaslibres) "
+												  + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into atleta (email, nombre, fechaNacimiento, sexo) values (?, ?, ?, ?)";
-	public static final String SQL_TESTING_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, cuota, id, plazasmaximas, cierre, apertura, estado, plazaslibres) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	
 	
 }
 
