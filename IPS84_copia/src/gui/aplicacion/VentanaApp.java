@@ -1112,15 +1112,22 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void cargarClasificacionesAbsolutas() {
-
+		String id = getTxIdOrganizador().getText();
+		new DataAccessFactory();
+		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionAbsoluta(id);
+		tablaClasificacionesAbsoluta.setModel(tm);
 	}
 
 	private void cargarClasificacionesMasculinas() {
-
+		String id = getTxIdOrganizador().getText();
+		new DataAccessFactory();
+		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionMasculina(id);
 	}
 
 	private void cargarClasificacionesFemeninas() {
-
+		String id = getTxIdOrganizador().getText();
+		new DataAccessFactory();
+		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionFemenina(id);
 	}
 
 	
@@ -1154,7 +1161,8 @@ public class VentanaApp extends JFrame {
 		v.setVisible(true);
 
 		// pago
-
+		VentanaPagoTarjeta vp = new VentanaPagoTarjeta();
+		vp.setVisible(true);
 	}
 
 	private boolean idValida(String id) {

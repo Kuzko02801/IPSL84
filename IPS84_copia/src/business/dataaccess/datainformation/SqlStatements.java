@@ -12,6 +12,23 @@ public class SqlStatements {
 														+ "order by fecha_inscripcion asc, estado asc";
 	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, cuota, id, plazas_maximas, cierre, apertura, estado) "
 												  + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String SQL_CLASIFICACION_ABSOLUTA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo " + 
+			" FROM carrera, inscripcion, atleta " + 
+			" WHERE carrera.id = ? " + 
+			" AND carrera.id = inscripcion.id_carrera" + 
+			" AND atleta.email = inscripcion.email_atleta";
+	public static final String SQL_CLASIFICACION_FEMENINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo " + 
+			"FROM carrera, inscripcion, atleta " + 
+			"WHERE carrera.id = ? " + 
+			"AND carrera.id = inscripcion.id_carrera " + 
+			"AND atleta.email = inscripcion.email_atleta " + 
+			"AND atleta.sexo = 'mujer' ";
+	public static final String SQL_CLASIFICACION_MASCULINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo " + 
+			"FROM carrera, inscripcion, atleta " + 
+			"WHERE carrera.id = ? " + 
+			"AND carrera.id = inscripcion.id_carrera " + 
+			"AND atleta.email = inscripcion.email_atleta " + 
+			"AND atleta.sexo = 'hombre' ";
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?)";
 	
