@@ -12,7 +12,6 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import net.proteanit.sql.DbUtils;
 
-
 public class DevolverCarrerasValidas {
 
 	public TableModel devolverCarreras() {
@@ -21,16 +20,17 @@ public class DevolverCarrerasValidas {
 		} catch (SQLException e1) {
 			System.out.println("Ha fallado el register del driver");
 		}
-		TableModel t=null;
+		TableModel t = null;
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_CARRERA_ABIERTA);
-			ResultSet rs=ps.executeQuery();
-			t=DbUtils.resultSetToTableModel(rs);
+			ResultSet rs = ps.executeQuery();
+			t = DbUtils.resultSetToTableModel(rs);
 
 			ps.close();
+			rs.close();
 			con.close();
 
 		} catch (SQLException e) {

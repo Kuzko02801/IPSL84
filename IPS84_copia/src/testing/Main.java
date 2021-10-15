@@ -10,47 +10,52 @@ import java.sql.SQLException;
 import java.sql.Statement;
 
 import business.dataaccess.datainformation.SqliteConnectionInfo;
+import business.dataaccess.dto.CarreraDto;
+import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
+import business.dataaccess.dto.infoadicional.Tipo;
 
 public class Main {
 
 	public static void main(String[] args) {
-//		try {
-//			DriverManager.registerDriver(new org.sqlite.JDBC());
-//		} catch (SQLException e1) {
-//			System.out.println("ada");
-//		}
+		try {
+			DriverManager.registerDriver(new org.sqlite.JDBC());
+		} catch (SQLException e1) {
+			System.out.println("ada");
+		}
 		Connection con = null;
 		PreparedStatement ps = null;
 		Test test = null;
+		CarreraDto carrera = new CarreraDto();
 		try {
-			Class.forName("org.sqlite.JDBC");
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);			
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			test = new Test(con, ps);
-			//añadir atletas
-			test.addAtleta("123112323", "sasdas@asdd.com", "sisisisisis", new Date(System.currentTimeMillis()), Genero.HOMBRE);
-			// Poner los metodo a partir de esta linea y pasar como parametro ps.
-			String query = "select * from Atleta";
-			Statement s = con.createStatement();
-			ResultSet rs= s.executeQuery(query);
-			ResultSetMetaData rsmd = rs.getMetaData();
-			int columnsNumber = rsmd.getColumnCount();
-			while(rs.next()) {
-				for (int i = 1; i <= columnsNumber; i++) {
-			        if (i > 1) System.out.print(",  ");
-			        String columnValue = rs.getString(i);
-			        System.out.print(columnValue + " " + rsmd.getColumnName(i));
-			    }
-			    System.out.println("");
-			}
+			// añadir atletas
+			//test.addAtleta("123112323", "sasd222as@asdd.com", "sisisisisis", new Date(System.currentTimeMillis()), Genero.HOMBRE);
 			
+			carrera.nombre = "a";
+			carrera.fecha = new Date(System.currentTimeMillis() + 1000000000);
+			carrera.tipo = Tipo.ASFALTO;
+			carrera.distancia = 199;
+			carrera.cuota = 200;
+			carrera.carrera_id = "1";
+			carrera.plazasMaximas = 20;
+			carrera.cierre = new Date(System.currentTimeMillis() + 10000000);
+			carrera.apertura = new Date(System.currentTimeMillis() + 1000000);
+			carrera.estado = EstadoCarrera.NO_COMENZADA;
+			
+			test.addCarrera(carrera);
+			carrera.carrera_id = "2";
+			test.addCarrera(carrera);
+			carrera.carrera_id = "3";
+			test.addCarrera(carrera);
+			// Poner los metodo a partir de esta linea y pasar como parametro ps.
+			test.printAllAthletes();
+			test.printAllCarreras();
+
 			con.close();
-			rs.close();
-			s.close();
+
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} catch (ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}

@@ -4,10 +4,14 @@ import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
+import java.sql.Statement;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
+import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
@@ -43,23 +47,22 @@ public class Test {
 		}
 	}
 	
-	public void addCarrera(String nombre, Date date, Tipo tipo, double distancia, double cuota, String id, int plazasMaximas, Date cierre, Date apertura, EstadoCarrera estado, int plazasLibres) {
+	public void addCarrera(CarreraDto carrera) {
 		
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			ps = con.prepareStatement(SqlStatements.SQL_TESTING_INSERT_ATLETA);
+			ps = con.prepareStatement(SqlStatements.SQL_INSERT_CARRERA);
 
-			ps.setString(1, nombre);
-			ps.setDate(2, date);
-			ps.setString(3, tipo.label);
-			ps.setDouble(4, distancia);
-			ps.setDouble(5, cuota);
-			ps.setString(6, id);
-			ps.setInt(7, plazasMaximas);
-			ps.setDate(8, cierre);
-			ps.setDate(9, apertura);
-			ps.setString(10, estado.label);
-			ps.setInt(11, plazasLibres);
+			ps.setString(1, carrera.nombre);
+			ps.setDate(2, carrera.fecha);
+			ps.setString(3, carrera.tipo.label);
+			ps.setDouble(4, carrera.distancia);
+			ps.setDouble(5, carrera.cuota);
+			ps.setString(6, carrera.carrera_id);
+			ps.setInt(7, carrera.plazasMaximas);
+			ps.setDate(8, carrera.cierre);
+			ps.setDate(9, carrera.apertura);
+			ps.setString(10, carrera.estado.label);			
 
 			ps.executeUpdate();
 			
@@ -68,6 +71,38 @@ public class Test {
 		} catch (SQLException e) {
 			e.printStackTrace();
 			System.out.println("Ha ocurrido un error");
+		}
+	}
+	
+	public void printAllAthletes() throws SQLException {
+		String query = "select * from Atleta";
+		Statement s = con.createStatement();
+		ResultSet rs= s.executeQuery(query);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnsNumber = rsmd.getColumnCount();
+		while(rs.next()) {
+			for (int i = 1; i <= columnsNumber; i++) {
+		        if (i > 1) System.out.print(",  ");
+		        String columnValue = rs.getString(i);
+		        System.out.print(columnValue + " " + rsmd.getColumnName(i));
+		    }
+		    System.out.println("");
+		}
+	}
+	
+	public void printAllCarreras() throws SQLException {
+		String query = "select * from Carrera";
+		Statement s = con.createStatement();
+		ResultSet rs= s.executeQuery(query);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnsNumber = rsmd.getColumnCount();
+		while(rs.next()) {
+			for (int i = 1; i <= columnsNumber; i++) {
+		        if (i > 1) System.out.print(",  ");
+		        String columnValue = rs.getString(i);
+		        System.out.print(columnValue + " " + rsmd.getColumnName(i));
+		    }
+		    System.out.println("");
 		}
 	}
 	

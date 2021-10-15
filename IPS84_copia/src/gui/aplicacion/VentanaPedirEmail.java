@@ -97,5 +97,4 @@ public class VentanaPedirEmail extends JDialog {
 			}
 		}
 	}
-
 }
