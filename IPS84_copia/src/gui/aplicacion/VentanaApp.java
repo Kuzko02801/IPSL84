@@ -26,13 +26,10 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import business.dataaccess.DataAccessFactory;
-import java.awt.SystemColor;
 
 public class VentanaApp extends JFrame {
 
@@ -220,17 +217,11 @@ public class VentanaApp extends JFrame {
 
 	private JTable getTablaCarrerasParticipante() {
 		if (tablaCarrerasParticipante == null) {
-			tablaCarrerasParticipante = new JTable() {
-				private static final long serialVersionUID = 1L;
-
-				public boolean isCellEditable(int row, int column) {
-					return false;
-				};
-			};
-			tablaCarrerasParticipante.setSelectionBackground(SystemColor.activeCaption);
-			tablaCarrerasParticipante.setSelectionForeground(Color.BLACK);
-			tablaCarrerasParticipante.setForeground(Color.BLACK);
-			tablaCarrerasParticipante.setBackground(Color.WHITE);
+			tablaCarrerasParticipante = new JTable();
+			tablaCarrerasParticipante.setSelectionBackground(new Color(50, 130, 181));
+			tablaCarrerasParticipante.setSelectionForeground(new Color(184, 220, 245));
+			tablaCarrerasParticipante.setForeground(new Color(184, 220, 245));
+			tablaCarrerasParticipante.setBackground(new Color(50, 130, 181));
 			tablaCarrerasParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			tablaCarrerasParticipante.setRowHeight(25);
 			tablaCarrerasParticipante.setModel(
@@ -238,10 +229,6 @@ public class VentanaApp extends JFrame {
 							new String[] { "Estado inscripci\u00F3n", "ID Carrera", "Nombre carrera", "Fecha carrera",
 									"Tipo carrera", "Distancia (km)asd", "Cuota inscripci\u00F3n",
 									"Final inscripci\u00F3n", "Plazas" }) {
-						/**
-										 * 
-										 */
-						private static final long serialVersionUID = 1L;
 						Class[] columnTypes = new Class[] { Object.class, String.class, String.class, String.class,
 								String.class, Integer.class, Integer.class, String.class, Integer.class };
 
@@ -249,12 +236,7 @@ public class VentanaApp extends JFrame {
 							return columnTypes[columnIndex];
 						}
 					});
-			tablaCarrerasParticipante.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-				public void valueChanged(ListSelectionEvent event) {
-					getBtInscribirseParticipante().setEnabled(true);
-				}
-			});
-
+			
 		}
 		return tablaCarrerasParticipante;
 	}
@@ -363,7 +345,7 @@ public class VentanaApp extends JFrame {
 			btInscribirseParticipante.setEnabled(false);
 			btInscribirseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					inscribirsePagar((String) tablaCarrerasParticipante.getModel().getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0));
+					inscribirsePagar();
 				}
 
 			});
@@ -408,21 +390,24 @@ public class VentanaApp extends JFrame {
 			pnOrganizador = new JPanel();
 			pnOrganizador.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnOrganizador = new GroupLayout(pnOrganizador);
-			gl_pnOrganizador.setHorizontalGroup(gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnOrganizador.createSequentialGroup().addContainerGap()
-							.addGroup(gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
-									.addComponent(getPnBotonesOrganizador(), GroupLayout.PREFERRED_SIZE, 768,
-											GroupLayout.PREFERRED_SIZE)
-									.addComponent(getPnTablasOrganizador(), GroupLayout.DEFAULT_SIZE, 1064,
-											Short.MAX_VALUE))
-							.addContainerGap()));
-			gl_pnOrganizador.setVerticalGroup(gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnOrganizador.createSequentialGroup().addGap(5)
-							.addComponent(getPnBotonesOrganizador(), GroupLayout.PREFERRED_SIZE,
-									GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(getPnTablasOrganizador(), GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-							.addContainerGap()));
+			gl_pnOrganizador.setHorizontalGroup(
+				gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnOrganizador.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
+							.addComponent(getPnBotonesOrganizador(), GroupLayout.PREFERRED_SIZE, 768, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getPnTablasOrganizador(), GroupLayout.DEFAULT_SIZE, 1064, Short.MAX_VALUE))
+						.addContainerGap())
+			);
+			gl_pnOrganizador.setVerticalGroup(
+				gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnOrganizador.createSequentialGroup()
+						.addGap(5)
+						.addComponent(getPnBotonesOrganizador(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getPnTablasOrganizador(), GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
+						.addContainerGap())
+			);
 			pnOrganizador.setLayout(gl_pnOrganizador);
 		}
 		return pnOrganizador;
@@ -433,23 +418,22 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrganizador = new JPanel();
 			pnBotonesOrganizador.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrganizador = new GroupLayout(pnBotonesOrganizador);
-			gl_pnBotonesOrganizador.setHorizontalGroup(gl_pnBotonesOrganizador.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrganizador.setHorizontalGroup(
+				gl_pnBotonesOrganizador.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador.createSequentialGroup()
-							.addGroup(gl_pnBotonesOrganizador.createParallelGroup(Alignment.LEADING)
-									.addComponent(getPnBotonesInscribirseParticipante_1(), Alignment.TRAILING,
-											GroupLayout.PREFERRED_SIZE, 760, Short.MAX_VALUE)
-									.addComponent(getPnBotonesOrdenarParticipante_1(), GroupLayout.PREFERRED_SIZE, 760,
-											Short.MAX_VALUE))
-							.addContainerGap()));
-			gl_pnBotonesOrganizador
-					.setVerticalGroup(gl_pnBotonesOrganizador.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnBotonesOrganizador.createSequentialGroup()
-									.addComponent(getPnBotonesInscribirseParticipante_1(), GroupLayout.PREFERRED_SIZE,
-											59, GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(getPnBotonesOrdenarParticipante_1(), GroupLayout.PREFERRED_SIZE, 37,
-											GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+						.addGroup(gl_pnBotonesOrganizador.createParallelGroup(Alignment.LEADING)
+							.addComponent(getPnBotonesInscribirseParticipante_1(), Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 760, Short.MAX_VALUE)
+							.addComponent(getPnBotonesOrdenarParticipante_1(), GroupLayout.PREFERRED_SIZE, 760, Short.MAX_VALUE))
+						.addContainerGap())
+			);
+			gl_pnBotonesOrganizador.setVerticalGroup(
+				gl_pnBotonesOrganizador.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesOrganizador.createSequentialGroup()
+						.addComponent(getPnBotonesInscribirseParticipante_1(), GroupLayout.PREFERRED_SIZE, 59, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getPnBotonesOrdenarParticipante_1(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+			);
 			pnBotonesOrganizador.setLayout(gl_pnBotonesOrganizador);
 		}
 		return pnBotonesOrganizador;
@@ -515,36 +499,32 @@ public class VentanaApp extends JFrame {
 			pnBotonesInscribirseParticipante_1 = new JPanel();
 			pnBotonesInscribirseParticipante_1.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesInscribirseParticipante_1 = new GroupLayout(pnBotonesInscribirseParticipante_1);
-			gl_pnBotonesInscribirseParticipante_1.setHorizontalGroup(gl_pnBotonesInscribirseParticipante_1
-					.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesInscribirseParticipante_1.setHorizontalGroup(
+				gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup()
-							.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 117,
-									GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(getBtMostrarParticipantes(), GroupLayout.PREFERRED_SIZE, 186,
-									GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
-									.addComponent(getLbIDCarreraParticipante_1())
-									.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup()
-											.addComponent(getTxIdOrganizador(), GroupLayout.PREFERRED_SIZE, 114,
-													GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.PREFERRED_SIZE,
-													174, GroupLayout.PREFERRED_SIZE)))
-							.addGap(437)));
-			gl_pnBotonesInscribirseParticipante_1.setVerticalGroup(gl_pnBotonesInscribirseParticipante_1
-					.createParallelGroup(Alignment.LEADING)
+						.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getBtMostrarParticipantes(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
+							.addComponent(getLbIDCarreraParticipante_1())
+							.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup()
+								.addComponent(getTxIdOrganizador(), GroupLayout.PREFERRED_SIZE, 114, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)))
+						.addGap(437))
+			);
+			gl_pnBotonesInscribirseParticipante_1.setVerticalGroup(
+				gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup()
-							.addComponent(getLbIDCarreraParticipante_1()).addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 24,
-											GroupLayout.PREFERRED_SIZE)
-									.addComponent(getBtMostrarParticipantes(), GroupLayout.DEFAULT_SIZE, 24,
-											Short.MAX_VALUE)
-									.addComponent(getTxIdOrganizador(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-									.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.DEFAULT_SIZE, 25,
-											Short.MAX_VALUE))));
+						.addComponent(getLbIDCarreraParticipante_1())
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getBtMostrarParticipantes(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(getTxIdOrganizador(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
+			);
 			pnBotonesInscribirseParticipante_1.setLayout(gl_pnBotonesInscribirseParticipante_1);
 		}
 		return pnBotonesInscribirseParticipante_1;
@@ -1051,7 +1031,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizador() {
-		// cargarCarrerasOrganizador();
+		//cargarCarrerasOrganizador();
 		CardLayout cl = (CardLayout) (pnPrincipal.getLayout());
 		cl.show(pnPrincipal, "pnOrganizador");
 	}
@@ -1105,24 +1085,28 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void cargarTodasCarrerasParticipante() {
+		new DataAccessFactory();
 		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasValidas();
 		tablaCarrerasParticipante.setModel(tm);
 
 	}
 
 	private void cargarPropiasCarrerasParticipante() {
+		new DataAccessFactory();
 		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasPropiasParticipante();
 		tablaCarrerasParticipante.setModel(tm);
 
 	}
 
 	private void cargarCarrerasOrganizador() {
+		new DataAccessFactory();
 		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasOrganizador();
 		tablaCarrerasOrganizador.setModel(tm);
 	}
 
 	private void cargarInscritosCarrera() {
 		String id = getTxIdOrganizador().getText();
+		new DataAccessFactory();
 		TableModel tm = DataAccessFactory.forInscripcionService().devolverParticipantesCarrera(id);
 		tablaCarrerasOrganizador.setModel(tm);
 	}
@@ -1139,6 +1123,8 @@ public class VentanaApp extends JFrame {
 
 	}
 
+	
+
 	private void comprobarIdValidaParticipante() {
 		if (idValida(getTxIdCarreraParticipante().getText())) {
 			getTxIdCarreraValidaParticipante().setText("Válida");
@@ -1153,13 +1139,15 @@ public class VentanaApp extends JFrame {
 	private void crearCarrera() {
 		// String nombre=getTxNombreCarrera().getText();
 		// String tipo=getCbTipoCarrera();
-	}
 
+	}
 	public void inscribirAtletaCarrera(String email) {
-		
+		// String idCarrera=getTxIdCarreraParticipante().getText();
+		// algo como un objeto atleta tendria que ir aqui
+		// TODO
 	}
 
-	private void inscribirsePagar(String id) {
+	private void inscribirsePagar() {
 		// comprobar si es una inscripcion o un pago
 		// inscripcion
 		VentanaPedirEmail v = new VentanaPedirEmail(this);
