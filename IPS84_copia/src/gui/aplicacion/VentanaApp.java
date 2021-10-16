@@ -4,6 +4,7 @@ import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
+import java.awt.SystemColor;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
@@ -32,7 +33,7 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import business.dataaccess.DataAccessFactory;
-import java.awt.SystemColor;
+import business.gui.GuiLogic;
 
 public class VentanaApp extends JFrame {
 
@@ -264,7 +265,7 @@ public class VentanaApp extends JFrame {
 			btOrdenar = new JButton("Mostrar");
 			btOrdenar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mostrarCarrerasParticipante();
+					GuiLogic.mostrarCarrerasParticipante(getCbClasificaciones().getSelectedIndex(), tablaCarrerasParticipante);
 				}
 			});
 			btOrdenar.setForeground(new Color(184, 220, 245));
@@ -363,7 +364,7 @@ public class VentanaApp extends JFrame {
 			btInscribirseParticipante.setEnabled(false);
 			btInscribirseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					inscribirsePagar((String) tablaCarrerasParticipante.getModel().getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0));
+					GuiLogic.inscribirsePagar((String) tablaCarrerasParticipante.getModel().getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0));
 				}
 
 			});
@@ -379,7 +380,7 @@ public class VentanaApp extends JFrame {
 			txIdCarreraParticipante.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyReleased(KeyEvent e) {
-					comprobarIdValidaParticipante();
+					GuiLogic.comprobarIdValidaParticipante();
 				}
 			});
 			txIdCarreraParticipante.setColumns(10);
@@ -579,7 +580,7 @@ public class VentanaApp extends JFrame {
 			txIdOrganizador.addKeyListener(new KeyAdapter() {
 				@Override
 				public void keyTyped(KeyEvent e) {
-					comprobarIdValidaParticipante();
+					GuiLogic.comprobarIdValidaParticipante();
 				}
 			});
 			txIdOrganizador.setColumns(10);
@@ -1007,7 +1008,7 @@ public class VentanaApp extends JFrame {
 			btCrearCarrera = new JButton("Crear carrera");
 			btCrearCarrera.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					crearCarrera();
+					GuiLogic.crearCarrera();
 				}
 			});
 			btCrearCarrera.setBackground(new Color(8, 46, 70));
@@ -1045,7 +1046,7 @@ public class VentanaApp extends JFrame {
 	// METODOS
 
 	private void mostrarPanelParticipante() {
-		cargarTodasCarrerasParticipante();
+		GuiLogic.cargarTodasCarrerasParticipante(tablaCarrerasParticipante);
 		CardLayout cl = (CardLayout) (pnPrincipal.getLayout());
 		cl.show(pnPrincipal, "pnParticipante");
 	}
@@ -1057,26 +1058,26 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorCarreras() {
-		cargarCarrerasOrganizador();
+		GuiLogic.cargarCarrerasOrganizador(tablaCarrerasOrganizador);
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnCarrerasOrganizador");
 	}
 
 	private void mostrarPanelOrganizadorParticipantes() {
-		cargarInscritosCarrera();
+		GuiLogic.cargarInscritosCarrera(txIdOrganizador, tablaCarrerasOrganizador);
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnParticipantesOrganizador");
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesAbsolutas() {
-		cargarClasificacionesAbsolutas();
+		GuiLogic.cargarClasificacionesAbsolutas();
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesSexo() {
-		cargarClasificacionesFemeninas();
-		cargarClasificacionesMasculinas();
+		GuiLogic.cargarClasificacionesFemeninas();
+		GuiLogic.cargarClasificacionesMasculinas();
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnClasificacionesSexo");
 	}
@@ -1093,88 +1094,7 @@ public class VentanaApp extends JFrame {
 		} else if (cbClasificaciones.getSelectedIndex() == 1) {
 			mostrarPanelOrganizadorClasificacionesSexo();
 		}
-
 	}
-
-	private void mostrarCarrerasParticipante() {
-		if (getCbCarreras().getSelectedIndex() == 0) {
-			cargarTodasCarrerasParticipante();
-		} else {
-			cargarPropiasCarrerasParticipante();
-		}
-	}
-
-	private void cargarTodasCarrerasParticipante() {
-		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasValidas();
-		tablaCarrerasParticipante.setModel(tm);
-
-	}
-
-	private void cargarPropiasCarrerasParticipante() {
-		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasPropiasParticipante();
-		tablaCarrerasParticipante.setModel(tm);
-
-	}
-
-	private void cargarCarrerasOrganizador() {
-		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasOrganizador();
-		tablaCarrerasOrganizador.setModel(tm);
-	}
-
-	private void cargarInscritosCarrera() {
-		String id = getTxIdOrganizador().getText();
-		TableModel tm = DataAccessFactory.forInscripcionService().devolverParticipantesCarrera(id);
-		tablaCarrerasOrganizador.setModel(tm);
-	}
-
-	private void cargarClasificacionesAbsolutas() {
-
-	}
-
-	private void cargarClasificacionesMasculinas() {
-
-	}
-
-	private void cargarClasificacionesFemeninas() {
-
-	}
-
-	private void comprobarIdValidaParticipante() {
-		if (idValida(getTxIdCarreraParticipante().getText())) {
-			getTxIdCarreraValidaParticipante().setText("Válida");
-			getBtInscribirseParticipante().setEnabled(true);
-		} else {
-			getTxIdCarreraValidaParticipante().setText("No es valida");
-			getBtInscribirseParticipante().setEnabled(false);
-		}
-	}
-
-	// TODO
-	private void crearCarrera() {
-		// String nombre=getTxNombreCarrera().getText();
-		// String tipo=getCbTipoCarrera();
-	}
-
-	public void inscribirAtletaCarrera(String email) {
-		
-	}
-
-	private void inscribirsePagar(String id) {
-		// comprobar si es una inscripcion o un pago
-		// inscripcion
-		VentanaPedirEmail v = new VentanaPedirEmail(this);
-		v.setVisible(true);
-
-		// pago
-
-	}
-
-	private boolean idValida(String id) {
-		// si alguna carrera tiene la misma id se considera valida
-		if (id.contentEquals("aaa")) {
-			return true;
-		}
-		return false;
-	}
-
+	
+	
 }

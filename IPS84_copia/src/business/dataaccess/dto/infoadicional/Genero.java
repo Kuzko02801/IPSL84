@@ -8,4 +8,14 @@ public enum Genero {
 	private Genero(String label) {
 		this.label = label;
 	}
+	
+	public static Genero generoParser(String aux) {
+		switch(aux) {
+		case "hombre":
+			return HOMBRE;
+		case "mujer":
+			return MUJER;
+		}
+		return null;
+	}
 }

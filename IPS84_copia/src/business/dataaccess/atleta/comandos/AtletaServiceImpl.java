@@ -10,5 +10,11 @@ public class AtletaServiceImpl implements AtletaService{
 		new AtletaInscripcion(atleta, carrera).inscribirAtleta();
 	}
 
+	@Override
+	public AtletaDto encontrarAtleta(String email) {
+		return new EncontrarAtleta(email).encontrarAtleta();
+	}
+
+	
 
 }

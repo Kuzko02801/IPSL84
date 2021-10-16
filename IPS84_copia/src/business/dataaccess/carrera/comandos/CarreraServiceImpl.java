@@ -33,5 +33,11 @@ public class CarreraServiceImpl implements CarreraService{
 		return new ExisteCarrera(id).existeCarrera();
 	}
 
+	@Override
+	public CarreraDto findCarreraById(String id) {
+		return new EncontrarCarrera(id).encontrarCarrera();
+	}
+
+	
 	
 }

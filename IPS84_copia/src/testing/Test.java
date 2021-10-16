@@ -15,7 +15,6 @@ import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
-import business.dataaccess.dto.infoadicional.Tipo;
 
 public class Test {
 
@@ -92,6 +91,22 @@ public class Test {
 	
 	public void printAllCarreras() throws SQLException {
 		String query = "select * from Carrera";
+		Statement s = con.createStatement();
+		ResultSet rs= s.executeQuery(query);
+		ResultSetMetaData rsmd = rs.getMetaData();
+		int columnsNumber = rsmd.getColumnCount();
+		while(rs.next()) {
+			for (int i = 1; i <= columnsNumber; i++) {
+		        if (i > 1) System.out.print(",  ");
+		        String columnValue = rs.getString(i);
+		        System.out.print(columnValue + " " + rsmd.getColumnName(i));
+		    }
+		    System.out.println("");
+		}
+	}
+	
+	public void printAllInscriptions() throws SQLException {
+		String query = "select * from Inscripcion";
 		Statement s = con.createStatement();
 		ResultSet rs= s.executeQuery(query);
 		ResultSetMetaData rsmd = rs.getMetaData();

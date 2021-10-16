@@ -6,8 +6,10 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.UUID;
 
 import business.dataaccess.BusinessDataException;
+import business.dataaccess.DataAccessFactory;
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.AtletaDto;
@@ -20,27 +22,27 @@ public class AtletaInscripcion {
 
 	private AtletaDto atleta;
 	private CarreraDto carrera;
-
 	private Connection con;
 
 	public AtletaInscripcion(AtletaDto atleta, CarreraDto carrera) {
 		this.atleta = atleta;
-		this.carrera = carrera;
+		this.carrera = carrera;		
 	}
 
 	public void inscribirAtleta() {
-
-		PreparedStatement ps = null;
-		String id_carrera = "";
+		
+		PreparedStatement ps = null;		
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-
-			// Check if the race exists.
+			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
+			// Check if the race exists.			
 			if (!Check.raceExists(con, carrera.carrera_id))
 				throw new BusinessDataException("La carrera no existe.");
 			
+			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
+			
 			// Inscripcion abierta.
-			if(inscripcionAbierta())
+			if(!inscripcionAbierta())
 				throw new BusinessDataException("Estas fuera del plazo de inscripción.");
 			
 			// Checkeo de plazas. 
@@ -53,7 +55,7 @@ public class AtletaInscripcion {
 			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);								
 			ps.setString(4, seleccionarCategoria());
 			ps.setDate(5, fechaActual());
-			ps.setString(6, carrera.carrera_id);
+			ps.setString(6, UUID.randomUUID().toString());
 
 			ps.executeUpdate();
 
@@ -67,12 +69,15 @@ public class AtletaInscripcion {
 	}
 
 	private String seleccionarCategoria() {
+		// UNTIL ATHLETE REGISTRATION IS ENABLED
+		//atleta.fechaDeNacimiento = new Date(System.currentTimeMillis() - 10000000);
+		//////////////////////////////////////////
 		int edad = atleta.fechaDeNacimiento.compareTo(new Date(System.currentTimeMillis())) * -1; // Puede no funcionar
-		if(edad >= 18 || edad <= 21)
+		if(edad >= 18 && edad <= 21)
 			return CategoriaAtleta.JUNIOR.label;
-		else if(edad > 21 || edad <= 29)
+		else if(edad > 21 && edad <= 29)
 			return CategoriaAtleta.SENIOR.label;
-		else if(edad > 29 || edad <= 35)
+		else if(edad > 29 && edad <= 35)
 			return CategoriaAtleta.VETERANO_1.label;
 		else
 			// Si siempre devuelve este, la edad esta mal calculada.
@@ -92,18 +97,21 @@ public class AtletaInscripcion {
 			ps.setString(1, carrera.carrera_id);
 			rs = ps.executeQuery();
 			while(rs.next()) {
-				if(carrera.plazasMaximas <= rs.getInt(1))
-					return false;
+				System.out.println(carrera.plazasMaximas);
+				System.out.println(rs.getInt(1));
+				if(carrera.plazasMaximas > rs.getInt(1))
+					return true;
 			}
 		} finally {
 			rs.close();
 			ps.close();
 		}
-		return true;
+		return false;
 	}
 
 	private boolean inscripcionAbierta() {
-		if(System.currentTimeMillis() < carrera.cierre.getTime())
+		CarreraDto carrera_aux = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
+		if(System.currentTimeMillis() < carrera_aux.cierre.getTime())
 			return true;
 		else
 			return false;

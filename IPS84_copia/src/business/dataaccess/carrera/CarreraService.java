@@ -10,4 +10,5 @@ public interface CarreraService {
 	public TableModel devolverCarrerasPropiasParticipante();
 	public TableModel devolverCarrerasValidas();
 	public TableModel devolverCarrerasOrganizador();
+	public CarreraDto findCarreraById(String id);
 }
