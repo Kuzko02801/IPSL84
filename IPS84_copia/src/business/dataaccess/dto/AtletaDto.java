@@ -1,7 +1,5 @@
 package business.dataaccess.dto;
 
-import java.util.Date;
-
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.util.DateSqlite;
 

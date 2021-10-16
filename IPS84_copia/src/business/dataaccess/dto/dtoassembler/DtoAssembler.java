@@ -1,7 +1,5 @@
 package business.dataaccess.dto.dtoassembler;
 
-import java.sql.Date;
-
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;

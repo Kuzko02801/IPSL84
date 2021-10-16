@@ -1,20 +1,14 @@
 package testing;
 
 import java.sql.Connection;
-
-import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
-import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.dto.infoadicional.Tipo;
 import business.dataaccess.util.DateSqlite;
 

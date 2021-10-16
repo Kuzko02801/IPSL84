@@ -1,8 +1,6 @@
 package business.dataaccess.dto;
 
 
-import java.sql.Date;
-
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Tipo;
 import business.dataaccess.util.DateSqlite;
