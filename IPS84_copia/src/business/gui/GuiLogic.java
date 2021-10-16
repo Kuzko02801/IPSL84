@@ -43,16 +43,22 @@ public class GuiLogic {
 		tablaCarrerasOrganizador.setModel(tm);
 	}
 
-	public static void cargarClasificacionesAbsolutas() {
-
+	public static void cargarClasificacionesAbsolutas(JTextField txIdOrganizador, JTable tablaClasificacionesAbsoluta) {
+		String id = txIdOrganizador.getText();		
+		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionAbsoluta(id);
+		tablaClasificacionesAbsoluta.setModel(tm);
 	}
 
-	public static void cargarClasificacionesMasculinas() {
-
+	public static void cargarClasificacionesMasculinas(JTextField txIdOrganizador, JTable tablaClasificacionesHombre) {
+		String id = txIdOrganizador.getText();		
+		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionMasculina(id);
+		tablaClasificacionesHombre.setModel(tm);
 	}
 
-	public static void cargarClasificacionesFemeninas() {
-
+	public static void cargarClasificacionesFemeninas(JTextField txIdOrganizador, JTable tablaClasificacionesMujer) {
+		String id = txIdOrganizador.getText();		
+		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionFemenina(id);
+		tablaClasificacionesMujer.setModel(tm);
 	}
 
 	public static void comprobarIdValidaParticipante() {

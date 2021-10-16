@@ -11,4 +11,8 @@ public interface CarreraService {
 	public TableModel devolverCarrerasValidas();
 	public TableModel devolverCarrerasOrganizador();
 	public CarreraDto findCarreraById(String id);
+	public TableModel devolverClasificacionAbsoluta(String id);
+	public TableModel devolverClasificacionFemenina(String id);
+	public TableModel devolverClasificacionMasculina(String id);
+
 }
