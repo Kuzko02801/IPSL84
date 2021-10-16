@@ -1,20 +1,26 @@
 package testing;
 
 import java.sql.Connection;
-import java.sql.Date;
+
+import java.util.Date;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.dto.infoadicional.Tipo;
+import business.dataaccess.util.DateSqlite;
 
 public class Main {
 
-	public static void main(String[] args) {
+	public static void main(String[] args) throws ParseException {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
 		} catch (SQLException e1) {
@@ -28,24 +34,28 @@ public class Main {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			test = new Test(con, ps);
 			//añadir atletas
-			//test.addAtleta("123112323", "DELOCOS", "sisisisisis", new Date(System.currentTimeMillis() - 100000000), Genero.HOMBRE);
+			//test.addAtleta("123112323", "DELOCOS3", "sisisisisis", new Date(System.currentTimeMillis() - 100000000), Genero.HOMBRE);
 			
-//			carrera.nombre = "a";
-//			carrera.fecha = new Date(System.currentTimeMillis());
-//			carrera.tipo = Tipo.ASFALTO;
-//			carrera.distancia = 199;
-//			carrera.cuota = 200;
-//			carrera.carrera_id = "4";
-//			carrera.plazasMaximas = 20;
-//			carrera.cierre = new Date(System.currentTimeMillis() + 1000000000);
-//			carrera.apertura = new Date(System.currentTimeMillis());
-//			carrera.estado = EstadoCarrera.NO_COMENZADA;
+			 	
 			
-			//test.addCarrera(carrera);			
+			
+			carrera.nombre = "DATE WITH NEWLY IMPLEMENTED DATE CLASS.";
+			carrera.fecha = new DateSqlite("06/07/2021");
+			carrera.tipo = Tipo.ASFALTO;
+			carrera.distancia = 199;
+			carrera.cuota = 200;
+			carrera.carrera_id = "9";
+			carrera.plazasMaximas = 20;				
+			
+			carrera.cierre = new DateSqlite("06/12/2021");
+			carrera.apertura = new DateSqlite("06/10/2021");
+			carrera.estado = EstadoCarrera.NO_COMENZADA;
+			
+			test.addCarrera(carrera);			
 			// Poner los metodo a partir de esta linea y pasar como parametro ps.
 			//test.printAllAthletes();
 			test.printAllCarreras();
-			test.printAllInscriptions();
+			//test.printAllInscriptions();
 
 			con.close();
 

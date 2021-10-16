@@ -28,6 +28,8 @@ import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
@@ -234,12 +236,21 @@ public class VentanaApp extends JFrame {
 							new String[] { "Estado inscripci\u00F3n", "ID Carrera", "Nombre carrera", "Fecha carrera",
 									"Tipo carrera", "Distancia (km)asd", "Cuota inscripci\u00F3n",
 									"Final inscripci\u00F3n", "Plazas" }) {
+						/**
+										 * 
+										 */
+										private static final long serialVersionUID = 1L;
 						Class[] columnTypes = new Class[] { Object.class, String.class, String.class, String.class,
 								String.class, Integer.class, Integer.class, String.class, Integer.class };
 
 						public Class<?> getColumnClass(int columnIndex) {
 							return columnTypes[columnIndex];
 						}
+					});
+			tablaCarrerasParticipante.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
+				 public void valueChanged(ListSelectionEvent event) {
+					 	getBtInscribirseParticipante().setEnabled(true);
+					 }
 					});
 			
 		}
@@ -1094,7 +1105,7 @@ public class VentanaApp extends JFrame {
 	private void inscribirsePagar() {
 		// comprobar si es una inscripcion o un pago
 		// inscripcion
-		VentanaPedirEmail v = new VentanaPedirEmail();
+		VentanaPedirEmail v = new VentanaPedirEmail((String)tablaCarrerasParticipante.getModel().getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0));
 		v.setVisible(true);
 
 		// pago

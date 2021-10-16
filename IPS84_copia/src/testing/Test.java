@@ -53,14 +53,14 @@ public class Test {
 			ps = con.prepareStatement(SqlStatements.SQL_INSERT_CARRERA);
 
 			ps.setString(1, carrera.nombre);
-			ps.setDate(2, carrera.fecha);
+			ps.setString(2, carrera.fecha.toString());
 			ps.setString(3, carrera.tipo.label);
 			ps.setDouble(4, carrera.distancia);
 			ps.setDouble(5, carrera.cuota);
 			ps.setString(6, carrera.carrera_id);
 			ps.setInt(7, carrera.plazasMaximas);
-			ps.setDate(8, carrera.cierre);
-			ps.setDate(9, carrera.apertura);
+			ps.setString(8, carrera.cierre.toString());
+			ps.setString(9, carrera.apertura.toString());
 			ps.setString(10, carrera.estado.label);			
 
 			ps.executeUpdate();

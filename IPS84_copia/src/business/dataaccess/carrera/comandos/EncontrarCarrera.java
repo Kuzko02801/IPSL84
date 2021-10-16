@@ -13,6 +13,7 @@ import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Tipo;
+import business.dataaccess.util.DateSqlite;
 
 public class EncontrarCarrera {
 
@@ -37,14 +38,14 @@ public class EncontrarCarrera {
 			while(rs.next()) {
 				carrera = DtoAssembler.forCarreraDto(
 						rs.getString(1)
-						, rs.getDate(2)
+						, new DateSqlite(rs.getString(2))
 						, Tipo.tipoParser(rs.getString(3)) // Arreglar la seleccion del tipo
 						, rs.getDouble(4)
 						, rs.getDouble(5)
 						, id
 						, rs.getInt(7)
-						, rs.getDate(8)
-						, rs.getDate(9)
+						, new DateSqlite(rs.getString(8))
+						, new DateSqlite(rs.getString(9))
 						, EstadoCarrera.estadoParser(rs.getString(10))); // Arreglar la seleccion del estado.
 			}
 			rs.close();

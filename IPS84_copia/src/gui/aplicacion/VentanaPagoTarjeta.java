@@ -12,6 +12,10 @@ import javax.swing.border.EmptyBorder;
 
 public class VentanaPagoTarjeta extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private final JPanel contentPanel = new JPanel();
 	private JTextField txtTarjeta;
 	private JTextField txtFecha;

@@ -14,6 +14,7 @@ import business.dataaccess.dto.dtoassembler.DtoAssembler;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.dto.infoadicional.Tipo;
+import business.dataaccess.util.DateSqlite;
 
 public class EncontrarAtleta {
 
@@ -39,7 +40,7 @@ public class EncontrarAtleta {
 				atleta = DtoAssembler.forAtletaDto(
 						rs.getString(1)
 						, rs.getString(2)						
-						, rs.getDate(3)
+						, new DateSqlite(rs.getString(3))
 						, Genero.generoParser(rs.getString(4))
 						); // Arreglar la seleccion del estado.
 			}

@@ -41,8 +41,8 @@ public class CrearCarrera {
 			ps.setDouble(5, carrera.cuota);
 			ps.setString(6, id);
 			ps.setInt(7, carrera.plazasMaximas);
-			ps.setDate(8, carrera.cierre);
-			ps.setDate(9, carrera.apertura);
+			ps.setString(8, carrera.cierre.toString());
+			ps.setString(9, carrera.apertura.toString());
 			ps.setString(10, EstadoCarrera.NO_COMENZADA.toString());			
 			
 			ps.close();

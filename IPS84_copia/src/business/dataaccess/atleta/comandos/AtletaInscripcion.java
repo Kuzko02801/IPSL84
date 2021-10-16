@@ -17,6 +17,7 @@ import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoInscripcion;
 import business.dataaccess.util.Check;
+import business.dataaccess.util.DateSqlite;
 
 public class AtletaInscripcion {
 
@@ -72,7 +73,7 @@ public class AtletaInscripcion {
 		// UNTIL ATHLETE REGISTRATION IS ENABLED
 		//atleta.fechaDeNacimiento = new Date(System.currentTimeMillis() - 10000000);
 		//////////////////////////////////////////
-		int edad = atleta.fechaDeNacimiento.compareTo(new Date(System.currentTimeMillis())) * -1; // Puede no funcionar
+		int edad = atleta.fechaDeNacimiento.subYears(new DateSqlite().actual()); // Puede no funcionar
 		if(edad >= 18 && edad <= 21)
 			return CategoriaAtleta.JUNIOR.label;
 		else if(edad > 21 && edad <= 29)
@@ -111,7 +112,7 @@ public class AtletaInscripcion {
 
 	private boolean inscripcionAbierta() {
 		CarreraDto carrera_aux = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
-		if(System.currentTimeMillis() < carrera_aux.cierre.getTime())
+		if(carrera_aux.cierre.compareTo(new DateSqlite().actual()) >= 0)
 			return true;
 		else
 			return false;

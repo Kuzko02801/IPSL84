@@ -7,10 +7,11 @@ import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.dto.infoadicional.Tipo;
+import business.dataaccess.util.DateSqlite;
 
 public class DtoAssembler {
 
-	public static AtletaDto forAtletaDto(String email, String nombre, Date fechaDeNacimiento, Genero genero) {
+	public static AtletaDto forAtletaDto(String email, String nombre, DateSqlite fechaDeNacimiento, Genero genero) {
 		AtletaDto atleta = new AtletaDto();	
 		atleta.email = email;
 		atleta.nombre = nombre;
@@ -21,14 +22,14 @@ public class DtoAssembler {
 	
 	public static CarreraDto forCarreraDto(
 			String nombre,
-			Date fecha,
+			DateSqlite fecha,
 			Tipo tipo,
 			double distancia,
 			double cuota,
 			String carrera_id,
 			int plazasMaximas,
-			Date cierre,
-			Date apertura,
+			DateSqlite cierre,
+			DateSqlite apertura,
 			EstadoCarrera estado) {
 		CarreraDto carrera = new CarreraDto();
 		carrera.nombre = nombre;
