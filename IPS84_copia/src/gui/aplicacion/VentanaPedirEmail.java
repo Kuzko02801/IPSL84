@@ -14,7 +14,9 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
+import business.dataaccess.BusinessDataException;
 import business.gui.GuiLogic;
+import java.awt.Color;
 
 public class VentanaPedirEmail extends JFrame {
 
@@ -27,6 +29,7 @@ public class VentanaPedirEmail extends JFrame {
 	private JLabel lblEmail;
 	private JLabel lblNewLabel;
 	private String id_carrera;
+	private JLabel lblWarning;
 	/**
 	 * Launch the application.
 	 */
@@ -74,6 +77,7 @@ public class VentanaPedirEmail extends JFrame {
 			textPane.add(getTxtEmail());
 			textPane.add(getLblEmail());
 			textPane.add(getLblNewLabel());
+			textPane.add(getLblWarning());
 		}
 		return textPane;
 	}
@@ -82,7 +86,12 @@ public class VentanaPedirEmail extends JFrame {
 			btnInscribir = new JButton("Inscribirse");
 			btnInscribir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
+					try {
+						GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
+					} catch (BusinessDataException e1) {
+						getLblWarning().setText(e1.getMessage());
+						getLblWarning().setEnabled(true);
+					}
 				}
 			});
 		}
@@ -98,7 +107,7 @@ public class VentanaPedirEmail extends JFrame {
 		if (txtEmail == null) {
 			txtEmail = new JTextField();
 			txtEmail.setText("");
-			txtEmail.setBounds(80, 93, 293, 28);
+			txtEmail.setBounds(80, 107, 293, 28);
 			txtEmail.setColumns(10);
 		}
 		return txtEmail;
@@ -107,7 +116,7 @@ public class VentanaPedirEmail extends JFrame {
 		if (lblEmail == null) {
 			lblEmail = new JLabel("E-mail:");
 			lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
-			lblEmail.setBounds(24, 100, 46, 14);
+			lblEmail.setBounds(24, 112, 46, 14);
 		}
 		return lblEmail;
 	}
@@ -118,5 +127,14 @@ public class VentanaPedirEmail extends JFrame {
 			lblNewLabel.setBounds(80, 22, 293, 37);
 		}
 		return lblNewLabel;
+	}
+	private JLabel getLblWarning() {
+		if (lblWarning == null) {
+			lblWarning = new JLabel("");
+			lblWarning.setEnabled(false);
+			lblWarning.setForeground(Color.RED);
+			lblWarning.setBounds(55, 59, 314, 37);
+		}
+		return lblWarning;
 	}
 }

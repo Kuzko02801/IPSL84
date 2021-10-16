@@ -4,6 +4,7 @@ import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
+import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
 import gui.aplicacion.VentanaPedirEmail;
@@ -78,7 +79,7 @@ public class GuiLogic {
 		// String tipo=getCbTipoCarrera();
 	}
 
-	public static void inscribirAtletaCarrera(String id, String email) {
+	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
 		
 		DataAccessFactory.forAtletaService()
 		.inscribirAtleta(

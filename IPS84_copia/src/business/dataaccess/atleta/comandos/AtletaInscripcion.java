@@ -30,13 +30,18 @@ public class AtletaInscripcion {
 		this.carrera = carrera;		
 	}
 
-	public void inscribirAtleta() {
+	public void inscribirAtleta() throws BusinessDataException {
 		
 		PreparedStatement ps = null;		
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
 			// Check if the race exists.			
+			
+//			if(!Check.atletaExists(con, atleta.email)) {
+//				throw new BusinessException("Ningun atleta asociado con este email.");
+//			}
+			
 			if (!Check.raceExists(con, carrera.carrera_id))
 				throw new BusinessDataException("La carrera no existe.");
 			
@@ -63,7 +68,7 @@ public class AtletaInscripcion {
 			ps.close();
 			con.close();
 
-		} catch (BusinessDataException | SQLException e) {
+		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 

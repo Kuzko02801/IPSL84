@@ -222,8 +222,8 @@ public class VentanaApp extends JFrame {
 			tablaCarrerasParticipante = new JTable();
 			tablaCarrerasParticipante.setSelectionBackground(new Color(50, 130, 181));
 			tablaCarrerasParticipante.setSelectionForeground(new Color(184, 220, 245));
-			tablaCarrerasParticipante.setForeground(new Color(184, 220, 245));
-			tablaCarrerasParticipante.setBackground(new Color(50, 130, 181));
+			tablaCarrerasParticipante.setForeground(Color.BLACK);
+			tablaCarrerasParticipante.setBackground(Color.WHITE);
 			tablaCarrerasParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			tablaCarrerasParticipante.setRowHeight(25);
 			tablaCarrerasParticipante.setModel(

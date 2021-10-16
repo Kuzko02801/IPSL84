@@ -15,6 +15,7 @@ import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
+import business.dataaccess.util.DateSqlite;
 
 public class Test {
 
@@ -26,14 +27,14 @@ public class Test {
 		this.ps = ps;
 	}
 	
-	public void addAtleta(String dni, String email, String nombre, Date fechaDeNacimiento, Genero genero) {
+	public void addAtleta(String dni, String email, String nombre, DateSqlite fechaDeNacimiento, Genero genero) {
 		
 		try {			
 			ps = con.prepareStatement(SqlStatements.SQL_TESTING_INSERT_ATLETA);
 
 			ps.setString(1, email);
 			ps.setString(2, nombre);
-			ps.setDate(3, fechaDeNacimiento);
+			ps.setString(3, fechaDeNacimiento.toString());
 			ps.setString(4, genero.label);
 
 			ps.executeUpdate();
