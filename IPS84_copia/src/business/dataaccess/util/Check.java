@@ -24,4 +24,20 @@ public class Check {
 
 		return false;
 	}
+
+	public static boolean atletaExists(Connection conn, String email) throws SQLException {
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Connection con = conn;
+		ps = con.prepareStatement(SqlStatements.SQL_SELECT_ATLETA);
+		ps.setString(1, email);
+		rs = ps.executeQuery();
+		if (rs.next())
+			return true;
+
+		rs.close();
+		ps.close();
+
+		return false;
+	}
 }

@@ -38,9 +38,9 @@ public class AtletaInscripcion {
 			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
 			// Check if the race exists.			
 			
-//			if(!Check.atletaExists(con, atleta.email)) {
-//				throw new BusinessException("Ningun atleta asociado con este email.");
-//			}
+			if(!Check.atletaExists(con, atleta.email)) {
+				throw new BusinessDataException("Ningun atleta asociado con este email.");
+			}
 			
 			if (!Check.raceExists(con, carrera.carrera_id))
 				throw new BusinessDataException("La carrera no existe.");

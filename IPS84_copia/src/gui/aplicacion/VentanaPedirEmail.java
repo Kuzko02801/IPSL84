@@ -133,7 +133,7 @@ public class VentanaPedirEmail extends JFrame {
 			lblWarning = new JLabel("");
 			lblWarning.setEnabled(false);
 			lblWarning.setForeground(Color.RED);
-			lblWarning.setBounds(55, 59, 314, 37);
+			lblWarning.setBounds(80, 68, 314, 28);
 		}
 		return lblWarning;
 	}
