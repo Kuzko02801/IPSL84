@@ -61,7 +61,6 @@ public class AtletaInscripcion {
 			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);								
 			ps.setString(4, seleccionarCategoria());
 			ps.setDate(5, fechaActual());
-			ps.setString(6, UUID.randomUUID().toString());
 
 			ps.executeUpdate();
 

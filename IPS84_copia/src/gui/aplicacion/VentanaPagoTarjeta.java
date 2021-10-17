@@ -115,7 +115,8 @@ public class VentanaPagoTarjeta extends JFrame {
 						JOptionPane.showMessageDialog(rootPane, "No esta puesto el cvc");
 					}
 					else {
-						DataAccessFactory.forInscripcionService();
+						DataAccessFactory.forInscripcionService().pasarDePreInscritoAInscrito(((VentanaPedirEmail) vpe).getId_carrera(),
+								((VentanaPedirEmail) vpe).getEmail_atleta());
 						dispose();
 						vpe.dispose();
 					}

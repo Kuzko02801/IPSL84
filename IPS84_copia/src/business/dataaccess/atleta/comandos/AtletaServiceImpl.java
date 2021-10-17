@@ -15,7 +15,4 @@ public class AtletaServiceImpl implements AtletaService{
 	public AtletaDto encontrarAtleta(String email) {
 		return new EncontrarAtleta(email).encontrarAtleta();
 	}
-
-	
-
 }

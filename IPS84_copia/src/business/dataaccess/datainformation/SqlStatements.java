@@ -33,7 +33,7 @@ public class SqlStatements {
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?)";
 	
-	
+	public static final String SQL_INSCRIPCION_PAGO = "UPDATE inscripcion SET estado = 'INSCRITO' WHERE email_atleta = ? AND id_carrera = ?";
 }
 
 

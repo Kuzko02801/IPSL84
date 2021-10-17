@@ -31,6 +31,7 @@ public class VentanaPedirEmail extends JFrame {
 	private JLabel lblEmail;
 	private JLabel lblNewLabel;
 	private String id_carrera;
+	private String email_atleta;
 	private JLabel lblWarning;
 	private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
 	/**
@@ -64,6 +65,10 @@ public class VentanaPedirEmail extends JFrame {
 		contentPane.add(getButtonPane(), BorderLayout.SOUTH);
 		contentPane.add(getTextPane());
 	}
+	public String getId_carrera() {
+		return id_carrera;
+	}
+
 	private JPanel getButtonPane() {
 		if (buttonPane == null) {
 			buttonPane = new JPanel();
@@ -89,6 +94,7 @@ public class VentanaPedirEmail extends JFrame {
 			btnInscribir = new JButton("Inscribirse");
 			btnInscribir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
+					
 					try {
 						GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
 						vpt.setVisible(true);
@@ -101,6 +107,11 @@ public class VentanaPedirEmail extends JFrame {
 		}
 		return btnInscribir;
 	}
+	
+	public String getEmail_atleta() {
+		return getTxtEmail().getText();
+	}
+	
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");

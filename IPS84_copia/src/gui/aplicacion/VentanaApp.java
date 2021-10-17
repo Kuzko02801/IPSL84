@@ -1102,7 +1102,6 @@ public class VentanaApp extends JFrame {
 		// inscripcion
 		
 		VentanaPedirEmail v = new VentanaPedirEmail((String)tablaCarrerasParticipante.getModel().getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0));
-		VentanaPagoTarjeta vp = new VentanaPagoTarjeta(v);
 		v.setVisible(true);
 		
 		// pago
