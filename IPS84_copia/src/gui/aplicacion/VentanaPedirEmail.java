@@ -8,6 +8,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -17,6 +18,7 @@ import javax.swing.border.EmptyBorder;
 import business.dataaccess.BusinessDataException;
 import business.gui.GuiLogic;
 import java.awt.Color;
+import java.awt.Dialog;
 
 public class VentanaPedirEmail extends JFrame {
 
@@ -30,6 +32,7 @@ public class VentanaPedirEmail extends JFrame {
 	private JLabel lblNewLabel;
 	private String id_carrera;
 	private JLabel lblWarning;
+	private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
 	/**
 	 * Launch the application.
 	 */
@@ -88,6 +91,7 @@ public class VentanaPedirEmail extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
+						vpt.setVisible(true);
 					} catch (BusinessDataException e1) {
 						getLblWarning().setText(e1.getMessage());
 						getLblWarning().setEnabled(true);

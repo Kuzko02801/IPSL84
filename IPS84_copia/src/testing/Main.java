@@ -34,17 +34,17 @@ public class Main {
 			 	
 			
 			
-			carrera.nombre = "DATE WITH NEWLY IMPLEMENTED DATE CLASS.";
-			carrera.fecha = new DateSqlite("06/07/2021");
-			carrera.tipo = Tipo.ASFALTO;
-			carrera.distancia = 199;
-			carrera.cuota = 200;
-			carrera.carrera_id = "10";
-			carrera.plazasMaximas = 20;				
-			
-			carrera.cierre = new DateSqlite("06/12/2021");
-			carrera.apertura = new DateSqlite("06/10/2021");
-			carrera.estado = EstadoCarrera.NO_COMENZADA;
+//			carrera.nombre = "DATE WITH NEWLY IMPLEMENTED DATE CLASS.";
+//			carrera.fecha = new DateSqlite("06/07/2021");
+//			carrera.tipo = Tipo.ASFALTO;
+//			carrera.distancia = 199;
+//			carrera.cuota = 200;
+//			carrera.carrera_id = "10";
+//			carrera.plazasMaximas = 20;				
+//			
+//			carrera.cierre = new DateSqlite("06/12/2021");
+//			carrera.apertura = new DateSqlite("06/10/2021");
+//			carrera.estado = EstadoCarrera.NO_COMENZADA;
 			
 			//test.addCarrera(carrera);			
 			// Poner los metodo a partir de esta linea y pasar como parametro ps.

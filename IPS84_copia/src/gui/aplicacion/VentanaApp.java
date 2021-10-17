@@ -359,7 +359,7 @@ public class VentanaApp extends JFrame {
 
 					GuiLogic.inscribirsePagar((String) tablaCarrerasParticipante.getModel().getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0));
 
-					inscribirsePagar(); 
+					//inscribirsePagar(); 
 
 				}
 
@@ -1100,12 +1100,12 @@ public class VentanaApp extends JFrame {
 	private void inscribirsePagar() {
 		// comprobar si es una inscripcion o un pago
 		// inscripcion
+		
 		VentanaPedirEmail v = new VentanaPedirEmail((String)tablaCarrerasParticipante.getModel().getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0));
+		VentanaPagoTarjeta vp = new VentanaPagoTarjeta(v);
 		v.setVisible(true);
-
+		
 		// pago
-		VentanaPagoTarjeta vp = new VentanaPagoTarjeta();
-		vp.setVisible(true);
 	}
 
 	private boolean idValida(String id) {
