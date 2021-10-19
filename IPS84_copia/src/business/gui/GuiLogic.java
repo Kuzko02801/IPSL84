@@ -7,7 +7,6 @@ import javax.swing.table.TableModel;
 import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
-import gui.aplicacion.VentanaPagoTarjeta;
 import gui.aplicacion.VentanaPedirEmail;
 
 /*

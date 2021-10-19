@@ -8,10 +8,6 @@ import java.text.ParseException;
 
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.CarreraDto;
-import business.dataaccess.dto.infoadicional.EstadoCarrera;
-import business.dataaccess.dto.infoadicional.Genero;
-import business.dataaccess.dto.infoadicional.Tipo;
-import business.dataaccess.util.DateSqlite;
 
 public class Main {
 
