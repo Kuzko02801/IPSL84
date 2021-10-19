@@ -1,6 +1,7 @@
 package business.dataaccess.datainformation;
 
 public class SqlStatements {
+	//
 	public static final String SQL_SELECT_CARRERA = "select * from carrera where id = ?";
 	public static final String SQL_SELECT_ATLETA = "select * from atleta where email = ?";
 	public static final String SQL_INSCRIBIR_ATLETA = "insert into inscripcion (email_atleta, id_carrera, estado, categoria, fecha_inscripcion, id_inscripcion) values (?, ?, ?, ?, ?, ?)";
