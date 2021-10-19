@@ -11,6 +11,7 @@ public class SqlStatements {
 														+ "where ins.id_carrera = ? "
 														+ "and ins.email_atleta = at.email"
 														+ "order by fecha_inscripcion asc, estado asc";
+	public static final String SQL_SELECT_TODAS_CARRERAS = "select * from carreras";
 	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, cuota, id, plazas_maximas, cierre, apertura, estado) "
 												  + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String SQL_CLASIFICACION_ABSOLUTA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo " + 
