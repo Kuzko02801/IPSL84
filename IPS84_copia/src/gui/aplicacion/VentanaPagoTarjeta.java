@@ -2,6 +2,7 @@ package gui.aplicacion;
 
 
 import javax.swing.JFrame;
+
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
@@ -11,6 +12,8 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 import javax.swing.JButton;
+import javax.swing.JDialog;
+
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
@@ -25,7 +28,7 @@ public class VentanaPagoTarjeta extends JFrame {
 	private JLabel lblFechaCaducidad;
 	private JLabel lblCVC;
 	private JButton btnNewButton;
-	private JFrame vpe;
+	private JDialog vpe;
 
 
 	/**

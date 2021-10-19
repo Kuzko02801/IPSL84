@@ -91,7 +91,7 @@ public class GuiLogic {
 	public static void inscribirsePagar(String id) {
 		// comprobar si es una inscripcion o un pago
 		// inscripcion
-		VentanaPedirEmail v = new VentanaPedirEmail(id);		
+		VentanaPedirEmail v = new VentanaPedirEmail(id);	
 		v.setVisible(true);
 		
 		// pago
