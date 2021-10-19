@@ -6,6 +6,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.util.UUID;
 
 import business.dataaccess.BusinessDataException;
@@ -60,7 +61,7 @@ public class AtletaInscripcion {
 			ps.setString(2, carrera.carrera_id);
 			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);								
 			ps.setString(4, seleccionarCategoria());
-			ps.setDate(5, fechaActual());
+			ps.setString(5, fechaActual());
 
 			ps.executeUpdate();
 
@@ -90,8 +91,9 @@ public class AtletaInscripcion {
 		
 	}
 
-	private Date fechaActual() {		
-		return new Date(System.currentTimeMillis());		
+	private String  fechaActual() {		
+		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		return sdf.format(new Date(System.currentTimeMillis()));		
 	}
 
 	private boolean hayPlazasLibres() throws SQLException {

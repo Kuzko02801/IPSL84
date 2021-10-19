@@ -15,6 +15,8 @@ import business.dataaccess.util.DateSqlite;
 
 public class Main {
 
+	private static boolean print = true;
+
 	public static void main(String[] args) throws ParseException {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
@@ -28,29 +30,31 @@ public class Main {
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			test = new Test(con, ps);
-			//añadir atletas
-			//test.addAtleta("123112323", "DELOCOS_NUEVAFECHA2", "sisisisisis", new DateSqlite("03/02/1997"), Genero.HOMBRE);
-			
-			 	
-			
-			
+			// añadir atletas
+//			 test.addAtleta("123112323", "A5", "sisisisisis", new
+//			 DateSqlite("03/02/1997"), Genero.HOMBRE);
+
 //			carrera.nombre = "DATE WITH NEWLY IMPLEMENTED DATE CLASS.";
 //			carrera.fecha = new DateSqlite("06/07/2021");
 //			carrera.tipo = Tipo.ASFALTO;
 //			carrera.distancia = 199;
 //			carrera.cuota = 200;
-//			carrera.carrera_id = "10";
-//			carrera.plazasMaximas = 20;				
-//			
+//			carrera.carrera_id = "5";
+//			carrera.plazasMaximas = 20; //
 //			carrera.cierre = new DateSqlite("06/12/2021");
 //			carrera.apertura = new DateSqlite("06/10/2021");
 //			carrera.estado = EstadoCarrera.NO_COMENZADA;
+
+			//test.addCarrera(carrera);
 			
-			//test.addCarrera(carrera);			
 			// Poner los metodo a partir de esta linea y pasar como parametro ps.
-			//test.printAllAthletes();
-			//test.printAllCarreras();
-			test.printAllInscriptions();
+			if (print) {
+				test.printAllAthletes();
+				System.out.println("-------------------------------------");
+				test.printAllCarreras();
+				System.out.println("-------------------------------------");
+				test.printAllInscriptions();
+			}
 
 			con.close();
 
