@@ -34,12 +34,11 @@ public class AtletaInscripcion {
 		
 		PreparedStatement ps = null;		
 		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			
 			//atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
 			// Check if the race exists.			
-			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
-			
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);		
 			
 			if(!Check.atletaExists(con, atleta.email)) {
 				throw new BusinessDataException("Ningun atleta asociado con este email.");
