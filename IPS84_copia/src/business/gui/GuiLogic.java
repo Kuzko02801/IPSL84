@@ -6,8 +6,11 @@ import javax.swing.table.TableModel;
 
 import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
+import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
+import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.util.Check;
+import business.dataaccess.util.DateSqlite;
 import gui.aplicacion.VentanaPedirEmail;
 
 /*
@@ -66,6 +69,9 @@ public class GuiLogic {
 	public static boolean comprobarIdValidaCarrera(JTextField txIdCarreraParticipante) {
 		return Check.raceExists2(txIdCarreraParticipante.getText());
 	}
+	public static void registrarAtleta(String email,String dni,String nombre,String fechaNacimiento,String sexo) throws BusinessDataException {
+		DataAccessFactory.forAtletaService().atletaAdd(DtoAssembler.forAtletaDto(email,dni,nombre,new DateSqlite(fechaNacimiento),Genero.generoParser(sexo)));
+	}
 
 
 	public static void comprobarIdValidaParticipante() {
@@ -87,7 +93,7 @@ public class GuiLogic {
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
 
-		DataAccessFactory.forAtletaService().inscribirAtleta(DtoAssembler.forAtletaDto(email, null, null, null),
+		DataAccessFactory.forAtletaService().inscribirAtleta(DtoAssembler.forAtletaDto(email, null, null, null, null),
 				DtoAssembler.forCarreraDto(null, null, null, 0, 0, id, 0, null, null, null));
 	}
 

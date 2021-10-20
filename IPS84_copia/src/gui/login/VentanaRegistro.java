@@ -165,8 +165,6 @@ public class VentanaRegistro extends JFrame {
 	}
 	
 	
-	
-	
 	//Metodos adiccionales//////////////////////////////
 	
 	
@@ -177,15 +175,6 @@ public class VentanaRegistro extends JFrame {
 	private void mostrarVentanaParticipante() {
 		CardLayout cl = (CardLayout)(pnCards.getLayout());
 	    cl.show(pnCards, "pnParticipante");
-	}
-	private void mostrarVentanaLogin() {
-		VentanaLogin v=new VentanaLogin();
-		v.setVisible(true);
-		dispose();
-	}
-	
-	private void registrarParticipante() {
-		mostrarVentanaLogin();
 	}
 	
 	private void registrarOrganizador() {
@@ -208,4 +197,17 @@ public class VentanaRegistro extends JFrame {
 		}
 		return txEmail;
 	}
+	
+	//Metodos adiccionales
+	
+	private void mostrarVentanaLogin() {
+		VentanaLogin v=new VentanaLogin();
+		v.setVisible(true);
+		dispose();
+	}
+	private void registrarParticipante() {
+		
+		mostrarVentanaLogin();
+	}
+	
 }
