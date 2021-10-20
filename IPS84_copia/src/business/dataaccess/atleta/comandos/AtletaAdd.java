@@ -30,21 +30,14 @@ public class AtletaAdd {
 			System.out.println("Ha fallado el register del driver");
 		}
 		try {
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
-			// Check if the race exists.			
-			
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);		
 			if(new ExisteAtleta(atleta.email).existeAtleta()) {
 				throw new BusinessDataException("Ya hay un atleta con este e-mail.");
 			}				
-			
 			ps = con.prepareStatement(SqlStatements.SQL_ADD_ATLETA);
 			ps.setString(1, atleta.email);
 			ps.setString(2, atleta.dni);
 			ps.setString(3, atleta.nombre);
-			System.out.println(atleta.fechaDeNacimiento.toString());
-			System.out.println(atleta.fechaDeNacimiento);
-
 			ps.setString(4, atleta.fechaDeNacimiento.toString());								
 			ps.setString(5, atleta.genero.label);		
 			ps.executeUpdate();

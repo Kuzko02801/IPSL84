@@ -32,7 +32,7 @@ public class EncontrarAtleta {
 			ps.setString(1, email);
 			
 			rs = ps.executeQuery();
-			
+
 			while(rs.next()) {
 				atleta = DtoAssembler.forAtletaDto(
 						rs.getString(1)
@@ -46,7 +46,6 @@ public class EncontrarAtleta {
 			ps.close();
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 		return atleta;

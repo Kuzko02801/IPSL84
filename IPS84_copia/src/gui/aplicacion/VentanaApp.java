@@ -408,6 +408,11 @@ public class VentanaApp extends JFrame {
 	private JMenuItem getMnItCuentaSalir() {
 		if (mnItCuentaSalir == null) {
 			mnItCuentaSalir = new JMenuItem("Salir");
+			mnItCuentaSalir.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					dispose();
+				}
+			});
 		}
 		return mnItCuentaSalir;
 	}
