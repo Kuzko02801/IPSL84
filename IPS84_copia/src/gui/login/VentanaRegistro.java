@@ -167,7 +167,7 @@ public class VentanaRegistro extends JFrame {
 	
 	
 	
-	//Metodos adiccionales
+	//Metodos adiccionales//////////////////////////////
 	
 	
 	private void mostrarVentanaOrganizador() {
@@ -183,9 +183,11 @@ public class VentanaRegistro extends JFrame {
 		v.setVisible(true);
 		dispose();
 	}
+	
 	private void registrarParticipante() {
 		mostrarVentanaLogin();
 	}
+	
 	private void registrarOrganizador() {
 		mostrarVentanaLogin();
 	}

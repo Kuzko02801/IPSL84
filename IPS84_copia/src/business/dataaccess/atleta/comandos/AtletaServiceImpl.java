@@ -15,4 +15,10 @@ public class AtletaServiceImpl implements AtletaService{
 	public AtletaDto encontrarAtleta(String email) {
 		return new EncontrarAtleta(email).encontrarAtleta();
 	}
+
+	@Override
+	public void atletaAdd(AtletaDto atleta) throws BusinessDataException {
+		new AtletaAdd(atleta).atletaAdd();
+		
+	}
 }
