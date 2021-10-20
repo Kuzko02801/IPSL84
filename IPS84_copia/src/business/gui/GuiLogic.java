@@ -93,8 +93,8 @@ public class GuiLogic {
 						,null));
 	}
 
-	public static void inscribirAtletaCarrera(String id, AtletaDto atleta) throws BusinessDataException {
-		DataAccessFactory.forAtletaService().inscribirAtleta(atleta,
+	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
+		DataAccessFactory.forAtletaService().inscribirAtleta(DtoAssembler.forAtletaDto(email, null, null, null, null),
 				DtoAssembler.forCarreraDto(null, null, null, "0", "0", id, "0", null, null, null));
 	}
 	public static AtletaDto devuelveAtleta(String email) {

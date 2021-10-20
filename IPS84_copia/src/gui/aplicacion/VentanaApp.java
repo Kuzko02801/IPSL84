@@ -1,6 +1,7 @@
 package gui.aplicacion;
 
 import java.awt.CardLayout;
+
 import java.awt.Color;
 import java.awt.EventQueue;
 import java.awt.Font;
@@ -98,21 +99,18 @@ public class VentanaApp extends JFrame {
 	private JButton btCrearCarreraOrganizador;
 	private JTextField txIdCarreraValidaParticipante;
 
-	private final static int ADMIN = 0;
-	private final static int PARTICIPANTE = 1;
+	public final static int ADMIN = 0;
+	public final static int PARTICIPANTE = 1;
 	private JLabel lbFechaCarrera;
 	private JTextField txFechaCarrera;
 	private JLabel lbFechaApertura;
 	private JTextField txFechaApertura;
 	private JLabel lbFechaCierre;
 	private JTextField txFechaCierre;
-
-	private AtletaDto atleta;
-
 	/**
 	 * Create the frame.
 	 */
-	public VentanaApp(AtletaDto atleta) {
+	public VentanaApp(int mode) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 800, 600);
 		setJMenuBar(getMenuBar_1());
@@ -123,15 +121,15 @@ public class VentanaApp extends JFrame {
 		pnPrincipal.setLayout(new CardLayout(0, 0));
 		pnPrincipal.add(getPnParticipante(), "pnParticipante");
 		pnPrincipal.add(getPnOrganizador(), "pnOrganizador");
-		if (atleta==null) {
+		switch(mode) {
+		case ADMIN:
 			mostrarPanelOrganizador();
-
-		} else {
-			this.atleta=atleta;
+			break;
+		case PARTICIPANTE:
 			mostrarPanelParticipante();
 			getMnItCuentaOrganizador().setEnabled(false);
-
-		}
+			break;
+		}	
 
 	}
 
@@ -345,7 +343,6 @@ public class VentanaApp extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					inscribirsePagar();
 				}
-
 			});
 			btInscribirseParticipante.setForeground(new Color(184, 220, 245));
 			btInscribirseParticipante.setBackground(new Color(50, 130, 181));
@@ -1172,7 +1169,7 @@ public class VentanaApp extends JFrame {
 		mostrarPanelOrganizadorCarreras();
 	}
 	private void inscribirsePagar() {
-		VentanaPedirEmail v = new VentanaPedirEmail(getTxIdCarreraParticipante().getText(),atleta);
+		VentanaPedirEmail v = new VentanaPedirEmail(getTxIdCarreraParticipante().getText().trim());
 		v.setVisible(true);
 	}
 

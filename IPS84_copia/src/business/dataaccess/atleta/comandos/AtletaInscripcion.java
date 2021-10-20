@@ -34,22 +34,34 @@ public class AtletaInscripcion {
 		
 		PreparedStatement ps = null;		
 		try {
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
+			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
 			
-			//atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);			
+			
+			System.out.println(atleta.email);
+			System.out.println(atleta.nombre);
+			System.out.println(atleta.dni);
+			System.out.println(atleta.fechaDeNacimiento);
 			// Check if the race exists.			
-			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);		
+				
 			
-			if(!Check.atletaExists(con, atleta.email)) {
-				throw new BusinessDataException("Ningun atleta asociado con este email.");
-			}
-			// Inscripcion abierta.
-			if(!inscripcionAbierta())
-				throw new BusinessDataException("Estas fuera del plazo de inscripción.");
-			
-			// Checkeo de plazas. 
-			if(!hayPlazasLibres())
-				throw new BusinessDataException("No hay plazas libres.");			
+//			if(!Check.atletaExists(con, atleta.email)) {
+//				throw new BusinessDataException("Ningun atleta asociado con este email.");
+//			}
+//			System.out.println("El checkeo falla 1");
+//			// Inscripcion abierta.
+//			
+//			if(!inscripcionAbierta()) {
+//				System.out.println("fuera del plazo");
+//				throw new BusinessDataException("Estas fuera del plazo de inscripción.");
+//			}
+//			System.out.println("El checkeo falla 2");
+//			// Checkeo de plazas. 
+//			
+//			if(!hayPlazasLibres())
+//				throw new BusinessDataException("No hay plazas libres.");			
+//			System.out.println("El checkeo falla 3");
 			
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 			ps.setString(1, atleta.email);
@@ -57,7 +69,7 @@ public class AtletaInscripcion {
 			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);								
 			ps.setString(4, seleccionarCategoria());
 			ps.setString(5, fechaActual());
-
+			
 			ps.executeUpdate();
 
 			ps.close();
@@ -95,7 +107,9 @@ public class AtletaInscripcion {
 	private boolean hayPlazasLibres() throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
+		Connection con = null;
 		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_NUMERO_INSCRIPCIONES);
 			ps.setString(1, carrera.carrera_id);
 			rs = ps.executeQuery();
@@ -108,7 +122,7 @@ public class AtletaInscripcion {
 		} finally {
 			rs.close();
 			ps.close();
-			
+			con.close();
 		}
 		return false;
 	}

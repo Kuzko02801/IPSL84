@@ -162,19 +162,17 @@ public class VentanaLogin extends JFrame {
 	// metodos
 
 	private void login() {
-		if (getTxUsuario().getText().equals("admin")) {
-			AtletaDto atleta = null;
-			mostrarVentanaApp(atleta);
-		} else if (GuiLogic.existeUsuario(getTxUsuario().getText())) {
-			AtletaDto atleta = GuiLogic.devuelveAtleta(getTxUsuario().getText());
-			mostrarVentanaApp(atleta);
+		if (getTxUsuario().getText().equals("admin")) {			
+			mostrarVentanaApp(VentanaApp.ADMIN);
+		} else if (GuiLogic.existeUsuario(getTxUsuario().getText())) {			
+			mostrarVentanaApp(VentanaApp.PARTICIPANTE);
 		} else {
 			getTxUsuarioValido().setText("Usuario no válido");
 		}
 	}
 
-	private void mostrarVentanaApp(AtletaDto atleta) {
-		VentanaApp v = new VentanaApp(atleta);
+	private void mostrarVentanaApp(int mode) {
+		VentanaApp v = new VentanaApp(mode);
 		v.setVisible(true);
 		dispose();
 	}

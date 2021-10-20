@@ -32,13 +32,12 @@ public class VentanaPedirEmail extends JDialog {
 	private JLabel lblWarning;
 	private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
 	private String id_carrera;
-	private AtletaDto atleta;
+
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaPedirEmail(String id_carrera,AtletaDto atleta) {
-		this.id_carrera = id_carrera;
-		this.atleta=atleta;
+	public VentanaPedirEmail(String id_carrera) {
+		this.id_carrera = id_carrera;	
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().add(getPnText(), BorderLayout.CENTER);
@@ -131,9 +130,8 @@ public class VentanaPedirEmail extends JDialog {
 		return lblWarning;
 	}
 	private void inscribirAtleta() {
-		try {
-		
-			GuiLogic.inscribirAtletaCarrera(id_carrera, atleta);
+		try {					
+			GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
 			vpt.setVisible(true);						
 		} catch (BusinessDataException e1) {
 			getLblWarning().setText(e1.getMessage());
