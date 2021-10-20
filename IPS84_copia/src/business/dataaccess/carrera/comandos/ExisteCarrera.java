@@ -1,10 +1,7 @@
 package business.dataaccess.carrera.comandos;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
 import java.sql.SQLException;
 
-import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.util.Check;
 
 public class ExisteCarrera {
@@ -15,13 +12,12 @@ public class ExisteCarrera {
 		this.id = id;
 	}
 
-	public boolean existeCarrera() {
-		Connection con = null;		
+	public boolean existeCarrera() {		
 		boolean result = false;
 		try {
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			result = Check.raceExists(con, id);
-			con.close();
+			
+			result = Check.raceExists(id);
+			
 		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}

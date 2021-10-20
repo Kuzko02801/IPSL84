@@ -25,6 +25,7 @@ public class DevolverParticipantesCarrera {
 		} catch (SQLException e1) {
 			System.out.println("Ha fallado el register del driver");
 		}
+		
 		TableModel t=null;
 		PreparedStatement ps = null;
 		Connection con = null;

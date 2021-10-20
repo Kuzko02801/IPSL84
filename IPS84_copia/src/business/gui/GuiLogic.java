@@ -8,12 +8,7 @@ import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
-import business.dataaccess.dto.infoadicional.EstadoCarrera;
-import business.dataaccess.dto.infoadicional.Genero;
-import business.dataaccess.dto.infoadicional.Tipo;
 import business.dataaccess.util.Check;
-import business.dataaccess.util.DateSqlite;
-import gui.aplicacion.VentanaPedirEmail;
 
 /*
  * This class manages all the gui logic.
@@ -45,7 +40,7 @@ public class GuiLogic {
 	}
 
 	public static void cargarInscritosCarrera(JTextField txt, JTable tablaCarrerasOrganizador) {
-		String idCarrera = txt.getText();
+		String idCarrera = txt.getText().trim();
 		TableModel tm = DataAccessFactory.forInscripcionService().devolverParticipantesCarrera(idCarrera);
 		tablaCarrerasOrganizador.setModel(tm);
 	}

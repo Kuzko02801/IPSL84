@@ -29,16 +29,17 @@ public class PasarDePreAInscritoAInscrito {
 		PreparedStatement ps = null;
 		
 		try {
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_PAGO);
 			
-			if (!Check.atletaExists(con, email)) {
+			
+			if (!Check.atletaExists(email)) {
 				System.out.println("Email: "+ email );
 				System.out.println("La actualizacion del pago es fraudulenta1");
-			}if (!Check.raceExists(con, id)) {
+			}if (!Check.raceExists(id)) {
 				System.out.println("La actualizacion del pago es fraudulenta");
 			}
 			
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_PAGO);
 			
 			ps.setString(1, email);
 			ps.setString(2, id);

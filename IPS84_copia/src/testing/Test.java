@@ -31,10 +31,12 @@ public class Test {
 		try {			
 			ps = con.prepareStatement(SqlStatements.SQL_TESTING_INSERT_ATLETA);
 
+			
 			ps.setString(1, email);
-			ps.setString(2, nombre);
-			ps.setString(3, fechaDeNacimiento.toString());
-			ps.setString(4, genero.label);
+			ps.setString(2, dni);
+			ps.setString(3, nombre);
+			ps.setString(4, fechaDeNacimiento.toString());
+			ps.setString(5, genero.label);
 
 			ps.executeUpdate();
 			

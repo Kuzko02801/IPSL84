@@ -10,8 +10,6 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
-import business.dataaccess.dto.infoadicional.Genero;
-import business.dataaccess.util.DateSqlite;
 
 public class EncontrarAtleta {
 

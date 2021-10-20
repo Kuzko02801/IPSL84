@@ -10,9 +10,6 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.CarreraDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
-import business.dataaccess.dto.infoadicional.EstadoCarrera;
-import business.dataaccess.dto.infoadicional.Tipo;
-import business.dataaccess.util.DateSqlite;
 
 public class EncontrarCarrera {
 

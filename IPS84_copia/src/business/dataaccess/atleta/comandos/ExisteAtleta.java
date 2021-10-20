@@ -31,6 +31,9 @@ public class ExisteAtleta {
 			ps.setString(1, email);
 			ResultSet rs = ps.executeQuery();
 			if (rs.next()) {
+				rs.close();
+				ps.close();
+				con.close();
 				return true;
 			}
 			rs.close();

@@ -11,20 +11,26 @@ import business.dataaccess.datainformation.SqliteConnectionInfo;
 
 public class Check {
 
-	public static boolean raceExists(Connection conn, String id) throws SQLException {
+	public static boolean raceExists(String id) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Connection con = conn;
+		Connection con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 		ps = con.prepareStatement(SqlStatements.SQL_SELECT_CARRERA);
 		ps.setString(1, id);
 		rs = ps.executeQuery();
-		if (rs.next())
+		if (rs.next()) {
+			rs.close();
+			ps.close();
+			con.close();
 			return true;
-		rs.close();
-		ps.close();
-
-		return false;
+		} else {
+			rs.close();
+			ps.close();
+			con.close();
+			return false;
+		}
 	}
+
 	public static boolean raceExists2(String id) {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
@@ -37,34 +43,43 @@ public class Check {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_SELECT_CARRERA);
 			ps.setString(1, id);
-			ResultSet rs=ps.executeQuery();
+			ResultSet rs = ps.executeQuery();
 			rs = ps.executeQuery();
 			if (rs.next()) {
+				rs.close();
+				ps.close();
+				con.close();
 				return true;
 			}
 			rs.close();
 			ps.close();
-			ps.close();
 			con.close();
-		}catch(SQLException e) {
+		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return false;
 	}
 
-	public static boolean atletaExists(Connection conn, String email) throws SQLException {
+	public static boolean atletaExists(String email) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Connection con = conn;
+		Connection con = null;
+
+		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 		ps = con.prepareStatement(SqlStatements.SQL_SELECT_ATLETA);
 		ps.setString(1, email);
 		rs = ps.executeQuery();
-		if (rs.next())
+		if (rs.next()) {
+			rs.close();
+			ps.close();
+			con.close();
 			return true;
+		} else {
+			rs.close();
+			ps.close();
+			con.close();
+			return false;
+		}
 
-		rs.close();
-		ps.close();
-
-		return false;
 	}
 }

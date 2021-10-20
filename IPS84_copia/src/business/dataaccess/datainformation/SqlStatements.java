@@ -35,7 +35,7 @@ public class SqlStatements {
 			"AND atleta.sexo = 'hombre' ";
 	public static String SQL_ADD_ATLETA = "insert into atleta (email, dni, nombre, fechanacimiento, sexo) values (?, ?, ?, ?, ?)";
 	// For testing
-	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?)";
+	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, dni, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?, ?)";
 	
 	public static final String SQL_INSCRIPCION_PAGO = "UPDATE inscripcion SET estado = 'INSCRITO' WHERE email_atleta = ? AND id_carrera = ?";
 	

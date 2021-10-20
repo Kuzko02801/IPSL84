@@ -6,11 +6,9 @@ import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
 import business.dataaccess.BusinessDataException;
-import business.dataaccess.DataAccessFactory;
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.AtletaDto;
-import business.dataaccess.util.Check;
 
 public class AtletaAdd {
 

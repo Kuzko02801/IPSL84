@@ -16,7 +16,6 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import business.dataaccess.dto.AtletaDto;
 import business.gui.GuiLogic;
 import gui.aplicacion.VentanaApp;
 

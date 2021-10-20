@@ -26,13 +26,15 @@ public class Main {
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			test = new Test(con, ps);
-			// añadir atletas
-//			 test.addAtleta("123112323", "A5", "sisisisisis", new
-//			 DateSqlite("03/02/1997"), Genero.HOMBRE);
-
+//			// añadir atletas
+////			 test.addAtleta("123112323", "A5", "sisisisisis", new
+////			 DateSqlite("03/02/1997"), Genero.HOMBRE);
+//			
+//			//test.addAtleta("a", "emailaux", "a", new DateSqlite("20/03/2001"), Genero.HOMBRE);
+//			
 //			carrera.nombre = "DATE WITH NEWLY IMPLEMENTED DATE CLASS.";
 //			carrera.fecha = new DateSqlite("06/07/2021");
-//			carrera.tipo = Tipo.ASFALTO;
+//			carrera.tipo = Tipo.CARRERA_POPULAR;
 //			carrera.distancia = 199;
 //			carrera.cuota = 200;
 //			carrera.carrera_id = "5";
@@ -40,8 +42,21 @@ public class Main {
 //			carrera.cierre = new DateSqlite("06/12/2021");
 //			carrera.apertura = new DateSqlite("06/10/2021");
 //			carrera.estado = EstadoCarrera.NO_COMENZADA;
-
-			//test.addCarrera(carrera);
+//
+//			//test.addCarrera(carrera);
+//			
+//			CarreraDto testCarrera = new CarreraDto();
+//			testCarrera.carrera_id = "5";
+//			
+//			AtletaDto testAtleta = new AtletaDto();
+//			testAtleta.email = "emailaux";
+//			
+//			try {
+//				DataAccessFactory.forAtletaService().inscribirAtleta(testAtleta, testCarrera);
+//			} catch (BusinessDataException e) {
+//				// TODO Auto-generated catch block
+//				e.printStackTrace();
+//			}
 			
 			// Poner los metodo a partir de esta linea y pasar como parametro ps.
 			if (print) {

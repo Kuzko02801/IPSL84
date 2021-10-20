@@ -2,7 +2,6 @@ package gui.aplicacion;
 
 import java.awt.BorderLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -14,7 +13,6 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import business.dataaccess.BusinessDataException;
-import business.dataaccess.dto.AtletaDto;
 import business.gui.GuiLogic;
 
 public class VentanaPedirEmail extends JDialog {
