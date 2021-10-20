@@ -9,7 +9,7 @@ import javax.mail.internet.InternetAddress;
 
 public class Validadores {
 
-	private static final boolean comprobarEmail(String email) {
+	public static final boolean comprobarEmail(String email) {
 		boolean result = true;
 		try {
 			InternetAddress emailAddr = new InternetAddress(email);
@@ -20,7 +20,7 @@ public class Validadores {
 		return result;
 	}
 
-	private static boolean comprobarNoVacio(String string) {
+	public static boolean comprobarNoVacio(String string) {
 		if (string.trim().length() == 0) {
 			return false;
 		}
@@ -40,8 +40,14 @@ public class Validadores {
 		}
 	}
 
-	private static boolean comprobarMayor0(int valor) {
-		if (valor > 0) {
+	public static boolean comprobarMayor0(String string) {
+		Double d=null;
+		try {
+			d=Double.parseDouble(string);
+		}catch (Exception e) {
+			return false;
+		}
+		if (d > 0) {
 			return true;
 		} else {
 			return false;

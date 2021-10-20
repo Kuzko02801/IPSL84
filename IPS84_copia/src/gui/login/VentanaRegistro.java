@@ -17,6 +17,10 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import business.gui.GuiLogic;
+import gui.validadores.Validadores;
+
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
 
 public class VentanaRegistro extends JFrame {
 
@@ -31,7 +35,7 @@ public class VentanaRegistro extends JFrame {
 	private JTextField txDniParticipante;
 	private JTextField txNombreParticipante;
 	private JTextField txFechaNacimiento;
-	private JComboBox cbSexo;
+	private JComboBox<String> cbSexo;
 	private JLabel lbEmail;
 	private JTextField txEmail;
 
@@ -73,6 +77,7 @@ public class VentanaRegistro extends JFrame {
 	private JButton getBtRegistrarseParticipante() {
 		if (btRegistrarseParticipante == null) {
 			btRegistrarseParticipante = new JButton("Registrarse");
+			btRegistrarseParticipante.setEnabled(false);
 			btRegistrarseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					registrarParticipante();
@@ -134,6 +139,12 @@ public class VentanaRegistro extends JFrame {
 	private JTextField getTxDniParticipante() {
 		if (txDniParticipante == null) {
 			txDniParticipante = new JTextField();
+			txDniParticipante.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCampos();
+				}
+			});
 			txDniParticipante.setBounds(214, 135, 286, 34);
 			txDniParticipante.setColumns(10);
 		}
@@ -142,6 +153,12 @@ public class VentanaRegistro extends JFrame {
 	private JTextField getTxNombreParticipante() {
 		if (txNombreParticipante == null) {
 			txNombreParticipante = new JTextField();
+			txNombreParticipante.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCampos();
+				}
+			});
 			txNombreParticipante.setColumns(10);
 			txNombreParticipante.setBounds(214, 179, 286, 34);
 		}
@@ -150,37 +167,27 @@ public class VentanaRegistro extends JFrame {
 	private JTextField getTxFechaNacimiento() {
 		if (txFechaNacimiento == null) {
 			txFechaNacimiento = new JTextField();
+			txFechaNacimiento.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCampos();
+				}
+			});
 			txFechaNacimiento.setBounds(214, 223, 286, 34);
 			txFechaNacimiento.setColumns(10);
 		}
 		return txFechaNacimiento;
 	}
-	private JComboBox getCbSexo() {
+	private JComboBox<String> getCbSexo() {
 		if (cbSexo == null) {
-			cbSexo = new JComboBox();
+			cbSexo = new JComboBox<String>();
 			cbSexo.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			cbSexo.setModel(new DefaultComboBoxModel(new String[] {"Hombre", "Mujer"}));
+			cbSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"Hombre", "Mujer"}));
 			cbSexo.setBounds(213, 267, 287, 31);
 		}
 		return cbSexo;
 	}
-	
-	
-	//Metodos adiccionales//////////////////////////////
-	
-	
-	private void mostrarVentanaOrganizador() {
-		CardLayout cl = (CardLayout)(pnCards.getLayout());
-	    cl.show(pnCards, "pnOrganizador");
-	}
-	private void mostrarVentanaParticipante() {
-		CardLayout cl = (CardLayout)(pnCards.getLayout());
-	    cl.show(pnCards, "pnParticipante");
-	}
-	
-	private void registrarOrganizador() {
-		mostrarVentanaLogin();
-	}
+
 	private JLabel getLbEmail() {
 		if (lbEmail == null) {
 			lbEmail = new JLabel("E-mail");
@@ -193,6 +200,12 @@ public class VentanaRegistro extends JFrame {
 	private JTextField getTxEmail() {
 		if (txEmail == null) {
 			txEmail = new JTextField();
+			txEmail.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCampos();
+				}
+			});
 			txEmail.setColumns(10);
 			txEmail.setBounds(214, 91, 286, 34);
 		}
@@ -201,6 +214,37 @@ public class VentanaRegistro extends JFrame {
 	
 	//Metodos adiccionales
 	
+	private void comprobarCampos() {
+		if (fechaValida() && campoNoVacio(getTxDniParticipante().getText())
+				&& campoNoVacio(getTxNombreParticipante().getText()) && campoNoVacio(getTxEmail().getText())) {
+			getBtRegistrarseParticipante().setEnabled(true);
+		} else {
+			getBtRegistrarseParticipante().setEnabled(false);
+		}
+	}
+
+	private boolean campoNoVacio(String campo) {
+		if (Validadores.comprobarNoVacio(campo)) {
+			return true;
+		}
+		return false;
+	}
+	
+	@SuppressWarnings("unused")
+	private boolean emailValido() {
+		if (Validadores.comprobarFecha(getTxEmail().getText())) {
+			return true;
+		}
+		return false;
+	}
+
+	private boolean fechaValida() {
+		if (Validadores.comprobarFecha(getTxFechaNacimiento().getText())) {
+			return true;
+		}
+		return false;
+	}
+
 	private void mostrarVentanaLogin() {
 		VentanaLogin v=new VentanaLogin();
 		v.setVisible(true);

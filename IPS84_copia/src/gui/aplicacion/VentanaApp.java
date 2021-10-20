@@ -30,6 +30,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import business.gui.GuiLogic;
+import gui.validadores.Validadores;
 
 public class VentanaApp extends JFrame {
 
@@ -103,6 +104,7 @@ public class VentanaApp extends JFrame {
 	private JTextField txFechaApertura;
 	private JLabel lbFechaCierre;
 	private JTextField txFechaCierre;
+
 	/**
 	 * Create the frame.
 	 */
@@ -117,15 +119,16 @@ public class VentanaApp extends JFrame {
 		pnPrincipal.setLayout(new CardLayout(0, 0));
 		pnPrincipal.add(getPnParticipante(), "pnParticipante");
 		pnPrincipal.add(getPnOrganizador(), "pnOrganizador");
-		switch(mode) {
+		switch (mode) {
 		case ADMIN:
 			mostrarPanelOrganizador();
+			getMnItCuentaParticipante().setEnabled(false);
 			break;
 		case PARTICIPANTE:
 			mostrarPanelParticipante();
 			getMnItCuentaOrganizador().setEnabled(false);
 			break;
-		}	
+		}
 
 	}
 
@@ -221,7 +224,7 @@ public class VentanaApp extends JFrame {
 			tablaCarrerasParticipante.setForeground(Color.BLACK);
 			tablaCarrerasParticipante.setBackground(Color.WHITE);
 			tablaCarrerasParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			tablaCarrerasParticipante.setRowHeight(25);	
+			tablaCarrerasParticipante.setRowHeight(25);
 			tablaCarrerasParticipante.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent event) {
 					getBtInscribirseParticipante().setEnabled(true);
@@ -954,6 +957,12 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxNombreCarrera() {
 		if (txNombreCarrera == null) {
 			txNombreCarrera = new JTextField();
+			txNombreCarrera.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCamposCarrera();
+				}
+			});
 			txNombreCarrera.setFont(new Font("Tahoma", Font.PLAIN, 12));
 			txNombreCarrera.setColumns(10);
 		}
@@ -963,6 +972,12 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxDistanciaCarrera() {
 		if (txDistanciaCarrera == null) {
 			txDistanciaCarrera = new JTextField();
+			txDistanciaCarrera.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCamposCarrera();
+				}
+			});
 			txDistanciaCarrera.setColumns(10);
 		}
 		return txDistanciaCarrera;
@@ -971,6 +986,12 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxPlazasCarrera() {
 		if (txPlazasCarrera == null) {
 			txPlazasCarrera = new JTextField();
+			txPlazasCarrera.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCamposCarrera();
+				}
+			});
 			txPlazasCarrera.setColumns(10);
 		}
 		return txPlazasCarrera;
@@ -979,6 +1000,12 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxCuotaCarrera() {
 		if (txCuotaCarrera == null) {
 			txCuotaCarrera = new JTextField();
+			txCuotaCarrera.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCamposCarrera();
+				}
+			});
 			txCuotaCarrera.setColumns(10);
 		}
 		return txCuotaCarrera;
@@ -996,6 +1023,7 @@ public class VentanaApp extends JFrame {
 	private JButton getBtCrearCarrera() {
 		if (btCrearCarrera == null) {
 			btCrearCarrera = new JButton("Crear carrera");
+			btCrearCarrera.setEnabled(false);
 			btCrearCarrera.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					crearCarrera();
@@ -1044,6 +1072,12 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaCarrera() {
 		if (txFechaCarrera == null) {
 			txFechaCarrera = new JTextField();
+			txFechaCarrera.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCamposCarrera();
+				}
+			});
 			txFechaCarrera.setColumns(10);
 		}
 		return txFechaCarrera;
@@ -1060,6 +1094,12 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaApertura() {
 		if (txFechaApertura == null) {
 			txFechaApertura = new JTextField();
+			txFechaApertura.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCamposCarrera();
+				}
+			});
 			txFechaApertura.setColumns(10);
 		}
 		return txFechaApertura;
@@ -1076,6 +1116,12 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaCierre() {
 		if (txFechaCierre == null) {
 			txFechaCierre = new JTextField();
+			txFechaCierre.addKeyListener(new KeyAdapter() {
+				@Override
+				public void keyReleased(KeyEvent e) {
+					comprobarCamposCarrera();
+				}
+			});
 			txFechaCierre.setColumns(10);
 		}
 		return txFechaCierre;
@@ -1156,14 +1202,41 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
+	private void comprobarCamposCarrera() {
+		if (Validadores.comprobarNoVacio(getTxNombreCarrera().getText())
+				&& Validadores.comprobarMayor0(getTxCuotaCarrera().getText())
+				&& Validadores.comprobarMayor0(getTxDistanciaCarrera().getText())
+				&& Validadores.comprobarMayor0(getTxPlazasCarrera().getText())
+				&& Validadores.comprobarFecha(getTxFechaApertura().getText())
+				&& Validadores.comprobarFecha(getTxFechaCarrera().getText())
+				&& Validadores.comprobarFecha(getTxFechaCierre().getText())) {
+			getBtCrearCarrera().setEnabled(true);
+		} else {
+			getBtCrearCarrera().setEnabled(false);
+		}
+
+	}
+
+	private void vaciarCamposCrearCarrera() {
+		getTxNombreCarrera().setText("");
+		getTxFechaCarrera().setText("");
+		getCbTipoCarrera().setSelectedIndex(0);
+		getTxDistanciaCarrera().setText("");
+		getTxCuotaCarrera().setText("");
+		getTxPlazasCarrera().setText("");
+		getTxFechaCierre().setText("");
+		getTxFechaApertura().setText("");
+	}
+
 	private void crearCarrera() {
 		GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
 				getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
 				getTxCuotaCarrera().getText(), getTxPlazasCarrera().getText(), getTxFechaCierre().getText(),
 				getTxFechaApertura().getText());
-		//vaciarCamposCrearCarrera();
+		vaciarCamposCrearCarrera();
 		mostrarPanelOrganizadorCarreras();
 	}
+
 	private void inscribirsePagar() {
 		VentanaPedirEmail v = new VentanaPedirEmail(getTxIdCarreraParticipante().getText().trim());
 		v.setVisible(true);
