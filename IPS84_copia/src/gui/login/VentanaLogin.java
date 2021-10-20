@@ -16,6 +16,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import gui.aplicacion.VentanaApp;
+
 public class VentanaLogin extends JFrame {
 
 	private JPanel contentPane;
@@ -24,9 +26,8 @@ public class VentanaLogin extends JFrame {
 	private JTextField txUsuario;
 	private JButton btLogin;
 	private JLabel lbDni;
-	private JLabel lbContrasena;
-	private JTextField txPassword;
 	private JButton btRegistro;
+	private JTextField txUsuarioValido;
 	/**
 	 * Create the frame.
 	 */
@@ -70,17 +71,13 @@ public class VentanaLogin extends JFrame {
 						.addContainerGap()
 						.addComponent(getLbDni(), GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
 						.addGap(142))
-					.addGroup(gl_pnLogin.createSequentialGroup()
+					.addGroup(Alignment.LEADING, gl_pnLogin.createSequentialGroup()
 						.addContainerGap()
-						.addComponent(getLbContrasena(), GroupLayout.DEFAULT_SIZE, 96, Short.MAX_VALUE)
-						.addGap(206))
-					.addGroup(gl_pnLogin.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_pnLogin.createParallelGroup(Alignment.TRAILING)
-							.addComponent(getBtLogin(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-							.addComponent(getTextField_2(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-							.addComponent(getTxUsuario(), GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-							.addComponent(getBtRegistro()))
+						.addGroup(gl_pnLogin.createParallelGroup(Alignment.LEADING)
+							.addComponent(getTxUsuarioValido(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+							.addComponent(getBtLogin(), GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+							.addComponent(getTxUsuario(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+							.addComponent(getBtRegistro(), Alignment.TRAILING))
 						.addGap(18))
 			);
 			gl_pnLogin.setVerticalGroup(
@@ -92,10 +89,8 @@ public class VentanaLogin extends JFrame {
 						.addComponent(getLbDni(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addComponent(getTxUsuario(), GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getLbContrasena(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getTextField_2(), GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
+						.addGap(64)
+						.addComponent(getTxUsuarioValido(), GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
 						.addGap(18)
 						.addComponent(getBtLogin(), GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
 						.addGap(18)
@@ -125,6 +120,11 @@ public class VentanaLogin extends JFrame {
 	private JButton getBtLogin() {
 		if (btLogin == null) {
 			btLogin = new JButton("Login");
+			btLogin.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					login();
+				}
+			});
 			btLogin.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 			btLogin.setBackground(new Color(187,225,248));
 			btLogin.setForeground(Color.BLACK);
@@ -138,21 +138,6 @@ public class VentanaLogin extends JFrame {
 			lbDni.setForeground(new Color(184, 220, 245));
 		}
 		return lbDni;
-	}
-	private JLabel getLbContrasena() {
-		if (lbContrasena == null) {
-			lbContrasena = new JLabel("Contrase\u00F1a");
-			lbContrasena.setForeground(new Color(184, 220, 245));
-			lbContrasena.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-		}
-		return lbContrasena;
-	}
-	private JTextField getTextField_2() {
-		if (txPassword == null) {
-			txPassword = new JTextField();
-			txPassword.setColumns(10);
-		}
-		return txPassword;
 	}
 	
 	
@@ -171,12 +156,38 @@ public class VentanaLogin extends JFrame {
 		}
 		return btRegistro;
 	}
+	private JTextField getTxUsuarioValido() {
+		if (txUsuarioValido == null) {
+			txUsuarioValido = new JTextField();
+			txUsuarioValido.setBackground(Color.BLACK);
+			txUsuarioValido.setFont(new Font("Tahoma", Font.PLAIN, 14));
+			txUsuarioValido.setHorizontalAlignment(SwingConstants.CENTER);
+			txUsuarioValido.setForeground(new Color(255, 0, 0));
+			txUsuarioValido.setEnabled(false);
+			txUsuarioValido.setEditable(false);
+			txUsuarioValido.setColumns(10);
+		}
+		return txUsuarioValido;
+	}
 	
 	//metodos 
 	
+	private void login() {
+		if(getTxUsuario().getText().equals("admin")) {
+			mostrarVentanaApp(0);
+		}else {
+			mostrarVentanaApp(1);
+		}
+	}
+	private void mostrarVentanaApp(int modo) {
+		VentanaApp v=new VentanaApp(modo);
+		v.setVisible(true);
+		dispose();
+	}
 	private void mostrarVentanaRegistro() {
 		VentanaRegistro v=new VentanaRegistro();
 		v.setVisible(true);
 		dispose();
 	}
+	
 }

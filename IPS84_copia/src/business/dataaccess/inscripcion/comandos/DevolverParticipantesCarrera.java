@@ -41,6 +41,5 @@ public class DevolverParticipantesCarrera {
 			throw new RuntimeException(e);
 		}
 		return t;
-		
 	}
 }
