@@ -35,7 +35,7 @@ public class CrearCarrera {
 						
 			id = UUID.randomUUID().toString();
 			ps.setString(1, carrera.nombre);
-			ps.setDate(2, new Date(System.currentTimeMillis()));
+			ps.setString(2, carrera.fecha.toString());
 			ps.setString(3, carrera.tipo.label);
 			ps.setDouble(4, carrera.distancia);
 			ps.setDouble(5, carrera.cuota);
@@ -43,7 +43,7 @@ public class CrearCarrera {
 			ps.setInt(7, carrera.plazasMaximas);
 			ps.setString(8, carrera.cierre.toString());
 			ps.setString(9, carrera.apertura.toString());
-			ps.setString(10, EstadoCarrera.NO_COMENZADA.toString());			
+			ps.setString(10, EstadoCarrera.NO_COMENZADA.label);			
 			
 			ps.close();
 			con.close();

@@ -8,7 +8,9 @@ import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
+import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
+import business.dataaccess.dto.infoadicional.Tipo;
 import business.dataaccess.util.Check;
 import business.dataaccess.util.DateSqlite;
 import gui.aplicacion.VentanaPedirEmail;
@@ -86,9 +88,19 @@ public class GuiLogic {
 	}
 
 	// TODO
-	public static void crearCarrera(String nombre,int distancia,String tipo,int plazas,int cuota,String fechaApertura,String fechaCierre) {
-		// String nombre=getTxNombreCarrera().getText();
-		// String tipo=getCbTipoCarrera();
+	public static void crearCarrera(String nombre, DateSqlite fecha, Tipo tipo, int distancia,int cuota, String carrera_id, int plazas, DateSqlite fechaCierre, DateSqlite fechaApertura, EstadoCarrera estado) {
+		DataAccessFactory.forCarreraService().crearCarrera(
+				DtoAssembler.forCarreraDto(
+						nombre
+						, fecha
+						, tipo
+						, distancia
+						, cuota
+						, carrera_id
+						, plazas
+						, fechaCierre
+						, fechaApertura
+						, estado));
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
