@@ -35,11 +35,12 @@ public class DevolverParticipantesCarrera {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCIONES_ATLETA);
 			ps.setString(1, id);
-			
+
 			ResultSet rs = ps.executeQuery();
-			if(rs.next()) {
-				t = DbUtils.resultSetToTableModel(rs);				
-			}
+			
+			t = DbUtils.resultSetToTableModel(rs);
+					
+			rs.close();
 			ps.close();
 			con.close();
 

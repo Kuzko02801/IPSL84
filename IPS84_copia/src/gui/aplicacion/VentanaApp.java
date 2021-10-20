@@ -1147,7 +1147,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorParticipantes() {
-		GuiLogic.cargarInscritosCarrera(txIdOrganizador, tablaCarrerasOrganizador);
+		GuiLogic.cargarInscritosCarrera(txIdOrganizador, tablaParticipantes);
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnParticipantesOrganizador");
 	}
@@ -1172,11 +1172,15 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarClasificaciones() {
-		if (cbClasificaciones.getSelectedIndex() == 0) {
+		switch (cbClasificaciones.getSelectedIndex()) {
+		case 0:
 			mostrarPanelOrganizadorClasificacionesAbsolutas();
-		} else if (cbClasificaciones.getSelectedIndex() == 1) {
+			break;
+		case 1:
 			mostrarPanelOrganizadorClasificacionesSexo();
+			break;
 		}
+		
 	}
 
 	public void comprobarIdCarreraValidaParticipante() {
