@@ -163,30 +163,7 @@ public class VentanaRegistro extends JFrame {
 		}
 		return cbSexo;
 	}
-	
-	
-	
-	
-	//Metodos adiccionales
-	
-	
-	private void mostrarVentanaOrganizador() {
-		CardLayout cl = (CardLayout)(pnCards.getLayout());
-	    cl.show(pnCards, "pnOrganizador");
-	}
-	private void mostrarVentanaParticipante() {
-		CardLayout cl = (CardLayout)(pnCards.getLayout());
-	    cl.show(pnCards, "pnParticipante");
-	}
-	private void mostrarVentanaLogin() {
-		VentanaLogin v=new VentanaLogin();
-		v.setVisible(true);
-		dispose();
-	}
-	private void registrarParticipante() {
-		mostrarVentanaLogin();
-	}
-	
+
 	private JLabel getLbEmail() {
 		if (lbEmail == null) {
 			lbEmail = new JLabel("E-mail");
@@ -204,4 +181,17 @@ public class VentanaRegistro extends JFrame {
 		}
 		return txEmail;
 	}
+	
+	//Metodos adiccionales
+	
+	private void mostrarVentanaLogin() {
+		VentanaLogin v=new VentanaLogin();
+		v.setVisible(true);
+		dispose();
+	}
+	private void registrarParticipante() {
+		
+		mostrarVentanaLogin();
+	}
+	
 }

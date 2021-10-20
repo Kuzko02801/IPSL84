@@ -9,9 +9,10 @@ import business.dataaccess.util.DateSqlite;
 
 public class DtoAssembler {
 
-	public static AtletaDto forAtletaDto(String email, String nombre, DateSqlite fechaDeNacimiento, Genero genero) {
+	public static AtletaDto forAtletaDto(String email,String dni, String nombre, DateSqlite fechaDeNacimiento, Genero genero) {
 		AtletaDto atleta = new AtletaDto();	
 		atleta.email = email;
+		atleta.dni=dni;
 		atleta.nombre = nombre;
 		atleta.fechaDeNacimiento = fechaDeNacimiento;
 		atleta.genero = genero;

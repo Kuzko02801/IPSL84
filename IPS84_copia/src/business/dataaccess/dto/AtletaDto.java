@@ -5,6 +5,7 @@ import business.dataaccess.util.DateSqlite;
 
 public class AtletaDto {	
 	public String email;
+	public String dni;
 	public String nombre;
 	public DateSqlite fechaDeNacimiento;
 	public Genero genero;
