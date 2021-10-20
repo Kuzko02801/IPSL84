@@ -27,9 +27,9 @@ public class AtletaInscripcion {
 
 	public AtletaInscripcion(AtletaDto atleta, CarreraDto carrera) {
 		this.atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
-		
+
 		this.carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
-		
+
 	}
 
 	public void inscribirAtleta() throws BusinessDataException {
@@ -37,29 +37,25 @@ public class AtletaInscripcion {
 		PreparedStatement ps = null;
 		try {
 
-			
 			// Check if the race exists.
 			if (!Check.atletaExists(atleta.email)) {
 				throw new BusinessDataException("Ningun atleta asociado con este email.");
 			}
-			System.out.println("El checkeo falla 1");
 
 			// Inscripcion abierta.
 			if (!inscripcionAbierta()) {
 				System.out.println("fuera del plazo");
 				throw new BusinessDataException("Estas fuera del plazo de inscripción.");
 			}
-			System.out.println("El checkeo falla 2");
 
 			// Checkeo de plazas.
 			if (!hayPlazasLibres())
 				throw new BusinessDataException("No hay plazas libres.");
-			
-			System.out.println("El checkeo falla 3");
+
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			System.out.println("El checkeo falla 4");
+
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
-			System.out.println("El checkeo falla 5");
+
 			ps.setString(1, atleta.email); // atleta.email
 			ps.setString(2, carrera.carrera_id);
 			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);
