@@ -31,6 +31,8 @@ public class VentanaRegistro extends JFrame {
 	private JTextField txNombreParticipante;
 	private JTextField txFechaNacimiento;
 	private JComboBox cbSexo;
+	private JLabel lbEmail;
+	private JTextField txEmail;
 
 	/**
 	 * Create the frame.
@@ -62,6 +64,8 @@ public class VentanaRegistro extends JFrame {
 			pnRegistroParticipante.add(getTxNombreParticipante());
 			pnRegistroParticipante.add(getTxFechaNacimiento());
 			pnRegistroParticipante.add(getCbSexo());
+			pnRegistroParticipante.add(getLbEmail());
+			pnRegistroParticipante.add(getTxEmail());
 		}
 		return pnRegistroParticipante;
 	}
@@ -95,7 +99,7 @@ public class VentanaRegistro extends JFrame {
 			lblDni = new JLabel("DNI");
 			lblDni.setForeground(new Color(184, 220, 245));
 			lblDni.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lblDni.setBounds(10, 68, 183, 34);
+			lblDni.setBounds(10, 135, 183, 34);
 		}
 		return lblDni;
 	}
@@ -104,7 +108,7 @@ public class VentanaRegistro extends JFrame {
 			lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
 			lblFechaDeNacimiento.setForeground(new Color(184, 220, 245));
 			lblFechaDeNacimiento.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lblFechaDeNacimiento.setBounds(10, 156, 183, 34);
+			lblFechaDeNacimiento.setBounds(10, 223, 183, 34);
 		}
 		return lblFechaDeNacimiento;
 	}
@@ -113,7 +117,7 @@ public class VentanaRegistro extends JFrame {
 			lblSexo = new JLabel("Sexo");
 			lblSexo.setForeground(new Color(184, 220, 245));
 			lblSexo.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lblSexo.setBounds(10, 200, 183, 34);
+			lblSexo.setBounds(10, 265, 183, 34);
 		}
 		return lblSexo;
 	}
@@ -122,14 +126,14 @@ public class VentanaRegistro extends JFrame {
 			lbNombreParticipante = new JLabel("Nombre y apellidos");
 			lbNombreParticipante.setForeground(new Color(184, 220, 245));
 			lbNombreParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lbNombreParticipante.setBounds(10, 112, 183, 34);
+			lbNombreParticipante.setBounds(10, 179, 183, 34);
 		}
 		return lbNombreParticipante;
 	}
 	private JTextField getTxDniParticipante() {
 		if (txDniParticipante == null) {
 			txDniParticipante = new JTextField();
-			txDniParticipante.setBounds(214, 68, 286, 34);
+			txDniParticipante.setBounds(214, 135, 286, 34);
 			txDniParticipante.setColumns(10);
 		}
 		return txDniParticipante;
@@ -138,14 +142,14 @@ public class VentanaRegistro extends JFrame {
 		if (txNombreParticipante == null) {
 			txNombreParticipante = new JTextField();
 			txNombreParticipante.setColumns(10);
-			txNombreParticipante.setBounds(214, 112, 286, 34);
+			txNombreParticipante.setBounds(214, 179, 286, 34);
 		}
 		return txNombreParticipante;
 	}
 	private JTextField getTxFechaNacimiento() {
 		if (txFechaNacimiento == null) {
 			txFechaNacimiento = new JTextField();
-			txFechaNacimiento.setBounds(214, 156, 286, 34);
+			txFechaNacimiento.setBounds(214, 223, 286, 34);
 			txFechaNacimiento.setColumns(10);
 		}
 		return txFechaNacimiento;
@@ -155,7 +159,7 @@ public class VentanaRegistro extends JFrame {
 			cbSexo = new JComboBox();
 			cbSexo.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 			cbSexo.setModel(new DefaultComboBoxModel(new String[] {"Hombre", "Mujer"}));
-			cbSexo.setBounds(213, 200, 287, 31);
+			cbSexo.setBounds(213, 267, 287, 31);
 		}
 		return cbSexo;
 	}
@@ -184,5 +188,22 @@ public class VentanaRegistro extends JFrame {
 	}
 	private void registrarOrganizador() {
 		mostrarVentanaLogin();
+	}
+	private JLabel getLbEmail() {
+		if (lbEmail == null) {
+			lbEmail = new JLabel("E-mail");
+			lbEmail.setForeground(new Color(184, 220, 245));
+			lbEmail.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+			lbEmail.setBounds(10, 91, 183, 34);
+		}
+		return lbEmail;
+	}
+	private JTextField getTxEmail() {
+		if (txEmail == null) {
+			txEmail = new JTextField();
+			txEmail.setColumns(10);
+			txEmail.setBounds(214, 91, 286, 34);
+		}
+		return txEmail;
 	}
 }

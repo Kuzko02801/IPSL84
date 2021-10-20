@@ -25,7 +25,7 @@ public class VentanaLogin extends JFrame {
 	private JLabel lbBienvenido;
 	private JTextField txUsuario;
 	private JButton btLogin;
-	private JLabel lbDni;
+	private JLabel lbEmail;
 	private JButton btRegistro;
 	private JTextField txUsuarioValido;
 	/**
@@ -69,7 +69,7 @@ public class VentanaLogin extends JFrame {
 						.addGap(109))
 					.addGroup(gl_pnLogin.createSequentialGroup()
 						.addContainerGap()
-						.addComponent(getLbDni(), GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+						.addComponent(getLbEmail(), GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
 						.addGap(142))
 					.addGroup(Alignment.LEADING, gl_pnLogin.createSequentialGroup()
 						.addContainerGap()
@@ -86,7 +86,7 @@ public class VentanaLogin extends JFrame {
 						.addContainerGap()
 						.addComponent(getLbBienvenido(), GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
 						.addGap(18)
-						.addComponent(getLbDni(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+						.addComponent(getLbEmail(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
 						.addPreferredGap(ComponentPlacement.UNRELATED)
 						.addComponent(getTxUsuario(), GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
 						.addGap(64)
@@ -131,13 +131,13 @@ public class VentanaLogin extends JFrame {
 		}
 		return btLogin;
 	}
-	private JLabel getLbDni() {
-		if (lbDni == null) {
-			lbDni = new JLabel("DNI");
-			lbDni.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lbDni.setForeground(new Color(184, 220, 245));
+	private JLabel getLbEmail() {
+		if (lbEmail == null) {
+			lbEmail = new JLabel("E-mail");
+			lbEmail.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+			lbEmail.setForeground(new Color(184, 220, 245));
 		}
-		return lbDni;
+		return lbEmail;
 	}
 	
 	
