@@ -27,7 +27,7 @@ public class Validadores {
 		return true;
 	}
 
-	final static String DATE_FORMAT = "dd-MM-yyyy";
+	final static String DATE_FORMAT = "dd/MM/yyyy";
 
 	public static boolean comprobarFecha(String fecha) {
 		try {
