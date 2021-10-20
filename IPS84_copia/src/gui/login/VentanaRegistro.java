@@ -186,9 +186,7 @@ public class VentanaRegistro extends JFrame {
 	private void registrarParticipante() {
 		mostrarVentanaLogin();
 	}
-	private void registrarOrganizador() {
-		mostrarVentanaLogin();
-	}
+	
 	private JLabel getLbEmail() {
 		if (lbEmail == null) {
 			lbEmail = new JLabel("E-mail");
