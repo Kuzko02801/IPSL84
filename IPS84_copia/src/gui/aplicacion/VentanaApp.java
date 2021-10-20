@@ -1043,7 +1043,6 @@ public class VentanaApp extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelOrganizadorCrearCarrera();
 				}
-
 			});
 			btCrearCarreraOrganizador.setForeground(new Color(184, 220, 245));
 			btCrearCarreraOrganizador.setBackground(new Color(50, 130, 181));
