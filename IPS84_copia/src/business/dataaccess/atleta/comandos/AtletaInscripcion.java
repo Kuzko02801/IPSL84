@@ -34,19 +34,16 @@ public class AtletaInscripcion {
 		
 		PreparedStatement ps = null;		
 		try {
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			
 			//atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
 			// Check if the race exists.			
+			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
+			
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			
 			if(!Check.atletaExists(con, atleta.email)) {
 				throw new BusinessDataException("Ningun atleta asociado con este email.");
 			}
-			
-			if (!Check.raceExists(con, carrera.carrera_id))
-				throw new BusinessDataException("La carrera no existe.");
-			
-			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
-			
 			// Inscripcion abierta.
 			if(!inscripcionAbierta())
 				throw new BusinessDataException("Estas fuera del plazo de inscripción.");
@@ -66,6 +63,7 @@ public class AtletaInscripcion {
 
 			ps.close();
 			con.close();
+			
 
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
@@ -111,6 +109,7 @@ public class AtletaInscripcion {
 		} finally {
 			rs.close();
 			ps.close();
+			
 		}
 		return false;
 	}

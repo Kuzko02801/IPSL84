@@ -132,6 +132,7 @@ public class VentanaApp extends JFrame {
 			getMnItCuentaOrganizador().setEnabled(false);
 
 		}
+
 	}
 
 	private JPanel getPnParticipante() {
@@ -1141,7 +1142,6 @@ public class VentanaApp extends JFrame {
 	}
 
 	public void comprobarIdCarreraValidaParticipante() {
-		System.out.println("prueba");
 		if (GuiLogic.comprobarIdValidaCarrera(txIdCarreraParticipante)) {
 			getTxIdCarreraValidaParticipante().setText("ID válida");
 			getBtInscribirseParticipante().setEnabled(true);

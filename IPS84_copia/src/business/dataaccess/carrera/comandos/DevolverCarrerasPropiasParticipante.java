@@ -31,7 +31,7 @@ public class DevolverCarrerasPropiasParticipante {
 
 			ps.close();
 			con.close();
-
+			rs.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}

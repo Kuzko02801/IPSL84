@@ -43,6 +43,7 @@ public class AtletaAdd {
 
 			ps.close();
 			con.close();
+			
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

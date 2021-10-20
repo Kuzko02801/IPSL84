@@ -13,7 +13,7 @@ public enum Genero {
 		if(aux==null) {
 			return DEFAULT;
 		}
-		switch(aux) {
+		switch(aux.toLowerCase().trim()) {
 		case "hombre":
 			return HOMBRE;
 		case "mujer":

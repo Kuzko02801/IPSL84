@@ -23,6 +23,11 @@ public class EncontrarCarrera {
 	}
 	
 	public CarreraDto encontrarCarrera() {
+		try {
+			DriverManager.registerDriver(new org.sqlite.JDBC());
+		} catch (SQLException e1) {
+			System.out.println("Ha fallado el register del driver");
+		}
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;

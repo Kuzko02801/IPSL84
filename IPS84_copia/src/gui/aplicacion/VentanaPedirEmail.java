@@ -132,6 +132,7 @@ public class VentanaPedirEmail extends JDialog {
 	}
 	private void inscribirAtleta() {
 		try {
+		
 			GuiLogic.inscribirAtletaCarrera(id_carrera, atleta);
 			vpt.setVisible(true);						
 		} catch (BusinessDataException e1) {
