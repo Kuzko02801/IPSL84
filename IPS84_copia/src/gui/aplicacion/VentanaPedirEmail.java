@@ -14,6 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import business.dataaccess.BusinessDataException;
+import business.dataaccess.dto.AtletaDto;
 import business.gui.GuiLogic;
 
 public class VentanaPedirEmail extends JDialog {
@@ -29,30 +30,15 @@ public class VentanaPedirEmail extends JDialog {
 	private JLabel lblEmail;
 	private JLabel lblNewLabel;
 	private JLabel lblWarning;
-	private String id_carrera;
 	private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					VentanaPedirEmail dialog = new VentanaPedirEmail("A1");
-					dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
-					dialog.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
-
+	private String id_carrera;
+	private AtletaDto atleta;
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaPedirEmail(String id_carrera) {
+	public VentanaPedirEmail(String id_carrera,AtletaDto atleta) {
 		this.id_carrera = id_carrera;
+		this.atleta=atleta;
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().add(getPnText(), BorderLayout.CENTER);
@@ -92,13 +78,8 @@ public class VentanaPedirEmail extends JDialog {
 			btnInscribir = new JButton("Inscribirse");
 			btnInscribir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					try {
-						GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
-						vpt.setVisible(true);						
-					} catch (BusinessDataException e1) {
-						getLblWarning().setText(e1.getMessage());
-						getLblWarning().setEnabled(true);
-					}
+					inscribirAtleta();
+					
 				}
 			});
 		}
@@ -148,5 +129,14 @@ public class VentanaPedirEmail extends JDialog {
 			lblWarning.setEnabled(false);
 		}
 		return lblWarning;
+	}
+	private void inscribirAtleta() {
+		try {
+			GuiLogic.inscribirAtletaCarrera(id_carrera, atleta);
+			vpt.setVisible(true);						
+		} catch (BusinessDataException e1) {
+			getLblWarning().setText(e1.getMessage());
+			getLblWarning().setEnabled(true);
+		}
 	}
 }

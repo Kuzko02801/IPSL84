@@ -37,15 +37,15 @@ public class EncontrarCarrera {
 			while(rs.next()) {
 				carrera = DtoAssembler.forCarreraDto(
 						rs.getString(1)
-						, new DateSqlite(rs.getString(2))
-						, Tipo.tipoParser(rs.getString(3)) // Arreglar la seleccion del tipo
-						, rs.getDouble(4)
-						, rs.getDouble(5)
+						, rs.getString(2)
+						, rs.getString(3) // Arreglar la seleccion del tipo
+						, rs.getString(4)
+						, rs.getString(5)
 						, id
-						, rs.getInt(7)
-						, new DateSqlite(rs.getString(8))
-						, new DateSqlite(rs.getString(9))
-						, EstadoCarrera.estadoParser(rs.getString(10))); // Arreglar la seleccion del estado.
+						, rs.getString(7)
+						, rs.getString(8)
+						, rs.getString(9)
+						, rs.getString(10)); // Arreglar la seleccion del estado.
 			}
 			rs.close();
 			ps.close();

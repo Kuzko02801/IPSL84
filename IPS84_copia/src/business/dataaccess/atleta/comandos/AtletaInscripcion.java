@@ -35,7 +35,7 @@ public class AtletaInscripcion {
 		PreparedStatement ps = null;		
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
+			//atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
 			// Check if the race exists.			
 			
 			if(!Check.atletaExists(con, atleta.email)) {

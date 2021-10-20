@@ -65,7 +65,7 @@ public class GuiLogic {
 	public static void cargarClasificacionesFemeninas(JTextField txIdOrganizador, JTable tablaClasificacionesMujer) {
 		String idCarrera = txIdOrganizador.getText();
 		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionFemenina(idCarrera);
-		tablaClasificacionesMujer.setModel(tm);
+		tablaClasificacionesMujer.setModel(tm);	
 	}
 
 	public static boolean comprobarIdValidaCarrera(JTextField txIdCarreraParticipante) {
@@ -78,7 +78,7 @@ public class GuiLogic {
 			e.printStackTrace();
 		}
 	}
-	public static void crearCarrera(String nombre, DateSqlite fecha, Tipo tipo, int distancia,int cuota, String carrera_id, int plazas, DateSqlite fechaCierre, DateSqlite fechaApertura, EstadoCarrera estado) {
+	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia,String cuota,String plazas,String fechaCierre, String fechaApertura ) {
 		DataAccessFactory.forCarreraService().crearCarrera(
 				DtoAssembler.forCarreraDto(
 						nombre
@@ -86,16 +86,19 @@ public class GuiLogic {
 						, tipo
 						, distancia
 						, cuota
-						, carrera_id
+						,null
 						, plazas
 						, fechaCierre
 						, fechaApertura
-						, estado));
+						,null));
 	}
 
-	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
-		DataAccessFactory.forAtletaService().inscribirAtleta(DtoAssembler.forAtletaDto(email, null, null, null, null),
-				DtoAssembler.forCarreraDto(null, null, null, 0, 0, id, 0, null, null, null));
+	public static void inscribirAtletaCarrera(String id, AtletaDto atleta) throws BusinessDataException {
+		DataAccessFactory.forAtletaService().inscribirAtleta(atleta,
+				DtoAssembler.forCarreraDto(null, null, null, "0", "0", id, "0", null, null, null));
+	}
+	public static AtletaDto devuelveAtleta(String email) {
+		return DataAccessFactory.forAtletaService().encontrarAtleta(email);
 	}
 	public static boolean existeUsuario(String email) {
 		try {
@@ -104,15 +107,6 @@ public class GuiLogic {
 			e.printStackTrace();
 		}
 		return false;
-	}
-
-	public static void inscribirsePagar(String id) {
-		// comprobar si es una inscripcion o un pago
-		// inscripcion
-		VentanaPedirEmail v = new VentanaPedirEmail(id);
-		v.setVisible(true);
-
-		// pago
 	}
 
 }

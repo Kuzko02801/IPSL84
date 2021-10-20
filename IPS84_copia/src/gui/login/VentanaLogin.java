@@ -16,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import business.dataaccess.dto.AtletaDto;
 import business.gui.GuiLogic;
 import gui.aplicacion.VentanaApp;
 
@@ -29,6 +30,7 @@ public class VentanaLogin extends JFrame {
 	private JLabel lbEmail;
 	private JButton btRegistro;
 	private JTextField txUsuarioValido;
+
 	/**
 	 * Create the frame.
 	 */
@@ -41,67 +43,51 @@ public class VentanaLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		GroupLayout gl_contentPane = new GroupLayout(contentPane);
-		gl_contentPane.setHorizontalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addGap(129)
-					.addComponent(getPnLogin(), GroupLayout.PREFERRED_SIZE, 301, Short.MAX_VALUE)
-					.addGap(146))
-		);
-		gl_contentPane.setVerticalGroup(
-			gl_contentPane.createParallelGroup(Alignment.LEADING)
-				.addGroup(gl_contentPane.createSequentialGroup()
-					.addContainerGap()
-					.addComponent(getPnLogin(), GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE)
-					.addContainerGap())
-		);
+		gl_contentPane.setHorizontalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addGap(129)
+						.addComponent(getPnLogin(), GroupLayout.PREFERRED_SIZE, 301, Short.MAX_VALUE).addGap(146)));
+		gl_contentPane.setVerticalGroup(gl_contentPane.createParallelGroup(Alignment.LEADING)
+				.addGroup(gl_contentPane.createSequentialGroup().addContainerGap()
+						.addComponent(getPnLogin(), GroupLayout.DEFAULT_SIZE, 333, Short.MAX_VALUE).addContainerGap()));
 		contentPane.setLayout(gl_contentPane);
 	}
+
 	private JPanel getPnLogin() {
 		if (pnLogin == null) {
 			pnLogin = new JPanel();
 			pnLogin.setBackground(new Color(50, 130, 181));
 			GroupLayout gl_pnLogin = new GroupLayout(pnLogin);
-			gl_pnLogin.setHorizontalGroup(
-				gl_pnLogin.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnLogin.createSequentialGroup()
-						.addGap(101)
-						.addComponent(getLbBienvenido(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addGap(109))
-					.addGroup(gl_pnLogin.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(getLbEmail(), GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-						.addGap(142))
-					.addGroup(Alignment.LEADING, gl_pnLogin.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_pnLogin.createParallelGroup(Alignment.LEADING)
-							.addComponent(getTxUsuarioValido(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-							.addComponent(getBtLogin(), GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-							.addComponent(getTxUsuario(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
-							.addComponent(getBtRegistro(), Alignment.TRAILING))
-						.addGap(18))
-			);
-			gl_pnLogin.setVerticalGroup(
-				gl_pnLogin.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnLogin.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(getLbBienvenido(), GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE)
-						.addGap(18)
-						.addComponent(getLbEmail(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getTxUsuario(), GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE)
-						.addGap(64)
-						.addComponent(getTxUsuarioValido(), GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addComponent(getBtLogin(), GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE)
-						.addGap(18)
-						.addComponent(getBtRegistro(), GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap())
-			);
+			gl_pnLogin.setHorizontalGroup(gl_pnLogin.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnLogin.createSequentialGroup().addGap(101)
+							.addComponent(getLbBienvenido(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+									Short.MAX_VALUE)
+							.addGap(109))
+					.addGroup(gl_pnLogin.createSequentialGroup().addContainerGap()
+							.addComponent(getLbEmail(), GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE).addGap(142))
+					.addGroup(Alignment.LEADING, gl_pnLogin.createSequentialGroup().addContainerGap()
+							.addGroup(gl_pnLogin.createParallelGroup(Alignment.LEADING)
+									.addComponent(getTxUsuarioValido(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE,
+											284, Short.MAX_VALUE)
+									.addComponent(getBtLogin(), GroupLayout.DEFAULT_SIZE, 284, Short.MAX_VALUE)
+									.addComponent(getTxUsuario(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 284,
+											Short.MAX_VALUE)
+									.addComponent(getBtRegistro(), Alignment.TRAILING))
+							.addGap(18)));
+			gl_pnLogin.setVerticalGroup(gl_pnLogin.createParallelGroup(Alignment.LEADING).addGroup(gl_pnLogin
+					.createSequentialGroup().addContainerGap()
+					.addComponent(getLbBienvenido(), GroupLayout.DEFAULT_SIZE, 26, Short.MAX_VALUE).addGap(18)
+					.addComponent(getLbEmail(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(getTxUsuario(), GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE).addGap(64)
+					.addComponent(getTxUsuarioValido(), GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+					.addGap(18).addComponent(getBtLogin(), GroupLayout.DEFAULT_SIZE, 31, Short.MAX_VALUE).addGap(18)
+					.addComponent(getBtRegistro(), GroupLayout.PREFERRED_SIZE, 28, GroupLayout.PREFERRED_SIZE)
+					.addContainerGap()));
 			pnLogin.setLayout(gl_pnLogin);
 		}
 		return pnLogin;
 	}
+
 	private JLabel getLbBienvenido() {
 		if (lbBienvenido == null) {
 			lbBienvenido = new JLabel("Bienvenido");
@@ -111,6 +97,7 @@ public class VentanaLogin extends JFrame {
 		}
 		return lbBienvenido;
 	}
+
 	private JTextField getTxUsuario() {
 		if (txUsuario == null) {
 			txUsuario = new JTextField();
@@ -118,6 +105,7 @@ public class VentanaLogin extends JFrame {
 		}
 		return txUsuario;
 	}
+
 	private JButton getBtLogin() {
 		if (btLogin == null) {
 			btLogin = new JButton("Login");
@@ -127,11 +115,12 @@ public class VentanaLogin extends JFrame {
 				}
 			});
 			btLogin.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			btLogin.setBackground(new Color(187,225,248));
+			btLogin.setBackground(new Color(187, 225, 248));
 			btLogin.setForeground(Color.BLACK);
 		}
 		return btLogin;
 	}
+
 	private JLabel getLbEmail() {
 		if (lbEmail == null) {
 			lbEmail = new JLabel("E-mail");
@@ -140,9 +129,7 @@ public class VentanaLogin extends JFrame {
 		}
 		return lbEmail;
 	}
-	
-	
-	
+
 	private JButton getBtRegistro() {
 		if (btRegistro == null) {
 			btRegistro = new JButton("\u00BFNo tienes cuenta? Reg\u00EDstrate");
@@ -151,12 +138,13 @@ public class VentanaLogin extends JFrame {
 					mostrarVentanaRegistro();
 				}
 			});
-			btRegistro.setForeground(new Color(184,220,245));
+			btRegistro.setForeground(new Color(184, 220, 245));
 			btRegistro.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btRegistro.setBackground(new Color(50, 130, 181));
 		}
 		return btRegistro;
 	}
+
 	private JTextField getTxUsuarioValido() {
 		if (txUsuarioValido == null) {
 			txUsuarioValido = new JTextField();
@@ -170,27 +158,31 @@ public class VentanaLogin extends JFrame {
 		}
 		return txUsuarioValido;
 	}
-	
-	//metodos 
-	
+
+	// metodos
+
 	private void login() {
-		if(getTxUsuario().getText().equals("admin")) {
-			mostrarVentanaApp(0);
-		}else if(GuiLogic.existeUsuario(getTxUsuario().getText())) {
-			mostrarVentanaApp(1);
-		}else {
+		if (getTxUsuario().getText().equals("admin")) {
+			AtletaDto atleta = null;
+			mostrarVentanaApp(atleta);
+		} else if (GuiLogic.existeUsuario(getTxUsuario().getText())) {
+			AtletaDto atleta = GuiLogic.devuelveAtleta(getTxUsuario().getText());
+			mostrarVentanaApp(atleta);
+		} else {
 			getTxUsuarioValido().setText("Usuario no válido");
 		}
 	}
-	private void mostrarVentanaApp(int modo) {
-		VentanaApp v=new VentanaApp(modo);
+
+	private void mostrarVentanaApp(AtletaDto atleta) {
+		VentanaApp v = new VentanaApp(atleta);
 		v.setVisible(true);
 		dispose();
 	}
+
 	private void mostrarVentanaRegistro() {
-		VentanaRegistro v=new VentanaRegistro();
+		VentanaRegistro v = new VentanaRegistro();
 		v.setVisible(true);
 		dispose();
 	}
-	
+
 }

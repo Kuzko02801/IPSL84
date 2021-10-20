@@ -1,7 +1,7 @@
 package business.dataaccess.dto.infoadicional;
 
 public enum Genero {
-	HOMBRE("hombre"), MUJER("mujer"),NOBINARIO("no_binario");
+	HOMBRE("hombre"), MUJER("mujer"),NOBINARIO("no_binario"),DEFAULT("default");
 	
 	public final String label;
 
@@ -10,6 +10,9 @@ public enum Genero {
 	}
 	
 	public static Genero generoParser(String aux) {
+		if(aux==null) {
+			return DEFAULT;
+		}
 		switch(aux) {
 		case "hombre":
 			return HOMBRE;

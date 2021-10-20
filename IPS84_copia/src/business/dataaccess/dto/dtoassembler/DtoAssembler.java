@@ -21,25 +21,26 @@ public class DtoAssembler {
 	
 	public static CarreraDto forCarreraDto(
 			String nombre,
-			DateSqlite fecha,
-			Tipo tipo,
-			double distancia,
-			double cuota,
+			String fecha,
+			String tipo,
+			String distancia,
+			String cuota,
 			String carrera_id,
-			int plazasMaximas,
-			DateSqlite cierre,
-			DateSqlite apertura,
-			EstadoCarrera estado) {
+			String plazasMaximas,
+			String cierre,
+			String apertura,
+			String estado) {
 		CarreraDto carrera = new CarreraDto();
 		carrera.nombre = nombre;
-		carrera.fecha = fecha;
-		carrera.tipo = tipo;
-		carrera.distancia = distancia;
-		carrera.cuota = cuota;
+		carrera.fecha = new DateSqlite(fecha);
+		carrera.tipo = Tipo.tipoParser(tipo);
+		carrera.distancia = Double.parseDouble(distancia);
+		carrera.cuota = Double.parseDouble(cuota);
+		carrera.apertura = new DateSqlite(apertura);
+		carrera.cierre = new DateSqlite(cierre);
 		carrera.carrera_id = carrera_id;
-		carrera.plazasMaximas = plazasMaximas;
-		carrera.cierre = cierre;
-		carrera.apertura = apertura;
+		carrera.plazasMaximas = Integer.parseInt(plazasMaximas);
+		carrera.estado=EstadoCarrera.estadoParser(estado);
 		return carrera;
 	}
 }

@@ -1,7 +1,7 @@
 package business.dataaccess.dto.infoadicional;
 
 public enum EstadoCarrera {
-	FINALIZADA("finalizada"), EN_PROGRESO("en_progreso"), NO_COMENZADA("no_comenzada");
+	FINALIZADA("finalizada"), EN_PROGRESO("en_progreso"), NO_COMENZADA("no_comenzada"),DEFAULT("default");
 	
 public final String label;
 	
@@ -10,6 +10,9 @@ public final String label;
 	}
 	
 	public static EstadoCarrera estadoParser(String aux) {
+		if(aux==null) {
+			return DEFAULT;
+		}
 		switch(aux) {
 		case "finalizada":
 			return FINALIZADA;

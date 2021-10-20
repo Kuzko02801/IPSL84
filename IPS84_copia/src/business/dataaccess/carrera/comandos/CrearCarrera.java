@@ -33,7 +33,7 @@ public class CrearCarrera {
 			
 			ps = con.prepareStatement(SqlStatements.SQL_INSERT_CARRERA);
 						
-			id = UUID.randomUUID().toString();
+			id = UUID.randomUUID().toString().substring(0, 6);
 			ps.setString(1, carrera.nombre);
 			ps.setString(2, carrera.fecha.toString());
 			ps.setString(3, carrera.tipo.label);
@@ -44,6 +44,7 @@ public class CrearCarrera {
 			ps.setString(8, carrera.cierre.toString());
 			ps.setString(9, carrera.apertura.toString());
 			ps.setString(10, EstadoCarrera.NO_COMENZADA.label);			
+			ps.execute();
 			
 			ps.close();
 			con.close();
