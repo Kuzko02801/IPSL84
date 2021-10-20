@@ -21,4 +21,10 @@ public class AtletaServiceImpl implements AtletaService{
 		new AtletaAdd(atleta).atletaAdd();
 		
 	}
+
+	@Override
+	public boolean existeAtleta(String email) throws BusinessDataException {
+		return new ExisteAtleta(email).existeAtleta();
+		
+	}
 }

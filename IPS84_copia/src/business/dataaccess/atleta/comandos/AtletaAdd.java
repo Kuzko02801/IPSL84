@@ -15,7 +15,7 @@ import business.dataaccess.util.Check;
 public class AtletaAdd {
 
 	private AtletaDto atleta;
-	private Connection c;
+	
 	
 	public AtletaAdd(AtletaDto atleta) {
 		this.atleta = atleta;
@@ -23,28 +23,36 @@ public class AtletaAdd {
 	
 	public void atletaAdd() throws BusinessDataException {
 		PreparedStatement ps = null;		
+		Connection con=null;
 		try {
-			c = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			DriverManager.registerDriver(new org.sqlite.JDBC());
+		} catch (SQLException e1) {
+			System.out.println("Ha fallado el register del driver");
+		}
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
 			// Check if the race exists.			
 			
-			if(!Check.atletaExists(c, atleta.email)) {
+			if(new ExisteAtleta(atleta.email).existeAtleta()) {
 				throw new BusinessDataException("Ya hay un atleta con este e-mail.");
 			}				
 			
-			ps = c.prepareStatement(SqlStatements.SQL_ADD_ATLETA);
-			
+			ps = con.prepareStatement(SqlStatements.SQL_ADD_ATLETA);
 			ps.setString(1, atleta.email);
-			ps.setString(2, atleta.nombre);
-			ps.setString(3, atleta.fechaDeNacimiento.toString());								
-			ps.setString(4, atleta.genero.label);		
+			ps.setString(2, atleta.dni);
+			ps.setString(3, atleta.nombre);
+			System.out.println(atleta.fechaDeNacimiento.toString());
+			System.out.println(atleta.fechaDeNacimiento);
 
+			ps.setString(4, atleta.fechaDeNacimiento.toString());								
+			ps.setString(5, atleta.genero.label);		
 			ps.executeUpdate();
-
+			
 			ps.close();			
-
+			con.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			e.printStackTrace();
 		}
 	}
 }

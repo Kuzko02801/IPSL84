@@ -38,8 +38,8 @@ public class EncontrarAtleta {
 						rs.getString(1)
 						, rs.getString(2)
 						, rs.getString(3)						
-						, new DateSqlite(rs.getString(4))
-						, Genero.generoParser(rs.getString(5))
+						, rs.getString(4)
+						, rs.getString(5)
 						); // Arreglar la seleccion del estado.
 			}
 			rs.close();

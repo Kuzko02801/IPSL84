@@ -71,23 +71,13 @@ public class GuiLogic {
 	public static boolean comprobarIdValidaCarrera(JTextField txIdCarreraParticipante) {
 		return Check.raceExists2(txIdCarreraParticipante.getText());
 	}
-	public static void registrarAtleta(String email,String dni,String nombre,String fechaNacimiento,String sexo) throws BusinessDataException {
-		DataAccessFactory.forAtletaService().atletaAdd(DtoAssembler.forAtletaDto(email,dni,nombre,new DateSqlite(fechaNacimiento),Genero.generoParser(sexo)));
+	public static void registrarAtleta(String email,String dni,String nombre,String fechaNacimiento,String sexo) {
+		try {
+			DataAccessFactory.forAtletaService().atletaAdd(DtoAssembler.forAtletaDto(email,dni,nombre,fechaNacimiento,sexo));
+		} catch (BusinessDataException e) {
+			e.printStackTrace();
+		}
 	}
-
-
-	public static void comprobarIdValidaParticipante() {
-//		if (idValida(getTxIdCarreraParticipante().getText())) {
-//			getTxIdCarreraValidaParticipante().setText("Válida");
-//			getBtInscribirseParticipante().setEnabled(true);
-//		} else {
-//			getTxIdCarreraValidaParticipante().setText("No es valida");
-//			getBtInscribirseParticipante().setEnabled(false);
-//		}
-		return;
-	}
-
-	// TODO
 	public static void crearCarrera(String nombre, DateSqlite fecha, Tipo tipo, int distancia,int cuota, String carrera_id, int plazas, DateSqlite fechaCierre, DateSqlite fechaApertura, EstadoCarrera estado) {
 		DataAccessFactory.forCarreraService().crearCarrera(
 				DtoAssembler.forCarreraDto(
@@ -104,9 +94,16 @@ public class GuiLogic {
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
-
 		DataAccessFactory.forAtletaService().inscribirAtleta(DtoAssembler.forAtletaDto(email, null, null, null, null),
 				DtoAssembler.forCarreraDto(null, null, null, 0, 0, id, 0, null, null, null));
+	}
+	public static boolean existeUsuario(String email) {
+		try {
+			return DataAccessFactory.forAtletaService().existeAtleta(email);
+		} catch (BusinessDataException e) {
+			e.printStackTrace();
+		}
+		return false;
 	}
 
 	public static void inscribirsePagar(String id) {

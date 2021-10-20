@@ -17,6 +17,8 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import business.gui.GuiLogic;
+
 public class VentanaRegistro extends JFrame {
 
 	private JPanel pnCards;
@@ -206,7 +208,7 @@ public class VentanaRegistro extends JFrame {
 		dispose();
 	}
 	private void registrarParticipante() {
-		
+		GuiLogic.registrarAtleta(getTxEmail().getText(), getTxDniParticipante().getText(), getTxNombreParticipante().getText(), getTxFechaNacimiento().getText(),getCbSexo().getSelectedItem().toString());
 		mostrarVentanaLogin();
 	}
 	

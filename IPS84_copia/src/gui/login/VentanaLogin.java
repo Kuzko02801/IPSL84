@@ -16,6 +16,7 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import business.gui.GuiLogic;
 import gui.aplicacion.VentanaApp;
 
 public class VentanaLogin extends JFrame {
@@ -175,8 +176,10 @@ public class VentanaLogin extends JFrame {
 	private void login() {
 		if(getTxUsuario().getText().equals("admin")) {
 			mostrarVentanaApp(0);
-		}else {
+		}else if(GuiLogic.existeUsuario(getTxUsuario().getText())) {
 			mostrarVentanaApp(1);
+		}else {
+			getTxUsuarioValido().setText("Usuario no válido");
 		}
 	}
 	private void mostrarVentanaApp(int modo) {

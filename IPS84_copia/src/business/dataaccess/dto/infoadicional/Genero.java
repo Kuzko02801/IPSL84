@@ -1,7 +1,7 @@
 package business.dataaccess.dto.infoadicional;
 
 public enum Genero {
-	HOMBRE("hombre"), MUJER("mujer");
+	HOMBRE("hombre"), MUJER("mujer"),NOBINARIO("no_binario");
 	
 	public final String label;
 
@@ -15,7 +15,8 @@ public enum Genero {
 			return HOMBRE;
 		case "mujer":
 			return MUJER;
+		default:
+			return NOBINARIO;
 		}
-		return null;
 	}
 }
