@@ -10,9 +10,8 @@ public class SqlStatements {
 	public static final String SQL_CARRERA_ABIERTA = "select id, nombre, fecha, tipo, distancia, cuota, cierre from Carrera where estado = 'no_comenzada'"; // Devuelve carreras fechas de inscripcion abierta
 	public static final String SQL_INSCRIPCIONES_ATLETA = "select at.dni, at.nombre, ins.categoria, ins.fecha_inscripcion, ins.estado " // Devuelve datos de inscripcion de atletas.
 														+ "from Atleta at, Inscripcion ins "
-														+ "where ins.id_carrera = ? "
-														+ "and ins.email_atleta = at.email"
-														+ "order by fecha_inscripcion asc, estado asc";
+														+ "where ins.id_carrera = ? and ins.email_atleta = at.email";
+														
 	public static final String SQL_SELECT_TODAS_CARRERAS = "select * from carreras";
 	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, cuota, id, plazas_maximas, cierre, apertura, estado) "
 												  + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
@@ -20,7 +19,8 @@ public class SqlStatements {
 			" FROM carrera, inscripcion, atleta " + 
 			" WHERE carrera.id = ? " + 
 			" AND carrera.id = inscripcion.id_carrera" + 
-			" AND atleta.email = inscripcion.email_atleta";
+			" AND atleta.email = inscripcion.email_atleta"
+			+ "AND carrera.estado = 'finalizado'";
 	public static final String SQL_CLASIFICACION_FEMENINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo " + 
 			"FROM carrera, inscripcion, atleta " + 
 			"WHERE carrera.id = ? " + 

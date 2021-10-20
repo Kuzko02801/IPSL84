@@ -15,26 +15,32 @@ import net.proteanit.sql.DbUtils;
 public class DevolverParticipantesCarrera {
 
 	private String id;
+
 	public DevolverParticipantesCarrera(String id) {
-		this.id=id;
+		this.id = id;
 	}
+
 	public TableModel devolverParticipantes() {
-		
+
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
 		} catch (SQLException e1) {
 			System.out.println("Ha fallado el register del driver");
 		}
-		
-		TableModel t=null;
+
+		TableModel t = null;
 		PreparedStatement ps = null;
 		Connection con = null;
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCIONES_ATLETA);
 			ps.setString(1, id);
-			ResultSet rs=ps.executeQuery();
-			t=DbUtils.resultSetToTableModel(rs);
+			
+			ResultSet rs = ps.executeQuery();
+			if(rs.next()) {
+				t = DbUtils.resultSetToTableModel(rs);
+				
+			}
 			ps.close();
 			con.close();
 
