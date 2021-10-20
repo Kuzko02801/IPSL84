@@ -38,8 +38,7 @@ public class DevolverParticipantesCarrera {
 			
 			ResultSet rs = ps.executeQuery();
 			if(rs.next()) {
-				t = DbUtils.resultSetToTableModel(rs);
-				
+				t = DbUtils.resultSetToTableModel(rs);				
 			}
 			ps.close();
 			con.close();
