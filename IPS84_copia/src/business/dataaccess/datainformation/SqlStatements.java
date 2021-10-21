@@ -19,27 +19,27 @@ public class SqlStatements {
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
-			+ "AND carrera.estado = 'finalizada'";
+			+ "AND carrera.estado = 'finalizada' order by inscripcion.tiempo";
 	public static final String SQL_CLASIFICACION_FEMENINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
 			+ "AND atleta.sexo = 'mujer'\r\n"
-			+ "AND carrera.estado = 'finalizada';";
+			+ "AND carrera.estado = 'finalizada' order by inscripcion.tiempo;";
 	public static final String SQL_CLASIFICACION_MASCULINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
 			+ "AND atleta.sexo = 'hombre'\r\n"
-			+ "AND carrera.estado = 'finalizada';";
+			+ "AND carrera.estado = 'finalizada' order by inscripcion.tiempo;";
 	public static String SQL_ADD_ATLETA = "insert into atleta (email, dni, nombre, fechanacimiento, sexo) values (?, ?, ?, ?, ?)";
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, dni, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?, ?)";
 	
 	public static final String SQL_INSCRIPCION_PAGO = "UPDATE inscripcion SET estado = 'INSCRITO' WHERE email_atleta = ? AND id_carrera = ?";
-	
+	public static final String SQL_CARRERAS_ORGANIZADOR = "select * from carrera";
 }
 
 
