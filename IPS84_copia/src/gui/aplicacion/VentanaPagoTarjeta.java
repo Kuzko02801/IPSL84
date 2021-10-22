@@ -14,6 +14,7 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 
 import business.dataaccess.DataAccessFactory;
+import business.dataaccess.util.DateSqlite;
 
 public class VentanaPagoTarjeta extends JFrame {
 
@@ -115,6 +116,9 @@ public class VentanaPagoTarjeta extends JFrame {
 					if (textField_2.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(rootPane, "No esta puesto el cvc");
 					}
+//					if(new DateSqlite(textField_2.getText()).compareTo(new DateSqlite().actual()) < 0) {
+//						JOptionPane.showMessageDialog(rootPane, "Tarjeta caducada. Pago rechazado");
+//					}
 					else {
 						DataAccessFactory.forInscripcionService().pasarDePreInscritoAInscrito(((VentanaPedirEmail) vpe).getId_carrera(),
 								((VentanaPedirEmail) vpe).getEmail_atleta());
