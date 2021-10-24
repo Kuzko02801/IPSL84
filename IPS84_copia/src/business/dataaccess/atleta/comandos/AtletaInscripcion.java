@@ -104,8 +104,8 @@ public class AtletaInscripcion {
 		ps.setString(1, carrera.carrera_id);
 		rs = ps.executeQuery();
 		while (rs.next()) {
-			System.out.println(carrera.plazasMaximas);
-			System.out.println(rs.getInt(1));
+//			System.out.println(carrera.plazasMaximas);
+//			System.out.println(rs.getInt(1));
 			if (carrera.plazasMaximas > rs.getInt(1)) {
 				rs.close();
 				ps.close();

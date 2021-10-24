@@ -116,10 +116,15 @@ public class VentanaPagoTarjeta extends JFrame {
 					if (textField_2.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(rootPane, "No esta puesto el cvc");
 					}
-//					if(new DateSqlite(textField_2.getText()).compareTo(new DateSqlite().actual()) < 0) {
-//						JOptionPane.showMessageDialog(rootPane, "Tarjeta caducada. Pago rechazado");
-//					}
+					if(new DateSqlite(textField_1.getText()).compareTo(new DateSqlite().actual()) < 0) {
+						JOptionPane.showMessageDialog(rootPane, "Tarjeta caducada. Pago rechazado");
+					}
 					else {
+						JOptionPane.showMessageDialog(rootPane, "Pago Realizado con éxito con fecha:" + new DateSqlite().actual().toString() +". \n"
+								+ "Usuario con email: " + ((VentanaPedirEmail) vpe).getEmail_atleta() + "\n"
+								+ "Número de tarjeta: " + textField.getText() + "\n"
+								+ "Fecha de caducidad: " + textField_1.getText() + "\n"
+								+ "CVC: " + textField_2.getText());
 						DataAccessFactory.forInscripcionService().pasarDePreInscritoAInscrito(((VentanaPedirEmail) vpe).getId_carrera(),
 								((VentanaPedirEmail) vpe).getEmail_atleta());
 						dispose();
