@@ -8,6 +8,9 @@ import java.text.ParseException;
 
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.CarreraDto;
+import business.dataaccess.dto.infoadicional.EstadoCarrera;
+import business.dataaccess.dto.infoadicional.Tipo;
+import business.dataaccess.util.DateSqlite;
 
 public class Main {
 
@@ -32,18 +35,18 @@ public class Main {
 //			
 //			//test.addAtleta("a", "emailaux", "a", new DateSqlite("20/03/2001"), Genero.HOMBRE);
 //			
-//			carrera.nombre = "DATE WITH NEWLY IMPLEMENTED DATE CLASS.";
-//			carrera.fecha = new DateSqlite("06/07/2021");
-//			carrera.tipo = Tipo.CARRERA_POPULAR;
-//			carrera.distancia = 199;
-//			carrera.cuota = 200;
-//			carrera.carrera_id = "5";
-//			carrera.plazasMaximas = 20; //
-//			carrera.cierre = new DateSqlite("06/12/2021");
-//			carrera.apertura = new DateSqlite("06/10/2021");
-//			carrera.estado = EstadoCarrera.NO_COMENZADA;
-//
-//			//test.addCarrera(carrera);
+			carrera.nombre = "CARRERA_ABIERTA";
+			carrera.fecha = new DateSqlite("06/07/2021");
+			carrera.tipo = Tipo.CARRERA_POPULAR;
+			carrera.distancia = 199;
+			carrera.cuota = 200;
+			carrera.carrera_id = "OPEN";
+			carrera.plazasMaximas = 20; //
+			carrera.cierre = new DateSqlite("2022/05/03");
+			carrera.apertura = new DateSqlite("2020/03/04");
+			carrera.estado = EstadoCarrera.NO_COMENZADA;
+
+			test.addCarrera(carrera);
 //			
 //			CarreraDto testCarrera = new CarreraDto();
 //			testCarrera.carrera_id = "5";

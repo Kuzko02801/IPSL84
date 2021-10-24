@@ -1,13 +1,13 @@
 package business.dataaccess.datainformation;
 
 public class SqlStatements {
-	//
+	
 	
 	public static final String SQL_SELECT_CARRERA = "select * from carrera where id = ?";
 	public static final String SQL_SELECT_ATLETA = "select * from atleta where email = ?";
 	public static final String SQL_INSCRIBIR_ATLETA = "insert into inscripcion (email_atleta, id_carrera, estado, categoria, fecha_inscripcion) values (?, ?, ?, ?, ?)";
 	public static final String SQL_NUMERO_INSCRIPCIONES = "select count(*) from carrera, inscripcion where carrera.id = ? and carrera.id = inscripcion.id_carrera";
-	public static final String SQL_CARRERA_ABIERTA = "select id, nombre, fecha, tipo, distancia, cuota, cierre from Carrera where estado = 'no_comenzada'"; // Devuelve carreras fechas de inscripcion abierta
+	public static final String SQL_CARRERA_ABIERTA = "select id, nombre, fecha, tipo, distancia, cuota, cierre from Carrera where cierre > date('now') and apertura <= date('now')"; // Devuelve carreras fechas de inscripcion abierta
 
 	public static final String SQL_INSCRIPCIONES_ATLETA = "select atleta.dni, atleta.nombre, inscripcion.categoria, inscripcion.fecha_inscripcion, inscripcion.estado from inscripcion, atleta where atleta.email = inscripcion.email_atleta and inscripcion.id_carrera = ? order by inscripcion.fecha_inscripcion asc, inscripcion.estado asc";
 														

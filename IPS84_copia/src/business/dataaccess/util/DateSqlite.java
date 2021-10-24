@@ -33,14 +33,14 @@ public class DateSqlite implements Comparable<DateSqlite> {
 		String[] a = dateComponents();
 		String[] b = date.dateComponents();
 		
-		if(Integer.valueOf(a[2]) - Integer.valueOf(b[2]) != 0) {
-			return Integer.valueOf(a[2]) - Integer.valueOf(b[2]);
+		if(Integer.valueOf(a[0]) - Integer.valueOf(b[0]) != 0) {
+			return Integer.valueOf(a[0]) - Integer.valueOf(b[0]);
 		} else {
 			if(Integer.valueOf(a[1]) - Integer.valueOf(b[1]) != 0) {
 				return Integer.valueOf(a[1]) - Integer.valueOf(b[1]);
 			} else {
-				if(Integer.valueOf(a[0]) - Integer.valueOf(b[0]) != 0) {
-					return Integer.valueOf(a[0]) - Integer.valueOf(b[0]);
+				if(Integer.valueOf(a[2]) - Integer.valueOf(b[2]) != 0) {
+					return Integer.valueOf(a[2]) - Integer.valueOf(b[2]);
 				}
 			}
 		}
@@ -48,7 +48,7 @@ public class DateSqlite implements Comparable<DateSqlite> {
 	}
 	
 	public DateSqlite actual() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return new DateSqlite(sdf.format(new Date()));
 	}
 	
@@ -60,8 +60,8 @@ public class DateSqlite implements Comparable<DateSqlite> {
 		String[] a = dateComponents();
 		String[] b = date.dateComponents();
 		
-		int ya = Integer.valueOf(a[2]); 
-		int yb = Integer.valueOf(b[2]);
+		int ya = Integer.valueOf(a[0]); 
+		int yb = Integer.valueOf(b[0]);
 		return ya >= yb ? ya - yb : yb - ya;
 	}
 }

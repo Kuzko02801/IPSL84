@@ -10,6 +10,7 @@ import javax.swing.table.TableModel;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
+import business.dataaccess.util.DateSqlite;
 import net.proteanit.sql.DbUtils;
 
 public class DevolverCarrerasValidas {
@@ -23,10 +24,12 @@ public class DevolverCarrerasValidas {
 		TableModel t = null;
 		PreparedStatement ps = null;
 		Connection con = null;
+		ResultSet rs = null;
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_CARRERA_ABIERTA);
-			ResultSet rs = ps.executeQuery();
+			//ps.setString(1, new DateSqlite().actual().toString());
+			rs = ps.executeQuery();
 			t = DbUtils.resultSetToTableModel(rs);
 
 			ps.close();
