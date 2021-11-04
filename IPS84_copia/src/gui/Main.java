@@ -6,6 +6,7 @@ import gui.login.VentanaLogin;
 
 public class Main {
 ///dfgsdfgsdfgsdfg
+	//asdfasdf
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -18,15 +19,4 @@ public class Main {
 			}
 		});
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-		//asdfasdf
 }
