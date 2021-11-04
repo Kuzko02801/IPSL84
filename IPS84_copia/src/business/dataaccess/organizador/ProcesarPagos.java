@@ -23,7 +23,6 @@ public class ProcesarPagos {
 				if (nLinea == 0) {
 					idCarrera = linea;
 				}
-				
 			}
 				
 		} catch (Exception e) {
