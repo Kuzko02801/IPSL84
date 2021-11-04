@@ -5,7 +5,7 @@ import java.awt.EventQueue;
 import gui.login.VentanaLogin;
 
 public class Main {
-
+///dfgsdfgsdfgsdfg
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
