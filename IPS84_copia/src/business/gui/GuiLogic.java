@@ -39,32 +39,28 @@ public class GuiLogic {
 		tablaCarrerasOrganizador.setModel(tm);
 	}
 
-	public static void cargarInscritosCarrera(JTextField txt, JTable tablaCarrerasOrganizador) {
-		String idCarrera = txt.getText().trim();
+	public static void cargarInscritosCarrera(String idCarrera, JTable tablaCarrerasOrganizador) {
 		TableModel tm = DataAccessFactory.forInscripcionService().devolverParticipantesCarrera(idCarrera);
 		tablaCarrerasOrganizador.setModel(tm);
 	}
 
-	public static void cargarClasificacionesAbsolutas(JTextField txIdOrganizador, JTable tablaClasificacionesAbsoluta) {
-		String idCarrera = txIdOrganizador.getText();
+	public static void cargarClasificacionesAbsolutas(String idCarrera, JTable tablaClasificacionesAbsoluta) {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionAbsoluta(idCarrera);
 		tablaClasificacionesAbsoluta.setModel(tm);
 	}
 
-	public static void cargarClasificacionesMasculinas(JTextField txIdOrganizador, JTable tablaClasificacionesHombre) {
-		String idCarrera = txIdOrganizador.getText();
+	public static void cargarClasificacionesMasculinas(String idCarrera, JTable tablaClasificacionesHombre) {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionMasculina(idCarrera);
 		tablaClasificacionesHombre.setModel(tm);
 	}
 
-	public static void cargarClasificacionesFemeninas(JTextField txIdOrganizador, JTable tablaClasificacionesMujer) {
-		String idCarrera = txIdOrganizador.getText();
+	public static void cargarClasificacionesFemeninas(String idCarrera, JTable tablaClasificacionesMujer) {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionFemenina(idCarrera);
 		tablaClasificacionesMujer.setModel(tm);	
 	}
 
-	public static boolean comprobarIdValidaCarrera(JTextField txIdCarreraParticipante) {
-		return Check.raceExists2(txIdCarreraParticipante.getText());
+	public static boolean comprobarIdValidaCarrera(String id) {
+		return Check.raceExists2(id);
 	}
 	public static void registrarAtleta(String email,String dni,String nombre,String fechaNacimiento,String sexo) {
 		try {
