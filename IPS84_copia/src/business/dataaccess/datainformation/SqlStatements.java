@@ -15,8 +15,8 @@ public class SqlStatements {
 	public static final String SQL_INSCRIPCIONES_ATLETA = "select atleta.dni, atleta.nombre, inscripcion.categoria, inscripcion.fecha_inscripcion, inscripcion.estado from inscripcion, atleta where atleta.email = inscripcion.email_atleta and inscripcion.id_carrera = ? order by inscripcion.fecha_inscripcion asc, inscripcion.estado asc";
 														
 	public static final String SQL_SELECT_TODAS_CARRERAS = "select * from carreras";
-	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, id, plazas_maximas, estado, fechaInicio1, fechaInicio2, fechaInicio3, fechaCierre1, fechaCierre2, fechaCierre3, cuota1, cuota2, cuota3) "
-												  + "values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, id, plazas_maximas, estado, categorias, periodos) "
+												  + "values (?, ?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String SQL_CLASIFICACION_ABSOLUTA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
