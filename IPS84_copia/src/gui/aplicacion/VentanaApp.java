@@ -305,6 +305,8 @@ public class VentanaApp extends JFrame {
 		if (pnBotonesInscribirseParticipante == null) {
 			pnBotonesInscribirseParticipante = new JPanel();
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
+			
+			JButton btnPagar = new JButton("Pagar");
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
 			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
 				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
@@ -314,7 +316,8 @@ public class VentanaApp extends JFrame {
 						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
 							.addComponent(getLbIDCarreraParticipante())
 							.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-								.addGap(120)
+								.addComponent(btnPagar, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
+								.addGap(18)
 								.addComponent(getTxIdCarreraValidaParticipante(), GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)))
 						.addGap(256))
 			);
@@ -323,9 +326,11 @@ public class VentanaApp extends JFrame {
 					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
 						.addComponent(getLbIDCarreraParticipante())
 						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getBtInscribirseParticipante(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE))
+						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getBtInscribirseParticipante(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(btnPagar)))
 					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-						.addContainerGap(25, Short.MAX_VALUE)
+						.addContainerGap(24, Short.MAX_VALUE)
 						.addComponent(getTxIdCarreraValidaParticipante(), GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
 			);
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
@@ -335,7 +340,7 @@ public class VentanaApp extends JFrame {
 
 	private JButton getBtInscribirseParticipante() {
 		if (btInscribirseParticipante == null) {
-			btInscribirseParticipante = new JButton("Inscribirse/pagar");
+			btInscribirseParticipante = new JButton("Inscribirse");
 			btInscribirseParticipante.setEnabled(false);
 			btInscribirseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {

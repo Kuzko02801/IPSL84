@@ -37,7 +37,6 @@ public class PasarDePreAInscritoAInscrito {
 			}if (!Check.raceExists(id)) {
 				System.out.println("La actualizacion del pago es fraudulenta");
 			}
-			
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_PAGO);
 			

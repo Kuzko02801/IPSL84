@@ -27,13 +27,13 @@ public class VentanaPagoTarjeta extends JFrame {
 	private JLabel lblFechaCaducidad;
 	private JLabel lblCVC;
 	private JButton btnNewButton;
-	private JDialog vpe;
-
-
+	private String email;
+	private String id_carrera;
+	
 	/**
 	 * Create the frame.
 	 */
-	public VentanaPagoTarjeta(VentanaPedirEmail vpe) {
+	public VentanaPagoTarjeta(String email, String id_carrera) {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
@@ -48,7 +48,8 @@ public class VentanaPagoTarjeta extends JFrame {
 		contentPane.add(getLblFechaCaducidad());
 		contentPane.add(getLblCVC());
 		contentPane.add(getBtnNewButton());
-		this.vpe = vpe;
+		this.email = email;
+		this.id_carrera = id_carrera;
 	}
 	private JLabel getLblPagoTarjeta() {
 		if (lblPagoTarjeta == null) {
@@ -121,19 +122,16 @@ public class VentanaPagoTarjeta extends JFrame {
 					}
 					else {
 						JOptionPane.showMessageDialog(rootPane, "Pago Realizado con éxito con fecha:" + new DateSqlite().actual().toString() +". \n"
-								+ "Usuario con email: " + ((VentanaPedirEmail) vpe).getEmail_atleta() + "\n"
+								+ "Usuario con email: " + email + "\n"
 								+ "Número de tarjeta: " + textField.getText() + "\n"
 								+ "Fecha de caducidad: " + textField_1.getText() + "\n"
 								+ "CVC: " + textField_2.getText());
-						DataAccessFactory.forInscripcionService().pasarDePreInscritoAInscrito(((VentanaPedirEmail) vpe).getId_carrera(),
-								((VentanaPedirEmail) vpe).getEmail_atleta());
+						DataAccessFactory.forInscripcionService().pasarDePreInscritoAInscrito(id_carrera, email);
 						dispose();
-						vpe.dispose();
 					}
 				}
 			});
 			btnNewButton.setBounds(163, 217, 85, 21);
-			
 		}
 		return btnNewButton;
 	}
