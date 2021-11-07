@@ -3,7 +3,7 @@ package business.dataaccess.carrera;
 
 import javax.swing.table.TableModel;
 
-import business.dataaccess.dto.CarreraDto;
+import business.dataaccess.dto.carrera.CarreraDto;
 
 public interface CarreraService {
 	public void crearCarrera(CarreraDto carrera);

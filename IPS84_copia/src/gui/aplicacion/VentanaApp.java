@@ -2,6 +2,7 @@ package gui.aplicacion;
 
 import java.awt.CardLayout;
 import java.awt.Color;
+import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -30,6 +31,7 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
 import business.gui.GuiLogic;
+import gui.login.VentanaLogin;
 import gui.validadores.Validadores;
 
 public class VentanaApp extends JFrame {
@@ -37,6 +39,20 @@ public class VentanaApp extends JFrame {
 	/**
 	 * 
 	 */
+	
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					VentanaApp frame = new VentanaApp(ADMIN);
+					frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+	
 	private static final long serialVersionUID = 1L;
 	private JPanel pnPrincipal;
 	private JPanel pnParticipante;

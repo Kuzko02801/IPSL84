@@ -1,5 +1,7 @@
-package business.dataaccess.dto;
+package business.dataaccess.dto.carrera;
 
+
+import java.util.List;
 
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Tipo;
@@ -10,10 +12,8 @@ public class CarreraDto {
 	public DateSqlite fecha;
 	public Tipo tipo;
 	public EstadoCarrera estado;
-	public double distancia;
-	public double cuota;
+	public double distancia;	
 	public String carrera_id;
 	public int plazasMaximas;
-	public DateSqlite cierre;
-	public DateSqlite apertura;
+	public List<Periodo> periodos;
 }

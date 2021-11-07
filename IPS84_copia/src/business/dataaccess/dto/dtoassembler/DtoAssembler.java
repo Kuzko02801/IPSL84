@@ -1,7 +1,10 @@
 package business.dataaccess.dto.dtoassembler;
 
+import java.util.List;
+
 import business.dataaccess.dto.AtletaDto;
-import business.dataaccess.dto.CarreraDto;
+import business.dataaccess.dto.carrera.CarreraDto;
+import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.dto.infoadicional.Tipo;
@@ -23,21 +26,18 @@ public class DtoAssembler {
 			String nombre,
 			String fecha,
 			String tipo,
-			String distancia,
-			String cuota,
+			String distancia,			
 			String carrera_id,
-			String plazasMaximas,
-			String cierre,
+			String plazasMaximas,			
 			String apertura,
-			String estado) {
+			String estado,
+			List<Periodo> periodos) {
 		CarreraDto carrera = new CarreraDto();
 		carrera.nombre = nombre;
 		carrera.fecha = new DateSqlite(fecha);
 		carrera.tipo = Tipo.tipoParser(tipo);
 		carrera.distancia = Double.parseDouble(distancia);
-		carrera.cuota = Double.parseDouble(cuota);
-		carrera.apertura = new DateSqlite(apertura);
-		carrera.cierre = new DateSqlite(cierre);
+		carrera.periodos = periodos;
 		carrera.carrera_id = carrera_id;
 		carrera.plazasMaximas = Integer.parseInt(plazasMaximas);
 		carrera.estado=EstadoCarrera.estadoParser(estado);

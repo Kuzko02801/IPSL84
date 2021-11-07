@@ -8,7 +8,7 @@ import java.sql.SQLException;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
-import business.dataaccess.dto.CarreraDto;
+import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
 
 public class EncontrarCarrera {

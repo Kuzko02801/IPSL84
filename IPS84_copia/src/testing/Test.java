@@ -10,7 +10,7 @@ import java.sql.Statement;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
-import business.dataaccess.dto.CarreraDto;
+import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
