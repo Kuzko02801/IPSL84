@@ -8,7 +8,7 @@ import business.dataaccess.util.DateSqlite;
 
 public class PeriodoParser {
 
-	public List<Periodo> devolverPeriodos(String texto) {
+  public static List<Periodo> devolverPeriodos (String texto) {	
 
 		List<Periodo> periodos = new ArrayList<>();
 		String[] partes = texto.split(";");
