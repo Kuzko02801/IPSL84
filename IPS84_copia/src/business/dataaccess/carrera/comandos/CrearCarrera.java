@@ -11,6 +11,7 @@ import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.infoadicional.EstadoCarrera;
+import business.dataaccess.parsers.PeriodoParser;
 
 
 public class CrearCarrera {
@@ -41,17 +42,10 @@ public class CrearCarrera {
 			ps.setString(5, id);
 			ps.setInt(6, carrera.plazasMaximas);			
 			ps.setString(7, EstadoCarrera.NO_COMENZADA.label);	
+			// Insertar categorias.
 			
-			// Checar carreras.
-			int fechaInicio = 8;
-			int fechaCierre = 11;
-			int cuotas = 12;
-			for(Periodo periodo : carrera.periodos) {
-				ps.setString(fechaInicio++, periodo.getFechaInicio().toString());
-				ps.setString(fechaCierre++, periodo.getFechaFin().toString());
-				ps.setString(cuotas++, periodo.getCuota() + "");
-			}
-				
+			// Insertar periodos.
+			ps.setString(9, PeriodoParser.periodosToString(carrera.periodos));	
 						
 			
 			ps.execute();
