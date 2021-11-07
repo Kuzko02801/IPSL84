@@ -1223,5 +1223,10 @@ public class VentanaApp extends JFrame {
 		VentanaPedirEmail v = new VentanaPedirEmail(tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
 		v.setVisible(true);
 	}
+	
+	private void pagar() {
+		VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+		vpt.setVisible(true);
+	}
 
 }
