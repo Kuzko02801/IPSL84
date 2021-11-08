@@ -59,6 +59,18 @@ public class DateSqlite implements Comparable<DateSqlite> {
 		return false;
 	}
 	
+	public boolean isTwoDaysHigher(DateSqlite date) {
+		String[] a = dateComponents();
+		String[] b = date.dateComponents();
+		
+		int day_a = Integer.valueOf(a[2]);
+		int day_b = Integer.valueOf(b[2]);
+		if ((day_b - day_a) > 2) {
+			return true;
+		}
+		return false;
+	}
+	
 	public DateSqlite actual() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return new DateSqlite(sdf.format(new Date()));

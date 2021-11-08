@@ -30,12 +30,14 @@ public class VentanaPagoTarjeta extends JDialog {
 	private JLabel lblCVC;
 	private JButton btnNewButton;
 	private String id_carrera;
-	private JTextField txtEmail;
+	private String email_atleta;
+	private int dorsal = 1;
 	
 	/**
 	 * Create the frame.
+	 * @param email_atleta 
 	 */
-	public VentanaPagoTarjeta(String id_carrera) {
+	public VentanaPagoTarjeta(String id_carrera, String email_atleta) {
 		setModal(true);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 339);
@@ -51,17 +53,10 @@ public class VentanaPagoTarjeta extends JDialog {
 		contentPane.add(getLblFechaCaducidad());
 		contentPane.add(getLblCVC());
 		contentPane.add(getBtnNewButton());
-		
-		JLabel lblEmail = new JLabel("Email");
-		lblEmail.setBounds(10, 87, 45, 13);
-		contentPane.add(lblEmail);
-		
-		txtEmail = new JTextField();
-		txtEmail.setBounds(101, 84, 147, 19);
-		contentPane.add(txtEmail);
-		txtEmail.setColumns(10);
 		this.id_carrera = id_carrera;
+		this.email_atleta = email_atleta;
 	}
+	
 	private JLabel getLblPagoTarjeta() {
 		if (lblPagoTarjeta == null) {
 			lblPagoTarjeta = new JLabel("Pago tarjeta");
@@ -132,19 +127,20 @@ public class VentanaPagoTarjeta extends JDialog {
 					else if(new DateSqlite(txtCaducidad.getText()).compareTo(new DateSqlite().actual()) < 0) {
 						JOptionPane.showMessageDialog(rootPane, "Tarjeta caducada. Pago rechazado");
 					}
-					else if (txtEmail.getText().isEmpty()) {
-						JOptionPane.showMessageDialog(rootPane, "Email vacío");
-					}
-					else if (!existeAtleta(txtEmail.getText())) {
+					else if (!existeAtleta(email_atleta)) {
 						JOptionPane.showMessageDialog(rootPane, "Email no existe");
+					}
+					else if (pagoFueraDePlazo()) {
+						JOptionPane.showMessageDialog(rootPane, "El pago rechazado. Han pasado 48h desde la preinscripcion");
 					}
 					else {
 						JOptionPane.showMessageDialog(rootPane, "Pago Realizado con éxito con fecha:" + new DateSqlite().actual().toString() +". \n"
-								+ "Usuario con email: " + txtEmail.getText() + "\n"
+								+ "Usuario con email: " + email_atleta + "\n"
 								+ "Número de tarjeta: " + txtTarjeta.getText() + "\n"
 								+ "Fecha de caducidad: " + txtCaducidad.getText() + "\n"
 								+ "CVC: " + txtCVC.getText());
-						DataAccessFactory.forInscripcionService().pasarDePreInscritoAInscrito(id_carrera, txtEmail.getText());
+						JOptionPane.showMessageDialog(rootPane, "Se le ha asignado el dorsal " + (dorsal));
+						DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id_carrera, email_atleta, dorsal++);
 						dispose();
 					}
 				}
@@ -154,6 +150,15 @@ public class VentanaPagoTarjeta extends JDialog {
 		return btnNewButton;
 	}
 	
+	protected boolean pagoFueraDePlazo() {
+		try {
+			return Check.pagoFueraDePlazo(id_carrera, email_atleta);
+		} catch (SQLException e) {
+			System.out.println("Fallo en query. Pago fuera de plazo");
+		}
+		return false;
+	}
+
 	private boolean existeAtleta(String email) {
 		try {
 			return Check.atletaExists(email);

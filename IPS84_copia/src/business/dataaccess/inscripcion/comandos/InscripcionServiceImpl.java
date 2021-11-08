@@ -12,8 +12,8 @@ public class InscripcionServiceImpl implements InscripcionService{
 	}
 
 	@Override
-	public void pasarDePreInscritoAInscrito(String id, String email) {
-		new PasarDePreAInscritoAInscrito(id, email).execute();
+	public void pasarDePendienteDePagoAInscrito(String id, String email, int dorsal) {
+		new PasarDePendienteDePagoAInscrito(id, email, dorsal).execute();
 	}
 	
 	

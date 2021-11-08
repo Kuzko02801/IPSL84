@@ -95,6 +95,7 @@ public class GuiLogic {
 	public static AtletaDto devuelveAtleta(String email) {
 		return DataAccessFactory.forAtletaService().encontrarAtleta(email);
 	}
+	
 	public static boolean existeUsuario(String email) {
 		try {
 			return DataAccessFactory.forAtletaService().existeAtleta(email);
@@ -103,5 +104,8 @@ public class GuiLogic {
 		}
 		return false;
 	}
-
+	
+	public static void pagarInscripcion(String id, String email, int dorsal) {
+		DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id, email, dorsal);
+	}
 }

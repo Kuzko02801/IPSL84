@@ -51,11 +51,11 @@ public class CrearCarrera {
 			ps.setDouble(4, carrera.distancia);			
 			ps.setString(5, id);
 			ps.setInt(6, carrera.plazasMaximas);			
-			ps.setString(7, EstadoCarrera.NO_COMENZADA.label);	
+//			ps.setString(7, EstadoCarrera.NO_COMENZADA.label);	
 			// Insertar categorias.
-			ps.setString(8, CategoriaParser.categoriasToString(carrera.categorias));
+			ps.setString(7, CategoriaParser.categoriasToString(carrera.categorias));
 			// Insertar periodos.
-			ps.setString(9, PeriodoParser.periodosToString(carrera.periodos));						
+			ps.setString(8, PeriodoParser.periodosToString(carrera.periodos));						
 			
 			ps.execute();
 			

@@ -323,6 +323,11 @@ public class VentanaApp extends JFrame {
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
 			
 			JButton btnPagar = new JButton("Pagar");
+			btnPagar.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					pagar();
+				}
+			});
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
 			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
 				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
@@ -1236,13 +1241,13 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void inscribirsePagar() {
-		VentanaPedirEmail v = new VentanaPedirEmail(tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+		VentanaInscribirse v = new VentanaInscribirse(tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
 		v.setVisible(true);
 	}
 	
 	private void pagar() {
-		VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
-		vpt.setVisible(true);
+		VentanaPedirEmailPago vpep = new VentanaPedirEmailPago(tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+		vpep.setVisible(true);
 	}
 
 }

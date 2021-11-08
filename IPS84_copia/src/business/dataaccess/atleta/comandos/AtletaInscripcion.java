@@ -59,7 +59,7 @@ public class AtletaInscripcion {
 
 			ps.setString(1, atleta.email); // atleta.email
 			ps.setString(2, carrera.carrera_id);
-			ps.setString(3, EstadoInscripcion.PREINSCRITO.label);
+			ps.setString(3, EstadoInscripcion.PENDIENTE_DE_PAGO.label);
 			ps.setString(4, seleccionarCategoria());// seleccionarCategoria());
 			ps.setString(5, fechaActual());// fechaActual());
 

@@ -15,7 +15,7 @@ import javax.swing.JTextField;
 import business.dataaccess.BusinessDataException;
 import business.gui.GuiLogic;
 
-public class VentanaPedirEmail extends JDialog {
+public class VentanaInscribirse extends JDialog {
 	/**
 	 * 
 	 */
@@ -34,7 +34,7 @@ public class VentanaPedirEmail extends JDialog {
 	/**
 	 * Create the dialog.
 	 */
-	public VentanaPedirEmail(String id_carrera) {
+	public VentanaInscribirse(String id_carrera) {
 		this.id_carrera = id_carrera;	
 		setResizable(false);
 		setBounds(100, 100, 450, 300);

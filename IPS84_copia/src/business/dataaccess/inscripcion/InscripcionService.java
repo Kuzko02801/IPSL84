@@ -5,5 +5,5 @@ import javax.swing.table.TableModel;
 public interface InscripcionService {
 
 	public TableModel devolverParticipantesCarrera(String id);
-	public void pasarDePreInscritoAInscrito(String id, String email);
+	void pasarDePendienteDePagoAInscrito(String id, String email, int dorsal);
 }

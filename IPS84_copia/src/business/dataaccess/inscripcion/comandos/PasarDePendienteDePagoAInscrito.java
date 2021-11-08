@@ -9,14 +9,16 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.util.Check;
 
-public class PasarDePreAInscritoAInscrito {
+public class PasarDePendienteDePagoAInscrito {
 	
 	private String id;
 	private String email;
+	private int dorsal;
 
-	public PasarDePreAInscritoAInscrito(String id, String email) {
+	public PasarDePendienteDePagoAInscrito(String id, String email, int dorsal) {
 		this.id = id;
 		this.email = email;
+		this.dorsal = dorsal;
 	}
 	
 	public void execute() {
@@ -29,19 +31,20 @@ public class PasarDePreAInscritoAInscrito {
 		PreparedStatement ps = null;
 		
 		try {
-			
-			
 			if (!Check.atletaExists(email)) {
 				System.out.println("Email: "+ email );
 				System.out.println("La actualizacion del pago es fraudulenta1");
 			}if (!Check.raceExists(id)) {
 				System.out.println("La actualizacion del pago es fraudulenta");
 			}
+
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_PAGO);
 			
-			ps.setString(1, email);
-			ps.setString(2, id);
+			ps.setInt(1, dorsal);
+			ps.setString(2, email);
+			ps.setString(3, id);
+			
 			ps.executeUpdate();
 			
 			ps.close();

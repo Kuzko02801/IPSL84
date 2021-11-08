@@ -41,8 +41,11 @@ public class SqlStatements {
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, dni, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?, ?)";
 	
-	public static final String SQL_INSCRIPCION_PAGO = "UPDATE inscripcion SET estado = 'INSCRITO' WHERE email_atleta = ? AND id_carrera = ?";
+	public static final String SQL_INSCRIPCION_PAGO = "UPDATE inscripcion SET estado = 'INSCRITO', dorsal = ? WHERE email_atleta = ? AND id_carrera = ?";
 	public static final String SQL_CARRERAS_ORGANIZADOR = "select * from carrera";
+	public static final String SQL_INSCRIPCION_CARRERA_PAGO = "select * from inscripcion where carrera_id = ? and email_atleta = ? and estado = 'PRE-INSCRITO'";
+	
+	public static final String SQL_FECHA_INSCRIPCION = "select fechaInscripcion from inscripcion where carrera_id = ? and email_atleta = ?";
 }
 
 

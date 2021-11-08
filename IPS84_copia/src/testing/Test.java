@@ -63,7 +63,7 @@ public class Test {
 			ps.setInt(7, carrera.plazasMaximas);
 			ps.setString(8, carrera.cierre.toString());
 			ps.setString(9, carrera.apertura.toString());
-			ps.setString(10, carrera.estado.label);			
+//			ps.setString(10, carrera.estado.label);			
 
 			ps.executeUpdate();
 			
