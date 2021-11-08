@@ -1,12 +1,16 @@
 package business.gui;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.swing.JTable;
-import javax.swing.JTextField;
 import javax.swing.table.TableModel;
 
 import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.dto.AtletaDto;
+import business.dataaccess.dto.carrera.Categoria;
+import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
 import business.dataaccess.util.Check;
 
@@ -69,24 +73,24 @@ public class GuiLogic {
 			e.printStackTrace();
 		}
 	}
-	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia,String cuota,String plazas,String fechaCierre, String fechaApertura ) {
+	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia, String plazas, List<Categoria> categorias, List<Periodo> periodos) throws BusinessDataException {
 		DataAccessFactory.forCarreraService().crearCarrera(
 				DtoAssembler.forCarreraDto(
 						nombre
 						, fecha
 						, tipo
-						, distancia
-						, cuota
+						, distancia					
 						,null
 						, plazas
-						, fechaCierre
-						, fechaApertura
-						,null));
+						, null
+						, categorias
+						, periodos));
+					
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
 		DataAccessFactory.forAtletaService().inscribirAtleta(DtoAssembler.forAtletaDto(email, null, null, null, null),
-				DtoAssembler.forCarreraDto(null, null, null, "0", "0", id, "0", null, null, null));
+				DtoAssembler.forCarreraDto(null, null, null, "0", id, "0", null, new ArrayList<Categoria>(), new ArrayList<Periodo>()));
 	}
 	public static AtletaDto devuelveAtleta(String email) {
 		return DataAccessFactory.forAtletaService().encontrarAtleta(email);

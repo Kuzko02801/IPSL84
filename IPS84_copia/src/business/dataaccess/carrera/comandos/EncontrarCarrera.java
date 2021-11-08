@@ -10,6 +10,8 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
+import business.dataaccess.parsers.CategoriaParser;
+import business.dataaccess.parsers.PeriodoParser;
 
 public class EncontrarCarrera {
 
@@ -40,14 +42,13 @@ public class EncontrarCarrera {
 				carrera = DtoAssembler.forCarreraDto(
 						rs.getString(1)
 						, rs.getString(2)
-						, rs.getString(3) // Arreglar la seleccion del tipo
-						, rs.getString(4)
-						, rs.getString(5)
+						, rs.getString(3)
+						, rs.getDouble(4) + ""					
 						, id
+						, rs.getInt(6) + ""
 						, rs.getString(7)
-						, rs.getString(8)
-						, rs.getString(9)
-						, rs.getString(10)); // Arreglar la seleccion del estado.
+						, CategoriaParser.devolverCategorias(rs.getString(8))
+						, PeriodoParser.devolverPeriodos(rs.getString(9)));					
 			}
 			rs.close();
 			ps.close();

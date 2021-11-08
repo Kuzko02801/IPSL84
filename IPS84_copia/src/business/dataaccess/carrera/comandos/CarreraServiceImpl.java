@@ -2,6 +2,7 @@ package business.dataaccess.carrera.comandos;
 
 import javax.swing.table.TableModel;
 
+import business.dataaccess.BusinessDataException;
 import business.dataaccess.carrera.CarreraService;
 import business.dataaccess.dto.carrera.CarreraDto;
 
@@ -24,7 +25,7 @@ public class CarreraServiceImpl implements CarreraService{
 	}
 	
 	@Override
-	public void crearCarrera(CarreraDto carrera) {
+	public void crearCarrera(CarreraDto carrera) throws BusinessDataException {
 		new CrearCarrera(carrera).crearCarrera();		
 	}
 

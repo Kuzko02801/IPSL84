@@ -14,6 +14,7 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.carrera.CarreraDto;
+import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoInscripcion;
 import business.dataaccess.util.Check;
@@ -123,10 +124,14 @@ public class AtletaInscripcion {
 	}
 
 	private boolean inscripcionAbierta() {
-		if (carrera.cierre.compareTo(new DateSqlite().actual()) >= 0)
-			return true;
-		else
-			return false;
+		for(Periodo periodo : carrera.periodos) {
+			// Si la fecha actual esta en el rango de algun periodo devuelve true, false en caso contrario.
+			if(periodo.getFechaInicio().isBefore(new DateSqlite().actual()) 
+					&& periodo.getFechaFin().isAfter(new DateSqlite().actual())) {
+				return true;
+			}
+		}
+		return false;
 	}
 
 }

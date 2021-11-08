@@ -7,7 +7,7 @@ import business.dataaccess.dto.carrera.Categoria;
 
 public class CategoriaParser {
 	
-	public List<Categoria> devolverCategorias(String texto) {
+	public static List<Categoria> devolverCategorias(String texto) {
 		List<Categoria> categorias = new ArrayList<>();
 		String [] partes = texto.split(";");
 		
