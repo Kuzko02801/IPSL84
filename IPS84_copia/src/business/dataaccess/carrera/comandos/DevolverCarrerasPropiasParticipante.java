@@ -14,6 +14,12 @@ import net.proteanit.sql.DbUtils;
 
 public class DevolverCarrerasPropiasParticipante {
 
+	private String email_atleta;
+	
+	public DevolverCarrerasPropiasParticipante(String email_atleta) {
+		this.email_atleta = email_atleta;
+	}
+	
 	public TableModel devolverCarreras() {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
@@ -23,10 +29,12 @@ public class DevolverCarrerasPropiasParticipante {
 		TableModel t = null;
 		PreparedStatement ps = null;
 		Connection con = null;
+		ResultSet rs = null;
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			ps = con.prepareStatement(SqlStatements.SQL_CARRERA_ABIERTA);
-			ResultSet rs = ps.executeQuery();
+			ps = con.prepareStatement(SqlStatements.SQL_CARRERA_PARTICIPADO);
+			ps.setString(1, email_atleta);
+			rs = ps.executeQuery();			
 			t = DbUtils.resultSetToTableModel(rs);
 
 			ps.close();

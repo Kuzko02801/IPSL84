@@ -29,12 +29,17 @@ public class DevolverClasificacionAbsoluta {
 		TableModel t = null;
 		PreparedStatement ps = null;
 		Connection con = null;
+		ResultSet rs = null;
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			ps = con.prepareStatement(SqlStatements.SQL_CLASIFICACION_ABSOLUTA);
-			
+			ps = con.prepareStatement(SqlStatements.SQL_CLASIFICACION_ABSOLUTA);			
 			ps.setString(1, id);
-			ResultSet rs = ps.executeQuery();
+			rs = ps.executeQuery();
+			
+			while(rs.next()) {
+				
+			}
+			
 			t = DbUtils.resultSetToTableModel(rs);
 
 			ps.close();

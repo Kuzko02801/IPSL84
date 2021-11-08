@@ -51,7 +51,6 @@ public class CrearCarrera {
 			ps.setDouble(4, carrera.distancia);			
 			ps.setString(5, id);
 			ps.setInt(6, carrera.plazasMaximas);			
-//			ps.setString(7, EstadoCarrera.NO_COMENZADA.label);	
 			// Insertar categorias.
 			ps.setString(7, CategoriaParser.categoriasToString(carrera.categorias));
 			// Insertar periodos.
@@ -70,7 +69,7 @@ public class CrearCarrera {
 
 	private void checkCategories(List<Categoria> categorias) throws BusinessDataException {
 		
-		for(Categoria pivote : categorias) {
+		for(Categoria pivote : categorias) {			
 			for(Categoria categoria : categorias) {
 				if(!categoria.equals(pivote)) {
 					if(pivote.getEdadMinima() > categoria.getEdadMinima()
@@ -88,18 +87,23 @@ public class CrearCarrera {
 	private void checkPeriods(List<Periodo> periodos) throws BusinessDataException {
 				
 		for(Periodo pivote : periodos) {
+			if(pivote.getFechaInicio().isAfter(carrera.fecha)
+					|| pivote.getFechaFin().isAfter(carrera.fecha)) {
+				throw new BusinessDataException("Las fechas de inicio y fin deben ser antes del inicio de la carrera.");	
+			}
+			
 			for(Periodo periodo : periodos) {
 				if(!periodo.equals(pivote)) {
 					/**
 					 * Tira BusinessException si alguna de las fechas
 					 * del pivote esta solapada con las del periodo.
-					 */
+					 */ 
 					if(pivote.getFechaInicio().isAfter(periodo.getFechaInicio())
 							&& pivote.getFechaInicio().isBefore(periodo.getFechaFin())
 							|| pivote.getFechaFin().isAfter(periodo.getFechaInicio())
 							&& pivote.getFechaFin().isBefore(periodo.getFechaFin())) {
 						throw new BusinessDataException("Las fechas no se pueden solapar.");
-					}
+					}					
 				}
 			}
 		}

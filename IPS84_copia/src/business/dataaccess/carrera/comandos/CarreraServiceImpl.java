@@ -10,8 +10,8 @@ public class CarreraServiceImpl implements CarreraService{
 
 
 	@Override
-	public TableModel devolverCarrerasPropiasParticipante() {
-		return new DevolverCarrerasPropiasParticipante().devolverCarreras();
+	public TableModel devolverCarrerasPropiasParticipante(String email_atleta) {
+		return new DevolverCarrerasPropiasParticipante(email_atleta).devolverCarreras();
 	}
 
 	@Override

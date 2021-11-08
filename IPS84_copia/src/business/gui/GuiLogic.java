@@ -19,11 +19,11 @@ import business.dataaccess.util.Check;
  */
 public class GuiLogic {
 
-	public static void mostrarCarrerasParticipante(int index, JTable tablaCarrerasParticipante) {
+	public static void mostrarCarrerasParticipante(int index, JTable tablaCarrerasParticipante, String email_atleta) {
 		if (index == 0) {
 			cargarTodasCarrerasParticipante(tablaCarrerasParticipante);
 		} else {
-			cargarPropiasCarrerasParticipante(tablaCarrerasParticipante);
+			cargarPropiasCarrerasParticipante(tablaCarrerasParticipante, email_atleta);
 		}
 	}
 
@@ -32,8 +32,8 @@ public class GuiLogic {
 		tablaCarrerasParticipante.setModel(tm);
 	}
 
-	public static void cargarPropiasCarrerasParticipante(JTable tablaCarrerasParticipante) {
-		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasPropiasParticipante();
+	public static void cargarPropiasCarrerasParticipante(JTable tablaCarrerasParticipante, String email_atleta) {
+		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasPropiasParticipante(email_atleta);
 		tablaCarrerasParticipante.setModel(tm);
 
 	}
@@ -83,8 +83,7 @@ public class GuiLogic {
 						,null
 						, plazas					
 						, categorias
-						, periodos));
-					
+						, periodos));					
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {

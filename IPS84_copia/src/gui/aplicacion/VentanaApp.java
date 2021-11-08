@@ -32,6 +32,7 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
+import business.dataaccess.BusinessDataException;
 import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
 import business.gui.CarreraManager;
@@ -128,6 +129,8 @@ public class VentanaApp extends JFrame {
 	private JTextField txtCuota;
 	private JButton btnAñadirPeriodo;
 
+	
+	
 	/**
 	 * Create the frame.
 	 */
@@ -146,6 +149,7 @@ public class VentanaApp extends JFrame {
 		case ADMIN:
 			mostrarPanelOrganizador();
 			getMnItCuentaParticipante().setEnabled(false);
+			carreraManager = new CarreraManager();
 			break;
 		case PARTICIPANTE:
 			mostrarPanelParticipante();
@@ -270,7 +274,7 @@ public class VentanaApp extends JFrame {
 			btOrdenar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					GuiLogic.mostrarCarrerasParticipante(getCbClasificaciones().getSelectedIndex(),
-							tablaCarrerasParticipante);
+							tablaCarrerasParticipante, email_atleta); // Pasar el email del atleta.
 				}
 			});
 			btOrdenar.setForeground(new Color(184, 220, 245));
@@ -1139,11 +1143,19 @@ public class VentanaApp extends JFrame {
 		getTxFechaApertura().setText("");
 	}
 
-	private void crearCarrera() {
-		GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
-				getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
-				getTxCuotaCarrera().getText(), getTxPlazasCarrera().getText(), getTxFechaCierre().getText(),
-				getTxFechaApertura().getText());
+	private void crearCarrera() throws BusinessDataException {
+		GuiLogic.crearCarrera(
+				getTxNombreCarrera().getText(),
+				getTxFechaCarrera().getText(),				
+				getCbTipoCarrera().getSelectedItem().toString(),
+				getTxDistanciaCarrera().getText(),					
+				getTxPlazasCarrera().getText(),
+				carreraManager.getCategorias(),
+				carreraManager.getPeriodos());
+		
+		carreraManager.cleanCategorias();
+		carreraManager.cleanPeriodos();
+		
 		vaciarCamposCrearCarrera();
 		mostrarPanelOrganizadorCarreras();
 	}

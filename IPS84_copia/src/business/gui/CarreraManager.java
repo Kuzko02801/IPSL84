@@ -26,6 +26,11 @@ public class CarreraManager {
 		return categorias;
 	}
 	
+	public void cleanCategorias() {
+		categorias.clear();
+	}
 	
-	
+	public void cleanPeriodos() {
+		periodos.clear();
+	}
 }
