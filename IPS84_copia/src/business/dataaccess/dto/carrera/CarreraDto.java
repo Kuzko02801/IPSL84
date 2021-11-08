@@ -16,4 +16,5 @@ public class CarreraDto {
 	public String carrera_id;
 	public int plazasMaximas;
 	public List<Periodo> periodos;
+	public List<Categoria> categorias;
 }

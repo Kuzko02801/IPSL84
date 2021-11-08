@@ -47,6 +47,18 @@ public class DateSqlite implements Comparable<DateSqlite> {
 		return 0;
 	}
 	
+	public boolean isAfter(DateSqlite date) {
+		if(this.compareTo(date) > 0)
+			return true;
+		return false;
+	}
+	
+	public boolean isBefore(DateSqlite date) {
+		if(this.compareTo(date) < 0)
+			return true;
+		return false;
+	}
+	
 	public DateSqlite actual() {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return new DateSqlite(sdf.format(new Date()));

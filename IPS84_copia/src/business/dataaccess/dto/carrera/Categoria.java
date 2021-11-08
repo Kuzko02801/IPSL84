@@ -1,11 +1,12 @@
 package business.dataaccess.dto.carrera;
 
+
 public class Categoria {
 	private int edadMinima;
 	private int edadMaxima;
 	private String tipo;
 	
-	public Categoria (String tipo, int edadMinima, int edadMaxima) {
+	public Categoria (String tipo, int edadMinima, int edadMaxima) {		
 		this.tipo = tipo;
 		this.edadMinima = edadMinima;
 		this.edadMaxima = edadMaxima;
