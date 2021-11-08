@@ -81,8 +81,7 @@ public class GuiLogic {
 						, tipo
 						, distancia					
 						,null
-						, plazas
-						, null
+						, plazas					
 						, categorias
 						, periodos));
 					
@@ -90,7 +89,7 @@ public class GuiLogic {
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
 		DataAccessFactory.forAtletaService().inscribirAtleta(DtoAssembler.forAtletaDto(email, null, null, null, null),
-				DtoAssembler.forCarreraDto(null, null, null, "0", id, "0", null, new ArrayList<Categoria>(), new ArrayList<Periodo>()));
+				DtoAssembler.forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>()));
 	}
 	public static AtletaDto devuelveAtleta(String email) {
 		return DataAccessFactory.forAtletaService().encontrarAtleta(email);

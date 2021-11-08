@@ -6,7 +6,6 @@ import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
-import business.dataaccess.dto.infoadicional.EstadoCarrera;
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.dto.infoadicional.Tipo;
 import business.dataaccess.util.DateSqlite;
@@ -30,7 +29,6 @@ public class DtoAssembler {
 			String distance,			
 			String carrera_id,
 			String plazasMaximas,			
-	//		String estado,
 			List<Categoria> categorias,
 			List<Periodo> periodos) {
 		CarreraDto carrera = new CarreraDto();
@@ -40,7 +38,6 @@ public class DtoAssembler {
 		carrera.distancia = Double.valueOf(distance);
 		carrera.carrera_id = carrera_id;
 		carrera.plazasMaximas = Integer.valueOf(plazasMaximas);
-	//	carrera.estado=EstadoCarrera.estadoParser(estado);
 		carrera.periodos = periodos;
 		carrera.categorias = categorias;
 		return carrera;
