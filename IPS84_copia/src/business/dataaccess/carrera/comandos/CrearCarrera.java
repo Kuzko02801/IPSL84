@@ -24,12 +24,6 @@ public class CrearCarrera {
 		this.carrera=carrera;
 	}
 	public void crearCarrera() throws BusinessDataException {
-
-		// Checar si los periodos son validos.
-		checkPeriods(carrera.periodos);
-		
-		// Checar las categorias.
-		checkCategories(carrera.categorias);
 		
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
@@ -67,45 +61,5 @@ public class CrearCarrera {
 
 	}
 
-	private void checkCategories(List<Categoria> categorias) throws BusinessDataException {
-		
-		for(Categoria pivote : categorias) {			
-			for(Categoria categoria : categorias) {
-				if(!categoria.equals(pivote)) {
-					if(pivote.getEdadMinima() > categoria.getEdadMinima()
-							&& pivote.getEdadMinima() < categoria.getEdadMaxima()
-							|| pivote.getEdadMaxima() > categoria.getEdadMinima()
-							&& pivote.getEdadMaxima() < categoria.getEdadMaxima()) {
-						throw new BusinessDataException("Las edades de las categorias no se pueden solapar.");
-					}
-				}
-			}
-		}
-		
-	}
-
-	private void checkPeriods(List<Periodo> periodos) throws BusinessDataException {
-				
-		for(Periodo pivote : periodos) {
-			if(pivote.getFechaInicio().isAfter(carrera.fecha)
-					|| pivote.getFechaFin().isAfter(carrera.fecha)) {
-				throw new BusinessDataException("Las fechas de inicio y fin deben ser antes del inicio de la carrera.");	
-			}
-			
-			for(Periodo periodo : periodos) {
-				if(!periodo.equals(pivote)) {
-					/**
-					 * Tira BusinessException si alguna de las fechas
-					 * del pivote esta solapada con las del periodo.
-					 */ 
-					if(pivote.getFechaInicio().isAfter(periodo.getFechaInicio())
-							&& pivote.getFechaInicio().isBefore(periodo.getFechaFin())
-							|| pivote.getFechaFin().isAfter(periodo.getFechaInicio())
-							&& pivote.getFechaFin().isBefore(periodo.getFechaFin())) {
-						throw new BusinessDataException("Las fechas no se pueden solapar.");
-					}					
-				}
-			}
-		}
-	}
+	
 }

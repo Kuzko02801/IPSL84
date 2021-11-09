@@ -980,9 +980,10 @@ public class VentanaApp extends JFrame {
 			btCrearCarrera.setEnabled(false);
 			btCrearCarrera.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					crearCarrera();
-				}
-			});
+					try {
+						crearCarrera();
+					} catch (BusinessDataException e1) {}
+			}});
 			btCrearCarrera.setBackground(new Color(8, 46, 70));
 			btCrearCarrera.setForeground(new Color(184, 220, 245));
 			btCrearCarrera.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
@@ -1144,6 +1145,9 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void crearCarrera() throws BusinessDataException {
+		carreraManager.checkCategories();
+		carreraManager.checkPeriods(getTxFechaCarrera().getText());
+		
 		GuiLogic.crearCarrera(
 				getTxNombreCarrera().getText(),
 				getTxFechaCarrera().getText(),				
