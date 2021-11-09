@@ -1,8 +1,11 @@
-package gui.validadores;
+package gui.validadoresGUI;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.Period;
+import java.time.ZoneId;
 import java.util.Date;
 
 import javax.mail.internet.AddressException;
@@ -34,6 +37,9 @@ public class Validadores {
 	}
 
 	public static final boolean comprobarEmail(String email) {
+		if(!comprobarNoVacio(email)) {
+			return false;
+		}
 		boolean result = true;
 		try {
 			InternetAddress emailAddr = new InternetAddress(email);
@@ -45,6 +51,9 @@ public class Validadores {
 	}
 
 	public static boolean comprobarNoVacio(String string) {
+		if(string==null) {
+			return false;
+		}
 		if (string.trim().length() == 0) {
 			return false;
 		}
@@ -77,16 +86,18 @@ public class Validadores {
 	}
 
 	public static boolean comprobarMayor18(String fecha) {
+		Period period;
 		try {
-			//TODO
-			SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
+			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 			df.setLenient(false);
-			df.parse(fecha);
-			if(true)
+			Date nacimiento = df.parse(fecha);
+			period = Period.between(nacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
+			if(period.getYears()>18) {
 				return true;
+			}
+			return false;
 		} catch (ParseException e) {
 			return false;
 		}
-		return false;
 	}
 }
