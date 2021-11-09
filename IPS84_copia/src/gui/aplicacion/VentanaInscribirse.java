@@ -168,7 +168,7 @@ public class VentanaInscribirse extends JDialog {
 		}
 	}
 	private void mostrarVentanaRegistro(String email) {
-		VentanaRegistro v=new VentanaRegistro(email);
+		VentanaRegistro v=new VentanaRegistro(email,id_carrera);
 		v.setVisible(true);
 		dispose();
 	}

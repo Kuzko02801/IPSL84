@@ -12,14 +12,6 @@ public class CarreraManager {
 	private List<Periodo> periodos = new ArrayList<>();
 	private List<Categoria> categorias = new ArrayList<>();
 
-	public void addPeriodo(Periodo periodo) {
-		periodos.add(periodo);
-	}
-
-	public void addCategoria(Categoria categoria) {
-		categorias.add(categoria);
-	}
-
 	public List<Periodo> getPeriodos() {
 		return periodos;
 	}
@@ -37,7 +29,9 @@ public class CarreraManager {
 	}
 
 	public void checkCategories() throws BusinessDataException {
-
+		if(categorias.size()<1) {
+			throw new BusinessDataException("Ha de haber al menos 1 categoría");
+		}
 		for (Categoria pivote : categorias) {
 			for (Categoria categoria : categorias) {
 				if (!categoria.equals(pivote)) {
@@ -54,7 +48,9 @@ public class CarreraManager {
 	}
 
 	public void checkPeriods(String fecha) throws BusinessDataException {
-
+		if(periodos.size()<1) {
+			throw new BusinessDataException("Ha de haber al menos 1 periodo");
+		}
 		for (Periodo pivote : periodos) {
 			if (pivote.getFechaInicio().isAfter(new DateSqlite(fecha))
 					|| pivote.getFechaFin().isAfter(new DateSqlite(fecha))) {
@@ -76,5 +72,15 @@ public class CarreraManager {
 				}
 			}
 		}
+	}
+
+	public void addCategoria(String nombreCategoria, int edadInicio, int edadFin) {
+		Categoria c=new Categoria(nombreCategoria, edadInicio, edadFin);
+		categorias.add(c);
+	}
+
+	public void addPeriodo(String fechaInicio, String fechaFin, double cuota) {
+		Periodo p=new Periodo(new DateSqlite(fechaInicio), new DateSqlite(fechaFin), cuota);
+		periodos.add(p);
 	}
 }

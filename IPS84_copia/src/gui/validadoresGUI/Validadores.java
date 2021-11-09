@@ -100,4 +100,32 @@ public class Validadores {
 			return false;
 		}
 	}
+	public static boolean comprobarMayor18Numero(String años) {
+		Integer d = null;
+		try {
+			d = Integer.parseInt(años);
+		} catch (Exception e) {
+			return false;
+		}
+		if (d >= 18) {
+			return true;
+		} else {
+			return false;
+		}
+	}
+	public static boolean comprobarEdadesCategoria(String añosInicio,String añosFin) {
+		Integer inicio=null;
+		Integer fin=null;
+		try {
+			inicio = Integer.parseInt(añosInicio);
+			fin = Integer.parseInt(añosFin);
+		} catch (Exception e) {
+			return false;
+		}
+		if(fin>inicio) {
+			return true;
+		}else {
+			return false;
+		}
+	}
 }

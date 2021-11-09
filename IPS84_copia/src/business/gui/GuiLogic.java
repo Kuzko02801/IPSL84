@@ -19,13 +19,6 @@ import business.dataaccess.util.Check;
  */
 public class GuiLogic {
 
-	public static void mostrarCarrerasParticipante(int index, JTable tablaCarrerasParticipante, String email_atleta) {
-		if (index == 0) {
-			cargarTodasCarrerasParticipante(tablaCarrerasParticipante);
-		} else {
-			cargarPropiasCarrerasParticipante(tablaCarrerasParticipante, email_atleta);
-		}
-	}
 
 	public static void cargarTodasCarrerasParticipante(JTable tablaCarrerasParticipante) {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasValidas();
@@ -66,12 +59,9 @@ public class GuiLogic {
 	public static boolean comprobarIdValidaCarrera(String id) {
 		return Check.raceExists2(id);
 	}
-	public static void registrarAtleta(String email,String dni,String nombre,String fechaNacimiento,String sexo) {
-		try {
-			DataAccessFactory.forAtletaService().atletaAdd(DtoAssembler.forAtletaDto(email,dni,nombre,fechaNacimiento,sexo));
-		} catch (BusinessDataException e) {
-			e.printStackTrace();
-		}
+	public static void registrarAtleta(String email,String dni,String nombre,String fechaNacimiento,String sexo) throws BusinessDataException {
+		DataAccessFactory.forAtletaService().atletaAdd(DtoAssembler.forAtletaDto(email,dni,nombre,fechaNacimiento,sexo));
+		
 	}
 	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia, String plazas, List<Categoria> categorias, List<Periodo> periodos) throws BusinessDataException {
 		DataAccessFactory.forCarreraService().crearCarrera(

@@ -2,16 +2,12 @@ package gui.aplicacion;
 
 import java.awt.CardLayout;
 import java.awt.Color;
-import java.awt.EventQueue;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -28,20 +24,15 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
-import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-import business.dataaccess.dto.carrera.Categoria;
-import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.validadoresGUI.Validadores;
-
-import java.awt.GridLayout;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
 
@@ -123,6 +114,7 @@ public class VentanaApp extends JFrame {
 	public final static int PARTICIPANTE = 1;
 
 	private CarreraManager carreraManager;
+	private JButton btResetCarrera;
 
 	/**
 	 * Create the frame.
@@ -337,7 +329,6 @@ public class VentanaApp extends JFrame {
 			pnBotonesInscribirseParticipante = new JPanel();
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
 
-			
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
 			gl_pnBotonesInscribirseParticipante
 					.setHorizontalGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
@@ -345,7 +336,8 @@ public class VentanaApp extends JFrame {
 									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186,
 											GroupLayout.PREFERRED_SIZE)
 									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137,
+											GroupLayout.PREFERRED_SIZE)
 									.addGap(437)));
 			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
 					.createParallelGroup(Alignment.TRAILING)
@@ -353,13 +345,15 @@ public class VentanaApp extends JFrame {
 							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
 									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24,
 											Short.MAX_VALUE)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE))));
+									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24,
+											Short.MAX_VALUE))));
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
 	}
+
 	private JButton getBtPagarParticipante() {
-		if(btPagarParticipante==null) {
+		if (btPagarParticipante == null) {
 			btPagarParticipante = new JButton("Pagar");
 			btPagarParticipante.setEnabled(false);
 			btPagarParticipante.setForeground(new Color(184, 220, 245));
@@ -373,6 +367,7 @@ public class VentanaApp extends JFrame {
 		}
 		return btPagarParticipante;
 	}
+
 	private JButton getBtInscribirseParticipante() {
 		if (btInscribirseParticipante == null) {
 			btInscribirseParticipante = new JButton("Inscribirse");
@@ -459,22 +454,24 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrganizador2 = new JPanel();
 			pnBotonesOrganizador2.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrganizador2 = new GroupLayout(pnBotonesOrganizador2);
-			gl_pnBotonesOrganizador2.setHorizontalGroup(
-				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
-						.addComponent(getBtMostrarClasificaciones(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getCbClasificaciones(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 376, Short.MAX_VALUE)
-						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE, 118, GroupLayout.PREFERRED_SIZE))
-			);
-			gl_pnBotonesOrganizador2.setVerticalGroup(
-				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrganizador2
+					.setHorizontalGroup(
+							gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
+											.addComponent(getBtMostrarClasificaciones(), GroupLayout.PREFERRED_SIZE,
+													187, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(getCbClasificaciones(), GroupLayout.PREFERRED_SIZE,
+													GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 376, Short.MAX_VALUE)
+											.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE,
+													118, GroupLayout.PREFERRED_SIZE)));
+			gl_pnBotonesOrganizador2.setVerticalGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(getBtMostrarClasificaciones(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-						.addComponent(getCbClasificaciones(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
-			);
+							.addComponent(getBtMostrarClasificaciones(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+							.addComponent(getCbClasificaciones(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+							.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37,
+									Short.MAX_VALUE)));
 			pnBotonesOrganizador2.setLayout(gl_pnBotonesOrganizador2);
 		}
 		return pnBotonesOrganizador2;
@@ -512,22 +509,20 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrganizador1 = new JPanel();
 			pnBotonesOrganizador1.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrganizador1 = new GroupLayout(pnBotonesOrganizador1);
-			gl_pnBotonesOrganizador1.setHorizontalGroup(
-				gl_pnBotonesOrganizador1.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrganizador1.setHorizontalGroup(gl_pnBotonesOrganizador1.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador1.createSequentialGroup()
-						.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getBtMostrarParticipantes(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addGap(447))
-			);
-			gl_pnBotonesOrganizador1.setVerticalGroup(
-				gl_pnBotonesOrganizador1.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnBotonesOrganizador1.createSequentialGroup()
-						.addGap(25)
-						.addGroup(gl_pnBotonesOrganizador1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getBtMostrarParticipantes(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)))
-			);
+							.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 117,
+									GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getBtMostrarParticipantes(),
+									GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+							.addGap(447)));
+			gl_pnBotonesOrganizador1.setVerticalGroup(gl_pnBotonesOrganizador1.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesOrganizador1.createSequentialGroup().addGap(25)
+							.addGroup(gl_pnBotonesOrganizador1.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 24,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtMostrarParticipantes(), GroupLayout.DEFAULT_SIZE, 24,
+											Short.MAX_VALUE))));
 			pnBotonesOrganizador1.setLayout(gl_pnBotonesOrganizador1);
 		}
 		return pnBotonesOrganizador1;
@@ -748,30 +743,40 @@ public class VentanaApp extends JFrame {
 			pnCrearCarrera.setBackground(new Color(50, 130, 181));
 			GroupLayout gl_pnCrearCarrera = new GroupLayout(pnCrearCarrera);
 			gl_pnCrearCarrera.setHorizontalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap().addGroup(gl_pnCrearCarrera
-							.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-									.addComponent(getPnCategoriasCarrera(), GroupLayout.DEFAULT_SIZE, 346,
-											Short.MAX_VALUE)
-									.addGap(231)
-									.addComponent(getBtCrearCarrera(), GroupLayout.DEFAULT_SIZE, 171, Short.MAX_VALUE))
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-									.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
-									.addGap(56).addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE,
-											GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
+							.addGroup(gl_pnCrearCarrera
+									.createParallelGroup(
+											Alignment.LEADING)
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+											.addComponent(getPnCategoriasCarrera(), GroupLayout.DEFAULT_SIZE, 346,
+													Short.MAX_VALUE)
+											.addGap(54)
+											.addComponent(getBtResetCarrera(), GroupLayout.DEFAULT_SIZE, 171,
+													Short.MAX_VALUE)
+											.addPreferredGap(ComponentPlacement.RELATED).addComponent(
+													getBtCrearCarrera(), GroupLayout.DEFAULT_SIZE, 171,
+													Short.MAX_VALUE))
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+											.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 346,
+													Short.MAX_VALUE)
+											.addGap(56).addComponent(getPnInscripcionCarrera(),
+													GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
+													Short.MAX_VALUE)))
 							.addContainerGap()));
 			gl_pnCrearCarrera.setVerticalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
 					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
 							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
 									.addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE, 191,
 											Short.MAX_VALUE)
-									.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 195, Short.MAX_VALUE))
+									.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
 							.addPreferredGap(ComponentPlacement.UNRELATED)
 							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
 									.addComponent(getBtCrearCarrera(), GroupLayout.PREFERRED_SIZE, 27,
 											GroupLayout.PREFERRED_SIZE)
 									.addComponent(getPnCategoriasCarrera(), GroupLayout.PREFERRED_SIZE, 162,
-											Short.MAX_VALUE))
+											Short.MAX_VALUE)
+									.addComponent(getBtResetCarrera(), GroupLayout.PREFERRED_SIZE, 27,
+											GroupLayout.PREFERRED_SIZE))
 							.addGap(47)));
 			pnCrearCarrera.setLayout(gl_pnCrearCarrera);
 		}
@@ -843,12 +848,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxNombreCarrera() {
 		if (txNombreCarrera == null) {
 			txNombreCarrera = new JTextField();
-			txNombreCarrera.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(KeyEvent e) {
-					comprobarCamposCrearCarrera();
-				}
-			});
+			txNombreCarrera.setText("CarreraPrueba");
 			txNombreCarrera.setColumns(10);
 		}
 		return txNombreCarrera;
@@ -857,6 +857,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaCarrera() {
 		if (txFechaCarrera == null) {
 			txFechaCarrera = new JTextField();
+			txFechaCarrera.setText("10/10/2010");
 			txFechaCarrera.setColumns(10);
 		}
 		return txFechaCarrera;
@@ -865,6 +866,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxDistanciaCarrera() {
 		if (txDistanciaCarrera == null) {
 			txDistanciaCarrera = new JTextField();
+			txDistanciaCarrera.setText("15");
 			txDistanciaCarrera.setColumns(10);
 		}
 		return txDistanciaCarrera;
@@ -873,6 +875,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxPlazasCarrera() {
 		if (txPlazasCarrera == null) {
 			txPlazasCarrera = new JTextField();
+			txPlazasCarrera.setText("50");
 			txPlazasCarrera.setColumns(10);
 		}
 		return txPlazasCarrera;
@@ -1056,6 +1059,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaFinPlazo() {
 		if (txFechaFinPlazo == null) {
 			txFechaFinPlazo = new JTextField();
+			txFechaFinPlazo.setText("20/9/2010");
 			txFechaFinPlazo.setColumns(10);
 		}
 		return txFechaFinPlazo;
@@ -1064,6 +1068,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaInicioPlazo() {
 		if (txFechaInicioPlazo == null) {
 			txFechaInicioPlazo = new JTextField();
+			txFechaInicioPlazo.setText("10/9/2010");
 			txFechaInicioPlazo.setColumns(10);
 		}
 		return txFechaInicioPlazo;
@@ -1165,6 +1170,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxEdadInicioCategoria() {
 		if (txEdadInicioCategoria == null) {
 			txEdadInicioCategoria = new JTextField();
+			txEdadInicioCategoria.setText("18");
 			txEdadInicioCategoria.setColumns(10);
 		}
 		return txEdadInicioCategoria;
@@ -1173,6 +1179,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxNombreCategoria() {
 		if (txNombreCategoria == null) {
 			txNombreCategoria = new JTextField();
+			txNombreCategoria.setText("Adultos");
 			txNombreCategoria.setColumns(10);
 		}
 		return txNombreCategoria;
@@ -1181,7 +1188,11 @@ public class VentanaApp extends JFrame {
 	private JButton getBtAnadirInscripcion() {
 		if (btAnadirInscripcion == null) {
 			btAnadirInscripcion = new JButton("A\u00F1adir inscripci\u00F3n");
-			btAnadirInscripcion.setEnabled(false);
+			btAnadirInscripcion.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					añadePlazoInscripcion();
+				}
+			});
 			btAnadirInscripcion.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		}
 		return btAnadirInscripcion;
@@ -1190,6 +1201,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxCuotaCarrera() {
 		if (txCuotaCarrera == null) {
 			txCuotaCarrera = new JTextField();
+			txCuotaCarrera.setText("3");
 			txCuotaCarrera.setColumns(10);
 		}
 		return txCuotaCarrera;
@@ -1198,6 +1210,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxEdadFinCategoria() {
 		if (txEdadFinCategoria == null) {
 			txEdadFinCategoria = new JTextField();
+			txEdadFinCategoria.setText("29");
 			txEdadFinCategoria.setColumns(10);
 		}
 		return txEdadFinCategoria;
@@ -1206,7 +1219,11 @@ public class VentanaApp extends JFrame {
 	private JButton getBtAnadirCategoria() {
 		if (btAnadirCategoria == null) {
 			btAnadirCategoria = new JButton("A\u00F1adir categor\u00EDa");
-			btAnadirCategoria.setEnabled(false);
+			btAnadirCategoria.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					añadeCategoria();
+				}
+			});
 			btAnadirCategoria.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		}
 		return btAnadirCategoria;
@@ -1220,10 +1237,23 @@ public class VentanaApp extends JFrame {
 					crearCarrera();
 				}
 			});
-			btCrearCarrera.setEnabled(false);
 			btCrearCarrera.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		}
 		return btCrearCarrera;
+	}
+
+	private JButton getBtResetCarrera() {
+		if (btResetCarrera == null) {
+			btResetCarrera = new JButton("Reset");
+			btResetCarrera.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					resetearCamposCarrera();
+				}
+
+			});
+			btResetCarrera.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
+		}
+		return btResetCarrera;
 	}
 
 	// METODOS
@@ -1283,10 +1313,10 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void comprobarIdCarreraValidaParticipante(String string) {
-		if(GuiLogic.comprobarIdValidaCarrera(string)) {
+		if (GuiLogic.comprobarIdValidaCarrera(string)) {
 			getBtInscribirseParticipante().setEnabled(true);
-			//TODO decidir si se pone el boton de pagar a enabled o no
-		}else {
+			// TODO decidir si se pone el boton de pagar a enabled o no
+		} else {
 			getBtInscribirseParticipante().setEnabled(false);
 		}
 	}
@@ -1314,7 +1344,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarTodasCarrerasParticipante() {
-		// TODO
+		GuiLogic.cargarTodasCarrerasParticipante(getTablaCarrerasParticipante());
 
 	}
 
@@ -1323,8 +1353,7 @@ public class VentanaApp extends JFrame {
 		if (Validadores.comprobarEmail(email_atleta)) {
 			try {
 				if (Check.atletaExists(email_atleta)) {
-					GuiLogic.mostrarCarrerasParticipante(getCbClasificaciones().getSelectedIndex(),
-							tablaCarrerasParticipante, email_atleta);
+					GuiLogic.cargarPropiasCarrerasParticipante(getTablaCarrerasParticipante(), email_atleta);
 				} else {
 					JOptionPane.showMessageDialog(this, "No estás inscrito en ninguna carrera", "Error",
 							JOptionPane.WARNING_MESSAGE);
@@ -1347,26 +1376,34 @@ public class VentanaApp extends JFrame {
 		getTxDistanciaCarrera().setText("");
 		getTxPlazasCarrera().setText("");
 		// Resetea plazos inscripcion
-		getTxFechaInicioPlazo().setText("");
-		getTxFechaFinPlazo().setText("");
-		getTxCuotaCarrera().setText("");
+		vaciarCamposCategoria();
 		// Resetea categorias
+		vaciarCamposPlazoInscripcion();
+	}
+	private void vaciarCamposCategoria() {
 		getTxNombreCategoria().setText("");
 		getTxEdadInicioCategoria().setText("");
 		getTxEdadFinCategoria().setText("");
 	}
+	private void vaciarCamposPlazoInscripcion() {
+		getTxFechaInicioPlazo().setText("");
+		getTxFechaFinPlazo().setText("");
+		getTxCuotaCarrera().setText("");
+	}
 
 	private void crearCarrera() {
-		try {
-			GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
-					getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
-					getTxPlazasCarrera().getText(), carreraManager.getCategorias(), carreraManager.getPeriodos());
-		} catch (BusinessDataException e) {
-			JOptionPane.showMessageDialog(rootPane, "Ha habido un error creando la carrera");
-			e.printStackTrace();
+		if(comprobarCamposCrearCarrera()) {
+			try {
+				GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
+						getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
+						getTxPlazasCarrera().getText(), carreraManager.getCategorias(), carreraManager.getPeriodos());
+				JOptionPane.showMessageDialog(this, "La carrera se ha creado con éxito", "Exito", JOptionPane.INFORMATION_MESSAGE);
+				vaciarCamposCrearCarrera();
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+				e.printStackTrace();
+			}	
 		}
-		vaciarCamposCrearCarrera();
-		mostrarPanelOrganizadorCarreras();
 	}
 
 	private void mostrarVentanaInscripcion() {
@@ -1385,11 +1422,12 @@ public class VentanaApp extends JFrame {
 		getBtInscribirseParticipante().setEnabled(false);
 		getBtPagarParticipante().setEnabled(false);
 	}
-	
-	// TODO
-	private void comprobarCamposCrearCarrera() {
+
+	private boolean comprobarCamposCrearCarrera() {
 		if (compruebaCategorias() && compruebaFechasInscripcion() && comprobarCamposCarrera()) {
-			getBtCrearCarrera().setEnabled(true);
+			return true;
+		}else {
+			return false;
 		}
 	}
 
@@ -1398,9 +1436,9 @@ public class VentanaApp extends JFrame {
 			carreraManager.checkPeriods(txFechaCarrera.getText());
 			return true;
 		} catch (BusinessDataException e) {
-			// TODO printear mensaje o seleccionar primer campo de periodo.
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
-		}		
+		}
 	}
 
 	private boolean compruebaCategorias() {
@@ -1408,20 +1446,55 @@ public class VentanaApp extends JFrame {
 			carreraManager.checkCategories();
 			return true;
 		} catch (BusinessDataException e) {
-			// TODO printear mensaje o seleccionar primer campo de categoria.
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
-		}	
+		}
 	}
 
 	private boolean comprobarCamposCarrera() {
 		if (Validadores.comprobarNoVacio(getTxNombreCarrera().getText())
 				&& Validadores.comprobarMayor0(getTxCuotaCarrera().getText())
 				&& Validadores.comprobarMayor0(getTxDistanciaCarrera().getText())
-				&& Validadores.comprobarMayor0(getTxPlazasCarrera().getText())){
+				&& Validadores.comprobarMayor0(getTxPlazasCarrera().getText())) {
 			return true;
 		} else {
+			JOptionPane.showMessageDialog(this, "Comprueba los campos de la carrera", "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 
 	}
+
+	private void resetearCamposCarrera() {
+		vaciarCamposCrearCarrera();
+		carreraManager.cleanCategorias();
+		carreraManager.cleanPeriodos();
+	}
+	private void añadePlazoInscripcion() {
+		String fechaInicio=getTxFechaInicioPlazo().getText();
+		String fechaFin=getTxFechaFinPlazo().getText();
+		String cuota = getTxCuotaCarrera().getText();
+		 if(Validadores.comprobarMayor0(cuota)&&
+			Validadores.comprobarFechasValidas(getTxFechaCarrera().getText(),fechaInicio,fechaFin )) {
+			 carreraManager.addPeriodo(fechaInicio,fechaFin,Double.parseDouble(cuota));
+			 vaciarCamposPlazoInscripcion();
+			 JOptionPane.showMessageDialog(this, "El plazo de inscripción ha sido creado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+		 }else {
+			 JOptionPane.showMessageDialog(this, "Comprueba las fechas de los plazos", "Error", JOptionPane.WARNING_MESSAGE);
+		 }
+	}
+	private void añadeCategoria(){
+		String nombreCategoria=getTxNombreCategoria().getText();
+		String edadInicio=getTxEdadInicioCategoria().getText();
+		String edadFin=getTxEdadFinCategoria().getText();
+		if(Validadores.comprobarMayor18Numero(edadInicio)&&
+		   Validadores.comprobarMayor18Numero(edadFin)&&Validadores.comprobarEdadesCategoria(edadInicio,edadFin)) {
+			carreraManager.addCategoria(nombreCategoria,Integer.parseInt(edadInicio),Integer.parseInt(edadFin));
+			vaciarCamposCategoria();
+			JOptionPane.showMessageDialog(this, "La categoría se ha creado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+		}else {
+			JOptionPane.showMessageDialog(this, "Comprueba los campos de las categorías", "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		
+	}
+
 }

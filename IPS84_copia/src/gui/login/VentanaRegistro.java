@@ -12,11 +12,13 @@ import javax.swing.JComboBox;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
+import business.dataaccess.exception.BusinessDataException;
 import business.gui.GuiLogic;
 import gui.validadoresGUI.Validadores;
 
@@ -42,11 +44,12 @@ public class VentanaRegistro extends JDialog {
 	private JTextField txFechaNacimiento;
 	private JComboBox<String> cbSexo;
 	private String email;
+	private String idCarrera;
 
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistro(String email) {
+	public VentanaRegistro(String email,String idCarrera) {
 		setModal(true);
 		setResizable(false);
 		setTitle("Registro");
@@ -59,6 +62,7 @@ public class VentanaRegistro extends JDialog {
 		pnCards.add(getPnRegistroParticipante(), "pnParticipante");
 		
 		this.email=email;
+		this.idCarrera=idCarrera;
 	}
 	private JPanel getPnRegistroParticipante() {
 		if (pnRegistroParticipante == null) {
@@ -197,18 +201,46 @@ public class VentanaRegistro extends JDialog {
 	//Metodos adiccionales
 	
 	private void inscribirParticipante() {
-		//TODO
-		registraParticipante();
-		inscribeParticipante();
+		if(comprobarCampos()) {
+			if(registraParticipante()) {
+				if(inscribeParticipante()){
+					dispose();
+				}
+			}
+		}
+		
 	}
-	private void comprobarCampos() {
-		if (Validadores.comprobarNoVacio(getTxNombreParticipante().getText())&&Validadores.comprobarNoVacio(getTxDniParticipante().getText())
-				&&Validadores.comprobarMayor18(getTxNombreParticipante().getText())) {
-			getBtRegistrarseParticipante().setEnabled(true);
-		} else {
-			getBtRegistrarseParticipante().setEnabled(false);
+	private boolean inscribeParticipante() {
+		try {
+			GuiLogic.inscribirAtletaCarrera(idCarrera, email);
+			return true;
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
+			return false;
 		}
 	}
+	private boolean registraParticipante() {
+		try {
+			GuiLogic.registrarAtleta(email, getTxDniParticipante().getText(),getTxNombreParticipante().getText(),
+					getTxFechaNacimiento().getText(), getCbSexo().getSelectedItem().toString());
+			return true;
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
+			return false;
+		}
+	}
+	private boolean comprobarCampos() {
+		if (Validadores.comprobarNoVacio(getTxNombreParticipante().getText())&&Validadores.comprobarNoVacio(getTxDniParticipante().getText())
+				&&Validadores.comprobarMayor18(getTxNombreParticipante().getText())) {
+			return true;
+		} else {
+			JOptionPane.showMessageDialog(this, "Comprueba los campos", "Error", JOptionPane.WARNING_MESSAGE);
+			return false;
+		}
+	}
+	
 
 
 
