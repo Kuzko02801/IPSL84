@@ -5,15 +5,20 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
 import business.dataaccess.exception.BusinessDataException;
+import business.dataaccess.util.Check;
 import business.gui.GuiLogic;
+import gui.login.VentanaRegistro;
+import javax.swing.SwingConstants;
 
 public class VentanaInscribirse extends JDialog {
 	/**
@@ -27,26 +32,27 @@ public class VentanaInscribirse extends JDialog {
 	private JTextField txtEmail;
 	private JLabel lblEmail;
 	private JLabel lblNewLabel;
-	private JLabel lblWarning;
-	//private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
+	// private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
 	private String id_carrera;
 
 	/**
 	 * Create the dialog.
 	 */
 	public VentanaInscribirse(String id_carrera) {
-		this.id_carrera = id_carrera;	
+		setModal(true);
+		setTitle("Inscripci\u00F3n");
+		this.id_carrera = id_carrera;
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().add(getPnText(), BorderLayout.CENTER);
 		getContentPane().add(getPnButtons(), BorderLayout.SOUTH);
 
 	}
-	
+
 	public String getId_carrera() {
 		return this.id_carrera;
 	}
-	
+
 	public String getEmail_atleta() {
 		return getTxtEmail().getText();
 	}
@@ -54,37 +60,47 @@ public class VentanaInscribirse extends JDialog {
 	private JPanel getPnText() {
 		if (pnText == null) {
 			pnText = new JPanel();
+			pnText.setBackground(new Color(8, 46, 70));
 			pnText.setLayout(null);
 			pnText.add(getTxtEmail());
 			pnText.add(getLblEmail());
 			pnText.add(getLblNewLabel());
-			pnText.add(getLblWarning());
 		}
 		return pnText;
 	}
+
 	private JPanel getPnButtons() {
 		if (pnButtons == null) {
 			pnButtons = new JPanel();
+			pnButtons.setBackground(new Color(8, 46, 70));
 			pnButtons.add(getBtnInscribir());
 			pnButtons.add(getBtnCancelar());
 		}
 		return pnButtons;
 	}
+
 	private JButton getBtnInscribir() {
 		if (btnInscribir == null) {
 			btnInscribir = new JButton("Inscribirse");
+			btnInscribir.setBackground(new Color(50, 130, 181));
+			btnInscribir.setForeground(new Color(184,220,245));
+			btnInscribir.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 			btnInscribir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					inscribirAtleta();
-					
+
 				}
 			});
 		}
 		return btnInscribir;
 	}
+
 	private JButton getBtnCancelar() {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
+			btnCancelar.setBackground(new Color(50, 130, 181));
+			btnCancelar.setForeground(new Color(184,220,245));
+			btnCancelar.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					dispose();
@@ -93,47 +109,67 @@ public class VentanaInscribirse extends JDialog {
 		}
 		return btnCancelar;
 	}
+
 	private JTextField getTxtEmail() {
 		if (txtEmail == null) {
 			txtEmail = new JTextField();
-			txtEmail.setBounds(75, 95, 284, 25);
+			txtEmail.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			txtEmail.setBounds(109, 95, 250, 25);
 			txtEmail.setText("");
 			txtEmail.setColumns(10);
 		}
 		return txtEmail;
 	}
+
 	private JLabel getLblEmail() {
 		if (lblEmail == null) {
-			lblEmail = new JLabel("E-mail:");
-			lblEmail.setBounds(22, 99, 43, 19);
-			lblEmail.setFont(new Font("Tahoma", Font.PLAIN, 15));
+			lblEmail = new JLabel("E-mail");
+			lblEmail.setForeground(new Color(184,220,245));
+			lblEmail.setBackground(new Color(143, 188, 143));
+			lblEmail.setBounds(22, 99, 77, 19);
+			lblEmail.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 		}
 		return lblEmail;
 	}
+
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Para inscribirte escribe tu e-mail");
+			lblNewLabel.setForeground(new Color(184,220,245));
+			lblNewLabel.setBackground(new Color(176, 224, 230));
+			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel.setBounds(71, 36, 288, 25);
-			lblNewLabel.setFont(new Font("Tahoma", Font.PLAIN, 20));
+			lblNewLabel.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
 		}
 		return lblNewLabel;
 	}
-	private JLabel getLblWarning() {
-		if (lblWarning == null) {
-			lblWarning = new JLabel("");
-			lblWarning.setBounds(217, 35, 0, 0);
-			lblWarning.setForeground(Color.RED);
-			lblWarning.setEnabled(false);
-		}
-		return lblWarning;
-	}
+
 	private void inscribirAtleta() {
-		try {					
-			GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
-			//vpt.setVisible(true);						
-		} catch (BusinessDataException e1) {
-			getLblWarning().setText(e1.getMessage());
-			getLblWarning().setEnabled(true);
+		boolean existe;
+		try {
+			existe = Check.atletaExists(getTxtEmail().getText());
+			if (existe) {
+				GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
+			}else {
+				int input=JOptionPane.showConfirmDialog(null,"Tu e-mail no está registrado pero puedes inscribirte aportando datos adiccionales" 
+						,"Datos",JOptionPane.DEFAULT_OPTION);
+				if(input==0) {
+					mostrarVentanaRegistro(getTxtEmail().getText());
+				}
+			}
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado con la inscripción",
+					"Error inscripción", JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado con la inscripción",
+					"Error inscripción", JOptionPane.WARNING_MESSAGE);
+			e.printStackTrace();
 		}
+	}
+	private void mostrarVentanaRegistro(String email) {
+		VentanaRegistro v=new VentanaRegistro(email);
+		v.setVisible(true);
+		dispose();
 	}
 }

@@ -18,13 +18,17 @@ import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
 import business.gui.GuiLogic;
-import gui.validadores.Validadores;
+import gui.validadoresGUI.Validadores;
 
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
 public class VentanaRegistro extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel pnCards;
 	private JPanel pnRegistroParticipante;
 	private JButton btRegistrarseParticipante;
@@ -37,11 +41,13 @@ public class VentanaRegistro extends JDialog {
 	private JTextField txNombreParticipante;
 	private JTextField txFechaNacimiento;
 	private JComboBox<String> cbSexo;
+	private String email;
 
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistro() {
+	public VentanaRegistro(String email) {
+		setModal(true);
 		setResizable(false);
 		setTitle("Registro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -51,6 +57,8 @@ public class VentanaRegistro extends JDialog {
 		setContentPane(pnCards);
 		pnCards.setLayout(new CardLayout(0, 0));
 		pnCards.add(getPnRegistroParticipante(), "pnParticipante");
+		
+		this.email=email;
 	}
 	private JPanel getPnRegistroParticipante() {
 		if (pnRegistroParticipante == null) {
@@ -78,7 +86,7 @@ public class VentanaRegistro extends JDialog {
 			btRegistrarseParticipante.setEnabled(false);
 			btRegistrarseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					registrarParticipante();
+					inscribirParticipante();
 				}
 			});
 			btRegistrarseParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
@@ -188,13 +196,15 @@ public class VentanaRegistro extends JDialog {
 	
 	//Metodos adiccionales
 	
+	private void inscribirParticipante() {
+		//TODO
+		registraParticipante();
+		inscribeParticipante();
+	}
 	private void comprobarCampos() {
 		if (Validadores.comprobarNoVacio(getTxNombreParticipante().getText())&&Validadores.comprobarNoVacio(getTxDniParticipante().getText())
 				&&Validadores.comprobarMayor18(getTxNombreParticipante().getText())) {
 			getBtRegistrarseParticipante().setEnabled(true);
-		}
-		
-			
 		} else {
 			getBtRegistrarseParticipante().setEnabled(false);
 		}

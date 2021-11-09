@@ -120,7 +120,7 @@ public class VentanaLogin extends JFrame {
 	}
 	
 	private void loginParticipante() {
-		mostrarVentanaApp(VentanaApp.ADMIN);
+		mostrarVentanaApp(VentanaApp.PARTICIPANTE);
 	}
 
 	private void loginAdmin() {
