@@ -7,8 +7,8 @@ import business.dataaccess.exception.BusinessDataException;
 public class AtletaServiceImpl implements AtletaService{
 			
 	@Override
-	public void inscribirAtleta(AtletaDto atleta, CarreraDto carrera) throws BusinessDataException {
-		new AtletaInscripcion(atleta, carrera).inscribirAtleta();
+	public void inscribirAtleta(String id, String email) throws BusinessDataException {
+		new AtletaInscripcion(id, email).inscribirAtleta();
 	}
 
 	@Override

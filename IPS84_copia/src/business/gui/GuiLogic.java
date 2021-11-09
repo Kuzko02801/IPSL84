@@ -78,10 +78,7 @@ public class GuiLogic {
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
-		DataAccessFactory.forAtletaService().inscribirAtleta(
-				DtoAssembler.forAtletaDto(email),
-				DtoAssembler.forCarreraDto(id)
-				);
+		DataAccessFactory.forAtletaService().inscribirAtleta(id, email);
 	}
 	public static AtletaDto devuelveAtleta(String email) {
 		return DataAccessFactory.forAtletaService().encontrarAtleta(email);

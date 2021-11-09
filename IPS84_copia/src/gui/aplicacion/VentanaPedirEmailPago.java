@@ -51,34 +51,15 @@ public class VentanaPedirEmailPago extends JDialog {
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				pulsarSiguiente();
+				comprobarPuedePagar();
 			}
 		});
 		btnSiguiente.setBounds(166, 182, 85, 21);
 		contentPanel.add(btnSiguiente);
 	}
-	private void pulsarSiguiente() {
-		
-		boolean existeAtleta;
-		try {
-			existeAtleta = Check.atletaExists(txtEmail.getText());
-		} catch (SQLException e) {
-			e.printStackTrace();
-			throw new RuntimeException();
-		}
-		if(existeAtleta) {
-			try {
-				GuiLogic.inscribirAtletaCarrera(id_carrera, txtEmail.getText());
-			} catch (BusinessDataException e) {
-				e.printStackTrace();
-				throw new RuntimeException();
-			}
-		}
-		
-	}
+	
 	private void comprobarPuedePagar() {
 		if (puedePagar(id_carrera, txtEmail.getText())) {
-			
 			VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(id_carrera, txtEmail.getText());
 			vpt.setVisible(true);
 		} else {
@@ -90,6 +71,7 @@ public class VentanaPedirEmailPago extends JDialog {
 			return Check.puedePagarInscripcion(carrera_id, email_atleta);
 		} catch (SQLException e) {
 			System.out.println("Excepcion en VentanaPedirEmail");
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}

@@ -31,7 +31,7 @@ public class VentanaPagoTarjeta extends JDialog {
 	private JButton btnNewButton;
 	private String id_carrera;
 	private String email_atleta;
-	private int dorsal = 1;
+	private int dorsal = 0;
 	
 	/**
 	 * Create the frame.
@@ -39,7 +39,7 @@ public class VentanaPagoTarjeta extends JDialog {
 	 */
 	public VentanaPagoTarjeta(String id_carrera, String email_atleta) {
 		setModal(true);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 450, 339);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -139,8 +139,9 @@ public class VentanaPagoTarjeta extends JDialog {
 								+ "Número de tarjeta: " + txtTarjeta.getText() + "\n"
 								+ "Fecha de caducidad: " + txtCaducidad.getText() + "\n"
 								+ "CVC: " + txtCVC.getText());
-						JOptionPane.showMessageDialog(rootPane, "Se le ha asignado el dorsal " + (dorsal));
-						DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id_carrera, email_atleta, dorsal++);
+						dorsal = DataAccessFactory.forInscripcionService().generarDorsalParaCarrera(id_carrera);
+						JOptionPane.showMessageDialog(rootPane, "Se le ha asignado el dorsal " + dorsal);
+						DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id_carrera, email_atleta, dorsal);
 						dispose();
 					}
 				}

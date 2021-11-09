@@ -16,5 +16,10 @@ public class InscripcionServiceImpl implements InscripcionService{
 		new PasarDePendienteDePagoAInscrito(id, email, dorsal).execute();
 	}
 	
+	@Override
+	public int generarDorsalParaCarrera(String id_carrera) {
+		return new GenerarDorsalParaCarrera(id_carrera).execute();
+	}
+	
 	
 }

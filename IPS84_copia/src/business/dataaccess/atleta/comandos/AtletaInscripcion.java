@@ -24,12 +24,15 @@ public class AtletaInscripcion {
 
 	private AtletaDto atleta;
 	private CarreraDto carrera;
+	private String carrera_id;
+	private String email_atleta;
 	private Connection con;
 
-	public AtletaInscripcion(AtletaDto atleta, CarreraDto carrera) {
-		this.atleta = DataAccessFactory.forAtletaService().encontrarAtleta(atleta.email);
-
-		this.carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera.carrera_id);
+	public AtletaInscripcion(String carrera_id, String email_atleta) {
+		this.carrera_id = carrera_id;
+		this.email_atleta = email_atleta;
+		this.atleta = DataAccessFactory.forAtletaService().encontrarAtleta(email_atleta);
+		this.carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera_id);
 
 	}
 
@@ -39,7 +42,7 @@ public class AtletaInscripcion {
 		try {
 
 			// Check if the race exists.
-			if (!Check.atletaExists(atleta.email)) {
+			if (!Check.atletaExists(email_atleta)) {
 				throw new BusinessDataException("Ningun atleta asociado con este email.");
 			}
 
@@ -57,8 +60,8 @@ public class AtletaInscripcion {
 
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 
-			ps.setString(1, atleta.email); // atleta.email
-			ps.setString(2, carrera.carrera_id);
+			ps.setString(1, email_atleta); // atleta.email
+			ps.setString(2, carrera_id);
 			ps.setString(3, EstadoInscripcion.PENDIENTE_DE_PAGO.label);
 			ps.setString(4, seleccionarCategoria());// seleccionarCategoria());
 			ps.setString(5, fechaActual());// fechaActual());
