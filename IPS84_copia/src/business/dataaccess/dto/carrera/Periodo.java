@@ -14,7 +14,7 @@ public class Periodo {
 		Check.isNotNull(fechaInicio, "La fecha de inicio no puede ser nula.");
 		Check.isNotNull(fechaFin, "La fecha de final no puede ser nula.");
 		Check.isTrue(cuota > 0, "La cuota debe ser mayor que 0.");
-		
+		this.fechaFin = fechaFin;
 		this.fechaInicio = fechaInicio;
 		this.cuota = cuota;
 	}
@@ -41,5 +41,6 @@ public class Periodo {
 
 	public void setFechaFin(DateSqlite fechaFin) {
 		this.fechaFin = fechaFin;
-	}	
+	}
+	
 }

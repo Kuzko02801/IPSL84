@@ -12,15 +12,14 @@ public class PeriodoParser {
 
 		List<Periodo> periodos = new ArrayList<>();
 		String[] partes = texto.split(";");
-
+		Periodo periodo;
 		for (String s : partes) {
 			String[] args = s.split(",");
 			String fechaInicio = args[0];
 			String fechaFin = args[1];
 			double cuota = Double.valueOf(args[2]);
-			periodos.add(new Periodo(new DateSqlite(fechaInicio), new DateSqlite(fechaFin), cuota));
-			
-			
+			periodo = new Periodo(new DateSqlite(fechaInicio), new DateSqlite(fechaFin), cuota);
+			periodos.add(periodo);
 		}
 
 		return periodos;
