@@ -146,8 +146,15 @@ public class VentanaInscribirse extends JDialog {
 
 	private void inscribirAtleta() {
 		boolean existe;
+		boolean estaInscrito;
+		
 		try {
 			existe = Check.atletaExists(getTxtEmail().getText());
+			estaInscrito = Check.existeInscripcion(getTxtEmail().getText(), id_carrera);
+			if (estaInscrito) {
+				JOptionPane.showMessageDialog(rootPane, "Ya te has registrado para esta carrera");
+				return;
+			}
 			if (existe) {
 				GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
 				dispose();
@@ -169,7 +176,7 @@ public class VentanaInscribirse extends JDialog {
 		}
 	}
 	private void mostrarVentanaRegistro(String email) {
-		VentanaRegistro v=new VentanaRegistro(email,id_carrera);
+		VentanaRegistro v=new VentanaRegistro(email, id_carrera);
 		v.setVisible(true);
 		dispose();
 	}

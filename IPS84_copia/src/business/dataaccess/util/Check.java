@@ -150,4 +150,24 @@ public class Check {
 		if(!cond)
 			throw new IllegalArgumentException(msg);
 	}
+
+	public static boolean existeInscripcion(String email, String id_carrera) throws SQLException {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Connection con = null;
+		
+		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+		
+		pst = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_CONCRETA);
+		
+		pst.setString(1, email);
+		pst.setString(2, id_carrera);
+		
+		rs = pst.executeQuery();
+		
+		if (rs.next()) {
+			return true;
+		}
+		return false;
+	}
 }

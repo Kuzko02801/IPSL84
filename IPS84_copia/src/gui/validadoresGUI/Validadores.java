@@ -94,7 +94,7 @@ public class Validadores {
 	public static boolean comprobarMayor18(String fecha) {
 		Period period;
 		try {
-			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
+			DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
 			df.setLenient(false);
 			Date nacimiento = df.parse(fecha);
 			period = Period.between(nacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),

@@ -53,7 +53,7 @@ public class VentanaRegistro extends JDialog {
 		setModal(true);
 		setResizable(false);
 		setTitle("Registro");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 550, 350);
 		pnCards = new JPanel();
 		pnCards.setBorder(new EmptyBorder(5, 5, 5, 5));
@@ -87,10 +87,12 @@ public class VentanaRegistro extends JDialog {
 	private JButton getBtRegistrarseParticipante() {
 		if (btRegistrarseParticipante == null) {
 			btRegistrarseParticipante = new JButton("Continuar");
-			btRegistrarseParticipante.setEnabled(false);
+			btRegistrarseParticipante.setEnabled(true);
 			btRegistrarseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					inscribirParticipante();
+					if (comprobarCampos()) {
+						inscribirParticipante();
+					}
 				}
 			});
 			btRegistrarseParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
@@ -149,12 +151,12 @@ public class VentanaRegistro extends JDialog {
 	private JTextField getTxDniParticipante() {
 		if (txDniParticipante == null) {
 			txDniParticipante = new JTextField();
-			txDniParticipante.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(KeyEvent e) {
-					comprobarCampos();
-				}
-			});
+//			txDniParticipante.addKeyListener(new KeyAdapter() {
+//				@Override
+//				public void keyReleased(KeyEvent e) {
+//					comprobarCampos();
+//				}
+//			});
 			txDniParticipante.setBounds(214, 68, 286, 34);
 			txDniParticipante.setColumns(10);
 		}
@@ -163,12 +165,12 @@ public class VentanaRegistro extends JDialog {
 	private JTextField getTxNombreParticipante() {
 		if (txNombreParticipante == null) {
 			txNombreParticipante = new JTextField();
-			txNombreParticipante.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(KeyEvent e) {
-					comprobarCampos();
-				}
-			});
+//			txNombreParticipante.addKeyListener(new KeyAdapter() {
+//				@Override
+//				public void keyReleased(KeyEvent e) {
+//					comprobarCampos();
+//				}
+//			});
 			txNombreParticipante.setColumns(10);
 			txNombreParticipante.setBounds(214, 112, 286, 34);
 		}
@@ -177,12 +179,12 @@ public class VentanaRegistro extends JDialog {
 	private JTextField getTxFechaNacimiento() {
 		if (txFechaNacimiento == null) {
 			txFechaNacimiento = new JTextField();
-			txFechaNacimiento.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(KeyEvent e) {
-					comprobarCampos();
-				}
-			});
+//			txFechaNacimiento.addKeyListener(new KeyAdapter() {
+//				@Override
+//				public void keyReleased(KeyEvent e) {
+//					comprobarCampos();
+//				}
+//			});
 			txFechaNacimiento.setBounds(214, 156, 286, 34);
 			txFechaNacimiento.setColumns(10);
 		}
@@ -233,7 +235,7 @@ public class VentanaRegistro extends JDialog {
 	}
 	private boolean comprobarCampos() {
 		if (Validadores.comprobarNoVacio(getTxNombreParticipante().getText())&&Validadores.comprobarNoVacio(getTxDniParticipante().getText())
-				&&Validadores.comprobarMayor18(getTxNombreParticipante().getText())) {
+				&&Validadores.comprobarMayor18(getTxFechaNacimiento().getText())) {
 			return true;
 		} else {
 			JOptionPane.showMessageDialog(this, "Comprueba los campos", "Error", JOptionPane.WARNING_MESSAGE);
