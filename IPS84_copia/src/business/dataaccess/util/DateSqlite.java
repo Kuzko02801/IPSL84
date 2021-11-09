@@ -8,7 +8,7 @@ import java.util.Date;
 
 public class DateSqlite implements Comparable<DateSqlite> {
 
-	final static String DATE_FORMAT = "dd/MM/yyyy";
+	final static String DATE_FORMAT = "yyyy/MM/dd";	
 	private LocalDate date;
 	private DateTimeFormatter formatter;
 	
@@ -60,7 +60,7 @@ public class DateSqlite implements Comparable<DateSqlite> {
 	}
 	
 	public DateSqlite actual() {
-		  SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat(DATE_FORMAT);
 		return new DateSqlite(sdf.format(new Date()));
 	}
 	
