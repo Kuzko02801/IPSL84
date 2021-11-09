@@ -5,13 +5,16 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.swing.table.TableModel;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
+import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.carrera.Periodo;
+import business.dataaccess.dto.dtoassembler.DtoAssembler;
 import business.dataaccess.parsers.PeriodoParser;
 import business.dataaccess.util.Check;
 import net.proteanit.sql.DbUtils;
@@ -28,7 +31,8 @@ public class DevolverCarrerasValidas {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
-		List<Periodo> periodos;		
+		List<Periodo> periodos;
+		List<CarreraDto> carreras = new ArrayList<>();
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_CARRERAS);
@@ -39,9 +43,10 @@ public class DevolverCarrerasValidas {
 				// We check that the race is open.				
 				periodos = PeriodoParser.devolverPeriodos(rs.getString("periodos"));
 				if(!Check.checkCarreraAbierta(periodos)) {
-					rs.deleteRow();
+					carreras.add(DtoAssembler.toCarreraDto(rs));
 				}
-			}			
+			}
+			
 			t = DbUtils.resultSetToTableModel(rs);
 			
 			ps.close();
@@ -53,6 +58,5 @@ public class DevolverCarrerasValidas {
 		}
 		return t;
 	}
-
 	
 }

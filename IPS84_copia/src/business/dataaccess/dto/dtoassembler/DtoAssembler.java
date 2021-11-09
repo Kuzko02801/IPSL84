@@ -1,5 +1,7 @@
 package business.dataaccess.dto.dtoassembler;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -9,6 +11,8 @@ import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.dto.infoadicional.Tipo;
+import business.dataaccess.parsers.CategoriaParser;
+import business.dataaccess.parsers.PeriodoParser;
 import business.dataaccess.util.DateSqlite;
 
 public class DtoAssembler {
@@ -51,5 +55,20 @@ public class DtoAssembler {
 		carrera.periodos = periodos;
 		carrera.categorias = categorias;
 		return carrera;
+	}
+
+	public static CarreraDto toCarreraDto(ResultSet rs) throws SQLException {
+		CarreraDto c = new CarreraDto();
+		
+		c.carrera_id = rs.getString("id");
+		c.distancia = rs.getDouble("distancia");
+		c.fecha = new DateSqlite(rs.getString("fecha"));
+		c.nombre = rs.getString("nombre");
+		c.plazasMaximas = rs.getInt("plazasMaximas");
+		c.tipo = Tipo.tipoParser(rs.getString("tipo"));
+		c.categorias = CategoriaParser.devolverCategorias(rs.getString("categorias"));
+		c.periodos = PeriodoParser.devolverPeriodos(rs.getString("periodos"));
+		
+		return c;
 	}
 }
