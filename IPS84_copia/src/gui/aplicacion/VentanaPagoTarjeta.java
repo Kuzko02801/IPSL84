@@ -139,7 +139,7 @@ public class VentanaPagoTarjeta extends JDialog {
 								+ "Número de tarjeta: " + txtTarjeta.getText() + "\n"
 								+ "Fecha de caducidad: " + txtCaducidad.getText() + "\n"
 								+ "CVC: " + txtCVC.getText());
-						dorsal = DataAccessFactory.forInscripcionService().generarDorsalParaCarrera(id_carrera);
+						dorsal = DataAccessFactory.forInscripcionService().generarDorsalParaCarrera(id_carrera) + 1;
 						JOptionPane.showMessageDialog(rootPane, "Se le ha asignado el dorsal " + dorsal);
 						DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id_carrera, email_atleta, dorsal);
 						dispose();
