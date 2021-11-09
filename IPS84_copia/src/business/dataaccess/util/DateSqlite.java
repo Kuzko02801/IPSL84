@@ -1,62 +1,50 @@
 package business.dataaccess.util;
 
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
 public class DateSqlite implements Comparable<DateSqlite> {
 
-	private String date;
+	final static String DATE_FORMAT = "dd/MM/yyyy";
+	private LocalDate date;
+	private DateTimeFormatter formatter;
 	
-	public DateSqlite() {
-		
-	}
+	public DateSqlite() {}
 	
 	public DateSqlite(String date) {
-		this.date = date;
+		formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);		
+		this.date = LocalDate.parse(date, formatter);
+		
 	}
 	
 	@Override
 	public boolean equals(Object o) {		
-		String[] a = ((DateSqlite) o).dateComponents();
-		String[] b = dateComponents();	
-		
-		return a[0].equals(b[0]) && a[1].equals(b[1]) && a[2].equals(b[2]);
+		return this.date.isEqual(toLocalDate((DateSqlite) o));
 	}
 	
 	@Override
 	public String toString() {
-		return this.date;
+		return this.date.format(formatter);
 	}
 
 	@Override
 	public int compareTo(DateSqlite date) {
-		String[] a = dateComponents();
-		String[] b = date.dateComponents();
-		
-		if(Integer.valueOf(a[0]) - Integer.valueOf(b[0]) != 0) {
-			return Integer.valueOf(a[0]) - Integer.valueOf(b[0]);
-		} else {
-			if(Integer.valueOf(a[1]) - Integer.valueOf(b[1]) != 0) {
-				return Integer.valueOf(a[1]) - Integer.valueOf(b[1]);
-			} else {
-				if(Integer.valueOf(a[2]) - Integer.valueOf(b[2]) != 0) {
-					return Integer.valueOf(a[2]) - Integer.valueOf(b[2]);
-				}
-			}
-		}
-		return 0;
+		return this.date.compareTo(toLocalDate(date));
 	}
 	
 	public boolean isAfter(DateSqlite date) {
-		if(this.compareTo(date) > 0)
-			return true;
-		return false;
+		return this.date.isAfter(toLocalDate(date));
+	}
+
+	public boolean isBefore(DateSqlite date) {
+		return this.date.isBefore(toLocalDate(date));
 	}
 	
-	public boolean isBefore(DateSqlite date) {
-		if(this.compareTo(date) < 0)
-			return true;
-		return false;
+	private ChronoLocalDate toLocalDate(DateSqlite date) {
+		return LocalDate.parse(date.toString(), formatter);
 	}
 	
 	public boolean isTwoDaysHigher(DateSqlite date) {
@@ -72,12 +60,12 @@ public class DateSqlite implements Comparable<DateSqlite> {
 	}
 	
 	public DateSqlite actual() {
-		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
+		  SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
 		return new DateSqlite(sdf.format(new Date()));
 	}
 	
 	public String[] dateComponents() {
-		return toString().split("-|/");
+		return toString().split("/");
 	}
 	
 	public int subYears(DateSqlite date) {

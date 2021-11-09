@@ -6,6 +6,8 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
 import java.time.ZoneId;
+import java.time.format.DateTimeFormatter;
+import java.time.format.DateTimeParseException;
 import java.util.Date;
 
 import javax.mail.internet.AddressException;
@@ -16,28 +18,28 @@ public class Validadores {
 	final static String DATE_FORMAT = "dd/MM/yyyy";
 
 	public static boolean comprobarFechasValidas(String fechaCarrera, String fechaApertura, String fechaCierre) {
-		Date carrera = null;
-		Date apertura = null;
-		Date cierre = null;
-
+		LocalDate carrera = null;
+		LocalDate apertura = null;
+		LocalDate cierre = null;
+		DateTimeFormatter formatter = null;
 		try {
-			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
-			df.setLenient(false);
-			carrera = df.parse(fechaCarrera);
-			apertura = df.parse(fechaApertura);
-			cierre = df.parse(fechaCierre);
-		} catch (ParseException e) {
+			formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
+
+			carrera = LocalDate.parse(fechaCarrera, formatter);
+			apertura = LocalDate.parse(fechaApertura, formatter);
+			cierre = LocalDate.parse(fechaCierre, formatter);
+
+		} catch (DateTimeParseException e) {
 			return false;
 		}
-		if (carrera.compareTo(apertura) <= 0 || carrera.compareTo(cierre) <= 0 || cierre.compareTo(apertura) <= 0
-				|| apertura.compareTo(new Date()) <= 0) {
+		if (!carrera.isAfter(cierre) || !apertura.isBefore(cierre)) {
 			return false;
 		}
 		return true;
 	}
 
 	public static final boolean comprobarEmail(String email) {
-		if(!comprobarNoVacio(email)) {
+		if (!comprobarNoVacio(email)) {
 			return false;
 		}
 		boolean result = true;
@@ -51,7 +53,7 @@ public class Validadores {
 	}
 
 	public static boolean comprobarNoVacio(String string) {
-		if(string==null) {
+		if (string == null) {
 			return false;
 		}
 		if (string.trim().length() == 0) {
@@ -73,16 +75,20 @@ public class Validadores {
 
 	public static boolean comprobarMayor0(String string) {
 		Double d = null;
+		Integer i = null;
+
 		try {
-			d = Double.parseDouble(string);
-		} catch (Exception e) {
-			return false;
+			d = Double.valueOf(string);
+			return d > 0;
+		} catch (NumberFormatException e) {
+			try {
+				i = Integer.valueOf(string);
+				return i > 0;
+			} catch (NumberFormatException a) {
+				return false;
+			}
 		}
-		if (d > 0) {
-			return true;
-		} else {
-			return false;
-		}
+
 	}
 
 	public static boolean comprobarMayor18(String fecha) {
@@ -91,8 +97,9 @@ public class Validadores {
 			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
 			df.setLenient(false);
 			Date nacimiento = df.parse(fecha);
-			period = Period.between(nacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(), LocalDate.now());
-			if(period.getYears()>18) {
+			period = Period.between(nacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
+					LocalDate.now());
+			if (period.getYears() > 18) {
 				return true;
 			}
 			return false;
@@ -100,6 +107,7 @@ public class Validadores {
 			return false;
 		}
 	}
+
 	public static boolean comprobarMayor18Numero(String años) {
 		Integer d = null;
 		try {
@@ -113,18 +121,19 @@ public class Validadores {
 			return false;
 		}
 	}
-	public static boolean comprobarEdadesCategoria(String añosInicio,String añosFin) {
-		Integer inicio=null;
-		Integer fin=null;
+
+	public static boolean comprobarEdadesCategoria(String añosInicio, String añosFin) {
+		Integer inicio = null;
+		Integer fin = null;
 		try {
 			inicio = Integer.parseInt(añosInicio);
 			fin = Integer.parseInt(añosFin);
 		} catch (Exception e) {
 			return false;
 		}
-		if(fin>inicio) {
+		if (fin > inicio) {
 			return true;
-		}else {
+		} else {
 			return false;
 		}
 	}
