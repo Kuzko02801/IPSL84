@@ -32,8 +32,6 @@ import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
-
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.exception.BusinessDataException;
@@ -114,10 +112,10 @@ public class VentanaApp extends JFrame {
 	private JLabel lbEdadFinCategoria;
 	private JTextField txEdadInicioCategoria;
 	private JTextField txNombreCategoria;
-	private JButton btA�adirInscripcion;
+	private JButton btAnadirInscripcion;
 	private JTextField txCuotaCarrera;
 	private JTextField txEdadFinCategoria;
-	private JButton btA�adirCategoria;
+	private JButton btAnadirCategoria;
 	private JButton btCrearCarrera;
 	public final static int ADMIN = 0;
 	public final static int PARTICIPANTE = 1;
@@ -1018,7 +1016,7 @@ public class VentanaApp extends JFrame {
 											.addComponent(getTxCuotaCarrera(), GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))))
 								.addGap(10))
 							.addGroup(gl_pnInscripcionCarrera.createSequentialGroup()
-								.addComponent(getBtA�adirInscripcion(), GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
+								.addComponent(getBtAnadirInscripcion(), GroupLayout.DEFAULT_SIZE, 326, Short.MAX_VALUE)
 								.addContainerGap())))
 			);
 			gl_pnInscripcionCarrera.setVerticalGroup(
@@ -1045,7 +1043,7 @@ public class VentanaApp extends JFrame {
 								.addGap(4)
 								.addComponent(getTxCuotaCarrera())))
 						.addGap(31)
-						.addComponent(getBtA�adirInscripcion(), GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+						.addComponent(getBtAnadirInscripcion(), GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
 						.addContainerGap())
 			);
 			pnInscripcionCarrera.setLayout(gl_pnInscripcionCarrera);
@@ -1119,7 +1117,7 @@ public class VentanaApp extends JFrame {
 									.addComponent(getTxNombreCategoria(), GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE))))
 						.addGap(10))
 					.addGroup(Alignment.TRAILING, gl_pnCategoriasCarrera.createSequentialGroup()
-						.addComponent(getBtA�adirCategoria(), GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
+						.addComponent(getBtAnadirCategoria(), GroupLayout.DEFAULT_SIZE, 193, Short.MAX_VALUE)
 						.addContainerGap())
 			);
 			gl_pnCategoriasCarrera.setVerticalGroup(
@@ -1140,7 +1138,7 @@ public class VentanaApp extends JFrame {
 							.addComponent(getTxEdadFinCategoria(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
 							.addComponent(getLbEdadFinCategoria(), GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
 						.addGap(10)
-						.addComponent(getBtA�adirCategoria(), GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
+						.addComponent(getBtAnadirCategoria(), GroupLayout.DEFAULT_SIZE, 27, Short.MAX_VALUE)
 						.addGap(6))
 			);
 			pnCategoriasCarrera.setLayout(gl_pnCategoriasCarrera);
@@ -1189,13 +1187,13 @@ public class VentanaApp extends JFrame {
 		}
 		return txNombreCategoria;
 	}
-	private JButton getBtA�adirInscripcion() {
-		if (btA�adirInscripcion == null) {
-			btA�adirInscripcion = new JButton("A\u00F1adir inscripci\u00F3n");
-			btA�adirInscripcion.setEnabled(false);
-			btA�adirInscripcion.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
+	private JButton getBtAnadirInscripcion() {
+		if (btAnadirInscripcion == null) {
+			btAnadirInscripcion = new JButton("A\u00F1adir inscripci\u00F3n");
+			btAnadirInscripcion.setEnabled(false);
+			btAnadirInscripcion.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		}
-		return btA�adirInscripcion;
+		return btAnadirInscripcion;
 	}
 	private JTextField getTxCuotaCarrera() {
 		if (txCuotaCarrera == null) {
@@ -1211,13 +1209,13 @@ public class VentanaApp extends JFrame {
 		}
 		return txEdadFinCategoria;
 	}
-	private JButton getBtA�adirCategoria() {
-		if (btA�adirCategoria == null) {
-			btA�adirCategoria = new JButton("A\u00F1adir categor\u00EDa");
-			btA�adirCategoria.setEnabled(false);
-			btA�adirCategoria.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
+	private JButton getBtAnadirCategoria() {
+		if (btAnadirCategoria == null) {
+			btAnadirCategoria = new JButton("A\u00F1adir categor\u00EDa");
+			btAnadirCategoria.setEnabled(false);
+			btAnadirCategoria.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		}
-		return btA�adirCategoria;
+		return btAnadirCategoria;
 	}
 	private JButton getBtCrearCarrera() {
 		if (btCrearCarrera == null) {
