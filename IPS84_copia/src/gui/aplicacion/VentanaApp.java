@@ -110,11 +110,13 @@ public class VentanaApp extends JFrame {
 	private JButton btAnadirCategoria;
 	private JButton btCrearCarrera;
 	private JButton btPagarParticipante;
+	private JButton btResetCarrera;
+	
 	public final static int ADMIN = 0;
 	public final static int PARTICIPANTE = 1;
 
 	private CarreraManager carreraManager;
-	private JButton btResetCarrera;
+	private String idCarreraSeleccionada="";
 
 	/**
 	 * Create the frame.
@@ -233,12 +235,6 @@ public class VentanaApp extends JFrame {
 	private JTable getTablaCarrerasParticipante() {
 		if (tablaCarrerasParticipante == null) {
 			tablaCarrerasParticipante = new JTable();
-			tablaCarrerasParticipante.addFocusListener(new FocusAdapter() {
-				@Override
-				public void focusLost(FocusEvent e) {
-					deshabilitarInscribirseYPagar();
-				}
-			});
 			tablaCarrerasParticipante.setSelectionBackground(new Color(50, 130, 181));
 			tablaCarrerasParticipante.setSelectionForeground(new Color(184, 220, 245));
 			tablaCarrerasParticipante.setForeground(Color.BLACK);
@@ -247,14 +243,7 @@ public class VentanaApp extends JFrame {
 			tablaCarrerasParticipante.setRowHeight(25);
 			tablaCarrerasParticipante.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
 				public void valueChanged(ListSelectionEvent event) {
-					getBtInscribirseParticipante().setEnabled(true);
-				}
-			});
-			tablaCarrerasParticipante.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-				public void valueChanged(ListSelectionEvent event) {
-					// TODO
-					comprobarIdCarreraValidaParticipante(tablaCarrerasParticipante
-							.getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0).toString());
+					seleccionaCarrera();
 				}
 			});
 		}
@@ -355,7 +344,6 @@ public class VentanaApp extends JFrame {
 	private JButton getBtPagarParticipante() {
 		if (btPagarParticipante == null) {
 			btPagarParticipante = new JButton("Pagar");
-			btPagarParticipante.setEnabled(false);
 			btPagarParticipante.setForeground(new Color(184, 220, 245));
 			btPagarParticipante.setBackground(new Color(50, 130, 181));
 			btPagarParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
@@ -371,13 +359,13 @@ public class VentanaApp extends JFrame {
 	private JButton getBtInscribirseParticipante() {
 		if (btInscribirseParticipante == null) {
 			btInscribirseParticipante = new JButton("Inscribirse");
-			btInscribirseParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			btInscribirseParticipante.setEnabled(false);
 			btInscribirseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					mostrarVentanaInscripcion();
 				}
 			});
+			btInscribirseParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btInscribirseParticipante.setEnabled(false);
 			btInscribirseParticipante.setForeground(new Color(184, 220, 245));
 			btInscribirseParticipante.setBackground(new Color(50, 130, 181));
 		}
@@ -1407,14 +1395,12 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarVentanaInscripcion() {
-		VentanaInscribirse v = new VentanaInscribirse(
-				tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+		VentanaInscribirse v = new VentanaInscribirse(idCarreraSeleccionada);
 		v.setVisible(true);
 	}
 
 	private void pagar() {
-		VentanaPedirEmailPago vpep = new VentanaPedirEmailPago(
-				tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+		VentanaPedirEmailPago vpep = new VentanaPedirEmailPago(idCarreraSeleccionada);
 		vpep.setVisible(true);
 	}
 
@@ -1495,6 +1481,10 @@ public class VentanaApp extends JFrame {
 			JOptionPane.showMessageDialog(this, "Comprueba los campos de las categorías", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 		
+	}
+	private void seleccionaCarrera() {
+		getBtInscribirseParticipante().setEnabled(true);
+		idCarreraSeleccionada=tablaCarrerasParticipante.getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0).toString();
 	}
 
 }

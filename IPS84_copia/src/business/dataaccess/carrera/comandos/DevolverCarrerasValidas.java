@@ -7,9 +7,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Iterator;
 import java.util.List;
-
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 import business.dataaccess.datainformation.SqlStatements;
@@ -19,7 +17,6 @@ import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
 import business.dataaccess.parsers.PeriodoParser;
 import business.dataaccess.util.Check;
-import net.proteanit.sql.DbUtils;
 
 public class DevolverCarrerasValidas {
 
@@ -46,9 +43,7 @@ public class DevolverCarrerasValidas {
 					carreras.add(DtoAssembler.toCarreraDto(rs));
 				}
 			}
-
 			t = tableModelAssembler(carreras);
-
 			ps.close();
 			rs.close();
 			con.close();
@@ -65,11 +60,11 @@ public class DevolverCarrerasValidas {
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 		for (CarreraDto carrera : carreras) {
 			int nPeriodos = carrera.periodos.size();
-			Object[] row = new Object[12]; 
-			List<Object> lista = new ArrayList<Object>(Arrays.asList(carrera.carrera_id, carrera.nombre, carrera.fecha.toString(), carrera.tipo.toString(),
-				carrera.distancia, carrera.plazasMaximas,
-				carrera.periodos.get(0).getFechaInicio() + " - " + carrera.periodos.get(0).getFechaFin(),
-				carrera.periodos.get(0).getCuota()));
+			Object[] row = new Object[12];
+			List<Object> lista = new ArrayList<Object>(Arrays.asList(carrera.carrera_id, carrera.nombre,
+					carrera.fecha.toString(), carrera.tipo.toString(), carrera.distancia, carrera.plazasMaximas,
+					carrera.periodos.get(0).getFechaInicio() + " - " + carrera.periodos.get(0).getFechaFin(),
+					carrera.periodos.get(0).getCuota()));
 			for (int i = 1; i < nPeriodos; i++) {
 				lista.add(carrera.periodos.get(i).getFechaInicio() + " - " + carrera.periodos.get(i).getFechaFin());
 				lista.add(carrera.periodos.get(i).getCuota());
@@ -77,10 +72,8 @@ public class DevolverCarrerasValidas {
 			for (int i = 0; i < lista.size(); i++) {
 				row[i] = lista.get(i);
 			}
-			
 			tableModel.addRow(row);
 		}
-
 		return tableModel;
 	}
 }

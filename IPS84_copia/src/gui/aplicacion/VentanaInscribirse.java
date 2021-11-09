@@ -150,6 +150,7 @@ public class VentanaInscribirse extends JDialog {
 			existe = Check.atletaExists(getTxtEmail().getText());
 			if (existe) {
 				GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
+				dispose();
 			}else {
 				int input=JOptionPane.showConfirmDialog(null,"Tu e-mail no está registrado pero puedes inscribirte aportando datos adiccionales" 
 						,"Datos",JOptionPane.DEFAULT_OPTION);
