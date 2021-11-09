@@ -8,7 +8,9 @@ import javax.swing.JDialog;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import business.dataaccess.BusinessDataException;
 import business.dataaccess.util.Check;
+import business.gui.GuiLogic;
 
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
@@ -61,19 +63,42 @@ public class VentanaPedirEmailPago extends JDialog {
 		JButton btnSiguiente = new JButton("Siguiente");
 		btnSiguiente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				if (puedePagar(id_carrera, txtEmail.getText())) {
-					
-					VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(id_carrera, txtEmail.getText());
-					vpt.setVisible(true);
-				} else {
-					JOptionPane.showMessageDialog(rootPane, "No es posible realizar el pago sobre la carrera con id: " + id_carrera );
-				}
+				pulsarSiguiente();
 			}
 		});
 		btnSiguiente.setBounds(166, 182, 85, 21);
 		contentPanel.add(btnSiguiente);
 	}
-	
+	private void pulsarSiguiente() {
+		
+		boolean existeAtleta;
+		try {
+			existeAtleta = Check.atletaExists(txtEmail.getText());
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new RuntimeException();
+		}
+		if(existeAtleta) {
+			try {
+				GuiLogic.inscribirAtletaCarrera(id_carrera, txtEmail.getText());
+			} catch (BusinessDataException e) {
+				e.printStackTrace();
+				throw new RuntimeException();
+			}
+		}else {
+			
+		}
+		
+	}
+	private void comprobarPuedePagar() {
+		if (puedePagar(id_carrera, txtEmail.getText())) {
+			
+			VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(id_carrera, txtEmail.getText());
+			vpt.setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(rootPane, "No es posible realizar el pago sobre la carrera con id: " + id_carrera );
+		}
+	}
 	private boolean puedePagar(String carrera_id, String email_atleta) {
 		try {
 			return Check.puedePagarInscripcion(carrera_id, email_atleta);

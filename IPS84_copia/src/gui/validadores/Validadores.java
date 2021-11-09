@@ -75,4 +75,18 @@ public class Validadores {
 			return false;
 		}
 	}
+
+	public static boolean comprobarMayor18(String fecha) {
+		try {
+			//TODO
+			SimpleDateFormat df = new SimpleDateFormat(DATE_FORMAT);
+			df.setLenient(false);
+			df.parse(fecha);
+			if(true)
+				return true;
+		} catch (ParseException e) {
+			return false;
+		}
+		return false;
+	}
 }
