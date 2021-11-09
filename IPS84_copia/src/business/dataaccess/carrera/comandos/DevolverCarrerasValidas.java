@@ -11,7 +11,6 @@ import javax.swing.table.TableModel;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
-import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.parsers.PeriodoParser;
 import business.dataaccess.util.Check;

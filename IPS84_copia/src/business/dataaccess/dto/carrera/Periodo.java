@@ -1,6 +1,6 @@
 package business.dataaccess.dto.carrera;
 
-import business.dataaccess.util.Arguments;
+import business.dataaccess.util.Check;
 import business.dataaccess.util.DateSqlite;
 
 public class Periodo {
@@ -10,10 +10,10 @@ public class Periodo {
 	private double cuota;
 
 	public Periodo(DateSqlite fechaInicio, DateSqlite fechaFin, double cuota){
-		Arguments.isNotNull(fechaInicio, "La fecha de inicio no puede ser nula.");
-		Arguments.isNotNull(fechaInicio, "La fecha de inicio no puede ser nula.");
-		Arguments.isNotNull(fechaFin, "La fecha de final no puede ser nula.");
-		Arguments.isTrue(cuota > 0, "La cuota debe ser mayor que 0.");
+		Check.isNotNull(fechaInicio, "La fecha de inicio no puede ser nula.");
+		Check.isNotNull(fechaInicio, "La fecha de inicio no puede ser nula.");
+		Check.isNotNull(fechaFin, "La fecha de final no puede ser nula.");
+		Check.isTrue(cuota > 0, "La cuota debe ser mayor que 0.");
 		
 		this.fechaInicio = fechaInicio;
 		this.cuota = cuota;

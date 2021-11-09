@@ -3,9 +3,9 @@ package business.gui;
 import java.util.ArrayList;
 import java.util.List;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
+import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.DateSqlite;
 
 public class CarreraManager {

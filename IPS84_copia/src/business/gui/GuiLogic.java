@@ -6,12 +6,12 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
+import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 
 /*

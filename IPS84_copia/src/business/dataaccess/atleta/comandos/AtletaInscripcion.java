@@ -8,7 +8,6 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
@@ -17,6 +16,7 @@ import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoInscripcion;
+import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 import business.dataaccess.util.DateSqlite;
 

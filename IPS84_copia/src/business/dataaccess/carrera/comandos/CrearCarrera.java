@@ -4,16 +4,12 @@ import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
-import java.util.List;
 import java.util.UUID;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
-import business.dataaccess.dto.carrera.Categoria;
-import business.dataaccess.dto.carrera.Periodo;
-import business.dataaccess.dto.infoadicional.EstadoCarrera;
+import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.parsers.CategoriaParser;
 import business.dataaccess.parsers.PeriodoParser;
 

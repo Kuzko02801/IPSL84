@@ -3,8 +3,8 @@ package business.dataaccess.carrera;
 
 import javax.swing.table.TableModel;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.dto.carrera.CarreraDto;
+import business.dataaccess.exception.BusinessDataException;
 
 public interface CarreraService {
 	public void crearCarrera(CarreraDto carrera) throws BusinessDataException;

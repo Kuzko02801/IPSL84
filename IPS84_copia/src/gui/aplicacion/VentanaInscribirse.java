@@ -12,7 +12,7 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
-import business.dataaccess.BusinessDataException;
+import business.dataaccess.exception.BusinessDataException;
 import business.gui.GuiLogic;
 
 public class VentanaInscribirse extends JDialog {

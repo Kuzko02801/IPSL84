@@ -32,9 +32,9 @@ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.table.DefaultTableModel;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
+import business.dataaccess.exception.BusinessDataException;
 import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.validadores.Validadores;
