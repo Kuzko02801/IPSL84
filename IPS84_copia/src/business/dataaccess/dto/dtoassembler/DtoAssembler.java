@@ -64,7 +64,7 @@ public class DtoAssembler {
 		c.distancia = rs.getDouble("distancia");
 		c.fecha = new DateSqlite(rs.getString("fecha"));
 		c.nombre = rs.getString("nombre");
-		c.plazasMaximas = rs.getInt("plazasMaximas");
+		c.plazasMaximas = rs.getInt("plazas_maximas");
 		c.tipo = Tipo.tipoParser(rs.getString("tipo"));
 		c.categorias = CategoriaParser.devolverCategorias(rs.getString("categorias"));
 		c.periodos = PeriodoParser.devolverPeriodos(rs.getString("periodos"));

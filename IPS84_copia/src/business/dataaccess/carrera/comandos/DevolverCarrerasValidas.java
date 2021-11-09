@@ -6,10 +6,11 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
+import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
-
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
@@ -36,18 +37,16 @@ public class DevolverCarrerasValidas {
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_CARRERAS);
-			
 			rs = ps.executeQuery();	
-			
 			while(rs.next()) {
 				// We check that the race is open.				
 				periodos = PeriodoParser.devolverPeriodos(rs.getString("periodos"));
-				if(!Check.checkCarreraAbierta(periodos)) {
+				if(Check.checkCarreraAbierta(periodos)) {
 					carreras.add(DtoAssembler.toCarreraDto(rs));
 				}
 			}
 			
-			t = DbUtils.resultSetToTableModel(rs);
+			t = tableModelAssembler(carreras);
 			
 			ps.close();
 			rs.close();
@@ -57,6 +56,17 @@ public class DevolverCarrerasValidas {
 			throw new RuntimeException(e);
 		}
 		return t;
+	}
+	private TableModel tableModelAssembler(List<CarreraDto> carreras) {
+		String col[] = {"ID","Nombre","Fecha", "Tipo", "Distancia", "Plazas maximas", "Plazo1", "Cuota1", "Plazo2", "Cuota2","Plazo3","Cuota3"};
+		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+		for (CarreraDto carrera : carreras) {
+			Object[] row= {carrera.carrera_id,carrera.nombre,carrera.fecha.toString(),carrera.tipo.toString(),carrera.distancia,carrera.plazasMaximas,
+					carrera,carrera.periodos.get(0).getFechaInicio()+"-"};
+			tableModel.addRow(row);
+		}
+		return tableModel;
+		
 	}
 	
 }
