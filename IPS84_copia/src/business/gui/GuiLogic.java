@@ -6,12 +6,12 @@ import java.util.List;
 import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
+import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 
 /*
@@ -19,11 +19,11 @@ import business.dataaccess.util.Check;
  */
 public class GuiLogic {
 
-	public static void mostrarCarrerasParticipante(int index, JTable tablaCarrerasParticipante) {
+	public static void mostrarCarrerasParticipante(int index, JTable tablaCarrerasParticipante, String email_atleta) {
 		if (index == 0) {
 			cargarTodasCarrerasParticipante(tablaCarrerasParticipante);
 		} else {
-			cargarPropiasCarrerasParticipante(tablaCarrerasParticipante);
+			cargarPropiasCarrerasParticipante(tablaCarrerasParticipante, email_atleta);
 		}
 	}
 
@@ -32,8 +32,8 @@ public class GuiLogic {
 		tablaCarrerasParticipante.setModel(tm);
 	}
 
-	public static void cargarPropiasCarrerasParticipante(JTable tablaCarrerasParticipante) {
-		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasPropiasParticipante();
+	public static void cargarPropiasCarrerasParticipante(JTable tablaCarrerasParticipante, String email_atleta) {
+		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasPropiasParticipante(email_atleta);
 		tablaCarrerasParticipante.setModel(tm);
 
 	}
@@ -83,13 +83,15 @@ public class GuiLogic {
 						,null
 						, plazas					
 						, categorias
-						, periodos));
-					
+						, periodos)
+				);					
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
-		DataAccessFactory.forAtletaService().inscribirAtleta(DtoAssembler.forAtletaDto(email, null, null, null, null),
-				DtoAssembler.forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>()));
+		DataAccessFactory.forAtletaService().inscribirAtleta(
+				DtoAssembler.forAtletaDto(email),
+				DtoAssembler.forCarreraDto(id)
+				);
 	}
 	public static AtletaDto devuelveAtleta(String email) {
 		return DataAccessFactory.forAtletaService().encontrarAtleta(email);

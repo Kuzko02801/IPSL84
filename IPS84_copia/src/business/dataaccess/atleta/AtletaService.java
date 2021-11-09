@@ -1,8 +1,8 @@
 package business.dataaccess.atleta;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.carrera.CarreraDto;
+import business.dataaccess.exception.BusinessDataException;
 
 public interface AtletaService {
 

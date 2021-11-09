@@ -2,16 +2,16 @@ package business.dataaccess.carrera.comandos;
 
 import javax.swing.table.TableModel;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.carrera.CarreraService;
 import business.dataaccess.dto.carrera.CarreraDto;
+import business.dataaccess.exception.BusinessDataException;
 
 public class CarreraServiceImpl implements CarreraService{
 
 
 	@Override
-	public TableModel devolverCarrerasPropiasParticipante() {
-		return new DevolverCarrerasPropiasParticipante().devolverCarreras();
+	public TableModel devolverCarrerasPropiasParticipante(String email_atleta) {
+		return new DevolverCarrerasPropiasParticipante(email_atleta).devolverCarreras();
 	}
 
 	@Override

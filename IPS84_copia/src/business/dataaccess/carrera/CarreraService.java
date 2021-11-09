@@ -3,13 +3,13 @@ package business.dataaccess.carrera;
 
 import javax.swing.table.TableModel;
 
-import business.dataaccess.BusinessDataException;
 import business.dataaccess.dto.carrera.CarreraDto;
+import business.dataaccess.exception.BusinessDataException;
 
 public interface CarreraService {
 	public void crearCarrera(CarreraDto carrera) throws BusinessDataException;
 	public boolean existeCarrera(String id);
-	public TableModel devolverCarrerasPropiasParticipante();
+	public TableModel devolverCarrerasPropiasParticipante(String email_atleta);
 	public TableModel devolverCarrerasValidas();
 	public TableModel devolverCarrerasOrganizador();
 	public CarreraDto findCarreraById(String id);

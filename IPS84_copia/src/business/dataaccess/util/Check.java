@@ -5,9 +5,11 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.List;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
+import business.dataaccess.dto.carrera.Periodo;
 
 public class Check {
 
@@ -127,5 +129,25 @@ public class Check {
 			return false;
 		}
 		return true;
+	}
+	
+	public static boolean checkCarreraAbierta(List<Periodo> periodos) {
+		for(Periodo periodo : periodos) {
+			if(periodo.getFechaInicio().isBefore(new DateSqlite().actual())
+					&& periodo.getFechaFin().isAfter(new DateSqlite().actual())){
+				return true;
+			}
+		}
+		return false;
+	}	
+	
+	public static void isNotNull(Object o, String msg) {
+		if(o == null)
+			throw new IllegalArgumentException(msg);
+	}
+	
+	public static void isTrue(boolean cond, String msg) {
+		if(cond)
+			throw new IllegalArgumentException(msg);
 	}
 }

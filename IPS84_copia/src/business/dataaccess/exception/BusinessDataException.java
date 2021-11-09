@@ -1,4 +1,4 @@
-package business.dataaccess;
+package business.dataaccess.exception;
 
 public class BusinessDataException extends Exception {
 

@@ -9,6 +9,7 @@ import java.awt.event.ActionListener;
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
@@ -22,7 +23,7 @@ import gui.validadores.Validadores;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 
-public class VentanaRegistro extends JFrame {
+public class VentanaRegistro extends JDialog {
 
 	private JPanel pnCards;
 	private JPanel pnRegistroParticipante;
@@ -36,8 +37,6 @@ public class VentanaRegistro extends JFrame {
 	private JTextField txNombreParticipante;
 	private JTextField txFechaNacimiento;
 	private JComboBox<String> cbSexo;
-	private JLabel lbEmail;
-	private JTextField txEmail;
 
 	/**
 	 * Create the frame.
@@ -46,7 +45,7 @@ public class VentanaRegistro extends JFrame {
 		setResizable(false);
 		setTitle("Registro");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 550, 400);
+		setBounds(100, 100, 550, 350);
 		pnCards = new JPanel();
 		pnCards.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(pnCards);
@@ -69,14 +68,13 @@ public class VentanaRegistro extends JFrame {
 			pnRegistroParticipante.add(getTxNombreParticipante());
 			pnRegistroParticipante.add(getTxFechaNacimiento());
 			pnRegistroParticipante.add(getCbSexo());
-			pnRegistroParticipante.add(getLbEmail());
-			pnRegistroParticipante.add(getTxEmail());
 		}
 		return pnRegistroParticipante;
 	}
+	
 	private JButton getBtRegistrarseParticipante() {
 		if (btRegistrarseParticipante == null) {
-			btRegistrarseParticipante = new JButton("Registrarse");
+			btRegistrarseParticipante = new JButton("Continuar");
 			btRegistrarseParticipante.setEnabled(false);
 			btRegistrarseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -85,13 +83,13 @@ public class VentanaRegistro extends JFrame {
 			});
 			btRegistrarseParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
 			btRegistrarseParticipante.setBackground(new Color(50, 130, 181));
-			btRegistrarseParticipante.setBounds(353, 308, 147, 35);
+			btRegistrarseParticipante.setBounds(355, 258, 147, 35);
 		}
 		return btRegistrarseParticipante;
 	}
 	private JLabel getLbRegistroParticipante() {
 		if (lbRegistroParticipante == null) {
-			lbRegistroParticipante = new JLabel("Registro participante");
+			lbRegistroParticipante = new JLabel("Introducir datos");
 			lbRegistroParticipante.setHorizontalAlignment(SwingConstants.CENTER);
 			lbRegistroParticipante.setForeground(new Color(184, 220, 245));
 			lbRegistroParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
@@ -105,7 +103,7 @@ public class VentanaRegistro extends JFrame {
 			lblDni = new JLabel("DNI");
 			lblDni.setForeground(new Color(184, 220, 245));
 			lblDni.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lblDni.setBounds(10, 135, 183, 34);
+			lblDni.setBounds(10, 68, 183, 34);
 		}
 		return lblDni;
 	}
@@ -114,7 +112,7 @@ public class VentanaRegistro extends JFrame {
 			lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
 			lblFechaDeNacimiento.setForeground(new Color(184, 220, 245));
 			lblFechaDeNacimiento.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lblFechaDeNacimiento.setBounds(10, 223, 183, 34);
+			lblFechaDeNacimiento.setBounds(10, 156, 183, 34);
 		}
 		return lblFechaDeNacimiento;
 	}
@@ -123,7 +121,7 @@ public class VentanaRegistro extends JFrame {
 			lblSexo = new JLabel("Sexo");
 			lblSexo.setForeground(new Color(184, 220, 245));
 			lblSexo.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lblSexo.setBounds(10, 265, 183, 34);
+			lblSexo.setBounds(10, 200, 183, 34);
 		}
 		return lblSexo;
 	}
@@ -132,7 +130,7 @@ public class VentanaRegistro extends JFrame {
 			lbNombreParticipante = new JLabel("Nombre y apellidos");
 			lbNombreParticipante.setForeground(new Color(184, 220, 245));
 			lbNombreParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lbNombreParticipante.setBounds(10, 179, 183, 34);
+			lbNombreParticipante.setBounds(10, 112, 183, 34);
 		}
 		return lbNombreParticipante;
 	}
@@ -145,7 +143,7 @@ public class VentanaRegistro extends JFrame {
 					comprobarCampos();
 				}
 			});
-			txDniParticipante.setBounds(214, 135, 286, 34);
+			txDniParticipante.setBounds(214, 68, 286, 34);
 			txDniParticipante.setColumns(10);
 		}
 		return txDniParticipante;
@@ -160,7 +158,7 @@ public class VentanaRegistro extends JFrame {
 				}
 			});
 			txNombreParticipante.setColumns(10);
-			txNombreParticipante.setBounds(214, 179, 286, 34);
+			txNombreParticipante.setBounds(214, 112, 286, 34);
 		}
 		return txNombreParticipante;
 	}
@@ -173,7 +171,7 @@ public class VentanaRegistro extends JFrame {
 					comprobarCampos();
 				}
 			});
-			txFechaNacimiento.setBounds(214, 223, 286, 34);
+			txFechaNacimiento.setBounds(214, 156, 286, 34);
 			txFechaNacimiento.setColumns(10);
 		}
 		return txFechaNacimiento;
@@ -183,76 +181,26 @@ public class VentanaRegistro extends JFrame {
 			cbSexo = new JComboBox<String>();
 			cbSexo.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 			cbSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"Hombre", "Mujer"}));
-			cbSexo.setBounds(213, 267, 287, 31);
+			cbSexo.setBounds(214, 200, 287, 31);
 		}
 		return cbSexo;
-	}
-
-	private JLabel getLbEmail() {
-		if (lbEmail == null) {
-			lbEmail = new JLabel("E-mail");
-			lbEmail.setForeground(new Color(184, 220, 245));
-			lbEmail.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			lbEmail.setBounds(10, 91, 183, 34);
-		}
-		return lbEmail;
-	}
-	private JTextField getTxEmail() {
-		if (txEmail == null) {
-			txEmail = new JTextField();
-			txEmail.addKeyListener(new KeyAdapter() {
-				@Override
-				public void keyReleased(KeyEvent e) {
-					comprobarCampos();
-				}
-			});
-			txEmail.setColumns(10);
-			txEmail.setBounds(214, 91, 286, 34);
-		}
-		return txEmail;
 	}
 	
 	//Metodos adiccionales
 	
 	private void comprobarCampos() {
-		if (fechaValida() && campoNoVacio(getTxDniParticipante().getText())
-				&& campoNoVacio(getTxNombreParticipante().getText()) && campoNoVacio(getTxEmail().getText())) {
+		if (Validadores.comprobarNoVacio(getTxNombreParticipante().getText())&&Validadores.comprobarNoVacio(getTxDniParticipante().getText())
+				&&Validadores.comprobarMayor18(getTxNombreParticipante().getText())) {
 			getBtRegistrarseParticipante().setEnabled(true);
+		}
+		
+			
 		} else {
 			getBtRegistrarseParticipante().setEnabled(false);
 		}
 	}
 
-	private boolean campoNoVacio(String campo) {
-		if (Validadores.comprobarNoVacio(campo)) {
-			return true;
-		}
-		return false;
-	}
-	
-	@SuppressWarnings("unused")
-	private boolean emailValido() {
-		if (Validadores.comprobarFecha(getTxEmail().getText())) {
-			return true;
-		}
-		return false;
-	}
 
-	private boolean fechaValida() {
-		if (Validadores.comprobarFecha(getTxFechaNacimiento().getText())) {
-			return true;
-		}
-		return false;
-	}
 
-	private void mostrarVentanaLogin() {
-		VentanaLogin v=new VentanaLogin();
-		v.setVisible(true);
-		dispose();
-	}
-	private void registrarParticipante() {
-		GuiLogic.registrarAtleta(getTxEmail().getText(), getTxDniParticipante().getText(), getTxNombreParticipante().getText(), getTxFechaNacimiento().getText(),getCbSexo().getSelectedItem().toString());
-		mostrarVentanaLogin();
-	}
 	
 }
