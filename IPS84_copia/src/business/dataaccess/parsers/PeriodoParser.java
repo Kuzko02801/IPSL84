@@ -18,7 +18,6 @@ public class PeriodoParser {
 			String fechaInicio = args[0];
 			String fechaFin = args[1];
 			double cuota = Double.valueOf(args[2]);
-
 			periodos.add(new Periodo(new DateSqlite(fechaInicio), new DateSqlite(fechaFin), cuota));
 		}
 

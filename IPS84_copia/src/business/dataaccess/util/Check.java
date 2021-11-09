@@ -147,7 +147,7 @@ public class Check {
 	}
 	
 	public static void isTrue(boolean cond, String msg) {
-		if(cond)
+		if(!cond)
 			throw new IllegalArgumentException(msg);
 	}
 }
