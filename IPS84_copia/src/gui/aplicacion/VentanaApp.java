@@ -44,7 +44,7 @@ public class VentanaApp extends JFrame {
 	/**
 	 * 
 	 */
-	
+
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
@@ -57,7 +57,7 @@ public class VentanaApp extends JFrame {
 			}
 		});
 	}
-	
+
 	private static final long serialVersionUID = 1L;
 	private JPanel pnPrincipal;
 	private JPanel pnParticipante;
@@ -117,9 +117,9 @@ public class VentanaApp extends JFrame {
 	public final static int PARTICIPANTE = 1;
 	private JLabel lbFechaCarrera;
 	private JTextField txFechaCarrera;
-	
+
 	private CarreraManager carreraManager;
-	
+
 	private JLabel lblPeriodoInscripcion;
 	private JLabel lblInicio;
 	private JLabel lblFin;
@@ -129,8 +129,6 @@ public class VentanaApp extends JFrame {
 	private JTextField txtCuota;
 	private JButton btnAñadirPeriodo;
 
-	
-	
 	/**
 	 * Create the frame.
 	 */
@@ -257,13 +255,13 @@ public class VentanaApp extends JFrame {
 					getBtInscribirseParticipante().setEnabled(true);
 				}
 			});
-			tablaCarrerasParticipante.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-		        public void valueChanged(ListSelectionEvent event) {
-		        	//TODO
-		        	comprobarIdCarreraValidaParticipante(tablaCarrerasParticipante.getValueAt(
-		        			tablaCarrerasParticipante.getSelectedRow(), 0).toString());
-		        }
-		    });
+			tablaCarrerasParticipante.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent event) {
+					// TODO
+					comprobarIdCarreraValidaParticipante(tablaCarrerasParticipante
+							.getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0).toString());
+				}
+			});
 		}
 		return tablaCarrerasParticipante;
 	}
@@ -334,7 +332,7 @@ public class VentanaApp extends JFrame {
 		if (pnBotonesInscribirseParticipante == null) {
 			pnBotonesInscribirseParticipante = new JPanel();
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
-			
+
 			JButton btnPagar = new JButton("Pagar");
 			btnPagar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -342,31 +340,31 @@ public class VentanaApp extends JFrame {
 				}
 			});
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
-			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
-				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(gl_pnBotonesInscribirseParticipante
+					.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-						.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-							.addComponent(getLbIDCarreraParticipante())
-							.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-								.addComponent(btnPagar, GroupLayout.PREFERRED_SIZE, 102, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(getTxIdCarreraValidaParticipante(), GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)))
-						.addGap(256))
-			);
-			gl_pnBotonesInscribirseParticipante.setVerticalGroup(
-				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.TRAILING)
+							.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186,
+									GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLbIDCarreraParticipante())
+									.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+											.addComponent(btnPagar, GroupLayout.PREFERRED_SIZE, 102,
+													GroupLayout.PREFERRED_SIZE)
+											.addGap(18).addComponent(getTxIdCarreraValidaParticipante(),
+													GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)))
+							.addGap(256)));
+			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
+					.createParallelGroup(Alignment.TRAILING)
 					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-						.addComponent(getLbIDCarreraParticipante())
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtInscribirseParticipante(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-							.addComponent(btnPagar)))
+							.addComponent(getLbIDCarreraParticipante()).addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getBtInscribirseParticipante(), GroupLayout.DEFAULT_SIZE, 24,
+											Short.MAX_VALUE)
+									.addComponent(btnPagar)))
 					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-						.addContainerGap(24, Short.MAX_VALUE)
-						.addComponent(getTxIdCarreraValidaParticipante(), GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE))
-			);
+							.addContainerGap(24, Short.MAX_VALUE).addComponent(getTxIdCarreraValidaParticipante(),
+									GroupLayout.PREFERRED_SIZE, 25, GroupLayout.PREFERRED_SIZE)));
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
@@ -496,7 +494,8 @@ public class VentanaApp extends JFrame {
 			btMostrarClasificaciones.setEnabled(false);
 			btMostrarClasificaciones.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mostrarClasificaciones(tablaCarrerasOrganizador.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+					mostrarClasificaciones(tablaCarrerasOrganizador
+							.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
 				}
 
 			});
@@ -521,30 +520,32 @@ public class VentanaApp extends JFrame {
 			pnBotonesInscribirseParticipante_1 = new JPanel();
 			pnBotonesInscribirseParticipante_1.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesInscribirseParticipante_1 = new GroupLayout(pnBotonesInscribirseParticipante_1);
-			gl_pnBotonesInscribirseParticipante_1.setHorizontalGroup(
-				gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesInscribirseParticipante_1.setHorizontalGroup(gl_pnBotonesInscribirseParticipante_1
+					.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup()
-						.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 117, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getBtMostrarParticipantes(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
-							.addComponent(getLbIDCarreraParticipante_1())
-							.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup()
-								.addGap(120)
-								.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.PREFERRED_SIZE, 174, GroupLayout.PREFERRED_SIZE)))
-						.addGap(437))
-			);
-			gl_pnBotonesInscribirseParticipante_1.setVerticalGroup(
-				gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
+							.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 117,
+									GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(getBtMostrarParticipantes(), GroupLayout.PREFERRED_SIZE, 186,
+									GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLbIDCarreraParticipante_1())
+									.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup().addGap(120)
+											.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.PREFERRED_SIZE,
+													174, GroupLayout.PREFERRED_SIZE)))
+							.addGap(437)));
+			gl_pnBotonesInscribirseParticipante_1.setVerticalGroup(gl_pnBotonesInscribirseParticipante_1
+					.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesInscribirseParticipante_1.createSequentialGroup()
-						.addComponent(getLbIDCarreraParticipante_1())
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getBtMostrarParticipantes(), GroupLayout.DEFAULT_SIZE, 24, Short.MAX_VALUE)
-							.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)))
-			);
+							.addComponent(getLbIDCarreraParticipante_1()).addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_pnBotonesInscribirseParticipante_1.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 24,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtMostrarParticipantes(), GroupLayout.DEFAULT_SIZE, 24,
+											Short.MAX_VALUE)
+									.addComponent(getTxIdCarreraValidaOrganizador(), GroupLayout.DEFAULT_SIZE, 25,
+											Short.MAX_VALUE))));
 			pnBotonesInscribirseParticipante_1.setLayout(gl_pnBotonesInscribirseParticipante_1);
 		}
 		return pnBotonesInscribirseParticipante_1;
@@ -556,7 +557,8 @@ public class VentanaApp extends JFrame {
 			btMostrarParticipantes.setEnabled(false);
 			btMostrarParticipantes.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mostrarPanelOrganizadorParticipantes(tablaCarrerasOrganizador.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+					mostrarPanelOrganizadorParticipantes(tablaCarrerasOrganizador
+							.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
 				}
 			});
 			btMostrarParticipantes.setForeground(new Color(184, 220, 245));
@@ -610,12 +612,13 @@ public class VentanaApp extends JFrame {
 					new String[] { "ID carrera", "N\u00FAmero de inscritos", "Nombre carrera", "Fecha carrera",
 							"Tipo carrera", "Distancia (km)", "Cuota Inscripci\u00F3n", "Fin inscripci\u00F3n",
 							"Plazas" }));
-			tablaCarrerasOrganizador.getSelectionModel().addListSelectionListener(new ListSelectionListener(){
-		        public void valueChanged(ListSelectionEvent event) {
-		        	//TODO
-		        	comprobarIdCarreraValidaOrganizador(tablaCarrerasOrganizador.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
-		        }
-		    });
+			tablaCarrerasOrganizador.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent event) {
+					// TODO
+					comprobarIdCarreraValidaOrganizador(tablaCarrerasOrganizador
+							.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+				}
+			});
 		}
 		return tablaCarrerasOrganizador;
 	}
@@ -633,7 +636,7 @@ public class VentanaApp extends JFrame {
 					return columnTypes[columnIndex];
 				}
 			});
-			
+
 		}
 		return tablaParticipantes;
 	}
@@ -783,99 +786,117 @@ public class VentanaApp extends JFrame {
 			pnCrearCarrera = new JPanel();
 			pnCrearCarrera.setBackground(new Color(50, 130, 181));
 			GroupLayout gl_pnCrearCarrera = new GroupLayout(pnCrearCarrera);
-			gl_pnCrearCarrera.setHorizontalGroup(
-				gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-						.addContainerGap(520, Short.MAX_VALUE)
-						.addComponent(getBtCrearCarrera(), GroupLayout.PREFERRED_SIZE, 209, GroupLayout.PREFERRED_SIZE)
-						.addGap(39))
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-						.addGap(28)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
-								.addComponent(getLbTipoCarrera(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(getLbPlazasCarrera(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addComponent(getLbDistanciaCarrera(), GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE)
-								.addComponent(getLbFechaCarrera(), Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE))
-							.addComponent(getLbNombreCarrera(), GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getTxFechaCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-							.addComponent(getCbTipoCarrera(), 0, 185, Short.MAX_VALUE)
-							.addComponent(getLbCrearCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-							.addComponent(getTxPlazasCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-							.addComponent(getTxDistanciaCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
-							.addComponent(getTxNombreCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
-						.addGap(66)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getLblPeriodoInscripcion())
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addComponent(getLblInicio(), GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(getTxtInicio(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addComponent(getLblFin(), GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addComponent(getTxtFin(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addComponent(getLblCuota(), GroupLayout.PREFERRED_SIZE, 158, GroupLayout.PREFERRED_SIZE)
-								.addGap(18)
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(getBtnAñadirPeriodo(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-									.addComponent(getTxtCuota()))))
-						.addGap(138))
-			);
-			gl_pnCrearCarrera.setVerticalGroup(
-				gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(getLbCrearCarrera(), GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-							.addComponent(getLbNombreCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
-								.addComponent(getTxNombreCarrera(), GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE)
-								.addComponent(getLblPeriodoInscripcion())))
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-									.addComponent(getTxDistanciaCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
-									.addComponent(getLbDistanciaCarrera(), GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-									.addComponent(getCbTipoCarrera(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getLbTipoCarrera(), GroupLayout.DEFAULT_SIZE, 25, Short.MAX_VALUE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-									.addComponent(getLbPlazasCarrera(), Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getTxPlazasCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)))
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLblInicio(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getTxtInicio(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLblFin(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getTxtFin(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLblCuota(), GroupLayout.PREFERRED_SIZE, 19, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getTxtCuota(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addComponent(getBtnAñadirPeriodo())
-								.addGap(1)))
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addGap(150)
-								.addComponent(getBtCrearCarrera()))
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addPreferredGap(ComponentPlacement.UNRELATED)
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLbFechaCarrera(), GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getTxFechaCarrera(), GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE))))
-						.addContainerGap())
-			);
+			gl_pnCrearCarrera.setHorizontalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap(520, Short.MAX_VALUE)
+							.addComponent(getBtCrearCarrera(), GroupLayout.PREFERRED_SIZE, 209,
+									GroupLayout.PREFERRED_SIZE)
+							.addGap(39))
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addGap(28)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
+											.addComponent(getLbTipoCarrera(), GroupLayout.DEFAULT_SIZE,
+													GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(getLbPlazasCarrera(), GroupLayout.DEFAULT_SIZE,
+													GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+											.addComponent(getLbDistanciaCarrera(), GroupLayout.PREFERRED_SIZE, 188,
+													GroupLayout.PREFERRED_SIZE)
+											.addComponent(getLbFechaCarrera(), Alignment.TRAILING,
+													GroupLayout.PREFERRED_SIZE, 188, GroupLayout.PREFERRED_SIZE))
+									.addComponent(getLbNombreCarrera(), GroupLayout.PREFERRED_SIZE, 153,
+											GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getTxFechaCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+									.addComponent(getCbTipoCarrera(), 0, 185, Short.MAX_VALUE)
+									.addComponent(getLbCrearCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+									.addComponent(getTxPlazasCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE)
+									.addComponent(getTxDistanciaCarrera(), GroupLayout.DEFAULT_SIZE, 185,
+											Short.MAX_VALUE)
+									.addComponent(getTxNombreCarrera(), GroupLayout.DEFAULT_SIZE, 185, Short.MAX_VALUE))
+							.addGap(66)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLblPeriodoInscripcion())
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+											.addComponent(getLblInicio(), GroupLayout.PREFERRED_SIZE, 158,
+													GroupLayout.PREFERRED_SIZE)
+											.addGap(18).addComponent(getTxtInicio(), GroupLayout.PREFERRED_SIZE,
+													GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+											.addComponent(getLblFin(), GroupLayout.PREFERRED_SIZE, 158,
+													GroupLayout.PREFERRED_SIZE)
+											.addGap(18).addComponent(getTxtFin(), GroupLayout.PREFERRED_SIZE,
+													GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+											.addComponent(getLblCuota(), GroupLayout.PREFERRED_SIZE, 158,
+													GroupLayout.PREFERRED_SIZE)
+											.addGap(18)
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
+													.addComponent(getBtnAñadirPeriodo(), GroupLayout.DEFAULT_SIZE,
+															GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+													.addComponent(getTxtCuota()))))
+							.addGap(138)));
+			gl_pnCrearCarrera.setVerticalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
+							.addComponent(
+									getLbCrearCarrera(), GroupLayout.PREFERRED_SIZE, 39, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+									.addComponent(getLbNombreCarrera(), GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)
+									.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
+											.addComponent(getTxNombreCarrera(), GroupLayout.DEFAULT_SIZE, 25,
+													Short.MAX_VALUE)
+											.addComponent(getLblPeriodoInscripcion())))
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+													.addComponent(getTxDistanciaCarrera(), GroupLayout.DEFAULT_SIZE, 29,
+															Short.MAX_VALUE)
+													.addComponent(getLbDistanciaCarrera(), GroupLayout.PREFERRED_SIZE,
+															29, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+													.addComponent(getCbTipoCarrera(), GroupLayout.PREFERRED_SIZE,
+															GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+													.addComponent(getLbTipoCarrera(), GroupLayout.DEFAULT_SIZE, 25,
+															Short.MAX_VALUE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+													.addComponent(getLbPlazasCarrera(), Alignment.LEADING,
+															GroupLayout.PREFERRED_SIZE, 29, GroupLayout.PREFERRED_SIZE)
+													.addComponent(getTxPlazasCarrera(), Alignment.LEADING,
+															GroupLayout.DEFAULT_SIZE, 29, Short.MAX_VALUE)))
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
+													.addComponent(getLblInicio(), GroupLayout.PREFERRED_SIZE, 19,
+															GroupLayout.PREFERRED_SIZE)
+													.addComponent(getTxtInicio(), GroupLayout.PREFERRED_SIZE,
+															GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
+													.addComponent(getLblFin(), GroupLayout.PREFERRED_SIZE, 19,
+															GroupLayout.PREFERRED_SIZE)
+													.addComponent(getTxtFin(), GroupLayout.PREFERRED_SIZE,
+															GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
+													.addComponent(getLblCuota(), GroupLayout.PREFERRED_SIZE, 19,
+															GroupLayout.PREFERRED_SIZE)
+													.addComponent(getTxtCuota(), GroupLayout.PREFERRED_SIZE,
+															GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addComponent(getBtnAñadirPeriodo()).addGap(1)))
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup().addGap(150)
+											.addComponent(getBtCrearCarrera()))
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+											.addPreferredGap(ComponentPlacement.UNRELATED)
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
+													.addComponent(getLbFechaCarrera(), GroupLayout.PREFERRED_SIZE, 29,
+															GroupLayout.PREFERRED_SIZE)
+													.addComponent(getTxFechaCarrera(), GroupLayout.PREFERRED_SIZE, 29,
+															GroupLayout.PREFERRED_SIZE))))
+							.addContainerGap()));
 			pnCrearCarrera.setLayout(gl_pnCrearCarrera);
 		}
 		return pnCrearCarrera;
@@ -982,8 +1003,10 @@ public class VentanaApp extends JFrame {
 				public void actionPerformed(ActionEvent e) {
 					try {
 						crearCarrera();
-					} catch (BusinessDataException e1) {}
-			}});
+					} catch (BusinessDataException e1) {
+					}
+				}
+			});
 			btCrearCarrera.setBackground(new Color(8, 46, 70));
 			btCrearCarrera.setForeground(new Color(184, 220, 245));
 			btCrearCarrera.setFont(new Font("Segoe UI Black", Font.PLAIN, 15));
@@ -1105,7 +1128,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	public void comprobarIdCarreraValidaOrganizador(String id) {
-		
+
 		if (GuiLogic.comprobarIdValidaCarrera(id)) {
 			getTxIdCarreraValidaOrganizador().setText("ID válida");
 			getBtMostrarClasificaciones().setEnabled(true);
@@ -1125,7 +1148,7 @@ public class VentanaApp extends JFrame {
 				&& Validadores.comprobarFecha(getTxFechaApertura().getText())
 				&& Validadores.comprobarFecha(getTxFechaCarrera().getText())
 				&& Validadores.comprobarFecha(getTxFechaCierre().getText()) && Validadores.comprobarFechasValidas(
-				getTxFechaCarrera().getText(), getTxFechaApertura().getText(), getTxFechaCierre().getText())) {
+						getTxFechaCarrera().getText(), getTxFechaApertura().getText(), getTxFechaCierre().getText())) {
 			getBtCrearCarrera().setEnabled(true);
 		} else {
 			getBtCrearCarrera().setEnabled(false);
@@ -1147,32 +1170,30 @@ public class VentanaApp extends JFrame {
 	private void crearCarrera() throws BusinessDataException {
 		carreraManager.checkCategories();
 		carreraManager.checkPeriods(getTxFechaCarrera().getText());
-		
-		GuiLogic.crearCarrera(
-				getTxNombreCarrera().getText(),
-				getTxFechaCarrera().getText(),				
-				getCbTipoCarrera().getSelectedItem().toString(),
-				getTxDistanciaCarrera().getText(),					
-				getTxPlazasCarrera().getText(),
-				carreraManager.getCategorias(),
-				carreraManager.getPeriodos());
-		
+
+		GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
+				getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
+				getTxPlazasCarrera().getText(), carreraManager.getCategorias(), carreraManager.getPeriodos());
+
 		carreraManager.cleanCategorias();
 		carreraManager.cleanPeriodos();
-		
+
 		vaciarCamposCrearCarrera();
 		mostrarPanelOrganizadorCarreras();
 	}
 
 	private void inscribirsePagar() {
-		VentanaInscribirse v = new VentanaInscribirse(tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+		VentanaInscribirse v = new VentanaInscribirse(
+				tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
 		v.setVisible(true);
 	}
-	
+
 	private void pagar() {
-		VentanaPedirEmailPago vpep = new VentanaPedirEmailPago(tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+		VentanaPedirEmailPago vpep = new VentanaPedirEmailPago(
+				tablaCarrerasParticipante.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
 		vpep.setVisible(true);
 	}
+
 	private JLabel getLblPeriodoInscripcion() {
 		if (lblPeriodoInscripcion == null) {
 			lblPeriodoInscripcion = new JLabel("Periodo de inscripci\u00F3n:");
@@ -1180,6 +1201,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lblPeriodoInscripcion;
 	}
+
 	private JLabel getLblInicio() {
 		if (lblInicio == null) {
 			lblInicio = new JLabel("Fecha de inicio:");
@@ -1188,6 +1210,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lblInicio;
 	}
+
 	private JLabel getLblFin() {
 		if (lblFin == null) {
 			lblFin = new JLabel("Fecha de finalizaci\u00F3n:");
@@ -1196,6 +1219,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lblFin;
 	}
+
 	private JLabel getLblCuota() {
 		if (lblCuota == null) {
 			lblCuota = new JLabel("Cuota:");
@@ -1204,6 +1228,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lblCuota;
 	}
+
 	private JTextField getTxtInicio() {
 		if (txtInicio == null) {
 			txtInicio = new JTextField();
@@ -1211,6 +1236,7 @@ public class VentanaApp extends JFrame {
 		}
 		return txtInicio;
 	}
+
 	private JTextField getTxtFin() {
 		if (txtFin == null) {
 			txtFin = new JTextField();
@@ -1218,6 +1244,7 @@ public class VentanaApp extends JFrame {
 		}
 		return txtFin;
 	}
+
 	private JTextField getTxtCuota() {
 		if (txtCuota == null) {
 			txtCuota = new JTextField();
@@ -1225,21 +1252,22 @@ public class VentanaApp extends JFrame {
 		}
 		return txtCuota;
 	}
+
 	private JButton getBtnAñadirPeriodo() {
 		if (btnAñadirPeriodo == null) {
 			btnAñadirPeriodo = new JButton("A\u00F1adir");
 			btnAñadirPeriodo.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					if(txtInicio.getText().isBlank() || txtInicio.getText().isEmpty()) {
-						txtInicio.grabFocus();						
+					if (txtInicio.getText().isBlank() || txtInicio.getText().isEmpty()) {
+						txtInicio.grabFocus();
 					}
-					if(txtFin.getText().isBlank() || txtInicio.getText().isEmpty()) {
-						txtInicio.grabFocus();						
+					if (txtFin.getText().isBlank() || txtInicio.getText().isEmpty()) {
+						txtInicio.grabFocus();
 					}
-					if(txtInicio.getText().isBlank() || txtInicio.getText().isEmpty()) {
-						txtInicio.grabFocus();						
+					if (txtInicio.getText().isBlank() || txtInicio.getText().isEmpty()) {
+						txtInicio.grabFocus();
 					}
-						
+
 				}
 			});
 			btnAñadirPeriodo.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));

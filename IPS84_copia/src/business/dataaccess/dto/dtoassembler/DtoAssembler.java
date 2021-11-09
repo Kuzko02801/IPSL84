@@ -1,5 +1,6 @@
 package business.dataaccess.dto.dtoassembler;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import business.dataaccess.dto.AtletaDto;
@@ -12,6 +13,10 @@ import business.dataaccess.util.DateSqlite;
 
 public class DtoAssembler {
 
+	public static AtletaDto forAtletaDto(String email) {
+		return forAtletaDto(email, null, null, null, null);
+	}
+	
 	public static AtletaDto forAtletaDto(String email,String dni, String nombre, String fechaDeNacimiento, String genero) {
 		AtletaDto atleta = new AtletaDto();	
 		atleta.email = email;
@@ -20,6 +25,11 @@ public class DtoAssembler {
 		atleta.fechaDeNacimiento = new DateSqlite(fechaDeNacimiento);
 		atleta.genero = Genero.generoParser(genero);
 		return atleta;
+	}
+	
+	
+	public static CarreraDto forCarreraDto(String id) {
+		return forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>());
 	}
 	
 	public static CarreraDto forCarreraDto(
