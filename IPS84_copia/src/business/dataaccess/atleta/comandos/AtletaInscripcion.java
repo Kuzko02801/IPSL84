@@ -67,7 +67,6 @@ public class AtletaInscripcion {
 
 			ps.close();
 			con.close();
-
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
@@ -91,7 +90,7 @@ public class AtletaInscripcion {
 	}
 
 	private String fechaActual() {
-		SimpleDateFormat sdf = new SimpleDateFormat("dd/MM/yyyy");
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return sdf.format(new Date(System.currentTimeMillis()));
 	}
 
