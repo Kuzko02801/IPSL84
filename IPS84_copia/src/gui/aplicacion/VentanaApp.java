@@ -136,12 +136,12 @@ public class VentanaApp extends JFrame {
 		switch (mode) {
 		case ADMIN:
 			mostrarPanelOrganizador();
-			getMnItCuentaParticipante().setEnabled(false);
+			//getMnItCuentaParticipante().setEnabled(false);
 			carreraManager = new CarreraManager();
 			break;
 		case PARTICIPANTE:
 			mostrarPanelParticipante();
-			getMnItCuentaOrganizador().setEnabled(false);
+			//getMnItCuentaOrganizador().setEnabled(false);
 			break;
 		}
 	}
@@ -845,7 +845,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaCarrera() {
 		if (txFechaCarrera == null) {
 			txFechaCarrera = new JTextField();
-			txFechaCarrera.setText("10/10/2010");
+			txFechaCarrera.setText("2021/12/30");
 			txFechaCarrera.setColumns(10);
 		}
 		return txFechaCarrera;
@@ -1047,7 +1047,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaFinPlazo() {
 		if (txFechaFinPlazo == null) {
 			txFechaFinPlazo = new JTextField();
-			txFechaFinPlazo.setText("20/09/2010");
+			txFechaFinPlazo.setText("2021/12/22");
 			txFechaFinPlazo.setColumns(10);
 		}
 		return txFechaFinPlazo;
@@ -1056,7 +1056,7 @@ public class VentanaApp extends JFrame {
 	private JTextField getTxFechaInicioPlazo() {
 		if (txFechaInicioPlazo == null) {
 			txFechaInicioPlazo = new JTextField();
-			txFechaInicioPlazo.setText("10/09/2010");
+			txFechaInicioPlazo.setText("2021/12/20");
 			txFechaInicioPlazo.setColumns(10);
 		}
 		return txFechaInicioPlazo;
