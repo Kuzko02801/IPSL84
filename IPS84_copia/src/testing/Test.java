@@ -1,6 +1,7 @@
 package testing;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -12,7 +13,7 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
-import business.dataaccess.dto.infoadicional.EstadoCarrera;
+
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.util.DateSqlite;
 
@@ -58,11 +59,9 @@ public class Test {
 			ps.setString(2, carrera.fecha.toString());
 			ps.setString(3, carrera.tipo.label);
 			ps.setDouble(4, carrera.distancia);
-			ps.setDouble(5, carrera.cuota);
 			ps.setString(6, carrera.carrera_id);
 			ps.setInt(7, carrera.plazasMaximas);
-			ps.setString(8, carrera.cierre.toString());
-			ps.setString(9, carrera.apertura.toString());
+			
 //			ps.setString(10, carrera.estado.label);			
 
 			ps.executeUpdate();
@@ -123,14 +122,14 @@ public class Test {
 		}
 	}
 	
-	public void addInscripcion(String email_atleta, String id_carrera, EstadoCarrera estado, int tiempo, CategoriaAtleta categoria) {
+	public void addInscripcion(String email_atleta, String id_carrera, int tiempo, CategoriaAtleta categoria) {
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_TESTING_INSERT_ATLETA);
 
 			ps.setString(1, email_atleta);
 			ps.setString(2, id_carrera);
-			ps.setString(3, estado.label);
+			
 			ps.setInt(4, tiempo);
 			ps.setString(5, categoria.label);
 

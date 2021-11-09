@@ -1385,11 +1385,32 @@ public class VentanaApp extends JFrame {
 		getBtInscribirseParticipante().setEnabled(false);
 		getBtPagarParticipante().setEnabled(false);
 	}
+	
 	// TODO
 	private void comprobarCamposCrearCarrera() {
 		if (compruebaCategorias() && compruebaFechasInscripcion() && comprobarCamposCarrera()) {
 			getBtCrearCarrera().setEnabled(true);
 		}
+	}
+
+	private boolean compruebaFechasInscripcion() {
+		try {
+			carreraManager.checkPeriods(txFechaCarrera.getText());
+			return true;
+		} catch (BusinessDataException e) {
+			// TODO printear mensaje o seleccionar primer campo de periodo.
+			return false;
+		}		
+	}
+
+	private boolean compruebaCategorias() {
+		try {
+			carreraManager.checkCategories();
+			return true;
+		} catch (BusinessDataException e) {
+			// TODO printear mensaje o seleccionar primer campo de categoria.
+			return false;
+		}	
 	}
 
 	private boolean comprobarCamposCarrera() {

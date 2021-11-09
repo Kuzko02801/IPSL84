@@ -1,6 +1,7 @@
 package testing;
 
 import java.sql.Connection;
+
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -8,7 +9,7 @@ import java.text.ParseException;
 
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
-import business.dataaccess.dto.infoadicional.EstadoCarrera;
+
 import business.dataaccess.dto.infoadicional.Tipo;
 import business.dataaccess.util.DateSqlite;
 
