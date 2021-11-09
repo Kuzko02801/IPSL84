@@ -1,23 +1,21 @@
 package gui.aplicacion;
 
 import java.awt.BorderLayout;
-import java.awt.FlowLayout;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.sql.SQLException;
 
 import javax.swing.JButton;
 import javax.swing.JDialog;
-import javax.swing.JPanel;
-import javax.swing.border.EmptyBorder;
-
-import business.dataaccess.BusinessDataException;
-import business.dataaccess.util.Check;
-import business.gui.GuiLogic;
-
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import java.awt.event.ActionListener;
-import java.sql.SQLException;
-import java.awt.event.ActionEvent;
+import javax.swing.border.EmptyBorder;
+
+import business.dataaccess.exception.BusinessDataException;
+import business.dataaccess.util.Check;
+import business.gui.GuiLogic;
 
 public class VentanaPedirEmailPago extends JDialog {
 
@@ -75,8 +73,6 @@ public class VentanaPedirEmailPago extends JDialog {
 				e.printStackTrace();
 				throw new RuntimeException();
 			}
-		}else {
-			
 		}
 		
 	}
