@@ -15,7 +15,7 @@ import javax.mail.internet.InternetAddress;
 
 public class Validadores {
 
-	final static String DATE_FORMAT = "dd/MM/yyyy";
+	final static String DATE_FORMAT = "yyyy/MM/dd";
 
 	public static boolean comprobarFechasValidas(String fechaCarrera, String fechaApertura, String fechaCierre) {
 		LocalDate carrera = null;
@@ -30,6 +30,7 @@ public class Validadores {
 			cierre = LocalDate.parse(fechaCierre, formatter);
 
 		} catch (DateTimeParseException e) {
+			System.out.println("problemas");
 			return false;
 		}
 		if (!carrera.isAfter(cierre) || !apertura.isBefore(cierre)) {
