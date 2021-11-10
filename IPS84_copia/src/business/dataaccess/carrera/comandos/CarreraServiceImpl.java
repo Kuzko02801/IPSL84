@@ -61,12 +61,11 @@ public class CarreraServiceImpl implements CarreraService {
 	}
 	@Override
 	public TableModel cargarClasificacionCategoria(String idCarrera, String categoria) {
-		return new CargarClasificacionCategoria(idCarrera,categoria).devolverClasificacionCategoria();
-		
+		return new CargarClasificacionCategoria(idCarrera,categoria).devolverClasificacionCategoria();	
 	}
-
-	public boolean comprobarCarreraFinalizada(String id_carrera) {
-		return new ComprobarCarreraFinalizada(id_carrera).haFinalizado();
+	@Override
+	public boolean comprobarInscripcionesFinalizadas(String id_carrera) {
+		return new ComprobarInscripcionesFinalizadas(id_carrera).haFinalizado();
 	}
 
 }

@@ -13,11 +13,11 @@ import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.parsers.PeriodoParser;
 import business.dataaccess.util.DateSqlite;
 
-public class ComprobarCarreraFinalizada {
+public class ComprobarInscripcionesFinalizadas {
 
 	private String id_carrera;
 
-	public ComprobarCarreraFinalizada(String id_carrera) {
+	public ComprobarInscripcionesFinalizadas(String id_carrera) {
 		this.id_carrera = id_carrera;
 	}
 

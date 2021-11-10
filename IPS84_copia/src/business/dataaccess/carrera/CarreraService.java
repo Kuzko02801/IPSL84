@@ -20,4 +20,5 @@ public interface CarreraService {
 	public TableModel devolverClasificacionMasculina(String id);
 	public void cargarTiempos(String id,File tiempos) throws BusinessDataException;
 	public TableModel cargarClasificacionCategoria(String idCarrera, String categoria);
+	public boolean comprobarInscripcionesFinalizadas(String idCarrera);
 }

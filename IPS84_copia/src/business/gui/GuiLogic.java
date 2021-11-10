@@ -97,10 +97,10 @@ public class GuiLogic {
 		DataAccessFactory.forCarreraService().cargarClasificacionCategoria(idCarrera,categoria);	
 	}
 	
-	public static boolean comprobarCarreraFinalizada(String id_carrera) {
-		return DataAccessFactory.forCarreraService().comprobarCarreraFinalizada(id_carrera);
-	}
 	public static boolean comprobarInscripcionesFinalizadas(String id_carrera) {
+		return DataAccessFactory.forCarreraService().comprobarInscripcionesFinalizadas(id_carrera);
+	}
+	public static boolean comprobarCarreraFinalizada(String id_carrera) {
 		return false;
 	}
 	public static void generarDorsales(String id_carrera,int dorsalesReservados) {
