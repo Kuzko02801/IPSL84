@@ -77,4 +77,8 @@ public class DateSqlite implements Comparable<DateSqlite> {
 		int yb = Integer.valueOf(b[0]);
 		return ya >= yb ? ya - yb : yb - ya;
 	}
+	
+	public LocalDate getDate() {
+		return date;
+	}
 }

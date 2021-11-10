@@ -7,44 +7,53 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.util.List;
 
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.carrera.CarreraDto;
+import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoInscripcion;
 import business.dataaccess.exception.BusinessDataException;
+import business.dataaccess.parsers.CategoriaParser;
 import business.dataaccess.util.Check;
 import business.dataaccess.util.DateSqlite;
 
 public class AtletaInscripcion {
 
-	private AtletaDto atleta;
-	private CarreraDto carrera;
 	private String carrera_id;
 	private String email_atleta;
+	private CarreraDto carrera;
+	private AtletaDto atleta;
 	private Connection con;
 
 	public AtletaInscripcion(String carrera_id, String email_atleta) {
 		this.carrera_id = carrera_id;
 		this.email_atleta = email_atleta;
-		this.atleta = DataAccessFactory.forAtletaService().encontrarAtleta(email_atleta);
-		this.carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera_id);
-
 	}
 
 	public void inscribirAtleta() throws BusinessDataException {
 
-		PreparedStatement ps = null;
+		PreparedStatement getCategorias = null;
+		PreparedStatement inscribirAtleta = null;
+		ResultSet categorias = null;
+		List<Categoria> listaCat;
+		int age = 0;
 		try {
 
 			// Check if the race exists.
 			if (!Check.atletaExists(email_atleta)) {
 				throw new BusinessDataException("Ningun atleta asociado con este email.");
 			}
+
+			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(email_atleta);
+			age = LocalDate.now().getYear() - atleta.fechaDeNacimiento.getDate().getYear();
+			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera_id);
 
 			// Inscripcion abierta.
 			if (!inscripcionAbierta()) {
@@ -60,38 +69,50 @@ public class AtletaInscripcion {
 
 			// TODO buscar las categorias de la carrera, parsearlas y si no encaja con
 			// ninguna categoria el atleta, excepcion
-			AAAAAAA ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 
-			ps.setString(1, email_atleta); // atleta.email
-			ps.setString(2, carrera_id);
-			ps.setString(3, EstadoInscripcion.PENDIENTE_DE_PAGO.label);
-			ps.setString(4, seleccionarCategoria());// seleccionarCategoria());
-			ps.setString(5, fechaActual());// fechaActual());
+			/**
+			 * Para coger las categorias de la carrera necesitamos la id de la carrera.
+			 */
+			getCategorias = con.prepareStatement(SqlStatements.SQL_FIND_CATEGORIAS);
 
-			ps.executeUpdate();
+			getCategorias.setString(1, carrera_id);
 
-			ps.close();
+			categorias = getCategorias.executeQuery();
+			listaCat = CategoriaParser.devolverCategorias(categorias.getString(1));
+
+			for (Categoria c : listaCat) {
+				if (c.getEdadMinima() >= age || c.getEdadMaxima() < age) {
+					getCategorias.close();				
+					throw new BusinessDataException("No existe ninguna categoria adecuada para el atleta.");
+				}
+			}
+
+			inscribirAtleta = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
+
+			inscribirAtleta.setString(1, email_atleta); // atleta.email
+			inscribirAtleta.setString(2, carrera_id);
+			inscribirAtleta.setString(3, EstadoInscripcion.PENDIENTE_DE_PAGO.label);
+			inscribirAtleta.setString(4, seleccionarCategoria(listaCat, age));// seleccionarCategoria());
+			inscribirAtleta.setString(5, fechaActual());// fechaActual());
+
+			inscribirAtleta.executeUpdate();
+
+			categorias.close();
+			getCategorias.close();
+			inscribirAtleta.close();
 			con.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}
 
-	private String seleccionarCategoria() {
-		// UNTIL ATHLETE REGISTRATION IS ENABLED
-		// atleta.fechaDeNacimiento = new Date(System.currentTimeMillis() - 10000000);
-		//////////////////////////////////////////
-		int edad = atleta.fechaDeNacimiento.subYears(new DateSqlite().actual()); // Puede no funcionar
-		if (edad >= 18 && edad <= 21)
-			return CategoriaAtleta.JUNIOR.label;
-		else if (edad > 21 && edad <= 29)
-			return CategoriaAtleta.SENIOR.label;
-		else if (edad > 29 && edad <= 35)
-			return CategoriaAtleta.VETERANO_1.label;
-		else
-			// Si siempre devuelve este, la edad esta mal calculada.
-			return CategoriaAtleta.VETERANO_2.label;
-
+	private String seleccionarCategoria(List<Categoria> listaCat, int age) {		
+		for(Categoria c : listaCat) {
+			if(c.getEdadMinima() <= age && age < c.getEdadMaxima()) {
+				return c.getTipo();
+			}
+		}
+		return null;
 	}
 
 	private String fechaActual() {
