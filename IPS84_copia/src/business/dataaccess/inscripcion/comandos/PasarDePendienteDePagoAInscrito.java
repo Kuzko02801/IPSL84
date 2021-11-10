@@ -30,6 +30,7 @@ public class PasarDePendienteDePagoAInscrito {
 		Connection con = null;
 		PreparedStatement ps = null;
 		
+		
 		try {
 
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
