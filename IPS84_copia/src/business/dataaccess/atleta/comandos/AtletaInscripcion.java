@@ -58,7 +58,7 @@ public class AtletaInscripcion {
 			// Inscripcion abierta.
 			if (!inscripcionAbierta()) {
 				System.out.println("fuera del plazo");
-				throw new BusinessDataException("Estas fuera del plazo de inscripción.");
+				throw new BusinessDataException("Estas fuera del plazo de inscripciï¿½n.");
 			}
 
 			// Checkeo de plazas.
