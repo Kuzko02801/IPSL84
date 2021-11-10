@@ -69,6 +69,18 @@ public class DateSqlite implements Comparable<DateSqlite> {
 		return toString().split("/");
 	}
 	
+	public DateSqlite plusDays(int days) {
+		String[] a = dateComponents();
+		
+		a[2] = String.valueOf(Integer.valueOf(a[2] + days));
+		
+		String date = "";
+		for(String aa: a) {
+			date+= aa;
+		}
+		return new DateSqlite(date);
+	}
+	
 	public int subYears(DateSqlite date) {
 		String[] a = dateComponents();
 		String[] b = date.dateComponents();

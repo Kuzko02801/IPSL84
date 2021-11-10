@@ -38,11 +38,15 @@ public class ComprobarInscripcionesFinalizadas {
 			if (rs.next()) {
 				periodos = rs.getString("periodos");
 				List<Periodo> listaPeriodos = PeriodoParser.devolverPeriodos(periodos);
-				if (listaPeriodos.get(listaPeriodos.size() - 1).getFechaFin().isBefore(new DateSqlite().actual())) {
+				if (listaPeriodos.get(listaPeriodos.size() - 1).getFechaFin().plusDays(2).isBefore(new DateSqlite().actual())) {
 					finalizada = false;
 				}
 				finalizada = true;
 			}
+			rs.close();
+			pst.close();
+			con.close();
+			
 			return finalizada;
 		} catch (SQLException e) {
 
