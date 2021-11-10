@@ -1283,7 +1283,7 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	private void mostrarTodasCarrerasParticipante() {
+	void mostrarTodasCarrerasParticipante() {
 		GuiLogic.cargarTodasCarrerasParticipante(getTablaCarrerasParticipante());
 	}
 
@@ -1342,7 +1342,7 @@ public class VentanaApp extends JFrame {
 
 	private void comprobarPuedePagar(String id, String email) {
 		if (puedePagar(id, email)) {
-			VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(id, email);
+			VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this,id, email);
 			vpt.setVisible(true);
 		} else {
 			JOptionPane.showMessageDialog(this, "Ya se ha realizado el pago sobre la carrera: " + id);

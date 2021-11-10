@@ -37,13 +37,14 @@ public class VentanaPagoTarjeta extends JDialog {
 	private String id_carrera;
 	private String email_atleta;
 	private int dorsal = 0;
-
+	private VentanaApp v;
 	/**
 	 * Create the frame.
 	 * 
 	 * @param email_atleta
 	 */
-	public VentanaPagoTarjeta(String id_carrera, String email_atleta) {
+	public VentanaPagoTarjeta(VentanaApp app,String id_carrera, String email_atleta) {
+		this.v=app;
 		setTitle("Pago");
 		setModal(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -201,9 +202,8 @@ public class VentanaPagoTarjeta extends JDialog {
 										+ "Usuario con email: " + email_atleta + "\n" + "Número de tarjeta: "
 										+ txtTarjeta.getText() + "\n" + "Fecha de caducidad: " + txtCaducidad.getText()
 										+ "\n" + "CVC: " + txtCVC.getText());
-						dorsal = DataAccessFactory.forInscripcionService().generarDorsalParaCarrera(id_carrera) + 1;
-						JOptionPane.showMessageDialog(rootPane, "Se le ha asignado el dorsal " + dorsal);
 						GuiLogic.pagarInscripcion(id_carrera, email_atleta, dorsal);
+						v.mostrarTodasCarrerasParticipante();
 						dispose();
 					}
 				}

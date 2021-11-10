@@ -219,22 +219,19 @@ public class VentanaRegistro extends JDialog {
 	private void inscribirParticipante() {
 		if (comprobarCampos()) {
 			if (registraParticipante()) {
-				if (inscribeParticipante()) {
-					dispose();
-				}
+				inscribeParticipante();
+				dispose();
 			}
 		}
 
 	}
 
-	private boolean inscribeParticipante() {
+	private void inscribeParticipante() {
 		try {
 			GuiLogic.inscribirAtletaCarrera(idCarrera, email);
-			return true;
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
-			return false;
 		}
 	}
 
