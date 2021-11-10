@@ -41,7 +41,6 @@ public class CarreraServiceImpl implements CarreraService {
 	}
 
 	@Override
-
 	public CarreraDto findCarreraById(String id) {
 		return new EncontrarCarrera(id).encontrarCarrera();
 	}
@@ -66,6 +65,10 @@ public class CarreraServiceImpl implements CarreraService {
 	@Override
 	public boolean comprobarInscripcionesFinalizadas(String id_carrera) {
 		return new ComprobarInscripcionesFinalizadas(id_carrera).haFinalizado();
+	}
+	@Override
+	public boolean carreraFinalizada(String id_carrera) throws BusinessDataException {
+		return new ComprobarCarreraFinalizada(id_carrera).haFinalizado();
 	}
 
 }

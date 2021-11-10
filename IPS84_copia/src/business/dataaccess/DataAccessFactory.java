@@ -17,5 +17,5 @@ public class DataAccessFactory {
 	
 	public static InscripcionServiceImpl forInscripcionService() {
 		return new InscripcionServiceImpl();
-	}	
+	}
 }

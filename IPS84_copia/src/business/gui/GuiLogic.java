@@ -100,8 +100,8 @@ public class GuiLogic {
 	public static boolean comprobarInscripcionesFinalizadas(String id_carrera) {
 		return DataAccessFactory.forCarreraService().comprobarInscripcionesFinalizadas(id_carrera);
 	}
-	public static boolean comprobarCarreraFinalizada(String id_carrera) {
-		return false;
+	public static boolean comprobarCarreraFinalizada(String id_carrera) throws BusinessDataException {
+		return DataAccessFactory.forCarreraService().carreraFinalizada(id_carrera);
 	}
 	public static void generarDorsales(String id_carrera,int dorsalesReservados) {
 		

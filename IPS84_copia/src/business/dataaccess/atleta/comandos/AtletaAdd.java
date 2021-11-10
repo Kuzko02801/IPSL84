@@ -9,6 +9,7 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.exception.BusinessDataException;
+import business.dataaccess.util.Check;
 
 public class AtletaAdd {
 
@@ -28,7 +29,7 @@ public class AtletaAdd {
 		}
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			if (new ExisteAtleta(atleta.email).existeAtleta()) {
+			if (Check.atletaExists(atleta.email)) {
 				throw new BusinessDataException("Ya hay un atleta con este e-mail.");
 			}
 			ps = con.prepareStatement(SqlStatements.SQL_ADD_ATLETA);
