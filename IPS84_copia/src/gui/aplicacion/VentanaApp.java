@@ -116,7 +116,6 @@ public class VentanaApp extends JFrame {
 	public final static int PARTICIPANTE = 1;
 
 	private CarreraManager carreraManager;
-	private String idCarreraSeleccionada = "";
 
 	/**
 	 * Create the frame.
@@ -136,12 +135,14 @@ public class VentanaApp extends JFrame {
 		switch (mode) {
 		case ADMIN:
 			mostrarPanelOrganizador();
-			//getMnItCuentaParticipante().setEnabled(false);
+			getMnItCuentaParticipante().setEnabled(false);
+			getMnItCuentaOrganizador().setEnabled(false);
 			carreraManager = new CarreraManager();
 			break;
 		case PARTICIPANTE:
 			mostrarPanelParticipante();
-			//getMnItCuentaOrganizador().setEnabled(false);
+			getMnItCuentaParticipante().setEnabled(false);
+			getMnItCuentaOrganizador().setEnabled(false);
 			break;
 		}
 	}
@@ -241,11 +242,6 @@ public class VentanaApp extends JFrame {
 			tablaCarrerasParticipante.setBackground(Color.WHITE);
 			tablaCarrerasParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			tablaCarrerasParticipante.setRowHeight(25);
-			tablaCarrerasParticipante.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-				public void valueChanged(ListSelectionEvent event) {
-					seleccionaCarrera();
-				}
-			});
 		}
 		return tablaCarrerasParticipante;
 	}
@@ -365,7 +361,6 @@ public class VentanaApp extends JFrame {
 				}
 			});
 			btInscribirseParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			btInscribirseParticipante.setEnabled(false);
 			btInscribirseParticipante.setForeground(new Color(184, 220, 245));
 			btInscribirseParticipante.setBackground(new Color(50, 130, 181));
 		}
@@ -468,11 +463,10 @@ public class VentanaApp extends JFrame {
 	private JButton getBtMostrarClasificaciones() {
 		if (btMostrarClasificaciones == null) {
 			btMostrarClasificaciones = new JButton("Mostrar clasificaciones");
-			btMostrarClasificaciones.setEnabled(false);
+			btMostrarClasificaciones.setEnabled(true);
 			btMostrarClasificaciones.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mostrarClasificaciones(tablaCarrerasOrganizador
-							.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+					mostrarClasificaciones();
 				}
 
 			});
@@ -519,11 +513,9 @@ public class VentanaApp extends JFrame {
 	private JButton getBtMostrarParticipantes() {
 		if (btMostrarParticipantes == null) {
 			btMostrarParticipantes = new JButton("Mostrar participantes");
-			btMostrarParticipantes.setEnabled(false);
 			btMostrarParticipantes.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mostrarPanelOrganizadorParticipantes(tablaCarrerasOrganizador
-							.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
+					mostrarPanelOrganizadorInscritos();
 				}
 			});
 			btMostrarParticipantes.setForeground(new Color(184, 220, 245));
@@ -565,13 +557,6 @@ public class VentanaApp extends JFrame {
 		if (tablaCarrerasOrganizador == null) {
 			tablaCarrerasOrganizador = new JTable();
 			tablaCarrerasOrganizador.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
-			tablaCarrerasOrganizador.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-				public void valueChanged(ListSelectionEvent event) {
-					// TODO
-					comprobarIdCarreraValidaOrganizador(tablaCarrerasOrganizador
-							.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString());
-				}
-			});
 		}
 		return tablaCarrerasOrganizador;
 	}
@@ -871,9 +856,9 @@ public class VentanaApp extends JFrame {
 
 	private JComboBox<String> getCbTipoCarrera() {
 		if (cbTipoCarrera == null) {
-			cbTipoCarrera = new JComboBox();
+			cbTipoCarrera = new JComboBox<String>();
 			cbTipoCarrera.setFont(new Font("Tahoma", Font.BOLD, 12));
-			cbTipoCarrera.setModel(new DefaultComboBoxModel(new String[] { "Asfalto", "Monta\u00F1a" }));
+			cbTipoCarrera.setModel(new DefaultComboBoxModel<String>(new String[] { "Asfalto", "Monta\u00F1a" }));
 		}
 		return cbTipoCarrera;
 	}
@@ -1244,7 +1229,7 @@ public class VentanaApp extends JFrame {
 		return btResetCarrera;
 	}
 
-	// METODOS
+	// METODOS PARTICIPANTE
 
 	private void mostrarPanelParticipante() {
 		GuiLogic.cargarTodasCarrerasParticipante(tablaCarrerasParticipante);
@@ -1252,22 +1237,96 @@ public class VentanaApp extends JFrame {
 		cl.show(pnPrincipal, "pnParticipante");
 	}
 
+	private void mostrarCarrerasParticipante() {
+		switch (getCbCarrerasParticipante().getSelectedIndex()) {
+		case 0:
+			mostrarTodasCarrerasParticipante();
+			break;
+		case 1:
+			mostrarCarrerasPropiasParticipante();
+			break;
+		}
+	}
+
+	private void mostrarTodasCarrerasParticipante() {
+		GuiLogic.cargarTodasCarrerasParticipante(getTablaCarrerasParticipante());
+	}
+
+	private void mostrarCarrerasPropiasParticipante() {
+		String email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
+		if (Validadores.comprobarEmail(email_atleta)) {
+			try {
+				if (Check.atletaExists(email_atleta)) {
+					GuiLogic.cargarPropiasCarrerasParticipante(getTablaCarrerasParticipante(), email_atleta);
+				} else {
+					JOptionPane.showMessageDialog(this, "No estás inscrito en ninguna carrera", "Error",
+							JOptionPane.WARNING_MESSAGE);
+				}
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(this, "Ha ocurrido un error", "Error", JOptionPane.WARNING_MESSAGE);
+				e.printStackTrace();
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Tu email no es válido", "Error", JOptionPane.WARNING_MESSAGE);
+		}
+
+	}
+
+	private void mostrarVentanaInscripcion() {
+		if (carreraSeleccionadaParticipante()) {
+			VentanaInscribirse v = new VentanaInscribirse(getCarreraSeleccionadaParticipante());
+			v.setVisible(true);
+		}
+	}
+
+	private void pagar() {
+		if (carreraSeleccionadaParticipante()) {
+			VentanaPedirEmailPago vpep = new VentanaPedirEmailPago(getCarreraSeleccionadaParticipante());
+			vpep.setVisible(true);
+		}
+
+	}
+
+	private String getCarreraSeleccionadaParticipante() {
+		if (tablaCarrerasParticipante.getSelectedRow() == -1) {
+			return null;
+		}
+		return tablaCarrerasParticipante.getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0).toString();
+	}
+
+	private boolean carreraSeleccionadaParticipante() {
+		String carrera = getCarreraSeleccionadaParticipante();
+		if (carrera == null) {
+			JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna carrera", "Error",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		} else {
+			return true;
+		}
+	}
+
+	// METODOS ORGANIZADOR
+
 	private void mostrarPanelOrganizador() {
 		// cargarCarrerasOrganizador();
 		CardLayout cl = (CardLayout) (pnPrincipal.getLayout());
 		cl.show(pnPrincipal, "pnOrganizador");
 	}
 
+	private void mostrarPanelOrganizadorInscritos() {
+		if (carreraSeleccionadaOrganizador()) {
+			String id = getCarreraSeleccionadaOrganizador();
+			GuiLogic.cargarInscritosCarrera(id, tablaParticipantes);
+			CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
+			cl.show(pnTablasOrganizador, "pnParticipantesOrganizador");
+		}
+
+	}
+
 	private void mostrarPanelOrganizadorCarreras() {
 		GuiLogic.cargarCarrerasOrganizador(tablaCarrerasOrganizador);
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnCarrerasOrganizador");
-	}
-
-	private void mostrarPanelOrganizadorParticipantes(String id) {
-		GuiLogic.cargarInscritosCarrera(id, tablaParticipantes);
-		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
-		cl.show(pnTablasOrganizador, "pnParticipantesOrganizador");
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesAbsolutas(String id) {
@@ -1289,24 +1348,19 @@ public class VentanaApp extends JFrame {
 
 	}
 
-	private void mostrarClasificaciones(String idCarrera) {
-		switch (cbClasificaciones.getSelectedIndex()) {
-		case 0:
-			mostrarPanelOrganizadorClasificacionesAbsolutas(idCarrera);
-			break;
-		case 1:
-			mostrarPanelOrganizadorClasificacionesSexo(idCarrera);
-			break;
+	private void mostrarClasificaciones() {
+		if (carreraSeleccionadaOrganizador()) {
+			String idCarrera = getCarreraSeleccionadaOrganizador();
+			switch (cbClasificaciones.getSelectedIndex()) {
+			case 0:
+				mostrarPanelOrganizadorClasificacionesAbsolutas(idCarrera);
+				break;
+			case 1:
+				mostrarPanelOrganizadorClasificacionesSexo(idCarrera);
+				break;
+			}
 		}
-	}
 
-	private void comprobarIdCarreraValidaParticipante(String string) {
-		if (GuiLogic.comprobarIdValidaCarrera(string)) {
-			getBtInscribirseParticipante().setEnabled(true);
-			// TODO decidir si se pone el boton de pagar a enabled o no
-		} else {
-			getBtInscribirseParticipante().setEnabled(false);
-		}
 	}
 
 	public void comprobarIdCarreraValidaOrganizador(String id) {
@@ -1318,42 +1372,6 @@ public class VentanaApp extends JFrame {
 			getBtMostrarClasificaciones().setEnabled(false);
 			getBtMostrarParticipantes().setEnabled(false);
 		}
-	}
-
-	private void mostrarCarrerasParticipante() {
-		switch (getCbCarrerasParticipante().getSelectedIndex()) {
-		case 0:
-			mostrarTodasCarrerasParticipante();
-			break;
-		case 1:
-			mostrarCarrerasPropiasParticipante();
-			break;
-		}
-	}
-
-	private void mostrarTodasCarrerasParticipante() {
-		GuiLogic.cargarTodasCarrerasParticipante(getTablaCarrerasParticipante());
-
-	}
-
-	private void mostrarCarrerasPropiasParticipante() {
-		String email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
-		if (Validadores.comprobarEmail(email_atleta)) {
-			try {
-				if (Check.atletaExists(email_atleta)) {
-					GuiLogic.cargarPropiasCarrerasParticipante(getTablaCarrerasParticipante(), email_atleta);
-				} else {
-					JOptionPane.showMessageDialog(this, "No estás inscrito en ninguna carrera", "Error",
-							JOptionPane.WARNING_MESSAGE);
-				}
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(this, "Ha ocurrido un error", "Error", JOptionPane.WARNING_MESSAGE);
-				e.printStackTrace();
-			}
-		} else {
-			JOptionPane.showMessageDialog(this, "Tu email no es válido", "Error", JOptionPane.WARNING_MESSAGE);
-		}
-
 	}
 
 	private void vaciarCamposCrearCarrera() {
@@ -1397,20 +1415,6 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	private void mostrarVentanaInscripcion() {
-		VentanaInscribirse v = new VentanaInscribirse(idCarreraSeleccionada);
-		v.setVisible(true);
-	}
-
-	private void pagar() {
-		VentanaPedirEmailPago vpep = new VentanaPedirEmailPago(idCarreraSeleccionada);
-		vpep.setVisible(true);
-	}
-
-	private void deshabilitarInscribirseYPagar() {
-		getBtInscribirseParticipante().setEnabled(false);
-		getBtPagarParticipante().setEnabled(false);
-	}
 
 	private boolean comprobarCamposCrearCarrera() {
 		return compruebaCategorias() && compruebaFechasInscripcion() && comprobarCamposCarrera();
@@ -1437,7 +1441,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private boolean comprobarCamposCarrera() {
-		if (Validadores.comprobarNoVacio(getTxNombreCarrera().getText())				
+		if (Validadores.comprobarNoVacio(getTxNombreCarrera().getText())
 				&& Validadores.comprobarMayor0(getTxDistanciaCarrera().getText())
 				&& Validadores.comprobarMayor0(getTxPlazasCarrera().getText())) {
 			return true;
@@ -1487,10 +1491,22 @@ public class VentanaApp extends JFrame {
 
 	}
 
-	private void seleccionaCarrera() {
-		getBtInscribirseParticipante().setEnabled(true);
-		idCarreraSeleccionada = tablaCarrerasParticipante.getValueAt(tablaCarrerasParticipante.getSelectedRow(), 0)
-				.toString();
+	private String getCarreraSeleccionadaOrganizador() {
+		if (tablaCarrerasOrganizador.getSelectedRow() == -1) {
+			return null;
+		}
+		return tablaCarrerasOrganizador.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 0).toString();
+	}
+
+	private boolean carreraSeleccionadaOrganizador() {
+		String carrera = getCarreraSeleccionadaOrganizador();
+		if (carrera == null) {
+			JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna carrera", "Error",
+					JOptionPane.WARNING_MESSAGE);
+			return false;
+		} else {
+			return true;
+		}
 	}
 
 }
