@@ -17,6 +17,7 @@ import javax.swing.border.EmptyBorder;
 import business.dataaccess.DataAccessFactory;
 import business.dataaccess.util.Check;
 import business.dataaccess.util.DateSqlite;
+import business.gui.GuiLogic;
 
 public class VentanaPagoTarjeta extends JDialog {
 
@@ -114,7 +115,6 @@ public class VentanaPagoTarjeta extends JDialog {
 			btnNewButton = new JButton("Aceptar");
 			btnNewButton.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-
 					if (txtTarjeta.getText().isEmpty()) {
 						JOptionPane.showMessageDialog(rootPane, "No esta puesta el numero de la tarjeta");
 					}
@@ -141,7 +141,7 @@ public class VentanaPagoTarjeta extends JDialog {
 								+ "CVC: " + txtCVC.getText());
 						dorsal = DataAccessFactory.forInscripcionService().generarDorsalParaCarrera(id_carrera) + 1;
 						JOptionPane.showMessageDialog(rootPane, "Se le ha asignado el dorsal " + dorsal);
-						DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id_carrera, email_atleta, dorsal);
+						GuiLogic.pagarInscripcion(id_carrera, email_atleta, dorsal);
 						dispose();
 					}
 				}

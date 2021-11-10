@@ -84,14 +84,14 @@ public class Check {
 		}
 
 	}
-	
+
 	public static boolean puedePagarInscripcion(String carrera_id, String email_atleta) throws SQLException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = null;
-		
+
 		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-		
+
 		ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_CARRERA_PAGO);
 		ps.setString(1, carrera_id);
 		ps.setString(2, email_atleta);
@@ -108,49 +108,53 @@ public class Check {
 			return false;
 		}
 	}
-	
+
 	public static boolean pagoFueraDePlazo(String carrera_id, String email_atleta) throws SQLException {
+		boolean b = false;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		Connection con = null;
-		
+
 		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-		
+
 		pst = con.prepareStatement(SqlStatements.SQL_FECHA_INSCRIPCION);
-		
+
 		pst.setString(1, carrera_id);
 		pst.setString(2, email_atleta);
-		
+
 		rs = pst.executeQuery();
-		
+
 		if (rs.next()) {
 			String date = rs.getString("fecha_inscripcion");
 			DateSqlite parsedDate = new DateSqlite(date);
-			if ( new DateSqlite().actual().isTwoDaysHigher(parsedDate) ) {
-				return true;
+			if (new DateSqlite().actual().isTwoDaysHigher(parsedDate)) {
+				b = true;
 			}
-			return false;
+			b = false;
 		}
-		return true;
+		con.close();
+		rs.close();
+		pst.close();
+		return b;
 	}
-	
+
 	public static boolean checkCarreraAbierta(List<Periodo> periodos) {
-		for(Periodo periodo : periodos) {
-			if(periodo.getFechaInicio().isBefore(new DateSqlite().actual())
-					&& periodo.getFechaFin().isAfter(new DateSqlite().actual())){
+		for (Periodo periodo : periodos) {
+			if (periodo.getFechaInicio().isBefore(new DateSqlite().actual())
+					&& periodo.getFechaFin().isAfter(new DateSqlite().actual())) {
 				return true;
 			}
 		}
 		return false;
-	}	
-	
+	}
+
 	public static void isNotNull(Object o, String msg) {
-		if(o == null)
+		if (o == null)
 			throw new IllegalArgumentException(msg);
 	}
-	
+
 	public static void isTrue(boolean cond, String msg) {
-		if(!cond)
+		if (!cond)
 			throw new IllegalArgumentException(msg);
 	}
 
@@ -158,16 +162,16 @@ public class Check {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		Connection con = null;
-		
+
 		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-		
+
 		pst = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_CONCRETA);
-		
+
 		pst.setString(1, email);
 		pst.setString(2, id_carrera);
-		
+
 		rs = pst.executeQuery();
-		
+
 		if (rs.next()) {
 			return true;
 		}

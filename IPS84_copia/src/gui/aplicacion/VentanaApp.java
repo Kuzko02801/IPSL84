@@ -1279,14 +1279,6 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	private void pagar() {
-		if (carreraSeleccionadaParticipante()) {
-			VentanaPedirEmailPago vpep = new VentanaPedirEmailPago(getCarreraSeleccionadaParticipante());
-			vpep.setVisible(true);
-		}
-
-	}
-
 	private String getCarreraSeleccionadaParticipante() {
 		if (tablaCarrerasParticipante.getSelectedRow() == -1) {
 			return null;
@@ -1303,6 +1295,32 @@ public class VentanaApp extends JFrame {
 		} else {
 			return true;
 		}
+	}
+
+	private void pagar() {
+		if (carreraSeleccionadaParticipante()) {
+			String email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
+			comprobarPuedePagar(getCarreraSeleccionadaParticipante(), email_atleta);
+		}
+
+	}
+
+	private void comprobarPuedePagar(String id, String email) {
+		if (puedePagar(id, email)) {
+			VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(id, email);
+			vpt.setVisible(true);
+		} else {
+			JOptionPane.showMessageDialog(this, "Ya se ha realizado el pago sobre la carrera: " + id);
+		}
+	}
+
+	private boolean puedePagar(String carrera_id, String email_atleta) {
+		try {
+			return Check.puedePagarInscripcion(carrera_id, email_atleta);
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, "Ha ocurrido un error gestionando el pago", "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		return false;
 	}
 
 	// METODOS ORGANIZADOR
@@ -1414,7 +1432,6 @@ public class VentanaApp extends JFrame {
 			}
 		}
 	}
-
 
 	private boolean comprobarCamposCrearCarrera() {
 		return compruebaCategorias() && compruebaFechasInscripcion() && comprobarCamposCarrera();

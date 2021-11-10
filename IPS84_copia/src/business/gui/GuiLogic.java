@@ -19,7 +19,6 @@ import business.dataaccess.util.Check;
  */
 public class GuiLogic {
 
-
 	public static void cargarTodasCarrerasParticipante(JTable tablaCarrerasParticipante) {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverCarrerasValidas();
 		tablaCarrerasParticipante.setModel(tm);
@@ -53,46 +52,40 @@ public class GuiLogic {
 
 	public static void cargarClasificacionesFemeninas(String idCarrera, JTable tablaClasificacionesMujer) {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionFemenina(idCarrera);
-		tablaClasificacionesMujer.setModel(tm);	
+		tablaClasificacionesMujer.setModel(tm);
 	}
 
 	public static boolean comprobarIdValidaCarrera(String id) {
 		return Check.raceExists2(id);
 	}
-	public static void registrarAtleta(String email,String dni,String nombre,String fechaNacimiento,String sexo) throws BusinessDataException {
-		DataAccessFactory.forAtletaService().atletaAdd(DtoAssembler.forAtletaDto(email,dni,nombre,fechaNacimiento,sexo));
-		
+
+	public static void registrarAtleta(String email, String dni, String nombre, String fechaNacimiento, String sexo)
+			throws BusinessDataException {
+		DataAccessFactory.forAtletaService()
+				.atletaAdd(DtoAssembler.forAtletaDto(email, dni, nombre, fechaNacimiento, sexo));
+
 	}
-	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia, String plazas, List<Categoria> categorias, List<Periodo> periodos) throws BusinessDataException {
+
+	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia, String plazas,
+			List<Categoria> categorias, List<Periodo> periodos) throws BusinessDataException {
 		DataAccessFactory.forCarreraService().crearCarrera(
-				DtoAssembler.forCarreraDto(
-						nombre
-						, fecha
-						, tipo
-						, distancia					
-						,null
-						, plazas					
-						, categorias
-						, periodos)
-				);					
+				DtoAssembler.forCarreraDto(nombre, fecha, tipo, distancia, null, plazas, categorias, periodos));
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
 		DataAccessFactory.forAtletaService().inscribirAtleta(id, email);
 	}
+
 	public static AtletaDto devuelveAtleta(String email) {
 		return DataAccessFactory.forAtletaService().encontrarAtleta(email);
 	}
-	
-	public static boolean existeUsuario(String email) {
-		try {
-			return DataAccessFactory.forAtletaService().existeAtleta(email);
-		} catch (BusinessDataException e) {
-			e.printStackTrace();
-		}
-		return false;
+
+	public static boolean existeUsuario(String email) throws BusinessDataException {
+
+		return DataAccessFactory.forAtletaService().existeAtleta(email);
+
 	}
-	
+
 	public static void pagarInscripcion(String id, String email, int dorsal) {
 		DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id, email, dorsal);
 	}
