@@ -6,6 +6,8 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.Formatter;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
@@ -31,7 +33,8 @@ public class ComprobarCarreraFinalizada {
 			pst.setString(1, id_carrera);
 
 			rs = pst.executeQuery();
-			if (rs.next() && LocalDate.parse(rs.getString("fecha")).isBefore(LocalDate.now())) {
+			String DATE_FORMAT = "yyyy/MM/dd";
+			if (rs.next() && LocalDate.parse(rs.getString("fecha"),DateTimeFormatter.ofPattern(DATE_FORMAT)).isBefore(LocalDate.now())) {
 				finalizada = true;
 			}
 			pst.close();

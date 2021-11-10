@@ -1342,7 +1342,7 @@ public class VentanaApp extends JFrame {
 
 	private void comprobarPuedePagar(String id, String email) {
 		if (puedePagar(id, email)) {
-			VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this,id, email);
+			VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this, id, email);
 			vpt.setVisible(true);
 		} else {
 			JOptionPane.showMessageDialog(this, "Ya se ha realizado el pago sobre la carrera: " + id);
@@ -1392,9 +1392,9 @@ public class VentanaApp extends JFrame {
 	// METODOS ORGANIZADOR
 
 	private void mostrarPanelOrganizador() {
-		// cargarCarrerasOrganizador();
 		CardLayout cl = (CardLayout) (pnPrincipal.getLayout());
 		cl.show(pnPrincipal, "pnOrganizador");
+		mostrarPanelOrganizadorCarreras();
 	}
 
 	private void mostrarPanelOrganizadorInscritos() {
@@ -1600,21 +1600,21 @@ public class VentanaApp extends JFrame {
 
 	private void cargarTiempos() {
 		if (carreraSeleccionadaOrganizador()) {
-			if (GuiLogic.comprobarCarreraFinalizada(getCarreraSeleccionadaOrganizador())) {
-				JFileChooser fc = new JFileChooser();
-				fc.setFileFilter(new FileNameExtensionFilter("Time Files", ".tm"));
-				int returnVal = fc.showOpenDialog(this);
-				if (returnVal == JFileChooser.APPROVE_OPTION) {
-					File file = fc.getSelectedFile();
-					try {
+			try {
+				if (GuiLogic.comprobarCarreraFinalizada(getCarreraSeleccionadaOrganizador())) {
+					JFileChooser fc = new JFileChooser();
+					fc.setFileFilter(new FileNameExtensionFilter("Time Files", ".tm"));
+					int returnVal = fc.showOpenDialog(this);
+					if (returnVal == JFileChooser.APPROVE_OPTION) {
+						File file = fc.getSelectedFile();
 						GuiLogic.cargaTiemposCarrera(getCarreraSeleccionadaOrganizador(), file);
-					} catch (BusinessDataException e) {
-						JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 					}
+				} else {
+					JOptionPane.showMessageDialog(this, "La carrera aun no ha finalizado", "Error",
+							JOptionPane.WARNING_MESSAGE);
 				}
-			} else {
-				JOptionPane.showMessageDialog(this, "La carrera aun no ha finalizado", "Error",
-						JOptionPane.WARNING_MESSAGE);
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 	}
