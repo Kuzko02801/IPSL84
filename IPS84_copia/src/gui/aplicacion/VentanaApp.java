@@ -7,12 +7,16 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.io.File;
 import java.sql.SQLException;
+import java.util.ArrayList;
+
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
 import javax.swing.JComboBox;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -27,6 +31,8 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import javax.swing.filechooser.FileFilter;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
@@ -116,6 +122,8 @@ public class VentanaApp extends JFrame {
 	public final static int PARTICIPANTE = 1;
 
 	private CarreraManager carreraManager;
+	private JButton btCargarTiempos;
+	private JButton btGenerarDorsales;
 
 	/**
 	 * Create the frame.
@@ -441,20 +449,20 @@ public class VentanaApp extends JFrame {
 					.setHorizontalGroup(
 							gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
-											.addComponent(getBtMostrarClasificaciones(), GroupLayout.PREFERRED_SIZE,
-													187, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.UNRELATED)
-											.addComponent(getCbClasificaciones(), GroupLayout.PREFERRED_SIZE,
-													GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED, 376, Short.MAX_VALUE)
 											.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE,
-													118, GroupLayout.PREFERRED_SIZE)));
+													153, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 187,
+													GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(getBtCargarTiempos()).addContainerGap(285, Short.MAX_VALUE)));
 			gl_pnBotonesOrganizador2.setVerticalGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtMostrarClasificaciones(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-							.addComponent(getCbClasificaciones(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-							.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37,
-									Short.MAX_VALUE)));
+							.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+							.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37,
+									GroupLayout.PREFERRED_SIZE)
+							.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37,
+									GroupLayout.PREFERRED_SIZE)));
 			pnBotonesOrganizador2.setLayout(gl_pnBotonesOrganizador2);
 		}
 		return pnBotonesOrganizador2;
@@ -463,6 +471,7 @@ public class VentanaApp extends JFrame {
 	private JButton getBtMostrarClasificaciones() {
 		if (btMostrarClasificaciones == null) {
 			btMostrarClasificaciones = new JButton("Mostrar clasificaciones");
+			btMostrarClasificaciones.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btMostrarClasificaciones.setEnabled(true);
 			btMostrarClasificaciones.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -479,6 +488,7 @@ public class VentanaApp extends JFrame {
 	private JComboBox<String> getCbClasificaciones() {
 		if (cbClasificaciones == null) {
 			cbClasificaciones = new JComboBox<String>();
+			cbClasificaciones.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			cbClasificaciones.setModel(new DefaultComboBoxModel<String>(new String[] { "Absolutas", "Por sexo" }));
 			cbClasificaciones.setForeground(new Color(184, 220, 245));
 			cbClasificaciones.setBackground(new Color(50, 130, 181));
@@ -491,20 +501,34 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrganizador1 = new JPanel();
 			pnBotonesOrganizador1.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrganizador1 = new GroupLayout(pnBotonesOrganizador1);
-			gl_pnBotonesOrganizador1.setHorizontalGroup(gl_pnBotonesOrganizador1.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnBotonesOrganizador1.createSequentialGroup()
-							.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 117,
-									GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getBtMostrarParticipantes(),
-									GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-							.addGap(447)));
+			gl_pnBotonesOrganizador1
+					.setHorizontalGroup(
+							gl_pnBotonesOrganizador1.createParallelGroup(Alignment.LEADING)
+									.addGroup(
+											gl_pnBotonesOrganizador1.createSequentialGroup()
+													.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE,
+															154, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(getBtMostrarParticipantes(),
+															GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(getBtMostrarClasificaciones(),
+															GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(getCbClasificaciones(), GroupLayout.PREFERRED_SIZE,
+															GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+													.addGap(128)));
 			gl_pnBotonesOrganizador1.setVerticalGroup(gl_pnBotonesOrganizador1.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador1.createSequentialGroup().addGap(25)
 							.addGroup(gl_pnBotonesOrganizador1.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 24,
+									.addComponent(getBtMostrarCarreras(), GroupLayout.PREFERRED_SIZE, 33,
 											GroupLayout.PREFERRED_SIZE)
-									.addComponent(getBtMostrarParticipantes(), GroupLayout.DEFAULT_SIZE, 24,
-											Short.MAX_VALUE))));
+									.addComponent(getBtMostrarParticipantes(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtMostrarClasificaciones(), GroupLayout.PREFERRED_SIZE, 37,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getCbClasificaciones(), GroupLayout.PREFERRED_SIZE, 37,
+											GroupLayout.PREFERRED_SIZE))));
 			pnBotonesOrganizador1.setLayout(gl_pnBotonesOrganizador1);
 		}
 		return pnBotonesOrganizador1;
@@ -513,6 +537,7 @@ public class VentanaApp extends JFrame {
 	private JButton getBtMostrarParticipantes() {
 		if (btMostrarParticipantes == null) {
 			btMostrarParticipantes = new JButton("Mostrar participantes");
+			btMostrarParticipantes.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btMostrarParticipantes.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelOrganizadorInscritos();
@@ -556,7 +581,15 @@ public class VentanaApp extends JFrame {
 	private JTable getTablaCarrerasOrganizador() {
 		if (tablaCarrerasOrganizador == null) {
 			tablaCarrerasOrganizador = new JTable();
+			tablaCarrerasOrganizador.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			tablaCarrerasOrganizador.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
+			tablaCarrerasOrganizador.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				public void valueChanged(ListSelectionEvent event) {
+					if (!event.getValueIsAdjusting() && tablaCarrerasOrganizador.getSelectedRow() != -1) {
+						cargarCategorias();
+					}
+				}
+			});
 		}
 		return tablaCarrerasOrganizador;
 	}
@@ -699,6 +732,7 @@ public class VentanaApp extends JFrame {
 	private JButton getBtMostrarCarreras() {
 		if (btMostrarCarreras == null) {
 			btMostrarCarreras = new JButton("Mostrar carreras");
+			btMostrarCarreras.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btMostrarCarreras.setForeground(new Color(184, 220, 245));
 			btMostrarCarreras.setBackground(new Color(50, 130, 181));
 			btMostrarCarreras.addActionListener(new ActionListener() {
@@ -759,6 +793,7 @@ public class VentanaApp extends JFrame {
 	private JButton getBtCrearCarreraOrganizador() {
 		if (btCrearCarreraOrganizador == null) {
 			btCrearCarreraOrganizador = new JButton("Crear carrera");
+			btCrearCarreraOrganizador.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btCrearCarreraOrganizador.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelOrganizadorCrearCarrera();
@@ -1318,9 +1353,40 @@ public class VentanaApp extends JFrame {
 		try {
 			return Check.puedePagarInscripcion(carrera_id, email_atleta);
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, "Ha ocurrido un error gestionando el pago", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Ha ocurrido un error gestionando el pago", "Error",
+					JOptionPane.WARNING_MESSAGE);
 		}
 		return false;
+	}
+
+	private JButton getBtCargarTiempos() {
+		if (btCargarTiempos == null) {
+			btCargarTiempos = new JButton("Cargar tiempos");
+			btCargarTiempos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cargarTiempos();
+				}
+			});
+			btCargarTiempos.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btCargarTiempos.setForeground(new Color(184, 220, 245));
+			btCargarTiempos.setBackground(new Color(50, 130, 181));
+		}
+		return btCargarTiempos;
+	}
+
+	private JButton getBtGenerarDorsales() {
+		if (btGenerarDorsales == null) {
+			btGenerarDorsales = new JButton("Generar Dorsales");
+			btGenerarDorsales.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					generarDorsales();
+				}
+			});
+			btGenerarDorsales.setForeground(new Color(184, 220, 245));
+			btGenerarDorsales.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btGenerarDorsales.setBackground(new Color(50, 130, 181));
+		}
+		return btGenerarDorsales;
 	}
 
 	// METODOS ORGANIZADOR
@@ -1338,7 +1404,6 @@ public class VentanaApp extends JFrame {
 			CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 			cl.show(pnTablasOrganizador, "pnParticipantesOrganizador");
 		}
-
 	}
 
 	private void mostrarPanelOrganizadorCarreras() {
@@ -1366,6 +1431,12 @@ public class VentanaApp extends JFrame {
 
 	}
 
+	private void mostrarPanelOrganizadorClasificacionesCategoria(String idCarrera, String categoria) {
+		GuiLogic.cargarClasificacionCategoria(idCarrera, categoria);
+		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
+		cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
+	}
+
 	private void mostrarClasificaciones() {
 		if (carreraSeleccionadaOrganizador()) {
 			String idCarrera = getCarreraSeleccionadaOrganizador();
@@ -1376,9 +1447,11 @@ public class VentanaApp extends JFrame {
 			case 1:
 				mostrarPanelOrganizadorClasificacionesSexo(idCarrera);
 				break;
+			default:
+				String categoria = cbClasificaciones.getSelectedItem().toString();
+				mostrarPanelOrganizadorClasificacionesCategoria(idCarrera, categoria);
 			}
 		}
-
 	}
 
 	public void comprobarIdCarreraValidaOrganizador(String id) {
@@ -1459,8 +1532,8 @@ public class VentanaApp extends JFrame {
 
 	private boolean comprobarCamposCarrera() {
 		if (Validadores.comprobarNoVacio(getTxNombreCarrera().getText())
-				&& Validadores.comprobarMayor0(getTxDistanciaCarrera().getText())
-				&& Validadores.comprobarMayor0(getTxPlazasCarrera().getText())) {
+				&& Validadores.comprobarMayorNumero(getTxDistanciaCarrera().getText(), 0)
+				&& Validadores.comprobarMayorNumero(getTxPlazasCarrera().getText(), 0)) {
 			return true;
 		} else {
 			JOptionPane.showMessageDialog(this, "Comprueba los campos de la carrera", "Error",
@@ -1480,7 +1553,7 @@ public class VentanaApp extends JFrame {
 		String fechaInicio = getTxFechaInicioPlazo().getText();
 		String fechaFin = getTxFechaFinPlazo().getText();
 		String cuota = getTxCuotaCarrera().getText();
-		if (Validadores.comprobarMayor0(cuota)
+		if (Validadores.comprobarMayorNumero(cuota, 0)
 				&& Validadores.comprobarFechasValidas(getTxFechaCarrera().getText(), fechaInicio, fechaFin)) {
 			carreraManager.addPeriodo(fechaInicio, fechaFin, Double.parseDouble(cuota));
 			vaciarCamposPlazoInscripcion();
@@ -1505,7 +1578,60 @@ public class VentanaApp extends JFrame {
 			JOptionPane.showMessageDialog(this, "Comprueba los campos de las categorías", "Error",
 					JOptionPane.WARNING_MESSAGE);
 		}
+	}
 
+	private void generarDorsales() {
+		if (carreraSeleccionadaOrganizador()) {
+			if (GuiLogic.comprobarInscripcionesFinalizadas(getCarreraSeleccionadaOrganizador())) {
+				String dorsalesReservados = JOptionPane.showInputDialog(this,
+						"Introduce el número de dorsales a reservar", "Dorsales");
+				if (Validadores.comprobarMayorNumero(dorsalesReservados, -1)) {
+					GuiLogic.generarDorsales(getCarreraSeleccionadaOrganizador(), Integer.parseInt(dorsalesReservados));
+				} else {
+					JOptionPane.showMessageDialog(this, "No se han reservado los dorsales correctamente", "Error",
+							JOptionPane.WARNING_MESSAGE);
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "La carrera aun no ha finalizado", "Error",
+						JOptionPane.WARNING_MESSAGE);
+			}
+		}
+	}
+
+	private void cargarTiempos() {
+		if (carreraSeleccionadaOrganizador()) {
+			if (GuiLogic.comprobarCarreraFinalizada(getCarreraSeleccionadaOrganizador())) {
+				JFileChooser fc = new JFileChooser();
+				fc.setFileFilter(new FileNameExtensionFilter("Time Files", ".tm"));
+				int returnVal = fc.showOpenDialog(this);
+				if (returnVal == JFileChooser.APPROVE_OPTION) {
+					File file = fc.getSelectedFile();
+					try {
+						GuiLogic.cargaTiemposCarrera(getCarreraSeleccionadaOrganizador(), file);
+					} catch (BusinessDataException e) {
+						JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "La carrera aun no ha finalizado", "Error",
+						JOptionPane.WARNING_MESSAGE);
+			}
+		}
+	}
+
+	// TODO
+	private void cargarCategorias() {
+		if (carreraSeleccionadaOrganizador()) {
+			String[] aux = tablaCarrerasOrganizador.getValueAt(tablaCarrerasOrganizador.getSelectedRow(), 6).toString()
+					.split(";");
+			String[] categorias = new String[10];
+			categorias[0] = "Absolutas";
+			categorias[1] = "Por sexo";
+			for (int i = 0; i < aux.length; i++) {
+				categorias[i + 2] = aux[i].split(",")[0];
+			}
+			getCbClasificaciones().setModel(new DefaultComboBoxModel<String>(categorias));
+		}
 	}
 
 	private String getCarreraSeleccionadaOrganizador() {

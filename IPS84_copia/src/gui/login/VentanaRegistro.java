@@ -49,7 +49,7 @@ public class VentanaRegistro extends JDialog {
 	/**
 	 * Create the frame.
 	 */
-	public VentanaRegistro(String email,String idCarrera) {
+	public VentanaRegistro(String email, String idCarrera) {
 		setModal(true);
 		setResizable(false);
 		setTitle("Registro");
@@ -60,10 +60,11 @@ public class VentanaRegistro extends JDialog {
 		setContentPane(pnCards);
 		pnCards.setLayout(new CardLayout(0, 0));
 		pnCards.add(getPnRegistroParticipante(), "pnParticipante");
-		
-		this.email=email;
-		this.idCarrera=idCarrera;
+
+		this.email = email;
+		this.idCarrera = idCarrera;
 	}
+
 	private JPanel getPnRegistroParticipante() {
 		if (pnRegistroParticipante == null) {
 			pnRegistroParticipante = new JPanel();
@@ -83,7 +84,7 @@ public class VentanaRegistro extends JDialog {
 		}
 		return pnRegistroParticipante;
 	}
-	
+
 	private JButton getBtRegistrarseParticipante() {
 		if (btRegistrarseParticipante == null) {
 			btRegistrarseParticipante = new JButton("Continuar");
@@ -101,6 +102,7 @@ public class VentanaRegistro extends JDialog {
 		}
 		return btRegistrarseParticipante;
 	}
+
 	private JLabel getLbRegistroParticipante() {
 		if (lbRegistroParticipante == null) {
 			lbRegistroParticipante = new JLabel("Introducir datos");
@@ -112,6 +114,7 @@ public class VentanaRegistro extends JDialog {
 		}
 		return lbRegistroParticipante;
 	}
+
 	private JLabel getLblDni() {
 		if (lblDni == null) {
 			lblDni = new JLabel("DNI");
@@ -121,6 +124,7 @@ public class VentanaRegistro extends JDialog {
 		}
 		return lblDni;
 	}
+
 	private JLabel getLblFechaDeNacimiento() {
 		if (lblFechaDeNacimiento == null) {
 			lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
@@ -130,6 +134,7 @@ public class VentanaRegistro extends JDialog {
 		}
 		return lblFechaDeNacimiento;
 	}
+
 	private JLabel getLblSexo() {
 		if (lblSexo == null) {
 			lblSexo = new JLabel("Sexo");
@@ -139,6 +144,7 @@ public class VentanaRegistro extends JDialog {
 		}
 		return lblSexo;
 	}
+
 	private JLabel getLbNombreParticipante() {
 		if (lbNombreParticipante == null) {
 			lbNombreParticipante = new JLabel("Nombre y apellidos");
@@ -148,9 +154,11 @@ public class VentanaRegistro extends JDialog {
 		}
 		return lbNombreParticipante;
 	}
+
 	private JTextField getTxDniParticipante() {
 		if (txDniParticipante == null) {
 			txDniParticipante = new JTextField();
+			txDniParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 //			txDniParticipante.addKeyListener(new KeyAdapter() {
 //				@Override
 //				public void keyReleased(KeyEvent e) {
@@ -162,9 +170,11 @@ public class VentanaRegistro extends JDialog {
 		}
 		return txDniParticipante;
 	}
+
 	private JTextField getTxNombreParticipante() {
 		if (txNombreParticipante == null) {
 			txNombreParticipante = new JTextField();
+			txNombreParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 //			txNombreParticipante.addKeyListener(new KeyAdapter() {
 //				@Override
 //				public void keyReleased(KeyEvent e) {
@@ -176,9 +186,12 @@ public class VentanaRegistro extends JDialog {
 		}
 		return txNombreParticipante;
 	}
+
 	private JTextField getTxFechaNacimiento() {
 		if (txFechaNacimiento == null) {
 			txFechaNacimiento = new JTextField();
+			txFechaNacimiento.setText("yyyy/MM/dd");
+			txFechaNacimiento.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 //			txFechaNacimiento.addKeyListener(new KeyAdapter() {
 //				@Override
 //				public void keyReleased(KeyEvent e) {
@@ -190,28 +203,30 @@ public class VentanaRegistro extends JDialog {
 		}
 		return txFechaNacimiento;
 	}
+
 	private JComboBox<String> getCbSexo() {
 		if (cbSexo == null) {
 			cbSexo = new JComboBox<String>();
 			cbSexo.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
-			cbSexo.setModel(new DefaultComboBoxModel<String>(new String[] {"Hombre", "Mujer"}));
+			cbSexo.setModel(new DefaultComboBoxModel<String>(new String[] { "Hombre", "Mujer" }));
 			cbSexo.setBounds(214, 200, 287, 31);
 		}
 		return cbSexo;
 	}
-	
-	//Metodos adiccionales
-	
+
+	// Metodos adiccionales
+
 	private void inscribirParticipante() {
-		if(comprobarCampos()) {
-			if(registraParticipante()) {
-				if(inscribeParticipante()){
+		if (comprobarCampos()) {
+			if (registraParticipante()) {
+				if (inscribeParticipante()) {
 					dispose();
 				}
 			}
 		}
-		
+
 	}
+
 	private boolean inscribeParticipante() {
 		try {
 			GuiLogic.inscribirAtletaCarrera(idCarrera, email);
@@ -222,9 +237,10 @@ public class VentanaRegistro extends JDialog {
 			return false;
 		}
 	}
+
 	private boolean registraParticipante() {
 		try {
-			GuiLogic.registrarAtleta(email, getTxDniParticipante().getText(),getTxNombreParticipante().getText(),
+			GuiLogic.registrarAtleta(email, getTxDniParticipante().getText(), getTxNombreParticipante().getText(),
 					getTxFechaNacimiento().getText(), getCbSexo().getSelectedItem().toString());
 			return true;
 		} catch (BusinessDataException e) {
@@ -233,18 +249,18 @@ public class VentanaRegistro extends JDialog {
 			return false;
 		}
 	}
+
 	private boolean comprobarCampos() {
-		if (Validadores.comprobarNoVacio(getTxNombreParticipante().getText())&&Validadores.comprobarNoVacio(getTxDniParticipante().getText())
-				&&Validadores.comprobarMayor18(getTxFechaNacimiento().getText())) {
+		if (Validadores.comprobarNoVacio(getTxNombreParticipante().getText())
+				&& Validadores.comprobarNoVacio(getTxDniParticipante().getText())
+				&& Validadores.comprobarMayor18(getTxFechaNacimiento().getText())
+				&& Validadores.comprobarMayor18(getTxFechaNacimiento().getText())
+				&& Validadores.comprobarFecha(getTxFechaNacimiento().getText())) {
 			return true;
 		} else {
 			JOptionPane.showMessageDialog(this, "Comprueba los campos", "Error", JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
 	}
-	
 
-
-
-	
 }

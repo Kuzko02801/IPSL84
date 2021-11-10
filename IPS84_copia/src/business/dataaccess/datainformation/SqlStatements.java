@@ -14,7 +14,7 @@ public class SqlStatements {
 	public static final String SQL_SELECT_TODAS_CARRERAS = "select * from carreras";
 	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, id, plazas_maximas, categorias, periodos) "
 												  + "values (?, ?, ?, ?, ?, ?, ?, ?)";
-	public static final String SQL_CARRERA_PARTICIPADO = "select c.* from carrera c, inscripcion i where i.email_atleta = ? and c.id = i.id_carrera";
+	public static final String SQL_CARRERA_PARTICIPADO = "select c.id,i.estado,c.nombre,c.fecha,c.tipo,c.distancia,c.categorias,c.periodos from carrera c, inscripcion i where i.email_atleta = ? and c.id = i.id_carrera";
 	public static final String SQL_CLASIFICACION_ABSOLUTA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
@@ -35,18 +35,29 @@ public class SqlStatements {
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
 			+ "AND atleta.sexo = 'hombre'\r\n"
 			+ "AND carrera.fecha < date('now') order by inscripcion.tiempo;";
+	public static final String SQL_CLASIFICACION_CATEGORIA="SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
+			+ "FROM carrera, inscripcion, atleta \r\n"
+			+ "WHERE carrera.id = ?\r\n"
+			+ "AND inscripcion.categoria = ?\r\n"
+			+ "AND carrera.id = inscripcion.id_carrera\r\n"
+			+ "AND atleta.email = inscripcion.email_atleta\r\n"
+			+ "AND carrera.fecha < date('now') order by inscripcion.tiempo";
 	public static String SQL_ADD_ATLETA = "insert into atleta (email, dni, nombre, fechanacimiento, sexo) values (?, ?, ?, ?, ?)";
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, dni, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?, ?)";
 	
 	public static final String SQL_INSCRIPCION_PAGO = "UPDATE inscripcion SET estado = 'INSCRITO', dorsal = ? WHERE email_atleta = ? AND id_carrera = ?";
-	public static final String SQL_CARRERAS_ORGANIZADOR = "select * from carrera";
+	public static final String SQL_CARRERAS_ORGANIZADOR = "select id,nombre,fecha,tipo,distancia,plazas_maximas,categorias,periodos from carrera";
 	public static final String SQL_INSCRIPCION_CARRERA_PAGO = "select * from inscripcion where id_carrera = ? and email_atleta = ? and estado = 'pendiente-de-pago'";
 	
 	public static final String SQL_FECHA_INSCRIPCION = "select fecha_inscripcion from inscripcion where id_carrera = ? and email_atleta = ?";
 	
 	public static final String SQL_INSCRIPCION_CONCRETA = "select * from inscripcion where email_atleta = ? and id_carrera = ?";
 	public static final String SQL_PARTICIPANTES_CARRERA =  "select count(*) as participantes from inscripcion where id_carrera = ? and estado = 'INSCRITO'";
+	public static final String SQL_INSCRIPCION_DORSAL= "select dorsal from inscripcion where id_carrera = ?";
+	public static final String SQL_INSCRIPCION_ACTUALIZAR_TIEMPOS="UPDATE inscripcion SET tiempo= ?,tiempoInicio = ?, tiempoFin = ? where id_carrera=? AND dorsal=?";
+	
 }
+
 
 

@@ -9,6 +9,7 @@ import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
 import java.util.Date;
+import java.util.Formatter;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
@@ -16,15 +17,13 @@ import javax.mail.internet.InternetAddress;
 public class Validadores {
 
 	final static String DATE_FORMAT = "yyyy/MM/dd";
+	final static DateTimeFormatter formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
 
 	public static boolean comprobarFechasValidas(String fechaCarrera, String fechaApertura, String fechaCierre) {
 		LocalDate carrera = null;
 		LocalDate apertura = null;
 		LocalDate cierre = null;
-		DateTimeFormatter formatter = null;
 		try {
-			formatter = DateTimeFormatter.ofPattern(DATE_FORMAT);
-
 			carrera = LocalDate.parse(fechaCarrera, formatter);
 			apertura = LocalDate.parse(fechaApertura, formatter);
 			cierre = LocalDate.parse(fechaCierre, formatter);
@@ -64,17 +63,16 @@ public class Validadores {
 	}
 
 	public static boolean comprobarFecha(String fecha) {
+		
 		try {
-			DateFormat df = new SimpleDateFormat(DATE_FORMAT);
-			df.setLenient(false);
-			df.parse(fecha);
+			LocalDate.parse(fecha, formatter);
 			return true;
-		} catch (ParseException e) {
+		} catch (DateTimeParseException e) {
 			return false;
 		}
 	}
 
-	public static boolean comprobarMayor0(String string) {
+	public static boolean comprobarMayorNumero(String string,int Numero) {
 		Double d = null;
 		Integer i = null;
 
@@ -92,19 +90,16 @@ public class Validadores {
 
 	}
 
-	public static boolean comprobarMayor18(String fecha) {
-		Period period;
+	public static boolean comprobarMayor18(String fechaNacimiento) {
 		try {
-			DateFormat df = new SimpleDateFormat("yyyy/MM/dd");
-			df.setLenient(false);
-			Date nacimiento = df.parse(fecha);
-			period = Period.between(nacimiento.toInstant().atZone(ZoneId.systemDefault()).toLocalDate(),
-					LocalDate.now());
+
+			LocalDate fecha = LocalDate.parse(fechaNacimiento, formatter);
+			Period period = Period.between(fecha,LocalDate.now());
 			if (period.getYears() > 18) {
 				return true;
 			}
 			return false;
-		} catch (ParseException e) {
+		} catch (DateTimeParseException e) {
 			return false;
 		}
 	}

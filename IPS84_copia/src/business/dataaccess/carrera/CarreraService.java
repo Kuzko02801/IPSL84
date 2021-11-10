@@ -1,6 +1,8 @@
 package business.dataaccess.carrera;
 
 
+import java.io.File;
+
 import javax.swing.table.TableModel;
 
 import business.dataaccess.dto.carrera.CarreraDto;
@@ -16,5 +18,6 @@ public interface CarreraService {
 	public TableModel devolverClasificacionAbsoluta(String id);
 	public TableModel devolverClasificacionFemenina(String id);
 	public TableModel devolverClasificacionMasculina(String id);
-
+	public void cargarTiempos(String id,File tiempos) throws BusinessDataException;
+	public TableModel cargarClasificacionCategoria(String idCarrera, String categoria);
 }

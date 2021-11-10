@@ -1,13 +1,14 @@
 package business.dataaccess.carrera.comandos;
 
+import java.io.File;
+
 import javax.swing.table.TableModel;
 
 import business.dataaccess.carrera.CarreraService;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.exception.BusinessDataException;
 
-public class CarreraServiceImpl implements CarreraService{
-
+public class CarreraServiceImpl implements CarreraService {
 
 	@Override
 	public TableModel devolverCarrerasPropiasParticipante(String email_atleta) {
@@ -23,17 +24,17 @@ public class CarreraServiceImpl implements CarreraService{
 	public TableModel devolverCarrerasOrganizador() {
 		return new DevolverCarrerasOrganizador().devolverCarreras();
 	}
-	
+
 	@Override
 	public void crearCarrera(CarreraDto carrera) throws BusinessDataException {
-		new CrearCarrera(carrera).crearCarrera();		
+		new CrearCarrera(carrera).crearCarrera();
 	}
 
 	@Override
 	public boolean existeCarrera(String id) {
 		return new ExisteCarrera(id).existeCarrera();
 	}
-	
+
 	@Override
 	public TableModel devolverClasificacionAbsoluta(String id) {
 		return new DevolverClasificacionAbsoluta(id).devolverClasificacionAbsoluta();
@@ -45,8 +46,7 @@ public class CarreraServiceImpl implements CarreraService{
 		return new EncontrarCarrera(id).encontrarCarrera();
 	}
 
-	
-
+	@Override
 	public TableModel devolverClasificacionFemenina(String id) {
 		return new DevolverClasificacionFemenina(id).devolverClasificacionFemenina();
 	}
@@ -55,5 +55,14 @@ public class CarreraServiceImpl implements CarreraService{
 	public TableModel devolverClasificacionMasculina(String id) {
 		return new DevolverClasificacionMasculina(id).devolverClasificacionMasculina();
 	}
-	
+	@Override
+	public void cargarTiempos(String id,File file) throws BusinessDataException {
+		new CargarTiempos(id,file).cargarTiempos();
+	}
+	@Override
+	public TableModel cargarClasificacionCategoria(String idCarrera, String categoria) {
+		return new CargarClasificacionCategoria(idCarrera,categoria).devolverClasificacionCategoria();
+		
+	}
+
 }

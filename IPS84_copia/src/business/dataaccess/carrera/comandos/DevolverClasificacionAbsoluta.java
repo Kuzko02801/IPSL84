@@ -36,10 +36,6 @@ public class DevolverClasificacionAbsoluta {
 			ps.setString(1, id);
 			rs = ps.executeQuery();
 			
-			while(rs.next()) {
-				
-			}
-			
 			t = DbUtils.resultSetToTableModel(rs);
 
 			ps.close();

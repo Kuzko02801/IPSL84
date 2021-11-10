@@ -58,7 +58,9 @@ public class AtletaInscripcion {
 
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 
-			ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
+			// TODO buscar las categorias de la carrera, parsearlas y si no encaja con
+			// ninguna categoria el atleta, excepcion
+			AAAAAAA ps = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 
 			ps.setString(1, email_atleta); // atleta.email
 			ps.setString(2, carrera_id);
@@ -126,9 +128,10 @@ public class AtletaInscripcion {
 	}
 
 	private boolean inscripcionAbierta() {
-		for(Periodo periodo : carrera.periodos) {
-			// Si la fecha actual esta en el rango de algun periodo devuelve true, false en caso contrario.
-			if(periodo.getFechaInicio().isBefore(new DateSqlite().actual()) 
+		for (Periodo periodo : carrera.periodos) {
+			// Si la fecha actual esta en el rango de algun periodo devuelve true, false en
+			// caso contrario.
+			if (periodo.getFechaInicio().isBefore(new DateSqlite().actual())
 					&& periodo.getFechaFin().isAfter(new DateSqlite().actual())) {
 				return true;
 			}

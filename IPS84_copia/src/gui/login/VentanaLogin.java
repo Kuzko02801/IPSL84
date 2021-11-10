@@ -91,7 +91,7 @@ public class VentanaLogin extends JFrame {
 
 	private JButton getBtLoginParticipante() {
 		if (btLogin == null) {
-			btLogin = new JButton("Login Participante");
+			btLogin = new JButton("Participante");
 			btLogin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					loginParticipante();
@@ -104,10 +104,9 @@ public class VentanaLogin extends JFrame {
 		return btLogin;
 	}
 
-
 	private JButton getBtLoginAdmin() {
 		if (btLoginAdmin == null) {
-			btLoginAdmin = new JButton("Login Admin");
+			btLoginAdmin = new JButton("Admin");
 			btLoginAdmin.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					loginAdmin();
@@ -119,7 +118,7 @@ public class VentanaLogin extends JFrame {
 		}
 		return btLoginAdmin;
 	}
-	
+
 	private void loginParticipante() {
 		mostrarVentanaApp(VentanaApp.PARTICIPANTE);
 	}

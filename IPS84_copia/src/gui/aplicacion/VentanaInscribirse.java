@@ -83,7 +83,7 @@ public class VentanaInscribirse extends JDialog {
 		if (btnInscribir == null) {
 			btnInscribir = new JButton("Inscribirse");
 			btnInscribir.setBackground(new Color(50, 130, 181));
-			btnInscribir.setForeground(new Color(184,220,245));
+			btnInscribir.setForeground(new Color(184, 220, 245));
 			btnInscribir.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 			btnInscribir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -99,7 +99,7 @@ public class VentanaInscribirse extends JDialog {
 		if (btnCancelar == null) {
 			btnCancelar = new JButton("Cancelar");
 			btnCancelar.setBackground(new Color(50, 130, 181));
-			btnCancelar.setForeground(new Color(184,220,245));
+			btnCancelar.setForeground(new Color(184, 220, 245));
 			btnCancelar.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 			btnCancelar.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
@@ -124,7 +124,7 @@ public class VentanaInscribirse extends JDialog {
 	private JLabel getLblEmail() {
 		if (lblEmail == null) {
 			lblEmail = new JLabel("E-mail");
-			lblEmail.setForeground(new Color(184,220,245));
+			lblEmail.setForeground(new Color(184, 220, 245));
 			lblEmail.setBackground(new Color(143, 188, 143));
 			lblEmail.setBounds(22, 99, 77, 19);
 			lblEmail.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
@@ -135,7 +135,7 @@ public class VentanaInscribirse extends JDialog {
 	private JLabel getLblNewLabel() {
 		if (lblNewLabel == null) {
 			lblNewLabel = new JLabel("Para inscribirte escribe tu e-mail");
-			lblNewLabel.setForeground(new Color(184,220,245));
+			lblNewLabel.setForeground(new Color(184, 220, 245));
 			lblNewLabel.setBackground(new Color(176, 224, 230));
 			lblNewLabel.setHorizontalAlignment(SwingConstants.CENTER);
 			lblNewLabel.setBounds(71, 36, 288, 25);
@@ -147,7 +147,7 @@ public class VentanaInscribirse extends JDialog {
 	private void inscribirAtleta() {
 		boolean existe;
 		boolean estaInscrito;
-		
+
 		try {
 			existe = Check.atletaExists(getTxtEmail().getText());
 			estaInscrito = Check.existeInscripcion(getTxtEmail().getText(), id_carrera);
@@ -158,25 +158,26 @@ public class VentanaInscribirse extends JDialog {
 			if (existe) {
 				GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
 				dispose();
-			}else {
-				int input=JOptionPane.showConfirmDialog(null,"Tu e-mail no está registrado pero puedes inscribirte aportando datos adiccionales" 
-						,"Datos",JOptionPane.DEFAULT_OPTION);
-				if(input==0) {
+			} else {
+				int input = JOptionPane.showConfirmDialog(this,
+						"Tu e-mail no está registrado pero puedes inscribirte aportando datos adiccionales", "Datos",
+						JOptionPane.DEFAULT_OPTION);
+				if (input == 0) {
 					mostrarVentanaRegistro(getTxtEmail().getText());
 				}
 			}
 		} catch (BusinessDataException e) {
-			JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado con la inscripción",
-					"Error inscripción", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado con la inscripción",
-					"Error inscripción", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado con la inscripción", "Error",
+					JOptionPane.WARNING_MESSAGE);
 			e.printStackTrace();
 		}
 	}
+
 	private void mostrarVentanaRegistro(String email) {
-		VentanaRegistro v=new VentanaRegistro(email, id_carrera);
+		VentanaRegistro v = new VentanaRegistro(email, id_carrera);
 		v.setVisible(true);
 		dispose();
 	}

@@ -1,5 +1,6 @@
 package business.gui;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -35,9 +36,9 @@ public class GuiLogic {
 		tablaCarrerasOrganizador.setModel(tm);
 	}
 
-	public static void cargarInscritosCarrera(String idCarrera, JTable tablaCarrerasOrganizador) {
+	public static void cargarInscritosCarrera(String idCarrera, JTable tablaInscritosOrganizador) {
 		TableModel tm = DataAccessFactory.forInscripcionService().devolverParticipantesCarrera(idCarrera);
-		tablaCarrerasOrganizador.setModel(tm);
+		tablaInscritosOrganizador.setModel(tm);
 	}
 
 	public static void cargarClasificacionesAbsolutas(String idCarrera, JTable tablaClasificacionesAbsoluta) {
@@ -81,12 +82,30 @@ public class GuiLogic {
 	}
 
 	public static boolean existeUsuario(String email) throws BusinessDataException {
-
 		return DataAccessFactory.forAtletaService().existeAtleta(email);
-
 	}
 
 	public static void pagarInscripcion(String id, String email, int dorsal) {
 		DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id, email, dorsal);
 	}
+	
+	public static void cargaTiemposCarrera(String id_carrera, File tiempos) throws BusinessDataException {
+		 DataAccessFactory.forCarreraService().cargarTiempos(id_carrera, tiempos);
+	}
+
+	public static void cargarClasificacionCategoria(String idCarrera, String categoria) {
+		DataAccessFactory.forCarreraService().cargarClasificacionCategoria(idCarrera,categoria);	
+	}
+	//TODO
+	AAAAA
+	public static boolean comprobarCarreraFinalizada(String id_carrera) {
+		return false;
+	}
+	public static boolean comprobarInscripcionesFinalizadas(String id_carrera) {
+		return false;
+	}
+	public static void generarDorsales(String id_carrera,int dorsalesReservados) {
+		
+	}
+	
 }
