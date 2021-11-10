@@ -156,6 +156,7 @@ public class VentanaPagoTarjeta extends JDialog {
 			return Check.pagoFueraDePlazo(id_carrera, email_atleta);
 		} catch (SQLException e) {
 			System.out.println("Fallo en query. Pago fuera de plazo");
+			System.out.println(e.getMessage());
 		}
 		return false;
 	}

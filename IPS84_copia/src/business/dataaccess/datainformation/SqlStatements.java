@@ -43,10 +43,10 @@ public class SqlStatements {
 	public static final String SQL_CARRERAS_ORGANIZADOR = "select * from carrera";
 	public static final String SQL_INSCRIPCION_CARRERA_PAGO = "select * from inscripcion where id_carrera = ? and email_atleta = ? and estado = 'pendiente-de-pago'";
 	
-	public static final String SQL_FECHA_INSCRIPCION = "select fechaInscripcion from inscripcion where id_carrera = ? and email_atleta = ?";
+	public static final String SQL_FECHA_INSCRIPCION = "select fecha_inscripcion from inscripcion where id_carrera = ? and email_atleta = ?";
 	
 	public static final String SQL_INSCRIPCION_CONCRETA = "select * from inscripcion where email_atleta = ? and id_carrera = ?";
-	public static final String SQL_PARTICIPANTES_CARRERA =  "select count(*) as participantes from inscripcion where id_carrera = ?";
+	public static final String SQL_PARTICIPANTES_CARRERA =  "select count(*) as participantes from inscripcion where id_carrera = ? and estado = 'INSCRITO'";
 }
 
 

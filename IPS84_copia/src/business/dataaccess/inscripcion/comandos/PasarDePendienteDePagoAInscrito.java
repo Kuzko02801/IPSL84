@@ -31,12 +31,6 @@ public class PasarDePendienteDePagoAInscrito {
 		PreparedStatement ps = null;
 		
 		try {
-			if (!Check.atletaExists(email)) {
-				System.out.println("Email: "+ email );
-				System.out.println("La actualizacion del pago es fraudulenta1");
-			}if (!Check.raceExists(id)) {
-				System.out.println("La actualizacion del pago es fraudulenta");
-			}
 
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_PAGO);

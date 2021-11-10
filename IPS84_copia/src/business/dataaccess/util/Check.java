@@ -118,12 +118,15 @@ public class Check {
 		
 		pst = con.prepareStatement(SqlStatements.SQL_FECHA_INSCRIPCION);
 		
+		pst.setString(1, carrera_id);
+		pst.setString(2, email_atleta);
+		
 		rs = pst.executeQuery();
 		
 		if (rs.next()) {
-			String date = rs.getString("fechaInscripcion");
+			String date = rs.getString("fecha_inscripcion");
 			DateSqlite parsedDate = new DateSqlite(date);
-			if ( parsedDate.isTwoDaysHigher(new DateSqlite().actual()) ) {
+			if ( new DateSqlite().actual().isTwoDaysHigher(parsedDate) ) {
 				return true;
 			}
 			return false;

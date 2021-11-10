@@ -53,7 +53,7 @@ public class DateSqlite implements Comparable<DateSqlite> {
 		
 		int day_a = Integer.valueOf(a[2]);
 		int day_b = Integer.valueOf(b[2]);
-		if ((day_b - day_a) > 2) {
+		if ((day_a - day_b) > 2) {
 			return true;
 		}
 		return false;
