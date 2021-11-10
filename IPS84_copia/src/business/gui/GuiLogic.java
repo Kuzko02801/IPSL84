@@ -96,10 +96,9 @@ public class GuiLogic {
 	public static void cargarClasificacionCategoria(String idCarrera, String categoria) {
 		DataAccessFactory.forCarreraService().cargarClasificacionCategoria(idCarrera,categoria);	
 	}
-	//TODO
-	AAAAA
+	
 	public static boolean comprobarCarreraFinalizada(String id_carrera) {
-		return false;
+		return DataAccessFactory.forCarreraService().comprobarCarreraFinalizada(id_carrera);
 	}
 	public static boolean comprobarInscripcionesFinalizadas(String id_carrera) {
 		return false;

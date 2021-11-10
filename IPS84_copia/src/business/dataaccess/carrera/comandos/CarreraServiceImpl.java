@@ -65,4 +65,8 @@ public class CarreraServiceImpl implements CarreraService {
 		
 	}
 
+	public boolean comprobarCarreraFinalizada(String id_carrera) {
+		return new ComprobarCarreraFinalizada(id_carrera).haFinalizado();
+	}
+
 }
