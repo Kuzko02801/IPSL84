@@ -24,7 +24,6 @@ public class TiempoParser {
 				String[] args = line.split(";");
 				if (args.length == 2) {
 					comprobarPrimerosCampos(args, linea);
-					
 				} else if (args.length == 3) {
 					comprobarPrimerosCampos(args, linea);
 					int t1 = Integer.parseInt(args[1]);

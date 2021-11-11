@@ -1429,7 +1429,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesCategoria(String idCarrera, String categoria) {
-		GuiLogic.cargarClasificacionCategoria(idCarrera, categoria);
+		GuiLogic.cargarClasificacionCategoria(tablaClasificacionesAbsoluta,idCarrera, categoria);
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
 	}

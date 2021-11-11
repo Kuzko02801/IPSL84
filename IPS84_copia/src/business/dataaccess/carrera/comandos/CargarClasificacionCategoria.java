@@ -39,7 +39,6 @@ public class CargarClasificacionCategoria {
 			ps.setString(2, categoria);
 			ResultSet rs = ps.executeQuery();
 			t = DbUtils.resultSetToTableModel(rs);
-
 			ps.close();
 			rs.close();
 			con.close();

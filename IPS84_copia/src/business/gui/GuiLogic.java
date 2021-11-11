@@ -92,8 +92,9 @@ public class GuiLogic {
 		 DataAccessFactory.forCarreraService().cargarTiempos(id_carrera, tiempos);
 	}
 
-	public static void cargarClasificacionCategoria(String idCarrera, String categoria) {
-		DataAccessFactory.forCarreraService().cargarClasificacionCategoria(idCarrera,categoria);	
+	public static void cargarClasificacionCategoria(JTable tabla,String idCarrera, String categoria) {
+		TableModel tm=DataAccessFactory.forCarreraService().cargarClasificacionCategoria(idCarrera,categoria);
+		tabla.setModel(tm);
 	}
 	
 	public static boolean comprobarInscripcionesFinalizadas(String id_carrera) {
