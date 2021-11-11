@@ -58,6 +58,8 @@ public class SqlStatements {
 	public static final String SQL_PARTICIPANTES_CARRERA =  "select count(*) as participantes from inscripcion where id_carrera = ? and estado = 'INSCRITO'";
 	public static final String SQL_INSCRIPCION_DORSAL= "select * from inscripcion where id_carrera = ?";
 	public static final String SQL_INSCRIPCION_ACTUALIZAR_TIEMPOS="UPDATE inscripcion SET tiempo= ?,tiempoInicio = ?, tiempoFin = ? where id_carrera=? AND dorsal=?";
+	public static final String SQL_INSCRIPCION_CARRERA = "select * from inscripcion where id_carrera = ? ";
+	public static final String SQL_INSCRIPCION_ACTUALIZAR_DORSALES = "UPDATE inscripcion SET dorsal = ? where id_carrera = ? and email_atleta = ?";
 	
 }
 

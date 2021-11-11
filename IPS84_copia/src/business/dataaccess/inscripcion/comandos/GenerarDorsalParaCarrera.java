@@ -19,7 +19,7 @@ public class GenerarDorsalParaCarrera {
 		this.dorsalesReservados = dorsalesReservados; 
 	}
 
-	public int execute() {
+	public void execute() {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
 		} catch (SQLException e1) {
@@ -28,23 +28,28 @@ public class GenerarDorsalParaCarrera {
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		int participantes = 0;
+		int dorsal = dorsalesReservados;
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			ps = con.prepareStatement(SqlStatements.SQL_PARTICIPANTES_CARRERA);
-			
+			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_CARRERA);
 			ps.setString(1,id_carrera);
-			
 			rs = ps.executeQuery();
-			participantes = rs.getInt("participantes");
-			
+			while(rs.next()) {
+				dorsal++;
+				PreparedStatement statement = con
+						.prepareStatement(SqlStatements.SQL_INSCRIPCION_ACTUALIZAR_DORSALES);
+				statement.setInt(1, dorsal);
+				statement.setString(2, id_carrera);
+				statement.setString(3, rs.getString("email_atleta"));
+				statement.executeUpdate();
+				statement.close();
+			}
 			rs.close();
 			ps.close();
 			con.close();
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
-		return participantes;
 	}
 	
 }

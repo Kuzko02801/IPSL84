@@ -17,8 +17,8 @@ public class InscripcionServiceImpl implements InscripcionService{
 	}
 	
 	@Override
-	public int generarDorsalParaCarrera(String id_carrera, int dorsalesReservados) {
-		return new GenerarDorsalParaCarrera(id_carrera, dorsalesReservados).execute();
+	public void generarDorsalParaCarrera(String id_carrera, int dorsalesReservados) {
+		new GenerarDorsalParaCarrera(id_carrera, dorsalesReservados).execute();
 	}
 	
 	
