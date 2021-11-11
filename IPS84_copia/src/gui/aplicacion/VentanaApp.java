@@ -1603,7 +1603,7 @@ public class VentanaApp extends JFrame {
 			try {
 				if (GuiLogic.comprobarCarreraFinalizada(getCarreraSeleccionadaOrganizador())) {
 					JFileChooser fc = new JFileChooser();
-					fc.setFileFilter(new FileNameExtensionFilter("Time Files", ".tm"));
+					fc.setFileFilter(new FileNameExtensionFilter("Time Files", "tm"));
 					int returnVal = fc.showOpenDialog(this);
 					if (returnVal == JFileChooser.APPROVE_OPTION) {
 						File file = fc.getSelectedFile();
