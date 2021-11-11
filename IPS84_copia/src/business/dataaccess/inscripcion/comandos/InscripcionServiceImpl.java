@@ -26,5 +26,10 @@ public class InscripcionServiceImpl implements InscripcionService{
 		return new CuotaActualCarrera(id_carrera).execute();
 	}
 	
+	@Override
+	public void procesarHistorialDePagos(String id_carrera, String email_atleta, String cantidad) {
+		new ProcesarHistorialDePago(id_carrera, email_atleta, cantidad);
+	}
+	
 	
 }
