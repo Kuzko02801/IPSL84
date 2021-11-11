@@ -20,6 +20,11 @@ public class InscripcionServiceImpl implements InscripcionService{
 	public void generarDorsalParaCarrera(String id_carrera, int dorsalesReservados) {
 		new GenerarDorsalParaCarrera(id_carrera, dorsalesReservados).execute();
 	}
+
+	@Override
+	public double cuotaActualCarrera(String id_carrera) {
+		return new CuotaActualCarrera(id_carrera).execute();
+	}
 	
 	
 }
