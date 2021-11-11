@@ -38,6 +38,8 @@ import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 import business.gui.CarreraManager;
 import business.gui.GuiLogic;
+import gui.pagos.VentanaEscogerPago;
+import gui.pagos.VentanaPagoTarjeta;
 import gui.validadoresGUI.Validadores;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
@@ -1283,7 +1285,7 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	void mostrarTodasCarrerasParticipante() {
+	public void mostrarTodasCarrerasParticipante() {
 		GuiLogic.cargarTodasCarrerasParticipante(getTablaCarrerasParticipante());
 	}
 
@@ -1342,8 +1344,9 @@ public class VentanaApp extends JFrame {
 
 	private void comprobarPuedePagar(String id, String email) {
 		if (puedePagar(id, email)) {
-			VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this, id, email);
-			vpt.setVisible(true);
+			VentanaEscogerPago pago = new VentanaEscogerPago(this,id,email);  
+			
+			pago.setVisible(true);
 		} else {
 			JOptionPane.showMessageDialog(this, "Ya se ha realizado el pago sobre la carrera: " + id);
 		}

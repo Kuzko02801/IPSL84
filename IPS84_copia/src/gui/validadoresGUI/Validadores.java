@@ -133,4 +133,13 @@ public class Validadores {
 			return false;
 		}
 	}
+
+	public static boolean comprobarDouble(String text) {
+		try {
+			Double.parseDouble(text);
+			return true;
+		} catch (Exception e) {
+			return false;
+		}
+	}
 }

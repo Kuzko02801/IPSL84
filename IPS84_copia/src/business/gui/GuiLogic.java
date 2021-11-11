@@ -85,8 +85,8 @@ public class GuiLogic {
 		return DataAccessFactory.forAtletaService().existeAtleta(email);
 	}
 
-	public static void pagarInscripcion(String id, String email, int dorsal) {
-		DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id, email, dorsal);
+	public static void pagarInscripcion(String id, String email) {
+		DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id, email);
 	}
 	
 	public static void cargaTiemposCarrera(String id_carrera, File tiempos) throws BusinessDataException {
@@ -105,6 +105,9 @@ public class GuiLogic {
 	}
 	public static void generarDorsales(String id_carrera,int dorsalesReservados) {
 		DataAccessFactory.forInscripcionService().generarDorsalParaCarrera(id_carrera, dorsalesReservados);
+	}
+	public static double cuotaActualCarrera(String id_carrera) {
+		return DataAccessFactory.forInscripcionService().cuotaActualCarrera(id_carrera);
 	}
 	
 }

@@ -13,12 +13,10 @@ public class PasarDePendienteDePagoAInscrito {
 	
 	private String id;
 	private String email;
-	private int dorsal;
 
-	public PasarDePendienteDePagoAInscrito(String id, String email, int dorsal) {
+	public PasarDePendienteDePagoAInscrito(String id, String email) {
 		this.id = id;
 		this.email = email;
-		this.dorsal = dorsal;
 	}
 	
 	public void execute() {
@@ -36,9 +34,8 @@ public class PasarDePendienteDePagoAInscrito {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_PAGO);
 			
-			ps.setInt(1, dorsal);
-			ps.setString(2, email);
-			ps.setString(3, id);
+			ps.setString(1, email);
+			ps.setString(2, id);
 			
 			ps.executeUpdate();
 			

@@ -1,4 +1,4 @@
-package gui.aplicacion;
+package gui.pagos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -17,6 +17,8 @@ import business.dataaccess.DataAccessFactory;
 import business.dataaccess.util.Check;
 import business.dataaccess.util.DateSqlite;
 import business.gui.GuiLogic;
+import gui.aplicacion.VentanaApp;
+
 import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -202,7 +204,8 @@ public class VentanaPagoTarjeta extends JDialog {
 										+ "Usuario con email: " + email_atleta + "\n" + "Número de tarjeta: "
 										+ txtTarjeta.getText() + "\n" + "Fecha de caducidad: " + txtCaducidad.getText()
 										+ "\n" + "CVC: " + txtCVC.getText());
-						GuiLogic.pagarInscripcion(id_carrera, email_atleta, dorsal);
+						GuiLogic.pagarInscripcion(id_carrera, email_atleta);
+						imprimer
 						v.mostrarTodasCarrerasParticipante();
 						dispose();
 					}
