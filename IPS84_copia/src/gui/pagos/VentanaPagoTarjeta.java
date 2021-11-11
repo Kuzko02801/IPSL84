@@ -205,7 +205,8 @@ public class VentanaPagoTarjeta extends JDialog {
 										+ txtTarjeta.getText() + "\n" + "Fecha de caducidad: " + txtCaducidad.getText()
 										+ "\n" + "CVC: " + txtCVC.getText());
 						GuiLogic.pagarInscripcion(id_carrera, email_atleta);
-						imprimer
+						double cuota=GuiLogic.cuotaActualCarrera(id_carrera);
+						GuiLogic.procesarPagos(id_carrera,email_atleta,cuota,cuota,"Pagado con tarjeta. Correcto.");
 						v.mostrarTodasCarrerasParticipante();
 						dispose();
 					}

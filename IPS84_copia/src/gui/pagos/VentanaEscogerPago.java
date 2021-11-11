@@ -40,7 +40,7 @@ public class VentanaEscogerPago extends JDialog {
 		setResizable(false);
 		setModal(true);
 		setTitle("M\u00E9todo");
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 530, 345);
 		pnPrincipal = new JPanel();
 		pnPrincipal.setBackground(new Color(8, 46, 70));

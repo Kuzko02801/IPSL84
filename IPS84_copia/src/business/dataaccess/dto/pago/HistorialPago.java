@@ -58,6 +58,6 @@ public class HistorialPago {
 	
 	@Override
 	public String toString() {
-		return id_carrera + ";" + email_atleta + ";" + cantidad; 
+		return id_carrera + ";" + email_atleta + ";" + cantidad +";"+cuota+";"+comentario; 
 	}
 }

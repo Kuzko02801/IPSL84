@@ -1,8 +1,5 @@
 package gui.pagos;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -26,6 +23,10 @@ import java.awt.event.ActionEvent;
 
 public class VentanaPagoTransferencia extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel pnPrincipal;
 	private JButton btPagar;
 	private JTextField txIban;
@@ -55,7 +56,7 @@ public class VentanaPagoTransferencia extends JDialog {
 		setTitle("Tranferencia");
 		setModal(true);
 		setResizable(false);
-		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 500, 350);
 		pnPrincipal = new JPanel();
 		pnPrincipal.setBackground(new Color(8, 46, 70));
@@ -183,13 +184,18 @@ public class VentanaPagoTransferencia extends JDialog {
 	private void pagar() {
 		if(comprobarCampos()) {
 			double pagado=Double.parseDouble(getTxCantidad().getText());
-			if(pagado>=this.cuotaActual) {
+			if(pagado>this.cuotaActual) {
 				GuiLogic.pagarInscripcion(id_carrera, email);
-				imprime
+				JOptionPane.showMessageDialog(this, "Has pagado más dinero que la cuota actual", "Error", JOptionPane.WARNING_MESSAGE);
+				GuiLogic.procesarPagos(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Ha pagado "+(pagado-cuotaActual)+"de más");
+				cerrar();
+			}else if(pagado==this.cuotaActual) {
+				GuiLogic.pagarInscripcion(id_carrera, email);
+				GuiLogic.procesarPagos(id_carrera,email,cuotaActual,cuotaActual,"Pagado con transferencia. Pagado correctamente");
 				cerrar();
 			}else{
-				JOptionPane.showMessageDialog(this, "Has pagado menos que la cuota actual", "Error", JOptionPane.WARNING_MESSAGE);
-				imprime
+				JOptionPane.showMessageDialog(this, "Has pagado menos dinero que la cuota actual", "Error", JOptionPane.WARNING_MESSAGE);
+				GuiLogic.procesarPagos(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Pagado "+(cuotaActual-pagado)+" no se le inscribe aún.");
 				cerrar();
 			}
 			

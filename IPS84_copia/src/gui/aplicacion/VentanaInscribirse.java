@@ -19,6 +19,7 @@ import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 import business.gui.GuiLogic;
 import gui.login.VentanaRegistro;
+import gui.validadoresGUI.Validadores;
 
 public class VentanaInscribirse extends JDialog {
 	/**
@@ -149,22 +150,27 @@ public class VentanaInscribirse extends JDialog {
 		boolean estaInscrito;
 
 		try {
-			existe = Check.atletaExists(getTxtEmail().getText());
-			estaInscrito = Check.existeInscripcion(getTxtEmail().getText(), id_carrera);
-			if (estaInscrito) {
-				JOptionPane.showMessageDialog(rootPane, "Ya te has registrado para esta carrera");
-				return;
-			}
-			if (existe) {
-				GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
-				dispose();
-			} else {
-				int input = JOptionPane.showConfirmDialog(this,
-						"Tu e-mail no está registrado pero puedes inscribirte aportando datos adiccionales", "Datos",
-						JOptionPane.DEFAULT_OPTION);
-				if (input == 0) {
-					mostrarVentanaRegistro(getTxtEmail().getText());
+			if (Validadores.comprobarEmail(getTxtEmail().getText())) {
+				existe = Check.atletaExists(getTxtEmail().getText());
+				estaInscrito = Check.existeInscripcion(getTxtEmail().getText(), id_carrera);
+				if (estaInscrito) {
+					JOptionPane.showMessageDialog(rootPane, "Ya te has registrado para esta carrera");
+					return;
 				}
+				if (existe) {
+					GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
+					dispose();
+				} else {
+					int input = JOptionPane.showConfirmDialog(this,
+							"Tu e-mail no está registrado pero puedes inscribirte aportando datos adiccionales",
+							"Datos", JOptionPane.DEFAULT_OPTION);
+					if (input == 0) {
+
+						mostrarVentanaRegistro(getTxtEmail().getText());
+					}
+				}
+			} else {
+				JOptionPane.showMessageDialog(this, "El email no es válido", "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);

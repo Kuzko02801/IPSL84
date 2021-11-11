@@ -1,6 +1,7 @@
 package business.dataaccess.parsers;
 
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -23,11 +24,9 @@ public class HistorialSerializer {
 	}
 
 	public static void serializarPagos(HistorialPago hp) throws IOException {
-		
-	    BufferedWriter writer = new BufferedWriter(new FileWriter("pagos" + hp.getId_carrera() + ".txt", true));
-	    writer.append('\n');
-	    writer.append(hp.toString());
-	    
+		File f=new File("pagos.txt");
+	    BufferedWriter writer = new BufferedWriter(new FileWriter(f, true));
+	    writer.write(hp.toString()+"\n");
 	    writer.close();
 		
 	}

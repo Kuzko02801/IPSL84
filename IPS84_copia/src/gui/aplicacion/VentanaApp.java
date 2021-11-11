@@ -36,7 +36,6 @@ import business.dataaccess.util.Check;
 import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.pagos.VentanaEscogerPago;
-import gui.pagos.VentanaPagoTarjeta;
 import gui.validadoresGUI.Validadores;
 
 public class VentanaApp extends JFrame {

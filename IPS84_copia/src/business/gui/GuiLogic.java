@@ -108,5 +108,8 @@ public class GuiLogic {
 	public static double cuotaActualCarrera(String id_carrera) {
 		return DataAccessFactory.forInscripcionService().cuotaActualCarrera(id_carrera);
 	}
+	public static void procesarPagos(String id_carrera,String email,double cuota,double pagado,String comentario) {
+		DataAccessFactory.forInscripcionService().procesarHistorialDePagos(id_carrera, email, ""+cuota, ""+pagado, comentario);
+	}
 	
 }
