@@ -12,9 +12,11 @@ import business.dataaccess.datainformation.SqliteConnectionInfo;
 public class GenerarDorsalParaCarrera {
 	
 	public String id_carrera;
+	private int dorsalesReservados;
 	
-	public GenerarDorsalParaCarrera(String id_carrera) {
+	public GenerarDorsalParaCarrera(String id_carrera, int dorsalesReservados) {
 		this.id_carrera = id_carrera;
+		this.dorsalesReservados = dorsalesReservados; 
 	}
 
 	public int execute() {

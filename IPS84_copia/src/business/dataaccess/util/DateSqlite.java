@@ -72,7 +72,7 @@ public class DateSqlite implements Comparable<DateSqlite> {
 	public DateSqlite plusDays(int days) {
 		String[] a = dateComponents();
 		
-		a[2] = String.valueOf(Integer.valueOf(a[2] + days));
+		a[2] = String.valueOf((Integer.valueOf(a[2]) + days));
 		
 		String date = "";
 		for(String aa: a) {

@@ -104,7 +104,7 @@ public class GuiLogic {
 		return DataAccessFactory.forCarreraService().carreraFinalizada(id_carrera);
 	}
 	public static void generarDorsales(String id_carrera,int dorsalesReservados) {
-		
+		DataAccessFactory.forInscripcionService().generarDorsalParaCarrera(id_carrera, dorsalesReservados);
 	}
 	
 }
