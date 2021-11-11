@@ -8,7 +8,7 @@ public class SqlStatements {
 	public static final String SQL_NUMERO_INSCRIPCIONES = "select count(*) from carrera, inscripcion where carrera.id = ? and carrera.id = inscripcion.id_carrera";
 	public static final String SQL_CARRERAS = "select * from Carrera";
 
-	public static final String SQL_INSCRIPCIONES_ATLETA = "select atleta.dni, atleta.nombre, inscripcion.categoria, inscripcion.fecha_inscripcion, inscripcion.estado from inscripcion, atleta where atleta.email = inscripcion.email_atleta and inscripcion.id_carrera = ? order by inscripcion.fecha_inscripcion asc, inscripcion.estado asc";
+	public static final String SQL_INSCRIPCIONES_ATLETA = "select atleta.dni, atleta.nombre, inscripcion.categoria, inscripcion.fecha_inscripcion, inscripcion.estado, inscripcion.dorsal from inscripcion, atleta where atleta.email = inscripcion.email_atleta and inscripcion.id_carrera = ? order by inscripcion.fecha_inscripcion asc, inscripcion.estado asc";
 														
 	public static final String SQL_SELECT_TODAS_CARRERAS = "select * from carreras";
 	public static final String SQL_INSERT_CARRERA = "insert into carrera (nombre, fecha, tipo, distancia, id, plazas_maximas, categorias, periodos) "
