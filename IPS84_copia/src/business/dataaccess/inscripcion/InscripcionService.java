@@ -8,5 +8,5 @@ public interface InscripcionService {
 	void pasarDePendienteDePagoAInscrito(String id, String email);
 	void generarDorsalParaCarrera(String id_carrera, int dorsalesReservados);
 	double cuotaActualCarrera(String id_carrera);
-	void procesarHistorialDePagos(String id_carrera, String email_atleta, String cantidad);
+	void procesarHistorialDePagos(String id_carrera, String email_atleta, String cuota, String cantidad, String comentario);
 }

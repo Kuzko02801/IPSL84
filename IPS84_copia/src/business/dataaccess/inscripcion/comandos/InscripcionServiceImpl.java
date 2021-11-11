@@ -27,8 +27,8 @@ public class InscripcionServiceImpl implements InscripcionService{
 	}
 	
 	@Override
-	public void procesarHistorialDePagos(String id_carrera, String email_atleta, String cantidad) {
-		new ProcesarHistorialDePago(id_carrera, email_atleta, cantidad);
+	public void procesarHistorialDePagos(String id_carrera, String email_atleta,String cuota, String cantidad, String comentario) {
+		new ProcesarHistorialDePago(id_carrera, email_atleta, cuota, cantidad, comentario);
 	}
 	
 	
