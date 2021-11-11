@@ -60,6 +60,7 @@ public class CuotaActualCarrera {
 			con.close();
 			return 0.0;
 			
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
