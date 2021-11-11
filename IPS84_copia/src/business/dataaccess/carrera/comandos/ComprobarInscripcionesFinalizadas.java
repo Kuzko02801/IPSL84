@@ -5,6 +5,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
 import java.util.List;
 
 import business.dataaccess.datainformation.SqlStatements;
@@ -38,7 +39,7 @@ public class ComprobarInscripcionesFinalizadas {
 			if (rs.next()) {
 				periodos = rs.getString("periodos");
 				List<Periodo> listaPeriodos = PeriodoParser.devolverPeriodos(periodos);
-				if (listaPeriodos.get(listaPeriodos.size() - 1).getFechaFin().plusDays(2).isBefore(new DateSqlite().actual())) {
+				if (listaPeriodos.get(listaPeriodos.size() - 1).getFechaFin().getDate().plusDays(2).isBefore(LocalDate.now())) {
 					finalizada = false;
 				}
 				finalizada = true;
