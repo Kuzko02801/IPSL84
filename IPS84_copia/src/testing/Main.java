@@ -1,17 +1,13 @@
 package testing;
 
 import java.sql.Connection;
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.text.ParseException;
 
 import business.dataaccess.datainformation.SqliteConnectionInfo;
-import business.dataaccess.dto.carrera.CarreraDto;
 
-import business.dataaccess.dto.infoadicional.Tipo;
-import business.dataaccess.util.DateSqlite;
 
 public class Main {
 
@@ -25,8 +21,7 @@ public class Main {
 		}
 		Connection con = null;
 		PreparedStatement ps = null;
-		Test test = null;
-		CarreraDto carrera = new CarreraDto();
+		Test test = null;	
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			test = new Test(con, ps);

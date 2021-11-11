@@ -8,15 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.table.TableModel;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.parsers.TiempoParser;
-import net.proteanit.sql.DbUtils;
 
 public class CargarTiempos {
 
@@ -61,9 +57,7 @@ public class CargarTiempos {
 					for (int i = 0; i < aux.length; i++) {
 						args[i] = aux[i];
 					}
-					int dorsal = Integer.parseInt(args[0]);
-					String tiempoInicio = args[1];
-					String tiempoFin = args[2];
+					int dorsal = Integer.parseInt(args[0]);					
 					if (dorsal == rs.getInt("dorsal")) {
 						PreparedStatement statement = con
 								.prepareStatement(SqlStatements.SQL_INSCRIPCION_ACTUALIZAR_TIEMPOS);

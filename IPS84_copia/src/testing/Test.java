@@ -1,7 +1,6 @@
 package testing;
 
 import java.sql.Connection;
-
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,7 +12,6 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.infoadicional.CategoriaAtleta;
-
 import business.dataaccess.dto.infoadicional.Genero;
 import business.dataaccess.util.DateSqlite;
 
