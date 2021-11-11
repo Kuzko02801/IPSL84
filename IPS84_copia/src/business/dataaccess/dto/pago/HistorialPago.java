@@ -1,0 +1,43 @@
+package business.dataaccess.dto.pago;
+
+public class HistorialPago {
+
+	private String id_carrera;
+	private String email_atleta;
+	private String cantidad;
+	
+	public HistorialPago(String id_carrera, String email_atleta, String cantidad) {		
+		this.id_carrera = id_carrera;
+		this.email_atleta = email_atleta;
+		this.cantidad = cantidad;
+	}
+
+	public String getId_carrera() {
+		return id_carrera;
+	}
+
+	public void setId_carrera(String id_carrera) {
+		this.id_carrera = id_carrera;
+	}
+
+	public String getEmail_atleta() {
+		return email_atleta;
+	}
+
+	public void setEmail_atleta(String email_atleta) {
+		this.email_atleta = email_atleta;
+	}
+
+	public String getCantidad() {
+		return cantidad;
+	}
+
+	public void setCantidad(String cantidad) {
+		this.cantidad = cantidad;
+	}
+	
+	@Override
+	public String toString() {
+		return id_carrera + ";" + email_atleta + ";" + cantidad; 
+	}
+}
