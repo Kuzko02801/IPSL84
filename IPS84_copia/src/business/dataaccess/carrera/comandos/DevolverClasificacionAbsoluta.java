@@ -35,7 +35,6 @@ public class DevolverClasificacionAbsoluta {
 			ps = con.prepareStatement(SqlStatements.SQL_CLASIFICACION_ABSOLUTA);			
 			ps.setString(1, id);
 			rs = ps.executeQuery();
-			
 			t = DbUtils.resultSetToTableModel(rs);
 
 			ps.close();

@@ -21,28 +21,29 @@ public class SqlStatements {
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
-			+ "AND carrera.fecha < date('now') order by inscripcion.tiempo";
+			+ "order by inscripcion.tiempo";
+				
 	public static final String SQL_CLASIFICACION_FEMENINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
 			+ "AND atleta.sexo = 'mujer'\r\n"
-			+ "AND carrera.fecha < date('now') order by inscripcion.tiempo;";
+			+ "order by inscripcion.tiempo";
 	public static final String SQL_CLASIFICACION_MASCULINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
 			+ "AND atleta.sexo = 'hombre'\r\n"
-			+ "AND carrera.fecha < date('now') order by inscripcion.tiempo;";
+			+ "order by inscripcion.tiempo";
 	public static final String SQL_CLASIFICACION_CATEGORIA="SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND inscripcion.categoria = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
-			+ "AND carrera.fecha < date('now') order by inscripcion.tiempo";
+			+ "order by inscripcion.tiempo";
 	public static String SQL_ADD_ATLETA = "insert into atleta (email, dni, nombre, fechanacimiento, sexo) values (?, ?, ?, ?, ?)";
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, dni, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?, ?)";
