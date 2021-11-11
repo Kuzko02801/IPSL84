@@ -5,11 +5,31 @@ public class HistorialPago {
 	private String id_carrera;
 	private String email_atleta;
 	private String cantidad;
-	
-	public HistorialPago(String id_carrera, String email_atleta, String cantidad) {		
+	private String comentario;
+	private String cuota;	
+
+	public HistorialPago(String id_carrera, String email_atleta, String cuota, String cantidad, String comentario) {
 		this.id_carrera = id_carrera;
 		this.email_atleta = email_atleta;
 		this.cantidad = cantidad;
+		this.cuota = cuota;
+		this.comentario = comentario;
+	}
+	
+	public String getComentario() {
+		return comentario;
+	}
+
+	public void setComentario(String comentario) {
+		this.comentario = comentario;
+	}
+
+	public String getCuota() {
+		return cuota;
+	}
+
+	public void setCuota(String cuota) {
+		this.cuota = cuota;
 	}
 
 	public String getId_carrera() {
