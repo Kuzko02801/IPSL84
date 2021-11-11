@@ -57,9 +57,7 @@ public class CargarTiempos {
 					for (int i = 0; i < aux.length; i++) {
 						args[i] = aux[i];
 					}
-					int dorsal = Integer.parseInt(args[0]);
-					String tiempoInicio = args[1];
-					String tiempoFin = args[2];
+					int dorsal = Integer.parseInt(args[0]);					
 					if (dorsal == rs.getInt("dorsal")) {
 						PreparedStatement statement = con
 								.prepareStatement(SqlStatements.SQL_INSCRIPCION_ACTUALIZAR_TIEMPOS);
