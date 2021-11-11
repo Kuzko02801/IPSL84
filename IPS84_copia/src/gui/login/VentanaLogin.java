@@ -11,12 +11,9 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
-import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 
-import business.gui.GuiLogic;
 import gui.aplicacion.VentanaApp;
 
 public class VentanaLogin extends JFrame {

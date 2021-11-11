@@ -17,7 +17,6 @@ import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
-import business.dataaccess.dto.infoadicional.CategoriaAtleta;
 import business.dataaccess.dto.infoadicional.EstadoInscripcion;
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.parsers.CategoriaParser;

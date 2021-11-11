@@ -22,9 +22,6 @@ import business.dataaccess.exception.BusinessDataException;
 import business.gui.GuiLogic;
 import gui.validadoresGUI.Validadores;
 
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-
 public class VentanaRegistro extends JDialog {
 
 	/**

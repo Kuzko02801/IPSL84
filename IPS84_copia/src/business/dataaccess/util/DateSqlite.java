@@ -6,8 +6,6 @@ import java.time.chrono.ChronoLocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.Date;
 
-import business.dataaccess.exception.BusinessDataException;
-
 public class DateSqlite implements Comparable<DateSqlite> {
 
 	final static String DATE_FORMAT = "yyyy/MM/dd";	

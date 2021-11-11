@@ -1,11 +1,5 @@
 package testing;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.util.Date;
-
 import gui.validadoresGUI.Validadores;
 
 public class TestDates {

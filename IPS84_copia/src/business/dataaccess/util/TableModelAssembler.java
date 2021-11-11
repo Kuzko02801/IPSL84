@@ -7,7 +7,6 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
-import business.dataaccess.dto.InscripcionDto;
 import business.dataaccess.dto.carrera.CarreraDto;
 
 public class TableModelAssembler {

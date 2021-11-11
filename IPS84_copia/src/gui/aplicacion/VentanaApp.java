@@ -5,11 +5,8 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
 import java.io.File;
 import java.sql.SQLException;
-import java.util.ArrayList;
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
@@ -31,16 +28,14 @@ import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
+
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.validadoresGUI.Validadores;
-import java.awt.event.FocusAdapter;
-import java.awt.event.FocusEvent;
 
 public class VentanaApp extends JFrame {
 

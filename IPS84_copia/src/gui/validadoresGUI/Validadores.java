@@ -1,15 +1,9 @@
 package gui.validadoresGUI;
 
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.Period;
-import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeParseException;
-import java.util.Date;
-import java.util.Formatter;
 
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;

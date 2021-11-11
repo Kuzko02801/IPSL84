@@ -8,15 +8,11 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Iterator;
-
-import javax.swing.table.TableModel;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.parsers.TiempoParser;
-import net.proteanit.sql.DbUtils;
 
 public class CargarTiempos {
 
