@@ -37,6 +37,7 @@ import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.pagos.VentanaEscogerPago;
 import gui.validadoresGUI.Validadores;
+import javax.swing.JTextArea;
 
 public class VentanaApp extends JFrame {
 
@@ -120,6 +121,12 @@ public class VentanaApp extends JFrame {
 	private CarreraManager carreraManager;
 	private JButton btCargarTiempos;
 	private JButton btGenerarDorsales;
+	private JScrollPane scrollPanePeriodos;
+	private JLabel lblPeriodos;
+	private JLabel lblCategorias;
+	private JScrollPane scrollPaneCategorias;
+	private JTextArea txCategorias;
+	private JTextArea txPeriodos;
 
 	/**
 	 * Create the frame.
@@ -745,42 +752,59 @@ public class VentanaApp extends JFrame {
 			pnCrearCarrera = new JPanel();
 			pnCrearCarrera.setBackground(new Color(50, 130, 181));
 			GroupLayout gl_pnCrearCarrera = new GroupLayout(pnCrearCarrera);
-			gl_pnCrearCarrera.setHorizontalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
-							.addGroup(gl_pnCrearCarrera
-									.createParallelGroup(
-											Alignment.LEADING)
+			gl_pnCrearCarrera.setHorizontalGroup(
+				gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+								.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 342, Short.MAX_VALUE)
+								.addGap(56))
+							.addComponent(getPnCategoriasCarrera(), GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE))
+						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+							.addComponent(getPnInscripcionCarrera(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 346, Short.MAX_VALUE)
+							.addGroup(Alignment.TRAILING, gl_pnCrearCarrera.createSequentialGroup()
+								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-											.addComponent(getPnCategoriasCarrera(), GroupLayout.DEFAULT_SIZE, 346,
-													Short.MAX_VALUE)
-											.addGap(54)
-											.addComponent(getBtResetCarrera(), GroupLayout.DEFAULT_SIZE, 171,
-													Short.MAX_VALUE)
-											.addPreferredGap(ComponentPlacement.RELATED).addComponent(
-													getBtCrearCarrera(), GroupLayout.DEFAULT_SIZE, 171,
-													Short.MAX_VALUE))
+										.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+											.addComponent(getScrollPanePeriodos(), GroupLayout.DEFAULT_SIZE, 174, Short.MAX_VALUE)
+											.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+												.addGap(9)
+												.addComponent(getBtResetCarrera(), GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)))
+										.addPreferredGap(ComponentPlacement.RELATED))
 									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-											.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 346,
-													Short.MAX_VALUE)
-											.addGap(56).addComponent(getPnInscripcionCarrera(),
-													GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE,
-													Short.MAX_VALUE)))
-							.addContainerGap()));
-			gl_pnCrearCarrera.setVerticalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-									.addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE, 191,
-											Short.MAX_VALUE)
-									.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-									.addComponent(getBtCrearCarrera(), GroupLayout.PREFERRED_SIZE, 27,
-											GroupLayout.PREFERRED_SIZE)
-									.addComponent(getPnCategoriasCarrera(), GroupLayout.PREFERRED_SIZE, 162,
-											Short.MAX_VALUE)
-									.addComponent(getBtResetCarrera(), GroupLayout.PREFERRED_SIZE, 27,
-											GroupLayout.PREFERRED_SIZE))
-							.addGap(47)));
+										.addComponent(getLblPeriodos(), GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+										.addGap(42)))
+								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLblCategorias(), GroupLayout.PREFERRED_SIZE, 139, GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtCrearCarrera(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
+									.addComponent(getScrollPaneCategorias(), GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE))))
+						.addContainerGap())
+			);
+			gl_pnCrearCarrera.setVerticalGroup(
+				gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+							.addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 210, Short.MAX_VALUE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+							.addComponent(getPnCategoriasCarrera(), GroupLayout.PREFERRED_SIZE, 162, Short.MAX_VALUE)
+							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getLblPeriodos(), GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
+									.addComponent(getLblCategorias(), GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(getScrollPaneCategorias())
+									.addComponent(getScrollPanePeriodos(), GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
+								.addPreferredGap(ComponentPlacement.RELATED, 7, Short.MAX_VALUE)
+								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getBtCrearCarrera(), Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtResetCarrera(), Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))))
+						.addGap(47))
+			);
 			pnCrearCarrera.setLayout(gl_pnCrearCarrera);
 		}
 		return pnCrearCarrera;
@@ -1202,6 +1226,8 @@ public class VentanaApp extends JFrame {
 		return btAnadirInscripcion;
 	}
 
+	
+
 	private JTextField getTxCuotaCarrera() {
 		if (txCuotaCarrera == null) {
 			txCuotaCarrera = new JTextField();
@@ -1290,7 +1316,7 @@ public class VentanaApp extends JFrame {
 				if (Check.atletaExists(email_atleta)) {
 					GuiLogic.cargarPropiasCarrerasParticipante(getTablaCarrerasParticipante(), email_atleta);
 				} else {
-					JOptionPane.showMessageDialog(this, "No estás inscrito en ninguna carrera", "Error",
+					JOptionPane.showMessageDialog(this, "No estï¿½s inscrito en ninguna carrera", "Error",
 							JOptionPane.WARNING_MESSAGE);
 				}
 			} catch (SQLException e) {
@@ -1298,7 +1324,7 @@ public class VentanaApp extends JFrame {
 				e.printStackTrace();
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Tu email no es válido", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Tu email no es vï¿½lido", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 
 	}
@@ -1384,6 +1410,35 @@ public class VentanaApp extends JFrame {
 			btGenerarDorsales.setBackground(new Color(50, 130, 181));
 		}
 		return btGenerarDorsales;
+	}
+	
+	private JScrollPane getScrollPanePeriodos() {
+		if (scrollPanePeriodos == null) {
+			scrollPanePeriodos = new JScrollPane();
+			scrollPanePeriodos.setViewportView(getTxPeriodos());
+		}
+		return scrollPanePeriodos;
+	}
+	private JLabel getLblPeriodos() {
+		if (lblPeriodos == null) {
+			lblPeriodos = new JLabel("Periodos");
+			lblPeriodos.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
+		}
+		return lblPeriodos;
+	}
+	private JLabel getLblCategorias() {
+		if (lblCategorias == null) {
+			lblCategorias = new JLabel("Categorias");
+			lblCategorias.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
+		}
+		return lblCategorias;
+	}
+	private JScrollPane getScrollPaneCategorias() {
+		if (scrollPaneCategorias == null) {
+			scrollPaneCategorias = new JScrollPane();
+			scrollPaneCategorias.setViewportView(getTxCategorias());
+		}
+		return scrollPaneCategorias;
 	}
 
 	// METODOS ORGANIZADOR
@@ -1493,7 +1548,7 @@ public class VentanaApp extends JFrame {
 				GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
 						getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
 						getTxPlazasCarrera().getText(), carreraManager.getCategorias(), carreraManager.getPeriodos());
-				JOptionPane.showMessageDialog(this, "La carrera se ha creado con éxito", "Exito",
+				JOptionPane.showMessageDialog(this, "La carrera se ha creado con ï¿½xito", "Exito",
 						JOptionPane.INFORMATION_MESSAGE);
 				vaciarCamposCrearCarrera();
 			} catch (BusinessDataException e) {
@@ -1531,8 +1586,10 @@ public class VentanaApp extends JFrame {
 				&& Validadores.comprobarFechasValidas(getTxFechaCarrera().getText(), fechaInicio, fechaFin)) {
 			try {
 				carreraManager.addPeriodo(fechaInicio, fechaFin, Double.parseDouble(cuota));
+				txPeriodos.setText(txPeriodos.getText() + "Inicio: " + txFechaInicioPlazo.getText()
+				+ " - Fin: " + txFechaFinPlazo.getText()+ " - Precio: " + txCuotaCarrera.getText() + "\n");
 				vaciarCamposPlazoInscripcion();
-				JOptionPane.showMessageDialog(this, "El plazo de inscripción ha sido creado", "Éxito",
+				JOptionPane.showMessageDialog(this, "El plazo de inscripciï¿½n ha sido creado", "ï¿½xito",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (BusinessDataException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
@@ -1553,8 +1610,11 @@ public class VentanaApp extends JFrame {
 				&& Validadores.comprobarEdadesCategoria(edadInicio, edadFin)) {
 			try {
 				carreraManager.addCategoria(nombreCategoria, Integer.parseInt(edadInicio), Integer.parseInt(edadFin));
+				txCategorias.setText(txCategorias.getText() + "Categoria: " + txNombreCategoria.getText() + ". " + 
+				txEdadInicioCategoria.getText() + " - " + txEdadFinCategoria.getText() + "\n");
+				
 				vaciarCamposCategoria();
-				JOptionPane.showMessageDialog(this, "La categoría se ha creado", "Éxito",
+				JOptionPane.showMessageDialog(this, "La categorï¿½a se ha creado", "ï¿½xito",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (BusinessDataException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
@@ -1563,7 +1623,7 @@ public class VentanaApp extends JFrame {
 			}
 
 		} else {
-			JOptionPane.showMessageDialog(this, "Comprueba los campos de las categorías", "Error",
+			JOptionPane.showMessageDialog(this, "Comprueba los campos de las categorï¿½as", "Error",
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
@@ -1572,7 +1632,7 @@ public class VentanaApp extends JFrame {
 		if (carreraSeleccionadaOrganizador()) {
 			if (GuiLogic.comprobarInscripcionesFinalizadas(getCarreraSeleccionadaOrganizador())) {
 				String dorsalesReservados = JOptionPane.showInputDialog(this,
-						"Introduce el número de dorsales a reservar", "Dorsales");
+						"Introduce el nï¿½mero de dorsales a reservar", "Dorsales");
 				if (Validadores.comprobarMayorNumero(dorsalesReservados, -1)) {
 					GuiLogic.generarDorsales(getCarreraSeleccionadaOrganizador(), Integer.parseInt(dorsalesReservados));
 				} else {
@@ -1639,5 +1699,19 @@ public class VentanaApp extends JFrame {
 			return true;
 		}
 	}
-
+	
+	private JTextArea getTxCategorias() {
+		if (txCategorias == null) {
+			txCategorias = new JTextArea();
+			txCategorias.setEditable(false);
+		}
+		return txCategorias;
+	}
+	private JTextArea getTxPeriodos() {
+		if (txPeriodos == null) {
+			txPeriodos = new JTextArea();
+			txPeriodos.setEditable(false);
+		}
+		return txPeriodos;
+	}
 }
