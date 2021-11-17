@@ -28,59 +28,39 @@ public class CarreraManager {
 		periodos.clear();
 	}
 
-	public void checkCategories() throws BusinessDataException {
-		if(categorias.size()<1) {
-			throw new BusinessDataException("Ha de haber al menos 1 categoría");
-		}
-		for (Categoria pivote : categorias) {
-			for (Categoria categoria : categorias) {
-				if (!categoria.equals(pivote)) {
-					if (pivote.getEdadMinima() > categoria.getEdadMinima()
-							&& pivote.getEdadMinima() < categoria.getEdadMaxima()
-							|| pivote.getEdadMaxima() > categoria.getEdadMinima()
-									&& pivote.getEdadMaxima() < categoria.getEdadMaxima()) {
-						throw new BusinessDataException("Las edades de las categorias no se pueden solapar.");
-					}
-				}
-			}
-		}
-
-	}
-
-	public void checkPeriods(String fecha) throws BusinessDataException {
-		if(periodos.size()<1) {
-			throw new BusinessDataException("Ha de haber al menos 1 periodo");
-		}
-		for (Periodo pivote : periodos) {
-			if (pivote.getFechaInicio().isAfter(new DateSqlite(fecha))
-					|| pivote.getFechaFin().isAfter(new DateSqlite(fecha))) {
-				throw new BusinessDataException("Las fechas de inicio y fin deben ser antes del inicio de la carrera.");
-			}
-
-			for (Periodo periodo : periodos) {
-				if (!periodo.equals(pivote)) {
-					/**
-					 * Tira BusinessException si alguna de las fechas del pivote esta solapada con
-					 * las del periodo.
-					 */
-					if (pivote.getFechaInicio().isAfter(periodo.getFechaInicio())
-							&& pivote.getFechaInicio().isBefore(periodo.getFechaFin())
-							|| pivote.getFechaFin().isAfter(periodo.getFechaInicio())
-									&& pivote.getFechaFin().isBefore(periodo.getFechaFin())) {
-						throw new BusinessDataException("Las fechas no se pueden solapar.");
-					}
-				}
-			}
-		}
-	}
-
-	public void addCategoria(String nombreCategoria, int edadInicio, int edadFin) {
-		Categoria c=new Categoria(nombreCategoria, edadInicio, edadFin);
+	public void addCategoria(String nombreCategoria, int edadInicio, int edadFin) throws BusinessDataException {
+		comprobarEdadCategoria(edadInicio, edadFin);
+		Categoria c = new Categoria(nombreCategoria, edadInicio, edadFin);
 		categorias.add(c);
 	}
 
-	public void addPeriodo(String fechaInicio, String fechaFin, double cuota) {
-		Periodo p=new Periodo(new DateSqlite(fechaInicio), new DateSqlite(fechaFin), cuota);
+	private void comprobarEdadCategoria(int edadInicio, int edadFin) throws BusinessDataException {
+		if (categorias.isEmpty())
+			return;
+		for (Categoria c : categorias) {
+			if (edadInicio > c.getEdadMinima() && edadInicio <= c.getEdadMaxima()
+					|| edadFin >= c.getEdadMinima() && edadFin < c.getEdadMaxima())
+				throw new BusinessDataException("Las edades de las categorias no se pueden solapar.");
+		}
+	}
+
+	public void addPeriodo(String fechaInicio, String fechaFin, double cuota) throws BusinessDataException {
+		comprobarFechaPeriodo(fechaInicio, fechaFin);
+		Periodo p = new Periodo(new DateSqlite(fechaInicio), new DateSqlite(fechaFin), cuota);
 		periodos.add(p);
+	}
+
+	private void comprobarFechaPeriodo(String fechaInicio, String fechaFin) throws BusinessDataException {
+		if (periodos.isEmpty())
+			return;
+
+		DateSqlite inicio = new DateSqlite(fechaInicio);
+		DateSqlite fin = new DateSqlite(fechaFin);
+
+		for (Periodo p : periodos) {
+			if (inicio.isAfter(p.getFechaInicio()) && inicio.isBefore(p.getFechaFin())
+					|| fin.isAfter(p.getFechaInicio()) && fin.isBefore(p.getFechaFin()))
+				throw new BusinessDataException("Las fechas no se pueden solapar.");
+		}
 	}
 }

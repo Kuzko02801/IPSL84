@@ -1338,8 +1338,8 @@ public class VentanaApp extends JFrame {
 
 	private void comprobarPuedePagar(String id, String email) {
 		if (puedePagar(id, email)) {
-			VentanaEscogerPago pago = new VentanaEscogerPago(this,id,email);  
-			
+			VentanaEscogerPago pago = new VentanaEscogerPago(this, id, email);
+
 			pago.setVisible(true);
 		} else {
 			JOptionPane.showMessageDialog(this, "Ya se ha realizado el pago sobre la carrera: " + id);
@@ -1429,7 +1429,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesCategoria(String idCarrera, String categoria) {
-		GuiLogic.cargarClasificacionCategoria(tablaClasificacionesAbsoluta,idCarrera, categoria);
+		GuiLogic.cargarClasificacionCategoria(tablaClasificacionesAbsoluta, idCarrera, categoria);
 		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
 		cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
 	}
@@ -1488,7 +1488,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void crearCarrera() {
-		if (comprobarCamposCrearCarrera()) {
+		if (comprobarCamposCarrera()) {
 			try {
 				GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
 						getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
@@ -1502,30 +1502,7 @@ public class VentanaApp extends JFrame {
 			}
 		}
 	}
-
-	private boolean comprobarCamposCrearCarrera() {
-		return compruebaCategorias() && compruebaFechasInscripcion() && comprobarCamposCarrera();
-	}
-
-	private boolean compruebaFechasInscripcion() {
-		try {
-			carreraManager.checkPeriods(txFechaCarrera.getText());
-			return true;
-		} catch (BusinessDataException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-	}
-
-	private boolean compruebaCategorias() {
-		try {
-			carreraManager.checkCategories();
-			return true;
-		} catch (BusinessDataException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-			return false;
-		}
-	}
+	
 
 	private boolean comprobarCamposCarrera() {
 		if (Validadores.comprobarNoVacio(getTxNombreCarrera().getText())
@@ -1552,10 +1529,16 @@ public class VentanaApp extends JFrame {
 		String cuota = getTxCuotaCarrera().getText();
 		if (Validadores.comprobarMayorNumero(cuota, 0)
 				&& Validadores.comprobarFechasValidas(getTxFechaCarrera().getText(), fechaInicio, fechaFin)) {
-			carreraManager.addPeriodo(fechaInicio, fechaFin, Double.parseDouble(cuota));
-			vaciarCamposPlazoInscripcion();
-			JOptionPane.showMessageDialog(this, "El plazo de inscripción ha sido creado", "Éxito",
-					JOptionPane.INFORMATION_MESSAGE);
+			try {
+				carreraManager.addPeriodo(fechaInicio, fechaFin, Double.parseDouble(cuota));
+				vaciarCamposPlazoInscripcion();
+				JOptionPane.showMessageDialog(this, "El plazo de inscripción ha sido creado", "Éxito",
+						JOptionPane.INFORMATION_MESSAGE);
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+				vaciarCamposPlazoInscripcion();
+				e.printStackTrace();
+			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Comprueba las fechas de los plazos", "Error",
 					JOptionPane.WARNING_MESSAGE);
@@ -1568,9 +1551,17 @@ public class VentanaApp extends JFrame {
 		String edadFin = getTxEdadFinCategoria().getText();
 		if (Validadores.comprobarMayor18Numero(edadInicio) && Validadores.comprobarMayor18Numero(edadFin)
 				&& Validadores.comprobarEdadesCategoria(edadInicio, edadFin)) {
-			carreraManager.addCategoria(nombreCategoria, Integer.parseInt(edadInicio), Integer.parseInt(edadFin));
-			vaciarCamposCategoria();
-			JOptionPane.showMessageDialog(this, "La categoría se ha creado", "Éxito", JOptionPane.INFORMATION_MESSAGE);
+			try {
+				carreraManager.addCategoria(nombreCategoria, Integer.parseInt(edadInicio), Integer.parseInt(edadFin));
+				vaciarCamposCategoria();
+				JOptionPane.showMessageDialog(this, "La categoría se ha creado", "Éxito",
+						JOptionPane.INFORMATION_MESSAGE);
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+				vaciarCamposCategoria();
+				e.printStackTrace();
+			}
+
 		} else {
 			JOptionPane.showMessageDialog(this, "Comprueba los campos de las categorías", "Error",
 					JOptionPane.WARNING_MESSAGE);
