@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import business.dataaccess.DataAccessFactory;
@@ -41,7 +42,7 @@ public class AtletaInscripcion {
 		PreparedStatement getCategorias = null;
 		PreparedStatement inscribirAtleta = null;
 		ResultSet categorias = null;
-		List<Categoria> listaCat;
+		List<Categoria> listaCat=null;
 		int age = 0;
 		try {
 
@@ -51,9 +52,8 @@ public class AtletaInscripcion {
 			}
 
 			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(email_atleta);
-			age = LocalDate.now().getYear() - atleta.fechaDeNacimiento.getDate().getYear();
+			age = (int)ChronoUnit.YEARS.between(atleta.fechaDeNacimiento.getDate(),LocalDate.now());
 			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera_id);
-
 			// Inscripcion abierta.
 			if (!inscripcionAbierta()) {
 				System.out.println("fuera del plazo");
@@ -80,7 +80,7 @@ public class AtletaInscripcion {
 			listaCat = CategoriaParser.devolverCategorias(categorias.getString(1));
 
 			for (Categoria c : listaCat) {
-				if (c.getEdadMinima() >= age || c.getEdadMaxima() < age) {
+				if (c.getEdadMinima() > age || c.getEdadMaxima() < age) {
 					getCategorias.close();				
 					throw new BusinessDataException("No existe ninguna categoria adecuada para el atleta.");
 				}
@@ -107,7 +107,7 @@ public class AtletaInscripcion {
 
 	private String seleccionarCategoria(List<Categoria> listaCat, int age) {		
 		for(Categoria c : listaCat) {
-			if(c.getEdadMinima() <= age && age < c.getEdadMaxima()) {
+			if(c.getEdadMinima() <= age && age <= c.getEdadMaxima()) {
 				return c.getTipo();
 			}
 		}

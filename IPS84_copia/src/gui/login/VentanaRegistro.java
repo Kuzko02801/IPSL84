@@ -228,7 +228,6 @@ public class VentanaRegistro extends JDialog {
 			GuiLogic.inscribirAtletaCarrera(idCarrera, email);
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-			e.printStackTrace();
 		}
 	}
 
@@ -239,7 +238,6 @@ public class VentanaRegistro extends JDialog {
 			return true;
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-			e.printStackTrace();
 			return false;
 		}
 	}
