@@ -8,18 +8,20 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import business.dataaccess.dto.carrera.CarreraDto;
+import business.dataaccess.parsers.CategoriaParser;
 
 public class TableModelAssembler {
 
 	public static TableModel carreraAssembler(List<CarreraDto> carreras) {
-		String col[] = { "ID", "Nombre", "Fecha", "Tipo", "Distancia", "Plazas maximas", "Plazo1", "Cuota1", "Plazo2",
-				"Cuota2", "Plazo3", "Cuota3" };
+		String col[] = { "ID", "Nombre", "Fecha", "Tipo", "Distancia", "Plazas maximas", "Categorias", "Plazo1",
+				"Cuota1", "Plazo2", "Cuota2", "Plazo3", "Cuota3" };
 		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
 		for (CarreraDto carrera : carreras) {
 			int nPeriodos = carrera.periodos.size();
 			Object[] row = new Object[12];
 			List<Object> lista = new ArrayList<Object>(Arrays.asList(carrera.carrera_id, carrera.nombre,
 					carrera.fecha.toString(), carrera.tipo.toString(), carrera.distancia, carrera.plazasMaximas,
+					CategoriaParser.categoriasToString(carrera.categorias),
 					carrera.periodos.get(0).getFechaInicio() + " - " + carrera.periodos.get(0).getFechaFin(),
 					carrera.periodos.get(0).getCuota()));
 			for (int i = 1; i < nPeriodos; i++) {

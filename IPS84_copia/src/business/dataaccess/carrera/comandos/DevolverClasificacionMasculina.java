@@ -36,7 +36,10 @@ public class DevolverClasificacionMasculina {
 			ps.setString(1, id);
 			ResultSet rs = ps.executeQuery();
 			t = DbUtils.resultSetToTableModel(rs);
-
+			for(int i = 0 ; i < t.getRowCount(); i++) {
+				if(t.getValueAt(i, t.getColumnCount() - 1).equals("DNF") || t.getValueAt(i, t.getColumnCount() - 1).equals("DNS"))
+					t.setValueAt("-", i, 0);
+			}
 			ps.close();
 			rs.close();
 			con.close();

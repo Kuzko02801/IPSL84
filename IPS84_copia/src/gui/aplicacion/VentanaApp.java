@@ -114,11 +114,6 @@ public class VentanaApp extends JFrame {
 	private JButton btCrearCarrera;
 	private JButton btPagarParticipante;
 	private JButton btResetCarrera;
-
-	public final static int ADMIN = 0;
-	public final static int PARTICIPANTE = 1;
-
-	private CarreraManager carreraManager;
 	private JButton btCargarTiempos;
 	private JButton btGenerarDorsales;
 	private JScrollPane scrollPanePeriodos;
@@ -127,6 +122,13 @@ public class VentanaApp extends JFrame {
 	private JScrollPane scrollPaneCategorias;
 	private JTextArea txCategorias;
 	private JTextArea txPeriodos;
+	private JMenuItem mnItemEmail;
+	public final static int ADMIN = 0;
+	public final static int PARTICIPANTE = 1;
+
+	private CarreraManager carreraManager;
+	private String email;
+	private JButton btInscribirClubOrganizador;
 
 	/**
 	 * Create the frame.
@@ -315,7 +317,7 @@ public class VentanaApp extends JFrame {
 	private JMenu getMnParticipante() {
 		if (mnParticipante == null) {
 			mnParticipante = new JMenu("Participante");
-			mnParticipante.setEnabled(false);
+			mnParticipante.add(getMnItemEmail());
 		}
 		return mnParticipante;
 	}
@@ -326,23 +328,22 @@ public class VentanaApp extends JFrame {
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
 
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
-			gl_pnBotonesInscribirseParticipante
-					.setHorizontalGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186,
-											GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137,
-											GroupLayout.PREFERRED_SIZE)
-									.addGap(437)));
-			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
-					.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup().addGap(25)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24,
-											Short.MAX_VALUE)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24,
-											Short.MAX_VALUE))));
+			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(427, Short.MAX_VALUE))
+			);
+			gl_pnBotonesInscribirseParticipante.setVerticalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addGap(25)
+						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)))
+			);
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
@@ -448,24 +449,26 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrganizador2 = new JPanel();
 			pnBotonesOrganizador2.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrganizador2 = new GroupLayout(pnBotonesOrganizador2);
-			gl_pnBotonesOrganizador2
-					.setHorizontalGroup(
-							gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
-											.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE,
-													153, GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 187,
-													GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(getBtCargarTiempos()).addContainerGap(285, Short.MAX_VALUE)));
-			gl_pnBotonesOrganizador2.setVerticalGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrganizador2.setHorizontalGroup(
+				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
+						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getBtCargarTiempos())
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getBtInscribirClubOrganizador(), GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(156, Short.MAX_VALUE))
+			);
+			gl_pnBotonesOrganizador2.setVerticalGroup(
+				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-							.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37,
-									GroupLayout.PREFERRED_SIZE)
-							.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37,
-									GroupLayout.PREFERRED_SIZE)));
+						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+						.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(getBtInscribirClubOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE))
+			);
 			pnBotonesOrganizador2.setLayout(gl_pnBotonesOrganizador2);
 		}
 		return pnBotonesOrganizador2;
@@ -752,61 +755,73 @@ public class VentanaApp extends JFrame {
 			pnCrearCarrera = new JPanel();
 			pnCrearCarrera.setBackground(new Color(50, 130, 181));
 			GroupLayout gl_pnCrearCarrera = new GroupLayout(pnCrearCarrera);
-			gl_pnCrearCarrera.setHorizontalGroup(
-				gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 344, Short.MAX_VALUE)
-								.addGap(56))
-							.addComponent(getPnCategoriasCarrera(), GroupLayout.DEFAULT_SIZE, 400, Short.MAX_VALUE))
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-							.addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE, 348, Short.MAX_VALUE)
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+			gl_pnCrearCarrera.setHorizontalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
 									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-										.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-											.addComponent(getScrollPanePeriodos(), GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+											.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 344,
+													Short.MAX_VALUE)
+											.addGap(56))
+									.addComponent(getPnCategoriasCarrera(), GroupLayout.DEFAULT_SIZE, 400,
+											Short.MAX_VALUE))
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+									.addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE, 348,
+											Short.MAX_VALUE)
+									.addGroup(gl_pnCrearCarrera.createSequentialGroup().addGroup(gl_pnCrearCarrera
+											.createParallelGroup(Alignment.LEADING)
 											.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-												.addGap(9)
-												.addComponent(getBtResetCarrera(), GroupLayout.DEFAULT_SIZE, 167, Short.MAX_VALUE)))
-										.addPreferredGap(ComponentPlacement.RELATED))
+													.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+															.addComponent(getScrollPanePeriodos(),
+																	GroupLayout.DEFAULT_SIZE, 176, Short.MAX_VALUE)
+															.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+																	.addGap(9).addComponent(getBtResetCarrera(),
+																			GroupLayout.DEFAULT_SIZE, 167,
+																			Short.MAX_VALUE)))
+													.addPreferredGap(ComponentPlacement.RELATED))
+											.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+													.addComponent(getLblPeriodos(), GroupLayout.DEFAULT_SIZE, 139,
+															Short.MAX_VALUE)
+													.addGap(43)))
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+													.addGroup(gl_pnCrearCarrera.createSequentialGroup()
+															.addComponent(getLblCategorias(), GroupLayout.DEFAULT_SIZE,
+																	139, Short.MAX_VALUE)
+															.addGap(27))
+													.addComponent(getBtCrearCarrera(), Alignment.TRAILING,
+															GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
+													.addComponent(getScrollPaneCategorias(), GroupLayout.DEFAULT_SIZE,
+															166, Short.MAX_VALUE))))
+							.addContainerGap()));
+			gl_pnCrearCarrera.setVerticalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+									.addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE,
+											GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
+									.addComponent(getPnCategoriasCarrera(), GroupLayout.PREFERRED_SIZE, 163,
+											Short.MAX_VALUE)
 									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-										.addComponent(getLblPeriodos(), GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-										.addGap(43)))
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-										.addComponent(getLblCategorias(), GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
-										.addGap(27))
-									.addComponent(getBtCrearCarrera(), Alignment.TRAILING, GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE)
-									.addComponent(getScrollPaneCategorias(), GroupLayout.DEFAULT_SIZE, 166, Short.MAX_VALUE))))
-						.addContainerGap())
-			);
-			gl_pnCrearCarrera.setVerticalGroup(
-				gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-							.addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-							.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 191, Short.MAX_VALUE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-							.addComponent(getPnCategoriasCarrera(), GroupLayout.PREFERRED_SIZE, 163, Short.MAX_VALUE)
-							.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLblPeriodos(), GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getLblCategorias(), GroupLayout.PREFERRED_SIZE, 23, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(getScrollPaneCategorias())
-									.addComponent(getScrollPanePeriodos(), GroupLayout.DEFAULT_SIZE, 101, Short.MAX_VALUE))
-								.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-									.addComponent(getBtCrearCarrera(), Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getBtResetCarrera(), Alignment.TRAILING, GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE))))
-						.addGap(47))
-			);
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
+													.addComponent(getLblPeriodos(), GroupLayout.PREFERRED_SIZE, 23,
+															GroupLayout.PREFERRED_SIZE)
+													.addComponent(getLblCategorias(), GroupLayout.PREFERRED_SIZE, 23,
+															GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
+													.addComponent(getScrollPaneCategorias())
+													.addComponent(getScrollPanePeriodos(), GroupLayout.DEFAULT_SIZE,
+															101, Short.MAX_VALUE))
+											.addPreferredGap(ComponentPlacement.RELATED, GroupLayout.DEFAULT_SIZE,
+													Short.MAX_VALUE)
+											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
+													.addComponent(getBtCrearCarrera(), Alignment.TRAILING,
+															GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
+													.addComponent(getBtResetCarrera(), Alignment.TRAILING,
+															GroupLayout.PREFERRED_SIZE, 27,
+															GroupLayout.PREFERRED_SIZE))))
+							.addGap(47)));
 			pnCrearCarrera.setLayout(gl_pnCrearCarrera);
 		}
 		return pnCrearCarrera;
@@ -1228,8 +1243,6 @@ public class VentanaApp extends JFrame {
 		return btAnadirInscripcion;
 	}
 
-	
-
 	private JTextField getTxCuotaCarrera() {
 		if (txCuotaCarrera == null) {
 			txCuotaCarrera = new JTextField();
@@ -1288,7 +1301,113 @@ public class VentanaApp extends JFrame {
 		return btResetCarrera;
 	}
 
+	private JButton getBtCargarTiempos() {
+		if (btCargarTiempos == null) {
+			btCargarTiempos = new JButton("Cargar tiempos");
+			btCargarTiempos.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cargarTiempos();
+				}
+			});
+			btCargarTiempos.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btCargarTiempos.setForeground(new Color(184, 220, 245));
+			btCargarTiempos.setBackground(new Color(50, 130, 181));
+		}
+		return btCargarTiempos;
+	}
+
+	private JButton getBtGenerarDorsales() {
+		if (btGenerarDorsales == null) {
+			btGenerarDorsales = new JButton("Generar Dorsales");
+			btGenerarDorsales.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					generarDorsales();
+				}
+			});
+			btGenerarDorsales.setForeground(new Color(184, 220, 245));
+			btGenerarDorsales.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btGenerarDorsales.setBackground(new Color(50, 130, 181));
+		}
+		return btGenerarDorsales;
+	}
+
+	private JScrollPane getScrollPanePeriodos() {
+		if (scrollPanePeriodos == null) {
+			scrollPanePeriodos = new JScrollPane();
+			scrollPanePeriodos.setViewportView(getTxPeriodos());
+		}
+		return scrollPanePeriodos;
+	}
+
+	private JLabel getLblPeriodos() {
+		if (lblPeriodos == null) {
+			lblPeriodos = new JLabel("Periodos");
+			lblPeriodos.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
+		}
+		return lblPeriodos;
+	}
+
+	private JLabel getLblCategorias() {
+		if (lblCategorias == null) {
+			lblCategorias = new JLabel("Categorias");
+			lblCategorias.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
+		}
+		return lblCategorias;
+	}
+
+	private JScrollPane getScrollPaneCategorias() {
+		if (scrollPaneCategorias == null) {
+			scrollPaneCategorias = new JScrollPane();
+			scrollPaneCategorias.setViewportView(getTxCategorias());
+		}
+		return scrollPaneCategorias;
+	}
+
+	private JTextArea getTxCategorias() {
+		if (txCategorias == null) {
+			txCategorias = new JTextArea();
+			txCategorias.setEditable(false);
+		}
+		return txCategorias;
+	}
+
+	private JTextArea getTxPeriodos() {
+		if (txPeriodos == null) {
+			txPeriodos = new JTextArea();
+			txPeriodos.setEditable(false);
+		}
+		return txPeriodos;
+	}
+
+	private JMenuItem getMnItemEmail() {
+		if (mnItemEmail == null) {
+			mnItemEmail = new JMenuItem("Login");
+			mnItemEmail.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cargarEmail();
+				}
+			});
+		}
+		return mnItemEmail;
+	}
+
 	// METODOS PARTICIPANTE
+	private void cargarEmail() {
+		String email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
+		if (Validadores.comprobarEmail(email_atleta)) {
+			try {
+				if (Check.atletaExists(email_atleta)) {
+					email = email_atleta;
+				} else {
+					JOptionPane.showMessageDialog(this, "No estas registrado", "Error", JOptionPane.WARNING_MESSAGE);
+				}
+			} catch (SQLException e) {
+				JOptionPane.showMessageDialog(this, "Ha ocurrido un error", "Error", JOptionPane.WARNING_MESSAGE);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "Tu email no es valido", "Error", JOptionPane.WARNING_MESSAGE);
+		}
+	}
 
 	private void mostrarPanelParticipante() {
 		GuiLogic.cargarTodasCarrerasParticipante(tablaCarrerasParticipante);
@@ -1312,21 +1431,25 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarCarrerasPropiasParticipante() {
-		String email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
+		String email_atleta;
+		if (email == null) {
+			email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
+		} else {
+			email_atleta = email;
+		}
 		if (Validadores.comprobarEmail(email_atleta)) {
 			try {
 				if (Check.atletaExists(email_atleta)) {
 					GuiLogic.cargarPropiasCarrerasParticipante(getTablaCarrerasParticipante(), email_atleta);
 				} else {
-					JOptionPane.showMessageDialog(this, "No est�s inscrito en ninguna carrera", "Error",
+					JOptionPane.showMessageDialog(this, "No estas inscrito en ninguna carrera", "Error",
 							JOptionPane.WARNING_MESSAGE);
 				}
 			} catch (SQLException e) {
 				JOptionPane.showMessageDialog(this, "Ha ocurrido un error", "Error", JOptionPane.WARNING_MESSAGE);
-				e.printStackTrace();
 			}
 		} else {
-			JOptionPane.showMessageDialog(this, "Tu email no es v�lido", "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, "Tu email no es valido", "Error", JOptionPane.WARNING_MESSAGE);
 		}
 
 	}
@@ -1358,7 +1481,12 @@ public class VentanaApp extends JFrame {
 
 	private void pagar() {
 		if (carreraSeleccionadaParticipante()) {
-			String email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
+			String email_atleta;
+			if (email == null) {
+				email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
+			} else {
+				email_atleta = email;
+			}
 			comprobarPuedePagar(getCarreraSeleccionadaParticipante(), email_atleta);
 		}
 
@@ -1382,65 +1510,6 @@ public class VentanaApp extends JFrame {
 					JOptionPane.WARNING_MESSAGE);
 		}
 		return false;
-	}
-
-	private JButton getBtCargarTiempos() {
-		if (btCargarTiempos == null) {
-			btCargarTiempos = new JButton("Cargar tiempos");
-			btCargarTiempos.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					cargarTiempos();
-				}
-			});
-			btCargarTiempos.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			btCargarTiempos.setForeground(new Color(184, 220, 245));
-			btCargarTiempos.setBackground(new Color(50, 130, 181));
-		}
-		return btCargarTiempos;
-	}
-
-	private JButton getBtGenerarDorsales() {
-		if (btGenerarDorsales == null) {
-			btGenerarDorsales = new JButton("Generar Dorsales");
-			btGenerarDorsales.addActionListener(new ActionListener() {
-				public void actionPerformed(ActionEvent e) {
-					generarDorsales();
-				}
-			});
-			btGenerarDorsales.setForeground(new Color(184, 220, 245));
-			btGenerarDorsales.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			btGenerarDorsales.setBackground(new Color(50, 130, 181));
-		}
-		return btGenerarDorsales;
-	}
-	
-	private JScrollPane getScrollPanePeriodos() {
-		if (scrollPanePeriodos == null) {
-			scrollPanePeriodos = new JScrollPane();
-			scrollPanePeriodos.setViewportView(getTxPeriodos());
-		}
-		return scrollPanePeriodos;
-	}
-	private JLabel getLblPeriodos() {
-		if (lblPeriodos == null) {
-			lblPeriodos = new JLabel("Periodos");
-			lblPeriodos.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
-		}
-		return lblPeriodos;
-	}
-	private JLabel getLblCategorias() {
-		if (lblCategorias == null) {
-			lblCategorias = new JLabel("Categorias");
-			lblCategorias.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
-		}
-		return lblCategorias;
-	}
-	private JScrollPane getScrollPaneCategorias() {
-		if (scrollPaneCategorias == null) {
-			scrollPaneCategorias = new JScrollPane();
-			scrollPaneCategorias.setViewportView(getTxCategorias());
-		}
-		return scrollPaneCategorias;
 	}
 
 	// METODOS ORGANIZADOR
@@ -1555,11 +1624,9 @@ public class VentanaApp extends JFrame {
 				vaciarCamposCrearCarrera();
 			} catch (BusinessDataException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-				e.printStackTrace();
 			}
 		}
 	}
-	
 
 	private boolean comprobarCamposCarrera() {
 		if (Validadores.comprobarNoVacio(getTxNombreCarrera().getText())
@@ -1588,15 +1655,14 @@ public class VentanaApp extends JFrame {
 				&& Validadores.comprobarFechasValidas(getTxFechaCarrera().getText(), fechaInicio, fechaFin)) {
 			try {
 				carreraManager.addPeriodo(fechaInicio, fechaFin, Double.parseDouble(cuota));
-				txPeriodos.setText(txPeriodos.getText() + "Inicio: " + txFechaInicioPlazo.getText()
-				+ " - Fin: " + txFechaFinPlazo.getText()+ " - Precio: " + txCuotaCarrera.getText() + "\n");
+				txPeriodos.setText(txPeriodos.getText() + "Inicio: " + txFechaInicioPlazo.getText() + " - Fin: "
+						+ txFechaFinPlazo.getText() + " - Precio: " + txCuotaCarrera.getText() + "\n");
 				vaciarCamposPlazoInscripcion();
 				JOptionPane.showMessageDialog(this, "El plazo de inscripci�n ha sido creado", "�xito",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (BusinessDataException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 				vaciarCamposPlazoInscripcion();
-				e.printStackTrace();
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Comprueba las fechas de los plazos", "Error",
@@ -1612,16 +1678,15 @@ public class VentanaApp extends JFrame {
 				&& Validadores.comprobarEdadesCategoria(edadInicio, edadFin)) {
 			try {
 				carreraManager.addCategoria(nombreCategoria, Integer.parseInt(edadInicio), Integer.parseInt(edadFin));
-				txCategorias.setText(txCategorias.getText() + "Categoria: " + txNombreCategoria.getText() + ". " + 
-				txEdadInicioCategoria.getText() + " - " + txEdadFinCategoria.getText() + "\n");
-				
+				txCategorias.setText(txCategorias.getText() + "Categoria: " + txNombreCategoria.getText() + ". "
+						+ txEdadInicioCategoria.getText() + " - " + txEdadFinCategoria.getText() + "\n");
+
 				vaciarCamposCategoria();
 				JOptionPane.showMessageDialog(this, "La categor�a se ha creado", "�xito",
 						JOptionPane.INFORMATION_MESSAGE);
 			} catch (BusinessDataException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 				vaciarCamposCategoria();
-				e.printStackTrace();
 			}
 
 		} else {
@@ -1701,19 +1766,19 @@ public class VentanaApp extends JFrame {
 			return true;
 		}
 	}
-	
-	private JTextArea getTxCategorias() {
-		if (txCategorias == null) {
-			txCategorias = new JTextArea();
-			txCategorias.setEditable(false);
+	private void inscribirClubOrganizador() {
+		if (carreraSeleccionadaParticipante()) {
+			
 		}
-		return txCategorias;
 	}
-	private JTextArea getTxPeriodos() {
-		if (txPeriodos == null) {
-			txPeriodos = new JTextArea();
-			txPeriodos.setEditable(false);
+
+	private JButton getBtInscribirClubOrganizador() {
+		if (btInscribirClubOrganizador == null) {
+			btInscribirClubOrganizador = new JButton("Inscribir club");
+			btInscribirClubOrganizador.setForeground(new Color(184, 220, 245));
+			btInscribirClubOrganizador.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btInscribirClubOrganizador.setBackground(new Color(50, 130, 181));
 		}
-		return txPeriodos;
+		return btInscribirClubOrganizador;
 	}
 }

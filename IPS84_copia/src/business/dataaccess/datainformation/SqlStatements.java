@@ -15,27 +15,24 @@ public class SqlStatements {
 												  + "values (?, ?, ?, ?, ?, ?, ?, ?)";
 	public static final String SQL_CARRERA_PARTICIPADO = "select c.id,i.estado,c.nombre,c.fecha,c.tipo,c.distancia,c.categorias,c.periodos from carrera c, inscripcion i where i.email_atleta = ? and c.id = i.id_carrera";
 	public static final String SQL_FIND_CATEGORIAS = "select categorias from carrera where id = ?";
-	public static final String SQL_CLASIFICACION_ABSOLUTA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
+	public static final String SQL_CLASIFICACION_ABSOLUTA = "SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
-			+ "AND atleta.email = inscripcion.email_atleta\r\n"
-			+ "order by inscripcion.tiempo";
+			+ "AND atleta.email = inscripcion.email_atleta\r\n";
 				
-	public static final String SQL_CLASIFICACION_FEMENINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
+	public static final String SQL_CLASIFICACION_FEMENINA = "SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
-			+ "AND carrera.id = inscripcion.id_carrera\r\n"
-			+ "AND atleta.email = inscripcion.email_atleta\r\n"
 			+ "AND atleta.sexo = 'mujer'\r\n"
-			+ "order by inscripcion.tiempo";
-	public static final String SQL_CLASIFICACION_MASCULINA = "SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
+			+ "AND carrera.id = inscripcion.id_carrera\r\n"
+			+ "AND atleta.email = inscripcion.email_atleta\r\n";
+	public static final String SQL_CLASIFICACION_MASCULINA = "SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
-			+ "AND carrera.id = inscripcion.id_carrera\r\n"
-			+ "AND atleta.email = inscripcion.email_atleta\r\n"
 			+ "AND atleta.sexo = 'hombre'\r\n"
-			+ "order by inscripcion.tiempo";
+			+ "AND carrera.id = inscripcion.id_carrera\r\n"
+			+ "AND atleta.email = inscripcion.email_atleta\r\n";
 	public static final String SQL_CLASIFICACION_CATEGORIA="SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"

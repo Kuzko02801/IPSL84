@@ -35,7 +35,6 @@ public class VentanaInscribirse extends JDialog {
 	private JLabel lblNewLabel;
 	// private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
 	private String id_carrera;
-
 	/**
 	 * Create the dialog.
 	 */
