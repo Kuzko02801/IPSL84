@@ -15,4 +15,6 @@ public class CarreraDto {
 	public int plazasMaximas;
 	public List<Periodo> periodos;
 	public List<Categoria> categorias;
+	public boolean listaDeEspera;
+	public boolean cancelacionInscripciones;
 }

@@ -45,6 +45,8 @@ public class CrearCarrera {
 			ps.setString(7, CategoriaParser.categoriasToString(carrera.categorias));
 			// Insertar periodos.
 			ps.setString(8, PeriodoParser.periodosToString(carrera.periodos));						
+			ps.setBoolean(9, carrera.listaDeEspera);
+			ps.setBoolean(10, carrera.cancelacionInscripciones);
 			
 			ps.execute();
 			

@@ -33,7 +33,7 @@ public class DtoAssembler {
 	
 	
 	public static CarreraDto forCarreraDto(String id) {
-		return forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>());
+		return forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>(), false, false);
 	}
 	
 	public static CarreraDto forCarreraDto(
@@ -44,7 +44,9 @@ public class DtoAssembler {
 			String carrera_id,
 			String plazasMaximas,			
 			List<Categoria> categorias,
-			List<Periodo> periodos) {
+			List<Periodo> periodos,
+			boolean listaDeEspera,
+			boolean cancelacionInscripciones) {
 		CarreraDto carrera = new CarreraDto();
 		carrera.nombre = nombre;
 		carrera.fecha = new DateSqlite(fecha);
@@ -54,6 +56,8 @@ public class DtoAssembler {
 		carrera.plazasMaximas = Integer.valueOf(plazasMaximas);
 		carrera.periodos = periodos;
 		carrera.categorias = categorias;
+		carrera.listaDeEspera = listaDeEspera;
+		carrera.cancelacionInscripciones = cancelacionInscripciones;
 		return carrera;
 	}
 

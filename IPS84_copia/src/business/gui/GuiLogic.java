@@ -68,9 +68,9 @@ public class GuiLogic {
 	}
 
 	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia, String plazas,
-			List<Categoria> categorias, List<Periodo> periodos) throws BusinessDataException {
+			List<Categoria> categorias, List<Periodo> periodos, boolean listaDeEspera, boolean cancelacionInscripciones) throws BusinessDataException {
 		DataAccessFactory.forCarreraService().crearCarrera(
-				DtoAssembler.forCarreraDto(nombre, fecha, tipo, distancia, null, plazas, categorias, periodos));
+				DtoAssembler.forCarreraDto(nombre, fecha, tipo, distancia, null, plazas, categorias, periodos, listaDeEspera, cancelacionInscripciones));
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
@@ -117,6 +117,11 @@ public class GuiLogic {
 	public static void inscribeClubCarrera(File ficheroAtletas) {
 		DataAccessFactory.forAtletaService().inscribirClub(ficheroAtletas);
 		
+	}
+
+	public static boolean isCarreraLlena(String id_carrera) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 	
 }

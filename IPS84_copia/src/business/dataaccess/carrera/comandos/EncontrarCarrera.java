@@ -47,7 +47,9 @@ public class EncontrarCarrera {
 						, id
 						, rs.getInt(6) + ""						
 						, CategoriaParser.devolverCategorias(rs.getString(7))
-						, PeriodoParser.devolverPeriodos(rs.getString(8)));					
+						, PeriodoParser.devolverPeriodos(rs.getString(8))
+						, rs.getBoolean(9)
+						, rs.getBoolean(10));					
 			}
 			rs.close();
 			ps.close();

@@ -157,9 +157,17 @@ public class VentanaInscribirse extends JDialog {
 					return;
 				}
 				if (existe) {
-					GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
-					dispose();
-				} else {
+					// Checkar si la carrera esta llena, si lo esta, se le ofrece meterse a la lista de espera. Si no se cancela la inscripcion. 
+					if(GuiLogic.isCarreraLlena(id_carrera)) {
+						/**
+						 * Se le ofrece al usuario meterse a la lista de espera. Si acepta
+						 * se le mete en la lista y es notificado de su puesto en la misma.
+						 * Si rechaza, la inscripcion no se realiza y la ventana se cierra.
+						 */
+					} else {
+						inscribirAtleta(id_carrera);
+					}					
+				} else { // No se sabe si el atleta puede no estar registrado.
 					int input = JOptionPane.showConfirmDialog(this,
 							"Tu e-mail no está registrado pero puedes inscribirte aportando datos adiccionales",
 							"Datos", JOptionPane.DEFAULT_OPTION);
@@ -180,7 +188,12 @@ public class VentanaInscribirse extends JDialog {
 			e.printStackTrace();
 		}
 	}
-
+	
+	private void inscribirAtleta(String id_carrera) throws BusinessDataException {
+		GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
+		dispose();
+	}
+	
 	private void mostrarVentanaRegistro(String email) {
 		VentanaRegistro v = new VentanaRegistro(email, id_carrera);
 		v.setVisible(true);

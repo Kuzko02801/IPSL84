@@ -39,10 +39,6 @@ public class AtletaInscripcion {
 
 	public void inscribirAtleta() throws BusinessDataException {
 
-		PreparedStatement getCategorias = null;
-		PreparedStatement inscribirAtleta = null;
-		ResultSet categorias = null;
-		List<Categoria> listaCat=null;
 		int age = 0;
 		try {
 
@@ -52,62 +48,90 @@ public class AtletaInscripcion {
 			}
 
 			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(email_atleta);
-			age = (int)ChronoUnit.YEARS.between(atleta.fechaDeNacimiento.getDate(),LocalDate.now());
+			age = (int) ChronoUnit.YEARS.between(atleta.fechaDeNacimiento.getDate(), LocalDate.now());
 			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera_id);
 			// Inscripcion abierta.
 			if (!inscripcionAbierta()) {
 				System.out.println("fuera del plazo");
 				throw new BusinessDataException("Estas fuera del plazo de inscripciï¿½n.");
 			}
-
-			// Checkeo de plazas.
-			if (!Check.hayPlazasLibres(1,carrera))
-				throw new BusinessDataException("No hay plazas libres.");
-
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-
-			// TODO buscar las categorias de la carrera, parsearlas y si no encaja con
-			// ninguna categoria el atleta, excepcion
-
-			/**
-			 * Para coger las categorias de la carrera necesitamos la id de la carrera.
-			 */
-			getCategorias = con.prepareStatement(SqlStatements.SQL_FIND_CATEGORIAS);
-
-			getCategorias.setString(1, carrera_id);
-
-			categorias = getCategorias.executeQuery();
-			listaCat = CategoriaParser.devolverCategorias(categorias.getString(1));
-
-			for (Categoria c : listaCat) {
-				if (c.getEdadMinima() > age || c.getEdadMaxima() < age) {
-					getCategorias.close();				
-					throw new BusinessDataException("No existe ninguna categoria adecuada para el atleta.");
+			// Checkeo de plazas.
+			if (!Check.hayPlazasLibres(1, carrera)) {
+				if (carrera.listaDeEspera) {
+					// Añadir atleta a la lista de espera.
+					añadirListaEspera();
+					return;
+				} else {
+					throw new BusinessDataException("No hay plazas libres.");
 				}
+			} else {
+				inscribirNuevoAtleta(age);
 			}
 
-			inscribirAtleta = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
-
-			inscribirAtleta.setString(1, email_atleta); // atleta.email
-			inscribirAtleta.setString(2, carrera_id);
-			inscribirAtleta.setString(3, EstadoInscripcion.PENDIENTE_DE_PAGO.label);
-			inscribirAtleta.setString(4, seleccionarCategoria(listaCat, age));// seleccionarCategoria());
-			inscribirAtleta.setString(5, fechaActual());// fechaActual());
-
-			inscribirAtleta.executeUpdate();
-
-			categorias.close();
-			getCategorias.close();
-			inscribirAtleta.close();
 			con.close();
 		} catch (SQLException e) {
 			throw new BusinessDataException("Ha ocurrido un error con la inscripcion");
 		}
 	}
 
-	private String seleccionarCategoria(List<Categoria> listaCat, int age) {		
-		for(Categoria c : listaCat) {
-			if(c.getEdadMinima() <= age && age <= c.getEdadMaxima()) {
+	private void inscribirNuevoAtleta(int age) throws SQLException, BusinessDataException {
+		PreparedStatement getCategorias = null;
+		PreparedStatement inscribirAtleta = null;
+		ResultSet categorias = null;
+		List<Categoria> listaCat = null;
+
+		// TODO buscar las categorias de la carrera, parsearlas y si no encaja con
+		// ninguna categoria el atleta, excepcion
+
+		/**
+		 * Para coger las categorias de la carrera necesitamos la id de la carrera.
+		 */
+		getCategorias = con.prepareStatement(SqlStatements.SQL_FIND_CATEGORIAS);
+
+		getCategorias.setString(1, carrera_id);
+
+		categorias = getCategorias.executeQuery();
+		listaCat = CategoriaParser.devolverCategorias(categorias.getString(1));
+
+		for (Categoria c : listaCat) {
+			if (c.getEdadMinima() > age || c.getEdadMaxima() < age) {
+				getCategorias.close();
+				throw new BusinessDataException("No existe ninguna categoria adecuada para el atleta.");
+			}
+		}
+
+		inscribirAtleta = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
+
+		inscribirAtleta.setString(1, email_atleta); // atleta.email
+		inscribirAtleta.setString(2, carrera_id);
+		inscribirAtleta.setString(3, EstadoInscripcion.PENDIENTE_DE_PAGO.label);
+		inscribirAtleta.setString(4, seleccionarCategoria(listaCat, age));// seleccionarCategoria());
+		inscribirAtleta.setString(5, fechaActual());// fechaActual());
+
+		inscribirAtleta.executeUpdate();
+
+		categorias.close();
+		getCategorias.close();
+		inscribirAtleta.close();
+	}
+
+	/**
+	 * Añade un atleta a la lista de espera con la id de la carrera y el email del
+	 * atleta.
+	 * 
+	 * @throws SQLException
+	 */
+	private void añadirListaEspera() throws SQLException {
+		PreparedStatement listaEspera = con.prepareStatement(SqlStatements.SQL_INSERTAR_LISTA_ESPERA);
+		listaEspera.setString(1, atleta.email);
+		listaEspera.setString(2, carrera.carrera_id);
+		listaEspera.executeUpdate();
+	}
+
+	private String seleccionarCategoria(List<Categoria> listaCat, int age) {
+		for (Categoria c : listaCat) {
+			if (c.getEdadMinima() <= age && age <= c.getEdadMaxima()) {
 				return c.getTipo();
 			}
 		}
@@ -118,8 +142,6 @@ public class AtletaInscripcion {
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
 		return sdf.format(new Date(System.currentTimeMillis()));
 	}
-
-	
 
 	private boolean inscripcionAbierta() {
 		for (Periodo periodo : carrera.periodos) {
