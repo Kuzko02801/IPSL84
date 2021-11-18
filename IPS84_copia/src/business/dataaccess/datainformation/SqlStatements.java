@@ -36,13 +36,13 @@ public class SqlStatements {
 			+ "AND atleta.email = inscripcion.email_atleta\r\n"
 			+ "AND atleta.sexo = 'hombre'\r\n"
 			+ "order by inscripcion.tiempo";
-	public static final String SQL_CLASIFICACION_CATEGORIA="SELECT atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
+	public static final String SQL_CLASIFICACION_CATEGORIA="SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
 			+ "FROM carrera, inscripcion, atleta \r\n"
 			+ "WHERE carrera.id = ?\r\n"
 			+ "AND inscripcion.categoria = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n"
-			+ "AND atleta.email = inscripcion.email_atleta\r\n"
-			+ "order by inscripcion.tiempo";
+			+ "AND atleta.email = inscripcion.email_atleta\r\n";
+			
 	public static String SQL_ADD_ATLETA = "insert into atleta (email, dni, nombre, fechanacimiento, sexo) values (?, ?, ?, ?, ?)";
 	// For testing
 	public static final String SQL_TESTING_INSERT_ATLETA = "insert into Atleta (Email, dni, Nombre, FechaNacimiento, Sexo) values (?, ?, ?, ?, ?)";
