@@ -1579,12 +1579,17 @@ public class VentanaApp extends JFrame {
 
 	public void comprobarIdCarreraValidaOrganizador(String id) {
 
-		if (GuiLogic.comprobarIdValidaCarrera(id)) {
-			getBtMostrarClasificaciones().setEnabled(true);
-			getBtMostrarParticipantes().setEnabled(true);
-		} else {
-			getBtMostrarClasificaciones().setEnabled(false);
-			getBtMostrarParticipantes().setEnabled(false);
+		try {
+			if (GuiLogic.comprobarIdValidaCarrera(id)) {
+				getBtMostrarClasificaciones().setEnabled(true);
+				getBtMostrarParticipantes().setEnabled(true);
+			} else {
+				getBtMostrarClasificaciones().setEnabled(false);
+				getBtMostrarParticipantes().setEnabled(false);
+			}
+		} catch (SQLException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Exito",
+					JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 
@@ -1619,7 +1624,7 @@ public class VentanaApp extends JFrame {
 				GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
 						getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
 						getTxPlazasCarrera().getText(), carreraManager.getCategorias(), carreraManager.getPeriodos());
-				JOptionPane.showMessageDialog(this, "La carrera se ha creado con �xito", "Exito",
+				JOptionPane.showMessageDialog(this, "La carrera se ha creado con exito", "Exito",
 						JOptionPane.INFORMATION_MESSAGE);
 				vaciarCamposCrearCarrera();
 			} catch (BusinessDataException e) {
@@ -1723,6 +1728,9 @@ public class VentanaApp extends JFrame {
 					if (returnVal == JFileChooser.APPROVE_OPTION) {
 						File file = fc.getSelectedFile();
 						GuiLogic.cargaTiemposCarrera(getCarreraSeleccionadaOrganizador(), file);
+					}else {
+						JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun archivo", "Error",
+								JOptionPane.WARNING_MESSAGE);
 					}
 				} else {
 					JOptionPane.showMessageDialog(this, "La carrera aun no ha finalizado", "Error",
@@ -1767,8 +1775,15 @@ public class VentanaApp extends JFrame {
 		}
 	}
 	private void inscribirClubOrganizador() {
-		if (carreraSeleccionadaParticipante()) {
-			
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter("Fichero Lote Atletas", "fla"));
+		int returnVal = fc.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			GuiLogic.inscribeClubCarrera(file);
+		}else {
+			JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun archivo", "Error",
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 

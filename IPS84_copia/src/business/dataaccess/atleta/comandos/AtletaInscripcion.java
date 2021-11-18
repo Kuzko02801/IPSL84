@@ -61,7 +61,7 @@ public class AtletaInscripcion {
 			}
 
 			// Checkeo de plazas.
-			if (!hayPlazasLibres())
+			if (!Check.hayPlazasLibres(1,carrera))
 				throw new BusinessDataException("No hay plazas libres.");
 
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
@@ -101,7 +101,7 @@ public class AtletaInscripcion {
 			inscribirAtleta.close();
 			con.close();
 		} catch (SQLException e) {
-			throw new RuntimeException(e);
+			throw new BusinessDataException("Ha ocurrido un error con la inscripcion");
 		}
 	}
 
@@ -119,33 +119,7 @@ public class AtletaInscripcion {
 		return sdf.format(new Date(System.currentTimeMillis()));
 	}
 
-	private boolean hayPlazasLibres() throws SQLException {
-		PreparedStatement ps = null;
-		ResultSet rs = null;
-		Connection con = null;
-
-		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-		ps = con.prepareStatement(SqlStatements.SQL_NUMERO_INSCRIPCIONES);
-		ps.setString(1, carrera.carrera_id);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-//			System.out.println(carrera.plazasMaximas);
-//			System.out.println(rs.getInt(1));
-			if (carrera.plazasMaximas > rs.getInt(1)) {
-				rs.close();
-				ps.close();
-				con.close();
-				return true;
-			}
-
-		}
-
-		rs.close();
-		ps.close();
-		con.close();
-
-		return false;
-	}
+	
 
 	private boolean inscripcionAbierta() {
 		for (Periodo periodo : carrera.periodos) {

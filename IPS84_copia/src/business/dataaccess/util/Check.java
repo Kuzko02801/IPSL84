@@ -9,7 +9,9 @@ import java.util.List;
 
 import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
+import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.carrera.Periodo;
+import business.dataaccess.exception.BusinessDataException;
 
 public class Check {
 
@@ -31,35 +33,6 @@ public class Check {
 			con.close();
 			return false;
 		}
-	}
-
-	public static boolean raceExists2(String id) {
-		try {
-			DriverManager.registerDriver(new org.sqlite.JDBC());
-		} catch (SQLException e1) {
-			System.out.println("Ha fallado el register del driver");
-		}
-		PreparedStatement ps = null;
-		Connection con = null;
-		try {
-			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-			ps = con.prepareStatement(SqlStatements.SQL_SELECT_CARRERA);
-			ps.setString(1, id);
-			ResultSet rs = ps.executeQuery();
-			rs = ps.executeQuery();
-			if (rs.next()) {
-				rs.close();
-				ps.close();
-				con.close();
-				return true;
-			}
-			rs.close();
-			ps.close();
-			con.close();
-		} catch (SQLException e) {
-			e.printStackTrace();
-		}
-		return false;
 	}
 
 	public static boolean atletaExists(String email) throws SQLException {
@@ -137,7 +110,35 @@ public class Check {
 		pst.close();
 		return b;
 	}
+	public static boolean checkCarreraAbierta(String idCarrera) {
+		//TODO
+		return false;
+		
+	}
+	public static boolean hayPlazasLibres(int plazas,CarreraDto carrera) throws SQLException {
+		int plazasLibres=0;
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		Connection con = null;
 
+		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+		ps = con.prepareStatement(SqlStatements.SQL_NUMERO_INSCRIPCIONES);
+		ps.setString(1, carrera.carrera_id);
+		rs = ps.executeQuery();
+		while (rs.next()) {
+			plazasLibres++;
+			if(plazasLibres>=plazas) {
+				rs.close();
+				ps.close();
+				con.close();
+				return true;
+			}
+		}
+		rs.close();
+		ps.close();
+		con.close();
+		return false;
+	}
 	public static boolean checkCarreraAbierta(List<Periodo> periodos) {
 		for (Periodo periodo : periodos) {
 			if (periodo.getFechaInicio().isBefore(new DateSqlite().actual())

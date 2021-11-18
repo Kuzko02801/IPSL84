@@ -1,6 +1,7 @@
 package business.gui;
 
 import java.io.File;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.swing.JTable;
@@ -55,8 +56,8 @@ public class GuiLogic {
 		tablaClasificacionesMujer.setModel(tm);
 	}
 
-	public static boolean comprobarIdValidaCarrera(String id) {
-		return Check.raceExists2(id);
+	public static boolean comprobarIdValidaCarrera(String id) throws SQLException {
+		return Check.raceExists(id);
 	}
 
 	public static void registrarAtleta(String email, String dni, String nombre, String fechaNacimiento, String sexo)
@@ -111,6 +112,11 @@ public class GuiLogic {
 	}
 	public static void procesarPagos(String id_carrera,String email,double cuota,double pagado,String comentario) {
 		DataAccessFactory.forInscripcionService().procesarHistorialDePagos(id_carrera, email, ""+cuota, ""+pagado, comentario);
+	}
+
+	public static void inscribeClubCarrera(File ficheroAtletas) {
+		DataAccessFactory.forAtletaService().inscribirClub(ficheroAtletas);
+		
 	}
 	
 }
