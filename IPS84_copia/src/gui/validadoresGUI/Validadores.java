@@ -8,6 +8,8 @@ import java.time.format.DateTimeParseException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
+import business.dataaccess.exception.BusinessDataException;
+
 public class Validadores {
 
 	final static String DATE_FORMAT = "yyyy/MM/dd";
@@ -23,7 +25,19 @@ public class Validadores {
 			cierre = LocalDate.parse(fechaCierre, formatter);
 
 		} catch (DateTimeParseException e) {
-			System.out.println("problemas");
+			return false;
+		}
+		if (!carrera.isAfter(cierre) || !apertura.isBefore(cierre)) {
+			return false;
+		}
+		return true;
+	}
+	public static boolean comprobarFechasValidas(String fechaCarrera, LocalDate apertura, LocalDate cierre) {
+		LocalDate carrera = null;
+		try {
+			carrera = LocalDate.parse(fechaCarrera, formatter);
+
+		} catch (DateTimeParseException e) {
 			return false;
 		}
 		if (!carrera.isAfter(cierre) || !apertura.isBefore(cierre)) {

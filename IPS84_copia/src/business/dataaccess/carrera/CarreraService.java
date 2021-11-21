@@ -13,7 +13,7 @@ public interface CarreraService {
 	public TableModel devolverCarrerasPropiasParticipante(String email_atleta);
 	public TableModel devolverCarrerasValidas();
 	public TableModel devolverCarrerasOrganizador();
-	public CarreraDto findCarreraById(String id);
+	public CarreraDto findCarreraById(String id) throws BusinessDataException;
 	public TableModel devolverClasificacionAbsoluta(String id);
 	public TableModel devolverClasificacionFemenina(String id);
 	public TableModel devolverClasificacionMasculina(String id);

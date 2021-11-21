@@ -10,8 +10,10 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
+import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.parsers.CategoriaParser;
 import business.dataaccess.parsers.PeriodoParser;
+import business.dataaccess.parsers.PuntosCorteParser;
 
 public class EncontrarCarrera {
 
@@ -21,7 +23,7 @@ public class EncontrarCarrera {
 		this.id = id;
 	}
 	
-	public CarreraDto encontrarCarrera() {
+	public CarreraDto encontrarCarrera() throws BusinessDataException {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
 		} catch (SQLException e1) {
@@ -48,15 +50,15 @@ public class EncontrarCarrera {
 						, rs.getInt(6) + ""						
 						, CategoriaParser.devolverCategorias(rs.getString(7))
 						, PeriodoParser.devolverPeriodos(rs.getString(8))
-						, rs.getBoolean(9)
-						, rs.getBoolean(10));					
+						, PuntosCorteParser.devolverPuntosCorte(rs.getString(9))
+						, rs.getBoolean(10)
+						, rs.getBoolean(11));					
 			}
 			rs.close();
 			ps.close();
 			con.close();
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+			throw new BusinessDataException("Ha habido un problema con la base de datos");
 		}
 		return carrera;
 	}

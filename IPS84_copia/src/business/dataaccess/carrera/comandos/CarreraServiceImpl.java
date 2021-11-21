@@ -36,7 +36,7 @@ public class CarreraServiceImpl implements CarreraService {
 	}
 
 	@Override
-	public CarreraDto findCarreraById(String id) {
+	public CarreraDto findCarreraById(String id) throws BusinessDataException {
 		return new EncontrarCarrera(id).encontrarCarrera();
 	}
 

@@ -38,7 +38,7 @@ public class VentanaEscogerPago extends JDialog {
 		this.email = email;
 		setResizable(false);
 		setModal(true);
-		setTitle("M\u00E9todo");
+		setTitle("Metodo pago");
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		setBounds(100, 100, 530, 345);
 		pnPrincipal = new JPanel();
