@@ -31,11 +31,6 @@ public class CarreraServiceImpl implements CarreraService {
 	}
 
 	@Override
-	public boolean existeCarrera(String id) {
-		return new ExisteCarrera(id).existeCarrera();
-	}
-
-	@Override
 	public TableModel devolverClasificacionAbsoluta(String id) {
 		return new DevolverClasificacionAbsoluta(id).devolverClasificacionAbsoluta();
 	}

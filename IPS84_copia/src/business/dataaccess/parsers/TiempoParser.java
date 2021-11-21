@@ -13,9 +13,26 @@ public class TiempoParser {
 	// TODO se pueden hacer mejoras: si la linea no esta bien escrita la salta y
 	// sigue parseando las demas
 
+	public static String parsearIdCarrera(File tiempos) throws BusinessDataException {
+		String id = null;
+		try {
+			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(tiempos)));
+			id = br.readLine();
+			br.close();
+		} catch (Exception e) {
+			throw new BusinessDataException("Ha habido un problema leyendo el fichero");
+		}
+		if (id == null || id.trim().length() == 0) {
+			throw new BusinessDataException("El fichero está corrupto");
+		}
+		return id;
+
+	}
+
 	public static ArrayList<String> parsearTiempos(File tiempos) throws BusinessDataException {
 		ArrayList<String> result = new ArrayList<String>();
 		try {
+			@SuppressWarnings("resource")
 			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(tiempos)));
 			String line;
 			int linea = 0;
@@ -34,7 +51,7 @@ public class TiempoParser {
 				} else {
 					throw new BusinessDataException("El archivo está corrupto");
 				}
-				
+
 				result.add(line);
 			}
 			br.close();

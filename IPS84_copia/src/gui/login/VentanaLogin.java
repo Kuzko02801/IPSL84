@@ -18,6 +18,10 @@ import gui.aplicacion.VentanaApp;
 
 public class VentanaLogin extends JFrame {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JPanel pnLogin;
 	private JLabel lbBienvenido;

@@ -14,7 +14,7 @@ public class AtletaServiceImpl implements AtletaService {
 	}
 
 	@Override
-	public AtletaDto encontrarAtleta(String email) {
+	public AtletaDto encontrarAtleta(String email) throws BusinessDataException{
 		return new EncontrarAtleta(email).encontrarAtleta();
 	}
 
@@ -31,7 +31,7 @@ public class AtletaServiceImpl implements AtletaService {
 	}
 
 	@Override
-	public void inscribirClub(File ficheroAtleta) {
+	public void inscribirClub(File ficheroAtleta) throws BusinessDataException {
 		new InscribirClub(ficheroAtleta).inscribirClub();
 
 	}

@@ -5,8 +5,6 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -14,7 +12,6 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
-
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 import business.gui.GuiLogic;
@@ -181,11 +178,6 @@ public class VentanaInscribirse extends JDialog {
 			}
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-			e.printStackTrace();
-		} catch (SQLException e) {
-			JOptionPane.showMessageDialog(this, "Ha ocurrido un error inesperado con la inscripción", "Error",
-					JOptionPane.WARNING_MESSAGE);
-			e.printStackTrace();
 		}
 	}
 	

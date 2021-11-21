@@ -10,6 +10,7 @@ import business.dataaccess.datainformation.SqlStatements;
 import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
+import business.dataaccess.exception.BusinessDataException;
 
 public class EncontrarAtleta {
 
@@ -19,7 +20,7 @@ public class EncontrarAtleta {
 		this.email = email;
 	}
 	
-	public AtletaDto encontrarAtleta() {
+	public AtletaDto encontrarAtleta() throws BusinessDataException{
 		Connection con = null;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -44,7 +45,7 @@ public class EncontrarAtleta {
 			ps.close();
 			con.close();
 		} catch (SQLException e) {
-			e.printStackTrace();
+			throw new BusinessDataException("Ha habido un problema con la base de datos");
 		}
 		return atleta;
 	}

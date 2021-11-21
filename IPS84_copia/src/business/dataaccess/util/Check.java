@@ -15,45 +15,52 @@ import business.dataaccess.exception.BusinessDataException;
 
 public class Check {
 
-	public static boolean raceExists(String id) throws SQLException {
+	public static boolean raceExists(String id) throws BusinessDataException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
-		Connection con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-		ps = con.prepareStatement(SqlStatements.SQL_SELECT_CARRERA);
-		ps.setString(1, id);
-		rs = ps.executeQuery();
-		if (rs.next()) {
-			rs.close();
-			ps.close();
-			con.close();
-			return true;
-		} else {
-			rs.close();
-			ps.close();
-			con.close();
-			return false;
+		try {
+			Connection con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			ps = con.prepareStatement(SqlStatements.SQL_SELECT_CARRERA);
+			ps.setString(1, id);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				rs.close();
+				ps.close();
+				con.close();
+				return true;
+			} else {
+				rs.close();
+				ps.close();
+				con.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new BusinessDataException("Ha habido un problema con la base de datos");
 		}
 	}
 
-	public static boolean atletaExists(String email) throws SQLException {
+	public static boolean atletaExists(String email) throws BusinessDataException {
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = null;
-
-		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-		ps = con.prepareStatement(SqlStatements.SQL_SELECT_ATLETA);
-		ps.setString(1, email);
-		rs = ps.executeQuery();
-		if (rs.next()) {
-			rs.close();
-			ps.close();
-			con.close();
-			return true;
-		} else {
-			rs.close();
-			ps.close();
-			con.close();
-			return false;
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			ps = con.prepareStatement(SqlStatements.SQL_SELECT_ATLETA);
+			ps.setString(1, email);
+			rs = ps.executeQuery();
+			if (rs.next()) {
+				rs.close();
+				ps.close();
+				con.close();
+				return true;
+			} else {
+				rs.close();
+				ps.close();
+				con.close();
+				return false;
+			}
+		} catch (SQLException e) {
+			throw new BusinessDataException("Ha habido un problema con la base de datos");
 		}
 
 	}
@@ -82,63 +89,66 @@ public class Check {
 		}
 	}
 
-	public static boolean pagoFueraDePlazo(String carrera_id, String email_atleta) throws SQLException {
+	public static boolean pagoFueraDePlazo(String carrera_id, String email_atleta) throws BusinessDataException {
 		boolean b = false;
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		Connection con = null;
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 
-		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			pst = con.prepareStatement(SqlStatements.SQL_FECHA_INSCRIPCION);
 
-		pst = con.prepareStatement(SqlStatements.SQL_FECHA_INSCRIPCION);
+			pst.setString(1, carrera_id);
+			pst.setString(2, email_atleta);
 
-		pst.setString(1, carrera_id);
-		pst.setString(2, email_atleta);
+			rs = pst.executeQuery();
 
-		rs = pst.executeQuery();
-
-		if (rs.next()) {
-			String date = rs.getString("fecha_inscripcion");
-			DateSqlite parsedDate = new DateSqlite(date);
-			if (new DateSqlite().actual().isTwoDaysHigher(parsedDate)) {
-				b = true;
+			if (rs.next()) {
+				String date = rs.getString("fecha_inscripcion");
+				DateSqlite parsedDate = new DateSqlite(date);
+				if (new DateSqlite().actual().isTwoDaysHigher(parsedDate)) {
+					b = true;
+				}
+				b = false;
 			}
-			b = false;
+			con.close();
+			rs.close();
+			pst.close();
+			return b;
+		} catch (SQLException e) {
+			throw new BusinessDataException("Ha habido un problema con la base de datos");
 		}
-		con.close();
-		rs.close();
-		pst.close();
-		return b;
 	}
-	public static boolean checkCarreraAbierta(String idCarrera) {
-		//TODO
-		return false;
-		
-	}
-	public static boolean hayPlazasLibres(int plazas,CarreraDto carrera) throws SQLException {
-		int plazasLibres=0;
+
+	public static boolean hayPlazasLibres(int plazas, CarreraDto carrera) throws BusinessDataException {
+		int plazasLibres = 0;
 		PreparedStatement ps = null;
 		ResultSet rs = null;
 		Connection con = null;
-
-		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
-		ps = con.prepareStatement(SqlStatements.SQL_NUMERO_INSCRIPCIONES);
-		ps.setString(1, carrera.carrera_id);
-		rs = ps.executeQuery();
-		while (rs.next()) {
-			plazasLibres++;
-			if(plazasLibres>=plazas) {
-				rs.close();
-				ps.close();
-				con.close();
-				return true;
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+			ps = con.prepareStatement(SqlStatements.SQL_NUMERO_INSCRIPCIONES);
+			ps.setString(1, carrera.carrera_id);
+			rs = ps.executeQuery();
+			while (rs.next()) {
+				plazasLibres++;
+				if (plazasLibres >= plazas) {
+					rs.close();
+					ps.close();
+					con.close();
+					return true;
+				}
 			}
+			rs.close();
+			ps.close();
+			con.close();
+			return false;
+		} catch (SQLException e) {
+			throw new BusinessDataException("Ha habido un problema con la base de datos");
 		}
-		rs.close();
-		ps.close();
-		con.close();
-		return false;
 	}
+
 	public static boolean checkCarreraAbierta(List<Periodo> periodos) {
 		for (Periodo periodo : periodos) {
 			if (periodo.getFechaInicio().isBefore(new DateSqlite().actual())
@@ -159,22 +169,26 @@ public class Check {
 			throw new IllegalArgumentException(msg);
 	}
 
-	public static boolean existeInscripcion(String email, String id_carrera) throws SQLException {
+	public static boolean existeInscripcion(String email, String id_carrera) throws BusinessDataException {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		Connection con = null;
 
-		con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 
-		pst = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_CONCRETA);
+			pst = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_CONCRETA);
 
-		pst.setString(1, email);
-		pst.setString(2, id_carrera);
+			pst.setString(1, email);
+			pst.setString(2, id_carrera);
 
-		rs = pst.executeQuery();
+			rs = pst.executeQuery();
 
-		if (rs.next()) {
-			return true;
+			if (rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			throw new BusinessDataException("Ha ocurrido un problema con la base de datos");
 		}
 		return false;
 	}

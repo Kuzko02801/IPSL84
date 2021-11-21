@@ -611,17 +611,6 @@ public class VentanaApp extends JFrame {
 	private JTable getTable_1_1() {
 		if (tablaParticipantes == null) {
 			tablaParticipantes = new JTable();
-			tablaParticipantes.setModel(new DefaultTableModel(new Object[][] {}, new String[] { "DNI", "Nombre",
-					"Categor\u00EDa", "Fecha inscripci\u00F3n", "Estado inscripci\u00F3n" }) {
-
-				Class[] columnTypes = new Class[] { String.class, String.class, String.class, String.class,
-						String.class };
-
-				public Class<?> getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-			});
-
 		}
 		return tablaParticipantes;
 	}
@@ -637,14 +626,6 @@ public class VentanaApp extends JFrame {
 	private JTable getTablaClasificacionesAbsoluta() {
 		if (tablaClasificacionesAbsoluta == null) {
 			tablaClasificacionesAbsoluta = new JTable();
-			tablaClasificacionesAbsoluta.setModel(new DefaultTableModel(new Object[][] {},
-					new String[] { "Posici\u00F3n", "Sexo", "Nombre", "Tiempo" }) {
-				Class[] columnTypes = new Class[] { Object.class, Object.class, String.class, String.class };
-
-				public Class<?> getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-			});
 		}
 		return tablaClasificacionesAbsoluta;
 	}
@@ -692,14 +673,6 @@ public class VentanaApp extends JFrame {
 	private JTable getTablaClasificacionesHombre() {
 		if (tablaClasificacionesHombre == null) {
 			tablaClasificacionesHombre = new JTable();
-			tablaClasificacionesHombre.setModel(new DefaultTableModel(new Object[][] {},
-					new String[] { "Posici\u00F3n", "Sexo", "Nombre", "Tiempo" }) {
-				Class[] columnTypes = new Class[] { Integer.class, String.class, String.class, String.class };
-
-				public Class<?> getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-			});
 		}
 		return tablaClasificacionesHombre;
 	}
@@ -707,14 +680,6 @@ public class VentanaApp extends JFrame {
 	private JTable getTablaClasificacionesMujer() {
 		if (tablaClasificacionesMujer == null) {
 			tablaClasificacionesMujer = new JTable();
-			tablaClasificacionesMujer.setModel(new DefaultTableModel(new Object[][] {},
-					new String[] { "Posici\u00F3n", "Sexo", "Nombre", "Tiempo" }) {
-				Class[] columnTypes = new Class[] { Integer.class, String.class, Object.class, String.class };
-
-				public Class<?> getColumnClass(int columnIndex) {
-					return columnTypes[columnIndex];
-				}
-			});
 		}
 		return tablaClasificacionesMujer;
 	}
@@ -1414,6 +1379,35 @@ public class VentanaApp extends JFrame {
 		return mnItemEmail;
 	}
 
+	private JButton getBtInscribirClubOrganizador() {
+		if (btInscribirClubOrganizador == null) {
+			btInscribirClubOrganizador = new JButton("Inscribir club");
+			btInscribirClubOrganizador.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					inscribirClubOrganizador();
+				}
+			});
+			btInscribirClubOrganizador.setForeground(new Color(184, 220, 245));
+			btInscribirClubOrganizador.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btInscribirClubOrganizador.setBackground(new Color(50, 130, 181));
+		}
+		return btInscribirClubOrganizador;
+	}
+
+	private JCheckBox getChBoxListaEspera() {
+		if (chBoxListaEspera == null) {
+			chBoxListaEspera = new JCheckBox("Lista de espera");
+		}
+		return chBoxListaEspera;
+	}
+
+	private JCheckBox getChBoxCancelacionInscripcion() {
+		if (chBoxCancelacionInscripcion == null) {
+			chBoxCancelacionInscripcion = new JCheckBox("Cancelaci\u00F3n de inscripciones");
+		}
+		return chBoxCancelacionInscripcion;
+	}
+
 	// METODOS PARTICIPANTE
 	private void cargarEmail() {
 		String email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
@@ -1424,8 +1418,8 @@ public class VentanaApp extends JFrame {
 				} else {
 					JOptionPane.showMessageDialog(this, "No estas registrado", "Error", JOptionPane.WARNING_MESSAGE);
 				}
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(this, "Ha ocurrido un error", "Error", JOptionPane.WARNING_MESSAGE);
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Tu email no es valido", "Error", JOptionPane.WARNING_MESSAGE);
@@ -1468,8 +1462,8 @@ public class VentanaApp extends JFrame {
 					JOptionPane.showMessageDialog(this, "No estas inscrito en ninguna carrera", "Error",
 							JOptionPane.WARNING_MESSAGE);
 				}
-			} catch (SQLException e) {
-				JOptionPane.showMessageDialog(this, "Ha ocurrido un error", "Error", JOptionPane.WARNING_MESSAGE);
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Tu email no es valido", "Error", JOptionPane.WARNING_MESSAGE);
@@ -1610,7 +1604,7 @@ public class VentanaApp extends JFrame {
 				getBtMostrarClasificaciones().setEnabled(false);
 				getBtMostrarParticipantes().setEnabled(false);
 			}
-		} catch (SQLException e) {
+		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Exito", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
@@ -1666,7 +1660,6 @@ public class VentanaApp extends JFrame {
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		}
-
 	}
 
 	private void resetearCamposCarrera() {
@@ -1804,34 +1797,15 @@ public class VentanaApp extends JFrame {
 		int returnVal = fc.showOpenDialog(this);
 		if (returnVal == JFileChooser.APPROVE_OPTION) {
 			File file = fc.getSelectedFile();
-			GuiLogic.inscribeClubCarrera(file);
+			try {
+				GuiLogic.inscribeClubCarrera(file);
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+			}
 		} else {
 			JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun archivo", "Error",
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
-	private JButton getBtInscribirClubOrganizador() {
-		if (btInscribirClubOrganizador == null) {
-			btInscribirClubOrganizador = new JButton("Inscribir club");
-			btInscribirClubOrganizador.setForeground(new Color(184, 220, 245));
-			btInscribirClubOrganizador.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			btInscribirClubOrganizador.setBackground(new Color(50, 130, 181));
-		}
-		return btInscribirClubOrganizador;
-	}
-
-	private JCheckBox getChBoxListaEspera() {
-		if (chBoxListaEspera == null) {
-			chBoxListaEspera = new JCheckBox("Lista de espera");
-		}
-		return chBoxListaEspera;
-	}
-
-	private JCheckBox getChBoxCancelacionInscripcion() {
-		if (chBoxCancelacionInscripcion == null) {
-			chBoxCancelacionInscripcion = new JCheckBox("Cancelaci\u00F3n de inscripciones");
-		}
-		return chBoxCancelacionInscripcion;
-	}
 }

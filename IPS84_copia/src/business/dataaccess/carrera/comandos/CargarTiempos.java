@@ -25,9 +25,11 @@ public class CargarTiempos {
 	}
 
 	public void cargarTiempos() throws BusinessDataException {
+		String idCarrera = TiempoParser.parsearIdCarrera(tiempos);
+		if (!idCarrera.equals(id)) {
+			throw new BusinessDataException("Las ids de las carreras no coinciden.");
+		}
 		ArrayList<String> listaTiempos = TiempoParser.parsearTiempos(tiempos);
-
-		// TODO
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
 		} catch (SQLException e1) {
@@ -57,7 +59,7 @@ public class CargarTiempos {
 					for (int i = 0; i < aux.length; i++) {
 						args[i] = aux[i];
 					}
-					int dorsal = Integer.parseInt(args[0]);					
+					int dorsal = Integer.parseInt(args[0]);
 					if (dorsal == rs.getInt("dorsal")) {
 						PreparedStatement statement = con
 								.prepareStatement(SqlStatements.SQL_INSCRIPCION_ACTUALIZAR_TIEMPOS);
@@ -69,9 +71,7 @@ public class CargarTiempos {
 						statement.executeUpdate();
 						statement.close();
 					}
-
 				}
-
 			}
 			ps.close();
 			con.close();

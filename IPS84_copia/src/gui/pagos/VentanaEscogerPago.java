@@ -1,15 +1,10 @@
 package gui.pagos;
 
-import java.awt.BorderLayout;
-import java.awt.EventQueue;
-
 import javax.swing.JDialog;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
-
 import gui.aplicacion.VentanaApp;
-
 import java.awt.Color;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -22,6 +17,10 @@ import java.awt.event.ActionEvent;
 
 public class VentanaEscogerPago extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel pnPrincipal;
 	private JLabel lbEscoger;
 	private JButton btTransferencia;

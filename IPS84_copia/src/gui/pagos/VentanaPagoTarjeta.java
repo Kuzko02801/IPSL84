@@ -2,8 +2,6 @@ package gui.pagos;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.SQLException;
-
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JFrame;
@@ -12,13 +10,11 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
-
-import business.dataaccess.DataAccessFactory;
+import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.Check;
 import business.dataaccess.util.DateSqlite;
 import business.gui.GuiLogic;
 import gui.aplicacion.VentanaApp;
-
 import java.awt.Font;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
@@ -27,6 +23,10 @@ import java.awt.Color;
 
 public class VentanaPagoTarjeta extends JDialog {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	private JPanel contentPane;
 	private JLabel lblPagoTarjeta;
 	private JLabel lblNumeroTarjeta;
@@ -38,15 +38,15 @@ public class VentanaPagoTarjeta extends JDialog {
 	private JButton btnNewButton;
 	private String id_carrera;
 	private String email_atleta;
-	private int dorsal = 0;
 	private VentanaApp v;
+
 	/**
 	 * Create the frame.
 	 * 
 	 * @param email_atleta
 	 */
-	public VentanaPagoTarjeta(VentanaApp app,String id_carrera, String email_atleta) {
-		this.v=app;
+	public VentanaPagoTarjeta(VentanaApp app, String id_carrera, String email_atleta) {
+		this.v = app;
 		setTitle("Pago");
 		setModal(true);
 		setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
@@ -205,8 +205,8 @@ public class VentanaPagoTarjeta extends JDialog {
 										+ txtTarjeta.getText() + "\n" + "Fecha de caducidad: " + txtCaducidad.getText()
 										+ "\n" + "CVC: " + txtCVC.getText());
 						GuiLogic.pagarInscripcion(id_carrera, email_atleta);
-						double cuota=GuiLogic.cuotaActualCarrera(id_carrera);
-						GuiLogic.procesarPagos(id_carrera,email_atleta,cuota,cuota,"Pagado con tarjeta. Correcto.");
+						double cuota = GuiLogic.cuotaActualCarrera(id_carrera);
+						GuiLogic.procesarPagos(id_carrera, email_atleta, cuota, cuota, "Pagado con tarjeta. Correcto.");
 						v.mostrarTodasCarrerasParticipante();
 						dispose();
 					}
@@ -219,9 +219,8 @@ public class VentanaPagoTarjeta extends JDialog {
 	protected boolean pagoFueraDePlazo() {
 		try {
 			return Check.pagoFueraDePlazo(id_carrera, email_atleta);
-		} catch (SQLException e) {
-			System.out.println("Fallo en query. Pago fuera de plazo");
-			System.out.println(e.getMessage());
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 		}
 		return false;
 	}
@@ -229,8 +228,8 @@ public class VentanaPagoTarjeta extends JDialog {
 	private boolean existeAtleta(String email) {
 		try {
 			return Check.atletaExists(email);
-		} catch (SQLException e) {
-			System.out.println("Fallo en query. Existe atleta");
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 		}
 		return false;
 	}

@@ -10,7 +10,6 @@ import business.dataaccess.exception.BusinessDataException;
 
 public interface CarreraService {
 	public void crearCarrera(CarreraDto carrera) throws BusinessDataException;
-	public boolean existeCarrera(String id);
 	public TableModel devolverCarrerasPropiasParticipante(String email_atleta);
 	public TableModel devolverCarrerasValidas();
 	public TableModel devolverCarrerasOrganizador();
