@@ -12,6 +12,7 @@ import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.parsers.CategoriaParser;
 import business.dataaccess.parsers.PeriodoParser;
+import business.dataaccess.parsers.PuntosCorteParser;
 
 
 public class CrearCarrera {
@@ -41,12 +42,11 @@ public class CrearCarrera {
 			ps.setDouble(4, carrera.distancia);			
 			ps.setString(5, id);
 			ps.setInt(6, carrera.plazasMaximas);			
-			// Insertar categorias.
 			ps.setString(7, CategoriaParser.categoriasToString(carrera.categorias));
-			// Insertar periodos.
-			ps.setString(8, PeriodoParser.periodosToString(carrera.periodos));						
-			ps.setBoolean(9, carrera.listaDeEspera);
-			ps.setBoolean(10, carrera.cancelacionInscripciones);
+			ps.setString(8, PeriodoParser.periodosToString(carrera.periodos));
+			ps.setString(9, PuntosCorteParser.puntosCorteToString(carrera.puntosCorte));
+			ps.setBoolean(10, carrera.listaDeEspera);
+			ps.setBoolean(11, carrera.cancelacionInscripciones);
 			
 			ps.execute();
 			

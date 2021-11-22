@@ -1,6 +1,7 @@
 package business.dataaccess.parsers;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import business.dataaccess.dto.carrera.Periodo;
@@ -31,6 +32,14 @@ public class PuntosCorteParser {
 		}
 
 		return puntosCorte;
+	}
+
+	public static String puntosCorteToString(List<Integer> puntosCorte) {
+		String a= "";
+		for (Integer integer : puntosCorte) {
+			a+=integer+";";
+		}
+		return a.substring(0,a.length()-1);
 	}
 
 }

@@ -1,1 +1,2 @@
-13ddf4;carlos@gmail.com;4.0;3.0;Pagado con transferencia. Ha pagado 1.0de más
+13ddf4;carlos@gmail.com;4.0;3.0;Pagado con transferencia. Ha pagado 30de menos
+13ddf4;carlos@gmail.com;4.0;3.0;Pagado con transferencia. Ha pagado 20 de menos
