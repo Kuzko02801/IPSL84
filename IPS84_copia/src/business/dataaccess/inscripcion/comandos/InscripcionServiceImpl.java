@@ -31,5 +31,16 @@ public class InscripcionServiceImpl implements InscripcionService{
 		new ProcesarHistorialDePago(id_carrera, email_atleta, cuota, cantidad, comentario).procesarPagos();;
 	}
 	
+	@Override
+	public void actualizarCantidadPagada(String id_carrera, String email, double pagado) {
+		new ActualizarCantidadPagada(id_carrera, email, pagado).actualizar();
+	}
+	
+	@Override
+	public double devolverCantidadPagada(String email, String id_carrera) {
+		return new DevolverCantidadPagada(email, id_carrera).devolverCantidad();
+		
+	}
+	
 	
 }

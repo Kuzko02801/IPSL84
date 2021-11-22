@@ -184,22 +184,27 @@ public class VentanaPagoTransferencia extends JDialog {
 	private void pagar() {
 		if(comprobarCampos()) {
 			double pagado=Double.parseDouble(getTxCantidad().getText());
+			
 			if(pagado>this.cuotaActual) {
 				GuiLogic.pagarInscripcion(id_carrera, email);
 				JOptionPane.showMessageDialog(this, "Has pagado más dinero que la cuota actual", "Error", JOptionPane.WARNING_MESSAGE);
-				GuiLogic.procesarPagos(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Ha pagado "+(pagado-cuotaActual)+"de más");
+				GuiLogic.procesarPagos
+				(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Ha pagado "+(pagado-cuotaActual)+"de más");
+				GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
 				cerrar();
 			}else if(pagado==this.cuotaActual) {
 				GuiLogic.pagarInscripcion(id_carrera, email);
-				GuiLogic.procesarPagos(id_carrera,email,cuotaActual,cuotaActual,"Pagado con transferencia. Pagado correctamente");
+				GuiLogic.procesarPagos
+				(id_carrera,email,cuotaActual,cuotaActual,"Pagado con transferencia. Pagado correctamente");
+				GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
 				cerrar();
 			}else{
 				JOptionPane.showMessageDialog(this, "Has pagado menos dinero que la cuota actual", "Error", JOptionPane.WARNING_MESSAGE);
-				GuiLogic.procesarPagos(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Pagado "+(cuotaActual-pagado)+" no se le inscribe aún.");
+				GuiLogic.procesarPagos
+				(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Pagado "+(cuotaActual-pagado)+" no se le inscribe aún.");
+				GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
 				cerrar();
 			}
-			
-			
 		}
 	}
 	private void cerrar(){

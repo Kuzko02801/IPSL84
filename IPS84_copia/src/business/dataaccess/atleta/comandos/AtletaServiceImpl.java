@@ -33,6 +33,5 @@ public class AtletaServiceImpl implements AtletaService {
 	@Override
 	public void inscribirClub(File ficheroAtleta) throws BusinessDataException {
 		new InscribirClub(ficheroAtleta).inscribirClub();
-
 	}
 }

@@ -47,8 +47,9 @@ public class SqlStatements {
 	public static final String SQL_INSCRIPCION_CARRERA = "select * from inscripcion where id_carrera = ? ";
 	public static final String SQL_INSCRIPCION_ACTUALIZAR_DORSALES = "UPDATE inscripcion SET dorsal = ? where id_carrera = ? and email_atleta = ?";
 	public static final String SQL_INSERTAR_LISTA_ESPERA = "INSERT INTO LISTADEESPERA (email_atleta, id_carrera) VALUES (?, ?)";
+	public static final String SQL_ACTUALIZAR_CANTIDAD_PAGADA = "update inscripcion SET cantidadPagada = ? where id_carrera = ? and email_atleta = ?";
+	public static final String SQL_OBTENER_CANTIDAD_PAGADA = "select cantidadPagada from inscripcion where id_carrera = ? and email_atleta = ?";
 	public static final String SQL_ESTA_CARRERA_LLENA = "SELECT COUNT(*) " + "FROM CARRERA " + "WHERE ID = ? "
 			+ "AND PLAZAS_MAXIMAS < (SELECT COUNT(*) " + "FROM INSCRIPCION" + "WHERE ID_CARRERA = ?)";
 	public static final String SQL_PUESTO_LISTA_ESPERA = "SELECT COUNT(*) FROM LISTADEESPERA WHERE ID_CARRERA = ?";
-
 }
