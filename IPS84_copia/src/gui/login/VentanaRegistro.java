@@ -87,6 +87,7 @@ public class VentanaRegistro extends JDialog {
 			btRegistrarseParticipante = new JButton("Continuar");
 			btRegistrarseParticipante.setEnabled(true);
 			btRegistrarseParticipante.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					if (comprobarCampos()) {
 						inscribirParticipante();
@@ -225,10 +226,26 @@ public class VentanaRegistro extends JDialog {
 
 	private void inscribeParticipante() {
 		try {
-			GuiLogic.inscribirAtletaCarrera(idCarrera, email);
+			if (GuiLogic.isCarreraLlena(idCarrera)) {
+				entrarLista();
+				dispose();
+			} else {
+				GuiLogic.inscribirAtletaCarrera(idCarrera, email);
+			}
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 		}
+	}
+
+	private void entrarLista() {
+		/**
+		 * Muestra un JDialog con un boton si o no preguntando al usuario si quiere
+		 * meterse a la lista de espera.
+		 */
+		DialogListaDeEpera dialog = new DialogListaDeEpera(idCarrera);
+		dialog.setDefaultCloseOperation(JDialog.DISPOSE_ON_CLOSE);
+		dialog.setVisible(true);
+
 	}
 
 	private boolean registraParticipante() {

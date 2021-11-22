@@ -55,7 +55,7 @@ public class GuiLogic {
 		tablaClasificacionesMujer.setModel(tm);
 	}
 
-	public static boolean comprobarIdValidaCarrera(String id) throws BusinessDataException  {
+	public static boolean comprobarIdValidaCarrera(String id) throws BusinessDataException {
 		return Check.raceExists(id);
 	}
 
@@ -67,9 +67,10 @@ public class GuiLogic {
 	}
 
 	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia, String plazas,
-			List<Categoria> categorias, List<Periodo> periodos,List<Integer> puntosCorte,boolean listaDeEspera, boolean cancelacionInscripciones) throws BusinessDataException {
-		DataAccessFactory.forCarreraService().crearCarrera(
-				DtoAssembler.forCarreraDto(nombre, fecha, tipo, distancia, null, plazas, categorias, periodos,puntosCorte, listaDeEspera, cancelacionInscripciones));
+			List<Categoria> categorias, List<Periodo> periodos, List<Integer> puntosCorte, boolean listaDeEspera,
+			boolean cancelacionInscripciones) throws BusinessDataException {
+		DataAccessFactory.forCarreraService().crearCarrera(DtoAssembler.forCarreraDto(nombre, fecha, tipo, distancia,
+				null, plazas, categorias, periodos, puntosCorte, listaDeEspera, cancelacionInscripciones));
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {
@@ -87,40 +88,48 @@ public class GuiLogic {
 	public static void pagarInscripcion(String id, String email) {
 		DataAccessFactory.forInscripcionService().pasarDePendienteDePagoAInscrito(id, email);
 	}
-	
+
 	public static void cargaTiemposCarrera(String id_carrera, File tiempos) throws BusinessDataException {
-		 DataAccessFactory.forCarreraService().cargarTiempos(id_carrera, tiempos);
+		DataAccessFactory.forCarreraService().cargarTiempos(id_carrera, tiempos);
 	}
 
-	public static void cargarClasificacionCategoria(JTable tabla,String idCarrera, String categoria) {
-		TableModel tm=DataAccessFactory.forCarreraService().cargarClasificacionCategoria(idCarrera,categoria);
+	public static void cargarClasificacionCategoria(JTable tabla, String idCarrera, String categoria) {
+		TableModel tm = DataAccessFactory.forCarreraService().cargarClasificacionCategoria(idCarrera, categoria);
 		tabla.setModel(tm);
 	}
-	
+
 	public static boolean comprobarInscripcionesFinalizadas(String id_carrera) {
 		return DataAccessFactory.forCarreraService().comprobarInscripcionesFinalizadas(id_carrera);
 	}
+
 	public static boolean comprobarCarreraFinalizada(String id_carrera) throws BusinessDataException {
 		return DataAccessFactory.forCarreraService().carreraFinalizada(id_carrera);
 	}
-	public static void generarDorsales(String id_carrera,int dorsalesReservados) {
+
+	public static void generarDorsales(String id_carrera, int dorsalesReservados) {
 		DataAccessFactory.forInscripcionService().generarDorsalParaCarrera(id_carrera, dorsalesReservados);
 	}
+
 	public static double cuotaActualCarrera(String id_carrera) {
 		return DataAccessFactory.forInscripcionService().cuotaActualCarrera(id_carrera);
 	}
-	public static void procesarPagos(String id_carrera,String email,double cuota,double pagado,String comentario) {
-		DataAccessFactory.forInscripcionService().procesarHistorialDePagos(id_carrera, email, ""+cuota, ""+pagado, comentario);
+
+	public static void procesarPagos(String id_carrera, String email, double cuota, double pagado, String comentario) {
+		DataAccessFactory.forInscripcionService().procesarHistorialDePagos(id_carrera, email, "" + cuota, "" + pagado,
+				comentario);
 	}
 
 	public static void inscribeClubCarrera(File ficheroAtletas) throws BusinessDataException {
 		DataAccessFactory.forAtletaService().inscribirClub(ficheroAtletas);
-		
+
 	}
 
 	public static boolean isCarreraLlena(String id_carrera) {
-		// TODO Auto-generated method stub
-		return false;
+		return DataAccessFactory.forCarreraService().isCarreraLlena(id_carrera);
 	}
-	
+
+	public static int numeroListaDeEspera(String id_carrera) throws BusinessDataException {
+		return DataAccessFactory.forListaDeEsperaService().numeroDeListaEspera(id_carrera);
+	}
+
 }

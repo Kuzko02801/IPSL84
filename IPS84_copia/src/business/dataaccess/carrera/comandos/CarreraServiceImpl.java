@@ -49,21 +49,30 @@ public class CarreraServiceImpl implements CarreraService {
 	public TableModel devolverClasificacionMasculina(String id) {
 		return new DevolverClasificacionMasculina(id).devolverClasificacionMasculina();
 	}
+
 	@Override
-	public void cargarTiempos(String id,File file) throws BusinessDataException {
-		new CargarTiempos(id,file).cargarTiempos();
+	public void cargarTiempos(String id, File file) throws BusinessDataException {
+		new CargarTiempos(id, file).cargarTiempos();
 	}
+
 	@Override
 	public TableModel cargarClasificacionCategoria(String idCarrera, String categoria) {
-		return new CargarClasificacionCategoria(idCarrera,categoria).devolverClasificacionCategoria();	
+		return new CargarClasificacionCategoria(idCarrera, categoria).devolverClasificacionCategoria();
 	}
+
 	@Override
 	public boolean comprobarInscripcionesFinalizadas(String id_carrera) {
 		return new ComprobarInscripcionesFinalizadas(id_carrera).haFinalizado();
 	}
+
 	@Override
 	public boolean carreraFinalizada(String id_carrera) throws BusinessDataException {
 		return new ComprobarCarreraFinalizada(id_carrera).haFinalizado();
+	}
+
+	@Override
+	public boolean isCarreraLlena(String id_carrera) {
+		return new EstaCarreraLlena(id_carrera).execute();
 	}
 
 }
