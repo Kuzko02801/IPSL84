@@ -22,7 +22,6 @@ public class EncontrarCarrera {
 	public EncontrarCarrera(String id) {
 		this.id = id;
 	}
-	
 	public CarreraDto encontrarCarrera() throws BusinessDataException {
 		try {
 			DriverManager.registerDriver(new org.sqlite.JDBC());
@@ -37,9 +36,7 @@ public class EncontrarCarrera {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_SELECT_CARRERA);
 			ps.setString(1, id);
-			
 			rs = ps.executeQuery();
-			
 			while(rs.next()) {
 				carrera = DtoAssembler.forCarreraDto(
 						rs.getString(1)
@@ -52,7 +49,7 @@ public class EncontrarCarrera {
 						, PeriodoParser.devolverPeriodos(rs.getString(8))
 						, PuntosCorteParser.devolverPuntosCorte(rs.getString(9))
 						, rs.getBoolean(10)
-						, rs.getBoolean(11));					
+						, rs.getBoolean(11));
 			}
 			rs.close();
 			ps.close();

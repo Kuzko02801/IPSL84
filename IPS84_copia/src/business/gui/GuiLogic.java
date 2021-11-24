@@ -124,7 +124,7 @@ public class GuiLogic {
 
 	}
 
-	public static boolean isCarreraLlena(String id_carrera) {
+	public static boolean isCarreraLlena(String id_carrera) throws BusinessDataException {
 		return DataAccessFactory.forCarreraService().isCarreraLlena(id_carrera);
 	}
 	public static int numeroListaDeEspera(String id_carrera) throws BusinessDataException {

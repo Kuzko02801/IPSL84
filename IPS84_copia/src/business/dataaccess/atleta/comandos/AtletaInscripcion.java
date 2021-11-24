@@ -49,6 +49,7 @@ public class AtletaInscripcion {
 
 			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(email_atleta);
 			age = (int) ChronoUnit.YEARS.between(atleta.fechaDeNacimiento.getDate(), LocalDate.now());
+			
 			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera_id);
 			// Inscripcion abierta.
 			if (!inscripcionAbierta()) {

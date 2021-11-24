@@ -71,8 +71,7 @@ public class CarreraServiceImpl implements CarreraService {
 	}
 
 	@Override
-	public boolean isCarreraLlena(String id_carrera) {
+	public boolean isCarreraLlena(String id_carrera) throws BusinessDataException {
 		return new EstaCarreraLlena(id_carrera).execute();
 	}
-
 }

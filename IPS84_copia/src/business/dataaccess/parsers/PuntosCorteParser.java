@@ -20,7 +20,7 @@ public class PuntosCorteParser {
 		}
 		return partes.length;
 	}
-
+	
 	public static List<Integer> devolverPuntosCorte(String texto) throws BusinessDataException {
 		List<Integer> puntosCorte = new ArrayList<>();
 		String[] partes = texto.split(";");

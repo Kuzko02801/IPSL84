@@ -80,7 +80,7 @@ public class Validadores {
 		}
 	}
 
-	public static boolean comprobarMayorNumero(String string,int Numero) {
+	public static boolean comprobarMayorNumero(String string, int Numero) {
 		Double d = null;
 		Integer i = null;
 

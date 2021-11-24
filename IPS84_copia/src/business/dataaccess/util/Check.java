@@ -131,15 +131,24 @@ public class Check {
 			ps = con.prepareStatement(SqlStatements.SQL_NUMERO_INSCRIPCIONES);
 			ps.setString(1, carrera.carrera_id);
 			rs = ps.executeQuery();
+			
 			while (rs.next()) {
-				plazasLibres++;
-				if (plazasLibres >= plazas) {
-					rs.close();
-					ps.close();
-					con.close();
-					return true;
-				}
+//				plazasLibres++;
+//				if (plazasLibres >= plazas) {
+//					rs.close();
+//					ps.close();
+//					con.close();
+//					return true;
+//				}
+				plazasLibres = carrera.plazasMaximas - rs.getInt("numeroInscripciones");
 			}
+			if (plazasLibres > 0) {
+				rs.close();
+				ps.close();
+				con.close();
+				return true;
+			}
+			
 			rs.close();
 			ps.close();
 			con.close();
@@ -185,11 +194,17 @@ public class Check {
 			rs = pst.executeQuery();
 
 			if (rs.next()) {
+				rs.close();
+				pst.close();
+				con.close();
 				return true;
-			}
+			} 
+			rs.close();
+			pst.close();
+			con.close();
+			return false;
 		} catch (SQLException e) {
 			throw new BusinessDataException("Ha ocurrido un problema con la base de datos");
-		}
-		return false;
+		}		
 	}
 }
