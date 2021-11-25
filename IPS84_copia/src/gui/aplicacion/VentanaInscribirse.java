@@ -32,6 +32,8 @@ public class VentanaInscribirse extends JDialog {
 	private JLabel lblNewLabel;
 	// private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
 	private String id_carrera;
+
+
 	/**
 	 * Create the dialog.
 	 */
@@ -85,7 +87,6 @@ public class VentanaInscribirse extends JDialog {
 			btnInscribir.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
 					inscribirAtleta();
-
 				}
 			});
 		}
@@ -144,15 +145,31 @@ public class VentanaInscribirse extends JDialog {
 	private void inscribirAtleta() {
 		boolean existe;
 		boolean estaInscrito;
+		boolean estaEnListaDeEspera;
 
 		try {
 			if (Validadores.comprobarEmail(getTxtEmail().getText())) {
-				existe = Check.atletaExists(getTxtEmail().getText());
 				estaInscrito = Check.existeInscripcion(getTxtEmail().getText(), id_carrera);
 				if (estaInscrito) {
 					JOptionPane.showMessageDialog(rootPane, "Ya te has registrado para esta carrera");
 					return;
 				}
+				estaEnListaDeEspera = Check.estaEnListaDeEspera(getTxtEmail().getText(), id_carrera);
+
+				if (GuiLogic.isCarreraLlena(id_carrera)) {
+					/**
+					 * Se le ofrece al usuario meterse a la lista de espera. Si acepta se le mete en
+					 * la lista y es notificado de su puesto en la misma. Si rechaza, la inscripcion
+					 * no se realiza y la ventana se cierra.
+					 */
+					if (estaEnListaDeEspera) {
+						JOptionPane.showMessageDialog(this, "Usted ya esta en la lista de espera.");
+						return;
+					} else {
+						meterseEnListaCarrera();
+					}
+				}
+				existe = Check.atletaExists(getTxtEmail().getText());
 				if (existe) {
 					// Checkar si la carrera esta llena, si lo esta, se le ofrece meterse a la lista de espera. Si no se cancela la inscripcion. 
 					if(GuiLogic.isCarreraLlena(id_carrera)) {
@@ -167,7 +184,7 @@ public class VentanaInscribirse extends JDialog {
 					}					
 				} else { // No se sabe si el atleta puede no estar registrado.
 					int input = JOptionPane.showConfirmDialog(this,
-							"Tu e-mail no está registrado pero puedes inscribirte aportando datos adiccionales",
+							"Tu e-mail no estï¿½ registrado pero puedes inscribirte aportando datos adiccionales",
 							"Datos", JOptionPane.DEFAULT_OPTION);
 					if (input == 0) {
 
@@ -175,7 +192,7 @@ public class VentanaInscribirse extends JDialog {
 					}
 				}
 			} else {
-				JOptionPane.showMessageDialog(this, "El email no es válido", "Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this, "El email no es vï¿½lido", "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
@@ -191,7 +208,7 @@ public class VentanaInscribirse extends JDialog {
 		GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
 		dispose();
 	}
-	
+
 	private void mostrarVentanaRegistro(String email) {
 		VentanaRegistro v = new VentanaRegistro(email, id_carrera);
 		v.setVisible(true);

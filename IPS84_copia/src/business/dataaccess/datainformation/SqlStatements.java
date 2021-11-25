@@ -53,4 +53,5 @@ public class SqlStatements {
 			+ "AND PLAZAS_MAXIMAS < (SELECT COUNT(*) " + "FROM INSCRIPCION" + "WHERE ID_CARRERA = ?)";
 	public static final String SQL_PUESTO_LISTA_ESPERA = "SELECT COUNT(*) FROM LISTADEESPERA WHERE ID_CARRERA = ?";
 	public static final String SQL_PLAZAS_MAXIMAS_CARRERA = "select plazas_Maximas from carrera where id = ?";
+	public static final String SQL_EN_LISTA_ESPERA = "SELECT * FROM LISTADEESPERA WHERE email_atleta = ? AND id_carrera = ?";
 }

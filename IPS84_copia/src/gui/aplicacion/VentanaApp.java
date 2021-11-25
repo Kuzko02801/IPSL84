@@ -339,25 +339,32 @@ public class VentanaApp extends JFrame {
 		if (pnBotonesInscribirseParticipante == null) {
 			pnBotonesInscribirseParticipante = new JPanel();
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
+			
+			JButton btPagarParticipante_1 = new JButton("Pagar");
+			btPagarParticipante_1.setForeground(new Color(184, 220, 245));
+			btPagarParticipante_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btPagarParticipante_1.setBackground(new Color(50, 130, 181));
 
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
-			gl_pnBotonesInscribirseParticipante
-					.setHorizontalGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186,
-											GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137,
-											GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(427, Short.MAX_VALUE)));
-			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
-					.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup().addGap(25)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24,
-											Short.MAX_VALUE)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24,
-											Short.MAX_VALUE))));
+			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(454, Short.MAX_VALUE))
+			);
+			gl_pnBotonesInscribirseParticipante.setVerticalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addGap(25)
+						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
+			);
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
@@ -1276,7 +1283,7 @@ public class VentanaApp extends JFrame {
 			btAnadirInscripcion = new JButton("A\u00F1adir inscripci\u00F3n");
 			btAnadirInscripcion.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadePlazoInscripcion();
+					aï¿½adePlazoInscripcion();
 				}
 			});
 			btAnadirInscripcion.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
@@ -1308,7 +1315,7 @@ public class VentanaApp extends JFrame {
 			btAnadirCategoria = new JButton("A\u00F1adir categor\u00EDa");
 			btAnadirCategoria.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadeCategoria();
+					aï¿½adeCategoria();
 				}
 			});
 			btAnadirCategoria.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
@@ -1529,7 +1536,7 @@ public class VentanaApp extends JFrame {
 			btnAadirPuntoDe = new JButton("A\u00F1adir punto de corte");
 			btnAadirPuntoDe.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadePuntoCorte();
+					aï¿½adePuntoCorte();
 				}
 			});
 			btnAadirPuntoDe.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
@@ -1630,7 +1637,7 @@ public class VentanaApp extends JFrame {
 			try {
 				if (GuiLogic.isCarreraLlena(getCarreraSeleccionadaParticipante())) {
 					int result = JOptionPane.showConfirmDialog(this,
-							"La carrera esta llena pero tiene una lista de espera, ¿quieres inscribirte en ella?",
+							"La carrera esta llena pero tiene una lista de espera, ï¿½quieres inscribirte en ella?",
 							"alert", JOptionPane.OK_CANCEL_OPTION);
 					if (result == JOptionPane.OK_OPTION) {
 						mostrarVentanaInscripcion();
@@ -1879,7 +1886,7 @@ public class VentanaApp extends JFrame {
 		carreraManager.cleanPuntosCorte();
 	}
 
-	private void añadePlazoInscripcion() {
+	private void aï¿½adePlazoInscripcion() {
 		String fechaInicio = getTxFechaInicioPlazo().getText();
 		String fechaFin = getTxFechaFinPlazo().getText();
 		String cuota = getTxCuotaCarrera().getText();
@@ -1902,7 +1909,7 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	private void añadeCategoria() {
+	private void aï¿½adeCategoria() {
 		String nombreCategoria = getTxNombreCategoria().getText();
 		String edadInicio = getTxEdadInicioCategoria().getText();
 		String edadFin = getTxEdadFinCategoria().getText();
@@ -1925,7 +1932,7 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	public void añadePuntoCorte() {
+	public void aï¿½adePuntoCorte() {
 		String kilometroPunto = getTxKilometroCorte().getText();
 		String kilometroMaximo = getTxDistanciaCarrera().getText();
 		if (Validadores.comprobarMayorNumero(kilometroPunto, 1)) {
@@ -2040,5 +2047,4 @@ public class VentanaApp extends JFrame {
 	private void comprobarPagosOrganizador() {
 
 	}
-
 }
