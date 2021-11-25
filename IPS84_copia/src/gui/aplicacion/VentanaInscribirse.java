@@ -161,7 +161,7 @@ public class VentanaInscribirse extends JDialog {
 						 * se le mete en la lista y es notificado de su puesto en la misma.
 						 * Si rechaza, la inscripcion no se realiza y la ventana se cierra.
 						 */
-						meterseEnListaCarrera();
+						meterseEnListaCarrera(id_carrera, getTxtEmail().getText());
 					} else {
 						inscribirAtleta(id_carrera);
 					}					
@@ -182,8 +182,9 @@ public class VentanaInscribirse extends JDialog {
 		}
 	}
 	
-	private void meterseEnListaCarrera() {		
-		
+	private void meterseEnListaCarrera(String id_carrera, String email) {		
+		GuiLogic.meterseEnListaDeEspera(id_carrera, email);
+		dispose();
 	}
 
 	private void inscribirAtleta(String id_carrera) throws BusinessDataException {

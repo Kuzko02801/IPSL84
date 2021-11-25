@@ -136,4 +136,9 @@ public class GuiLogic {
 	public static double obtenerCantidadPagada(String email, String id_carrera) {
 		return DataAccessFactory.forInscripcionService().devolverCantidadPagada(email, id_carrera);
 	}
+
+	public static void meterseEnListaDeEspera(String id_carrera, String email) {
+		DataAccessFactory.forListaDeEsperaService().meterseEnListaDeEspera(id_carrera, email);
+		
+	}
 }

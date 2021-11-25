@@ -33,7 +33,7 @@ public class DtoAssembler {
 	
 	
 	public static CarreraDto forCarreraDto(String id) {
-		return forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>(),new ArrayList<Integer>(), false, false);
+		return forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>(), new ArrayList<Integer>(), false, false);
 	}
 	
 	public static CarreraDto forCarreraDto(
