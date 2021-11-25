@@ -207,4 +207,34 @@ public class Check {
 			throw new BusinessDataException("Ha ocurrido un problema con la base de datos");
 		}		
 	}
+
+	public static boolean estaEnListaDeEspera(String email, String id_carrera) throws BusinessDataException {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Connection con = null;
+
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+
+			pst = con.prepareStatement(SqlStatements.SQL_EN_LISTA_ESPERA);
+
+			pst.setString(1, email);
+			pst.setString(2, id_carrera);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				rs.close();
+				pst.close();
+				con.close();
+				return true;
+			} 
+			rs.close();
+			pst.close();
+			con.close();
+			return false;
+		} catch (SQLException e) {
+			throw new BusinessDataException("Ha ocurrido un problema con la base de datos");
+		}		
+	}
 }

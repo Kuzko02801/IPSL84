@@ -339,25 +339,32 @@ public class VentanaApp extends JFrame {
 		if (pnBotonesInscribirseParticipante == null) {
 			pnBotonesInscribirseParticipante = new JPanel();
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
+			
+			JButton btPagarParticipante_1 = new JButton("Pagar");
+			btPagarParticipante_1.setForeground(new Color(184, 220, 245));
+			btPagarParticipante_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btPagarParticipante_1.setBackground(new Color(50, 130, 181));
 
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
-			gl_pnBotonesInscribirseParticipante
-					.setHorizontalGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186,
-											GroupLayout.PREFERRED_SIZE)
-									.addPreferredGap(ComponentPlacement.UNRELATED)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137,
-											GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(427, Short.MAX_VALUE)));
-			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
-					.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup().addGap(25)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24,
-											Short.MAX_VALUE)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24,
-											Short.MAX_VALUE))));
+			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(454, Short.MAX_VALUE))
+			);
+			gl_pnBotonesInscribirseParticipante.setVerticalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addGap(25)
+						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
+			);
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
@@ -2014,5 +2021,4 @@ public class VentanaApp extends JFrame {
 	private void comprobarPagosOrganizador() {
 		
 	}
-	
 }
