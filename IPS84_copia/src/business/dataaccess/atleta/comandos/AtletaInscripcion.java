@@ -53,8 +53,7 @@ public class AtletaInscripcion {
 			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera_id);
 			// Inscripcion abierta.
 			if (!inscripcionAbierta()) {
-				System.out.println("fuera del plazo");
-				throw new BusinessDataException("Estas fuera del plazo de inscripci�n.");
+				throw new BusinessDataException("Estas fuera del plazo de inscripcion.");
 			}
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			// Checkeo de plazas.

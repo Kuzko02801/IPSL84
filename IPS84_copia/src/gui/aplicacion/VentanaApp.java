@@ -383,7 +383,7 @@ public class VentanaApp extends JFrame {
 			btInscribirseParticipante = new JButton("Inscribirse");
 			btInscribirseParticipante.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					mostrarVentanaInscripcion();
+					inscribirse();
 				}
 			});
 			btInscribirseParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
@@ -410,24 +410,21 @@ public class VentanaApp extends JFrame {
 			pnOrganizador = new JPanel();
 			pnOrganizador.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnOrganizador = new GroupLayout(pnOrganizador);
-			gl_pnOrganizador.setHorizontalGroup(
-				gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
-					.addGroup(Alignment.TRAILING, gl_pnOrganizador.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_pnOrganizador.createParallelGroup(Alignment.TRAILING)
-							.addComponent(getPnBotonesOrganizador(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
-							.addComponent(getPnTablasOrganizador(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE))
-						.addContainerGap())
-			);
-			gl_pnOrganizador.setVerticalGroup(
-				gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnOrganizador.createSequentialGroup()
-						.addGap(5)
-						.addComponent(getPnBotonesOrganizador(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getPnTablasOrganizador(), GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-						.addContainerGap())
-			);
+			gl_pnOrganizador.setHorizontalGroup(gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
+					.addGroup(Alignment.TRAILING, gl_pnOrganizador.createSequentialGroup().addContainerGap()
+							.addGroup(gl_pnOrganizador.createParallelGroup(Alignment.TRAILING)
+									.addComponent(getPnBotonesOrganizador(), Alignment.LEADING,
+											GroupLayout.DEFAULT_SIZE, 956, Short.MAX_VALUE)
+									.addComponent(getPnTablasOrganizador(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE,
+											956, Short.MAX_VALUE))
+							.addContainerGap()));
+			gl_pnOrganizador.setVerticalGroup(gl_pnOrganizador.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnOrganizador.createSequentialGroup().addGap(5)
+							.addComponent(getPnBotonesOrganizador(), GroupLayout.PREFERRED_SIZE,
+									GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getPnTablasOrganizador(),
+									GroupLayout.DEFAULT_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+							.addContainerGap()));
 			pnOrganizador.setLayout(gl_pnOrganizador);
 		}
 		return pnOrganizador;
@@ -466,29 +463,36 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrganizador2 = new JPanel();
 			pnBotonesOrganizador2.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrganizador2 = new GroupLayout(pnBotonesOrganizador2);
-			gl_pnBotonesOrganizador2.setHorizontalGroup(
-				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
-						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getBtCargarTiempos())
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getBtInscribirClubOrganizador(), GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getBtComprobarPagos(), GroupLayout.PREFERRED_SIZE, 169, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(167, Short.MAX_VALUE))
-			);
-			gl_pnBotonesOrganizador2.setVerticalGroup(
-				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrganizador2
+					.setHorizontalGroup(
+							gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+									.addGroup(
+											gl_pnBotonesOrganizador2.createSequentialGroup()
+													.addComponent(getBtCrearCarreraOrganizador(),
+															GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE,
+															187, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(getBtCargarTiempos())
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(getBtInscribirClubOrganizador(),
+															GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.RELATED)
+													.addComponent(getBtComprobarPagos(), GroupLayout.PREFERRED_SIZE,
+															169, GroupLayout.PREFERRED_SIZE)
+													.addContainerGap(167, Short.MAX_VALUE)));
+			gl_pnBotonesOrganizador2.setVerticalGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-						.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addComponent(getBtInscribirClubOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-						.addComponent(getBtComprobarPagos(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-			);
+							.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+							.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37,
+									GroupLayout.PREFERRED_SIZE)
+							.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37,
+									GroupLayout.PREFERRED_SIZE)
+							.addComponent(getBtInscribirClubOrganizador(), GroupLayout.DEFAULT_SIZE, 37,
+									Short.MAX_VALUE)
+							.addComponent(getBtComprobarPagos(), GroupLayout.PREFERRED_SIZE, 37,
+									GroupLayout.PREFERRED_SIZE)));
 			pnBotonesOrganizador2.setLayout(gl_pnBotonesOrganizador2);
 		}
 		return pnBotonesOrganizador2;
@@ -1621,7 +1625,28 @@ public class VentanaApp extends JFrame {
 
 	}
 
+	private void inscribirse() {
+		if (carreraSeleccionadaParticipante()) {
+			try {
+				if (GuiLogic.isCarreraLlena(getCarreraSeleccionadaParticipante())) {
+					int result = JOptionPane.showConfirmDialog(this,
+							"La carrera esta llena pero tiene una lista de espera, ¿quieres inscribirte en ella?",
+							"alert", JOptionPane.OK_CANCEL_OPTION);
+					if (result == JOptionPane.OK_OPTION) {
+						mostrarVentanaInscripcion();
+					}
+				} else {
+					mostrarVentanaInscripcion();
+				}
+
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+			}
+		}
+	}
+
 	private void mostrarVentanaInscripcion() {
+
 		if (carreraSeleccionadaParticipante()) {
 			VentanaInscribirse v = new VentanaInscribirse(getCarreraSeleccionadaParticipante());
 			v.setVisible(true);
@@ -1677,7 +1702,7 @@ public class VentanaApp extends JFrame {
 		}
 		return false;
 	}
-	
+
 	private JButton getBtComprobarPagos() {
 		if (btComprobarPagos == null) {
 			btComprobarPagos = new JButton("Comprobar pagos");
@@ -2011,8 +2036,9 @@ public class VentanaApp extends JFrame {
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
+
 	private void comprobarPagosOrganizador() {
-		
+
 	}
-	
+
 }

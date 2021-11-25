@@ -47,9 +47,8 @@ public class EstaCarreraLlena {
 			}
 			return false; 
 		} catch (SQLException e) {
-			
+			throw new BusinessDataException("Ha ocurrido un error con la base de datos");
 		}
-		return false;
 //		PreparedStatement pst = null;
 //		Connection con = null;
 //		ResultSet rs = null;
