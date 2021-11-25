@@ -9,5 +9,11 @@ public class ListaDeEsperaServiceImpl implements ListaDeEsperaService {
 	public int numeroDeListaEspera(String id_carrera) throws BusinessDataException {
 		return new NumeroDeListaEspera(id_carrera).execute();
 	}
+	
+	@Override
+	public void meterseEnListaDeEspera(String id_carrera, String email) {
+		new MeterseEnListaDeEspera(id_carrera, email).execute();
+		
+	}
 
 }

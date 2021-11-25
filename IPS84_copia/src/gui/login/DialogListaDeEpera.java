@@ -74,7 +74,6 @@ public class DialogListaDeEpera extends JDialog {
 							// TODO Auto-generated catch block
 							e.printStackTrace();
 						}
-
 					}
 				});
 				buttonPane.add(btnSi);

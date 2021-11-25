@@ -22,9 +22,13 @@ public class PuntosCorteParser {
 	}
 	
 	public static List<Integer> devolverPuntosCorte(String texto) throws BusinessDataException {
+		if (texto == null) {
+			return null;
+		}
 		List<Integer> puntosCorte = new ArrayList<>();
 		String[] partes = texto.split(";");
 		for (String s : partes) {
+			System.out.println(s);
 			if (!Validadores.comprobarMayorNumero(s, 1)) {
 				throw new BusinessDataException("Ha habido un problema con la base de datos");
 			}
