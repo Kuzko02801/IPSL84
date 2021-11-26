@@ -42,11 +42,14 @@ public class VentanaRegistro extends JDialog {
 	private JComboBox<String> cbSexo;
 	private String email;
 	private String idCarrera;
+	private boolean tieneLista;
 
 	/**
 	 * Create the frame.
+	 * 
+	 * @param tieneLista
 	 */
-	public VentanaRegistro(String email, String idCarrera) {
+	public VentanaRegistro(String email, String idCarrera, boolean tieneLista) {
 		setModal(true);
 		setResizable(false);
 		setTitle("Registro");
@@ -60,6 +63,7 @@ public class VentanaRegistro extends JDialog {
 
 		this.email = email;
 		this.idCarrera = idCarrera;
+		this.tieneLista = tieneLista;
 	}
 
 	private JPanel getPnRegistroParticipante() {
@@ -89,9 +93,9 @@ public class VentanaRegistro extends JDialog {
 			btRegistrarseParticipante.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
-					if (comprobarCampos()) {
-						inscribirParticipante();
-					}
+
+					inscribirParticipante();
+
 				}
 			});
 			btRegistrarseParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 18));
@@ -215,19 +219,32 @@ public class VentanaRegistro extends JDialog {
 	// Metodos adiccionales
 
 	private void inscribirParticipante() {
-		if (comprobarCampos()) {
-			if (registraParticipante()) {
-				inscribeParticipante();
-				dispose();
+		try {
+			if (comprobarCampos()) {
+				if (registraParticipante()) {
+					if (tieneLista) {
+						GuiLogic.meterseEnListaDeEspera(idCarrera, email);
+						JOptionPane.showMessageDialog(this,
+								String.format("Estas en la lista de espera, tu posición es: %d",
+										GuiLogic.numeroListaDeEspera(idCarrera)));
+						dispose();
+					} else {
+						inscribeParticipante();
+						dispose();
+					}
+				}
 			}
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, "Ha ocurrido un error con la base de datos.");
+			e.printStackTrace();
 		}
-
 	}
 
 	private void inscribeParticipante() {
 
 		try {
 			GuiLogic.inscribirAtletaCarrera(idCarrera, email);
+			JOptionPane.showMessageDialog(this, "Te has pre-inscrito.");
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 		}

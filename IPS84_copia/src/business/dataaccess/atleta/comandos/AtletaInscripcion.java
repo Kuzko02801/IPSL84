@@ -42,14 +42,17 @@ public class AtletaInscripcion {
 		int age = 0;
 		try {
 
-			// Check if the race exists.
 			if (!Check.atletaExists(email_atleta)) {
 				throw new BusinessDataException("Ningun atleta asociado con este email.");
 			}
 
+			if (Check.existeInscripcion(email_atleta, carrera_id)) {
+				throw new BusinessDataException("Ya estas inscrito en esta carrera.");
+			}
+
 			atleta = DataAccessFactory.forAtletaService().encontrarAtleta(email_atleta);
 			age = (int) ChronoUnit.YEARS.between(atleta.fechaDeNacimiento.getDate(), LocalDate.now());
-			
+
 			carrera = DataAccessFactory.forCarreraService().findCarreraById(carrera_id);
 			// Inscripcion abierta.
 			if (!inscripcionAbierta()) {
@@ -68,10 +71,10 @@ public class AtletaInscripcion {
 			} else {
 				inscribirNuevoAtleta(age);
 			}
-
 			con.close();
 		} catch (SQLException e) {
-			throw new BusinessDataException("Ha ocurrido un error con la inscripcion");
+
+			// throw new BusinessDataException("Ha ocurrido un error con la inscripcion");
 		}
 	}
 

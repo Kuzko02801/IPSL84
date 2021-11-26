@@ -74,4 +74,8 @@ public class CarreraServiceImpl implements CarreraService {
 	public boolean isCarreraLlena(String id_carrera) throws BusinessDataException {
 		return new EstaCarreraLlena(id_carrera).execute();
 	}
+
+	public boolean tieneListaEspera(String id_carrera) throws BusinessDataException {
+		return new TieneListaEspera(id_carrera).execute();
+	}
 }

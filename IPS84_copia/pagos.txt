@@ -1,3 +1,6 @@
 13ddf4;carlos@gmail.com;4.0;3.0;Pagado con transferencia. Ha pagado 30de menos
 13ddf4;carlos@gmail.com;4.0;3.0;Pagado con transferencia. Ha pagado 20 de menos
 1234;carlitos@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
+2642c7;j2@gmail.com;3.0;3.0;Pagado con tarjeta. Correcto.
+77531f;j@gmail.com;3.0;3.0;Pagado con tarjeta. Correcto.
+02a89f;j6@gmail.com;3.0;3.0;Pagado con tarjeta. Correcto.

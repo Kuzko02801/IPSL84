@@ -5,6 +5,7 @@ import java.awt.Color;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
 import javax.swing.JButton;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -12,8 +13,8 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.SwingConstants;
+
 import business.dataaccess.exception.BusinessDataException;
-import business.dataaccess.util.Check;
 import business.gui.GuiLogic;
 import gui.login.VentanaRegistro;
 import gui.validadoresGUI.Validadores;
@@ -32,15 +33,18 @@ public class VentanaInscribirse extends JDialog {
 	private JLabel lblNewLabel;
 	// private VentanaPagoTarjeta vpt = new VentanaPagoTarjeta(this);
 	private String id_carrera;
-
+	private boolean tieneLista;
 
 	/**
 	 * Create the dialog.
+	 * 
+	 * @param tieneLista
 	 */
-	public VentanaInscribirse(String id_carrera) {
+	public VentanaInscribirse(String id_carrera, boolean tieneLista) {
 		setModal(true);
 		setTitle("Inscripci\u00F3n");
 		this.id_carrera = id_carrera;
+		this.tieneLista = tieneLista;
 		setResizable(false);
 		setBounds(100, 100, 450, 300);
 		getContentPane().add(getPnText(), BorderLayout.CENTER);
@@ -85,6 +89,7 @@ public class VentanaInscribirse extends JDialog {
 			btnInscribir.setForeground(new Color(184, 220, 245));
 			btnInscribir.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 			btnInscribir.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					inscribirAtleta();
 				}
@@ -100,6 +105,7 @@ public class VentanaInscribirse extends JDialog {
 			btnCancelar.setForeground(new Color(184, 220, 245));
 			btnCancelar.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 			btnCancelar.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
 				}
@@ -143,74 +149,104 @@ public class VentanaInscribirse extends JDialog {
 	}
 
 	private void inscribirAtleta() {
-		boolean existe;
-		boolean estaInscrito;
-		boolean estaEnListaDeEspera;
-
 		try {
 			if (Validadores.comprobarEmail(getTxtEmail().getText())) {
-				estaInscrito = Check.existeInscripcion(getTxtEmail().getText(), id_carrera);
-				if (estaInscrito) {
-					JOptionPane.showMessageDialog(rootPane, "Ya te has registrado para esta carrera");
-					return;
-				}
-				estaEnListaDeEspera = Check.estaEnListaDeEspera(getTxtEmail().getText(), id_carrera);
-
-				if (GuiLogic.isCarreraLlena(id_carrera)) {
-					/**
-					 * Se le ofrece al usuario meterse a la lista de espera. Si acepta se le mete en
-					 * la lista y es notificado de su puesto en la misma. Si rechaza, la inscripcion
-					 * no se realiza y la ventana se cierra.
-					 */
-					if (estaEnListaDeEspera) {
-						JOptionPane.showMessageDialog(this, "Usted ya esta en la lista de espera.");
-						return;
-					} else {
-						meterseEnListaCarrera();
-					}
-				}
-				existe = Check.atletaExists(getTxtEmail().getText());
-				if (existe) {
-					// Checkar si la carrera esta llena, si lo esta, se le ofrece meterse a la lista de espera. Si no se cancela la inscripcion. 
-					if(GuiLogic.isCarreraLlena(id_carrera)) {
-						/**
-						 * Se le ofrece al usuario meterse a la lista de espera. Si acepta
-						 * se le mete en la lista y es notificado de su puesto en la misma.
-						 * Si rechaza, la inscripcion no se realiza y la ventana se cierra.
-						 */
+				if (GuiLogic.existeUsuario(getTxtEmail().getText())) {
+					if (tieneLista) {
 						meterseEnListaCarrera(id_carrera, getTxtEmail().getText());
+						JOptionPane.showMessageDialog(this,
+								String.format("Estas en la lista de espera, tu posición es: %d",
+										GuiLogic.numeroListaDeEspera(id_carrera)));
+						dispose();
 					} else {
 						inscribirAtleta(id_carrera);
-					}					
-				} else { // No se sabe si el atleta puede no estar registrado.
-					int input = JOptionPane.showConfirmDialog(this,
-							"Tu e-mail no estï¿½ registrado pero puedes inscribirte aportando datos adiccionales",
-							"Datos", JOptionPane.DEFAULT_OPTION);
-					if (input == 0) {
-
-						mostrarVentanaRegistro(getTxtEmail().getText());
+						dispose();
 					}
+				} else {
+					int input = JOptionPane.showConfirmDialog(this,
+							"Tu e-mail no esta registrado pero puedes inscribirte aportando datos adicionales", "Datos",
+							JOptionPane.DEFAULT_OPTION);
+					if (input == 0) {
+						mostrarVentanaRegistro(getTxtEmail().getText(), tieneLista);
+					}
+
 				}
 			} else {
-				JOptionPane.showMessageDialog(this, "El email no es vï¿½lido", "Error", JOptionPane.WARNING_MESSAGE);
+				JOptionPane.showMessageDialog(this, "El email no es valido.");
 			}
 		} catch (BusinessDataException e) {
-			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+			JOptionPane.showMessageDialog(this, e.getMessage());
+			dispose();
 		}
+//		boolean existe;
+//		boolean estaInscrito;
+//		boolean estaEnListaDeEspera;
+//
+//		try {
+//			if (Validadores.comprobarEmail(getTxtEmail().getText())) {
+//				estaInscrito = Check.existeInscripcion(getTxtEmail().getText(), id_carrera);
+//				if (estaInscrito) {
+//					JOptionPane.showMessageDialog(rootPane, "Ya te has registrado para esta carrera");
+//					return;
+//				}
+//
+//				estaEnListaDeEspera = Check.estaEnListaDeEspera(getTxtEmail().getText(), id_carrera);
+//				if (GuiLogic.isCarreraLlena(id_carrera)) {
+//					/**
+//					 * Se le ofrece al usuario meterse a la lista de espera. Si acepta se le mete en
+//					 * la lista y es notificado de su puesto en la misma. Si rechaza, la inscripcion
+//					 * no se realiza y la ventana se cierra.
+//					 */
+//					if (estaEnListaDeEspera) {
+//						JOptionPane.showMessageDialog(this, "Usted ya esta en la lista de espera.");
+//						return;
+//					} else {
+//						meterseEnListaCarrera(id_carrera, getTxtEmail().getText());
+//					}
+//				}
+//				existe = Check.atletaExists(getTxtEmail().getText());
+//				if (existe) {
+//					// Checkar si la carrera esta llena, si lo esta, se le ofrece meterse a la lista
+//					// de espera. Si no se cancela la inscripcion.
+//					if (GuiLogic.isCarreraLlena(id_carrera)) {
+//						/**
+//						 * Se le ofrece al usuario meterse a la lista de espera. Si acepta se le mete en
+//						 * la lista y es notificado de su puesto en la misma. Si rechaza, la inscripcion
+//						 * no se realiza y la ventana se cierra.
+//						 */
+//						meterseEnListaCarrera(id_carrera, getTxtEmail().getText());
+//					} else {
+//						inscribirAtleta(id_carrera);
+//					}
+//				} else { // No se sabe si el atleta puede no estar registrado.
+//					int input = JOptionPane.showConfirmDialog(this,
+//							"Tu e-mail no estï¿½ registrado pero puedes inscribirte aportando datos adiccionales",
+//							"Datos", JOptionPane.DEFAULT_OPTION);
+//					if (input == 0) {
+//
+//						mostrarVentanaRegistro(getTxtEmail().getText());
+//					}
+//				}
+//			} else {
+//				JOptionPane.showMessageDialog(this, "El email no es vï¿½lido", "Error", JOptionPane.WARNING_MESSAGE);
+//			}
+//		} catch (BusinessDataException e) {
+//			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+//		}
 	}
-	
-	private void meterseEnListaCarrera(String id_carrera, String email) {		
+
+	private void meterseEnListaCarrera(String id_carrera, String email) {
 		GuiLogic.meterseEnListaDeEspera(id_carrera, email);
-		dispose();
+
 	}
 
 	private void inscribirAtleta(String id_carrera) throws BusinessDataException {
 		GuiLogic.inscribirAtletaCarrera(id_carrera, getTxtEmail().getText());
-		dispose();
+
 	}
 
-	private void mostrarVentanaRegistro(String email) {
-		VentanaRegistro v = new VentanaRegistro(email, id_carrera);
+	private void mostrarVentanaRegistro(String email, boolean tieneLista) {
+		VentanaRegistro v = new VentanaRegistro(email, id_carrera, tieneLista);
 		v.setVisible(true);
 		dispose();
 	}

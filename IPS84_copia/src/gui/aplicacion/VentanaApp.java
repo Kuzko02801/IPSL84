@@ -12,6 +12,7 @@ import javax.swing.DefaultComboBoxModel;
 import javax.swing.GroupLayout;
 import javax.swing.GroupLayout.Alignment;
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFileChooser;
 import javax.swing.JFrame;
@@ -23,8 +24,10 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
+import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
+import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
@@ -37,9 +40,6 @@ import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.pagos.VentanaEscogerPago;
 import gui.validadoresGUI.Validadores;
-import javax.swing.JTextArea;
-import javax.swing.JCheckBox;
-import javax.swing.SwingConstants;
 
 public class VentanaApp extends JFrame {
 
@@ -127,6 +127,8 @@ public class VentanaApp extends JFrame {
 	private JMenuItem mnItemEmail;
 	public final static int ADMIN = 0;
 	public final static int PARTICIPANTE = 1;
+	private static final boolean CON_LISTA = true;
+	private static final boolean SIN_LISTA = false;
 
 	private CarreraManager carreraManager;
 	private String email;
@@ -277,6 +279,7 @@ public class VentanaApp extends JFrame {
 			btOrdenar = new JButton("Mostrar");
 			btOrdenar.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btOrdenar.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarCarrerasParticipante();
 				}
@@ -339,32 +342,37 @@ public class VentanaApp extends JFrame {
 		if (pnBotonesInscribirseParticipante == null) {
 			pnBotonesInscribirseParticipante = new JPanel();
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
-			
+
 			JButton btPagarParticipante_1 = new JButton("Pagar");
 			btPagarParticipante_1.setForeground(new Color(184, 220, 245));
 			btPagarParticipante_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btPagarParticipante_1.setBackground(new Color(50, 130, 181));
 
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
-			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
-				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-						.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(454, Short.MAX_VALUE))
-			);
-			gl_pnBotonesInscribirseParticipante.setVerticalGroup(
-				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-						.addGap(25)
-						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
-							.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
-							.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE, 24, GroupLayout.PREFERRED_SIZE)))
-			);
+			gl_pnBotonesInscribirseParticipante
+					.setHorizontalGroup(
+							gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+									.addGroup(
+											gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+													.addComponent(getBtInscribirseParticipante(),
+															GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE,
+															137, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE,
+															137, GroupLayout.PREFERRED_SIZE)
+													.addContainerGap(454, Short.MAX_VALUE)));
+			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
+					.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup().addGap(25)
+							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24,
+											Short.MAX_VALUE)
+									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24,
+											Short.MAX_VALUE)
+									.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE, 24,
+											GroupLayout.PREFERRED_SIZE))));
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
@@ -377,6 +385,7 @@ public class VentanaApp extends JFrame {
 			btPagarParticipante.setBackground(new Color(50, 130, 181));
 			btPagarParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btPagarParticipante.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					pagar();
 				}
@@ -389,6 +398,7 @@ public class VentanaApp extends JFrame {
 		if (btInscribirseParticipante == null) {
 			btInscribirseParticipante = new JButton("Inscribirse");
 			btInscribirseParticipante.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					inscribirse();
 				}
@@ -404,6 +414,7 @@ public class VentanaApp extends JFrame {
 		if (mnItCuentaSalir == null) {
 			mnItCuentaSalir = new JMenuItem("Salir");
 			mnItCuentaSalir.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					dispose();
 				}
@@ -511,6 +522,7 @@ public class VentanaApp extends JFrame {
 			btMostrarClasificaciones.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btMostrarClasificaciones.setEnabled(true);
 			btMostrarClasificaciones.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarClasificaciones();
 				}
@@ -576,6 +588,7 @@ public class VentanaApp extends JFrame {
 			btMostrarParticipantes = new JButton("Mostrar participantes");
 			btMostrarParticipantes.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btMostrarParticipantes.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelOrganizadorInscritos();
 				}
@@ -621,6 +634,7 @@ public class VentanaApp extends JFrame {
 			tablaCarrerasOrganizador.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			tablaCarrerasOrganizador.setModel(new DefaultTableModel(new Object[][] {}, new String[] {}));
 			tablaCarrerasOrganizador.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+				@Override
 				public void valueChanged(ListSelectionEvent event) {
 					if (!event.getValueIsAdjusting() && tablaCarrerasOrganizador.getSelectedRow() != -1) {
 						cargarCategorias();
@@ -711,6 +725,7 @@ public class VentanaApp extends JFrame {
 		if (mnItCuentaOrganizador == null) {
 			mnItCuentaOrganizador = new JMenuItem("Organizador");
 			mnItCuentaOrganizador.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelOrganizador();
 				}
@@ -723,6 +738,7 @@ public class VentanaApp extends JFrame {
 		if (mnItCuentaParticipante == null) {
 			mnItCuentaParticipante = new JMenuItem("Participante");
 			mnItCuentaParticipante.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelParticipante();
 				}
@@ -738,6 +754,7 @@ public class VentanaApp extends JFrame {
 			btMostrarCarreras.setForeground(new Color(184, 220, 245));
 			btMostrarCarreras.setBackground(new Color(50, 130, 181));
 			btMostrarCarreras.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelOrganizadorCarreras();
 				}
@@ -845,6 +862,7 @@ public class VentanaApp extends JFrame {
 			btCrearCarreraOrganizador = new JButton("Crear carrera");
 			btCrearCarreraOrganizador.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
 			btCrearCarreraOrganizador.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelOrganizadorCrearCarrera();
 				}
@@ -1282,8 +1300,9 @@ public class VentanaApp extends JFrame {
 		if (btAnadirInscripcion == null) {
 			btAnadirInscripcion = new JButton("A\u00F1adir inscripci\u00F3n");
 			btAnadirInscripcion.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
-					a�adePlazoInscripcion();
+					addPlazoInscripcion();
 				}
 			});
 			btAnadirInscripcion.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
@@ -1314,8 +1333,9 @@ public class VentanaApp extends JFrame {
 		if (btAnadirCategoria == null) {
 			btAnadirCategoria = new JButton("A\u00F1adir categor\u00EDa");
 			btAnadirCategoria.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
-					a�adeCategoria();
+					addCategoria();
 				}
 			});
 			btAnadirCategoria.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
@@ -1327,6 +1347,7 @@ public class VentanaApp extends JFrame {
 		if (btCrearCarrera == null) {
 			btCrearCarrera = new JButton("Crear carrera");
 			btCrearCarrera.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					crearCarrera();
 				}
@@ -1340,6 +1361,7 @@ public class VentanaApp extends JFrame {
 		if (btResetCarrera == null) {
 			btResetCarrera = new JButton("Reset");
 			btResetCarrera.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					resetearCamposCarrera();
 				}
@@ -1354,6 +1376,7 @@ public class VentanaApp extends JFrame {
 		if (btCargarTiempos == null) {
 			btCargarTiempos = new JButton("Cargar tiempos");
 			btCargarTiempos.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					cargarTiempos();
 				}
@@ -1369,6 +1392,7 @@ public class VentanaApp extends JFrame {
 		if (btGenerarDorsales == null) {
 			btGenerarDorsales = new JButton("Generar Dorsales");
 			btGenerarDorsales.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					generarDorsales();
 				}
@@ -1432,6 +1456,7 @@ public class VentanaApp extends JFrame {
 		if (mnItemEmail == null) {
 			mnItemEmail = new JMenuItem("Login");
 			mnItemEmail.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					cargarEmail();
 				}
@@ -1444,6 +1469,7 @@ public class VentanaApp extends JFrame {
 		if (btInscribirClubOrganizador == null) {
 			btInscribirClubOrganizador = new JButton("Inscribir club");
 			btInscribirClubOrganizador.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					inscribirClubOrganizador();
 				}
@@ -1535,8 +1561,9 @@ public class VentanaApp extends JFrame {
 		if (btnAadirPuntoDe == null) {
 			btnAadirPuntoDe = new JButton("A\u00F1adir punto de corte");
 			btnAadirPuntoDe.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
-					a�adePuntoCorte();
+					addPuntoCorte();
 				}
 			});
 			btnAadirPuntoDe.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
@@ -1635,16 +1662,36 @@ public class VentanaApp extends JFrame {
 	private void inscribirse() {
 		if (carreraSeleccionadaParticipante()) {
 			try {
+				/**
+				 * Si la carrera esta llena se mira si tiene una lista de espera. Si la tiene se
+				 * le pregunta al atleta si quiere meterse en la lista de espera. Si quiere se
+				 * mete en la lista, si no se cancela la inscripcion.
+				 */
 				if (GuiLogic.isCarreraLlena(getCarreraSeleccionadaParticipante())) {
-					int result = JOptionPane.showConfirmDialog(this,
-							"La carrera esta llena pero tiene una lista de espera, �quieres inscribirte en ella?",
-							"alert", JOptionPane.OK_CANCEL_OPTION);
-					if (result == JOptionPane.OK_OPTION) {
-						mostrarVentanaInscripcion();
+					if (GuiLogic.tieneListaEspera(getCarreraSeleccionadaParticipante())) {
+						int result = JOptionPane.showConfirmDialog(this,
+								"La carrera esta llena pero tiene una lista de espera, �quieres inscribirte en ella?",
+								"alert", JOptionPane.OK_CANCEL_OPTION);
+						if (result == JOptionPane.OK_OPTION) {
+							mostrarVentanaInscripcion(CON_LISTA);
+						}
+					} else {
+						JOptionPane.showMessageDialog(this, "La carrera esta llena.");
 					}
 				} else {
-					mostrarVentanaInscripcion();
+					mostrarVentanaInscripcion(SIN_LISTA);
 				}
+
+//				if (GuiLogic.isCarreraLlena(getCarreraSeleccionadaParticipante())) {
+//					int result = JOptionPane.showConfirmDialog(this,
+//							"La carrera esta llena pero tiene una lista de espera, �quieres inscribirte en ella?",
+//							"alert", JOptionPane.OK_CANCEL_OPTION);
+//					if (result == JOptionPane.OK_OPTION) {
+//						mostrarVentanaInscripcion();
+//					}
+//				} else {
+//					mostrarVentanaInscripcion();
+//				}
 
 			} catch (BusinessDataException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
@@ -1652,10 +1699,10 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	private void mostrarVentanaInscripcion() {
+	private void mostrarVentanaInscripcion(boolean tieneLista) {
 
 		if (carreraSeleccionadaParticipante()) {
-			VentanaInscribirse v = new VentanaInscribirse(getCarreraSeleccionadaParticipante());
+			VentanaInscribirse v = new VentanaInscribirse(getCarreraSeleccionadaParticipante(), tieneLista);
 			v.setVisible(true);
 		}
 	}
@@ -1714,6 +1761,7 @@ public class VentanaApp extends JFrame {
 		if (btComprobarPagos == null) {
 			btComprobarPagos = new JButton("Comprobar pagos");
 			btComprobarPagos.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					comprobarPagosOrganizador();
 				}
@@ -1886,7 +1934,7 @@ public class VentanaApp extends JFrame {
 		carreraManager.cleanPuntosCorte();
 	}
 
-	private void a�adePlazoInscripcion() {
+	private void addPlazoInscripcion() {
 		String fechaInicio = getTxFechaInicioPlazo().getText();
 		String fechaFin = getTxFechaFinPlazo().getText();
 		String cuota = getTxCuotaCarrera().getText();
@@ -1909,7 +1957,7 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	private void a�adeCategoria() {
+	private void addCategoria() {
 		String nombreCategoria = getTxNombreCategoria().getText();
 		String edadInicio = getTxEdadInicioCategoria().getText();
 		String edadFin = getTxEdadFinCategoria().getText();
@@ -1932,7 +1980,7 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	public void a�adePuntoCorte() {
+	public void addPuntoCorte() {
 		String kilometroPunto = getTxKilometroCorte().getText();
 		String kilometroMaximo = getTxDistanciaCarrera().getText();
 		if (Validadores.comprobarMayorNumero(kilometroPunto, 1)) {

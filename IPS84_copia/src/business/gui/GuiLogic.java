@@ -127,18 +127,25 @@ public class GuiLogic {
 	public static boolean isCarreraLlena(String id_carrera) throws BusinessDataException {
 		return DataAccessFactory.forCarreraService().isCarreraLlena(id_carrera);
 	}
+
 	public static int numeroListaDeEspera(String id_carrera) throws BusinessDataException {
 		return DataAccessFactory.forListaDeEsperaService().numeroDeListaEspera(id_carrera);
 	}
+
 	public static void actualizarCantidadPagada(String id_carrera, String email, double pagado) {
 		DataAccessFactory.forInscripcionService().actualizarCantidadPagada(id_carrera, email, pagado);
 	}
+
 	public static double obtenerCantidadPagada(String email, String id_carrera) {
 		return DataAccessFactory.forInscripcionService().devolverCantidadPagada(email, id_carrera);
 	}
 
 	public static void meterseEnListaDeEspera(String id_carrera, String email) {
 		DataAccessFactory.forListaDeEsperaService().meterseEnListaDeEspera(id_carrera, email);
-		
+
+	}
+
+	public static boolean tieneListaEspera(String id_carrera) throws BusinessDataException {
+		return DataAccessFactory.forCarreraService().tieneListaEspera(id_carrera);
 	}
 }
