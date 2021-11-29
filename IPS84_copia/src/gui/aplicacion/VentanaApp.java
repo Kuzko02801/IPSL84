@@ -2166,7 +2166,6 @@ public class VentanaApp extends JFrame {
 				if (checkHayCancelacion(id_carrera)) {
 					if (email == null) {
 						cargarEmail();
-						return;
 					}
 
 					if (!Check.existeInscripcion(email, id_carrera)) {
@@ -2174,12 +2173,20 @@ public class VentanaApp extends JFrame {
 								JOptionPane.WARNING_MESSAGE);
 						return;
 					}
+
+					if (!Check.estaInscripcionPagada(email, id_carrera)) {
+						JOptionPane.showMessageDialog(this, "Estas pre-inscrito, por favor paga la inscripcion.",
+								"Error", JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+
 					Double cantidadPagada = GuiLogic.obtenerCantidadPagada(email, id_carrera);
 					Double porcentajeDevolver = GuiLogic.porcentajeADevolver(id_carrera);
+
 					cancelarInscripcion(email, id_carrera);
 
 					JOptionPane.showMessageDialog(this,
-							String.format("Su inscripcion ha sido cancelada, se le devolveran %d euros.",
+							String.format("Su inscripcion ha sido cancelada, se le devolveran %.2f euros.",
 									cantidadPagada * (porcentajeDevolver / 100)));
 				} else {
 					JOptionPane.showMessageDialog(this, "No se puede cancelar inscripciones en esta carrera.", "Error",

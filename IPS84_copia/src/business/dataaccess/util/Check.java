@@ -131,7 +131,7 @@ public class Check {
 			ps = con.prepareStatement(SqlStatements.SQL_NUMERO_INSCRIPCIONES);
 			ps.setString(1, carrera.carrera_id);
 			rs = ps.executeQuery();
-			
+
 			while (rs.next()) {
 //				plazasLibres++;
 //				if (plazasLibres >= plazas) {
@@ -148,7 +148,7 @@ public class Check {
 				con.close();
 				return true;
 			}
-			
+
 			rs.close();
 			ps.close();
 			con.close();
@@ -198,14 +198,43 @@ public class Check {
 				pst.close();
 				con.close();
 				return true;
-			} 
+			}
 			rs.close();
 			pst.close();
 			con.close();
 			return false;
 		} catch (SQLException e) {
 			throw new BusinessDataException("Ha ocurrido un problema con la base de datos");
-		}		
+		}
+	}
+
+	public static boolean estaInscripcionPagada(String email, String id_carrera) throws BusinessDataException {
+		PreparedStatement pst = null;
+		ResultSet rs = null;
+		Connection con = null;
+		String estado = null;
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+
+			pst = con.prepareStatement(SqlStatements.SQL_INSCRIPCION_ESTADO_PAGO);
+
+			pst.setString(1, email);
+			pst.setString(2, id_carrera);
+
+			rs = pst.executeQuery();
+
+			if (rs.next()) {
+				estado = rs.getString(1);
+			}
+			pst.close();
+			rs.close();
+			con.close();
+
+			return estado.equals("INSCRITO");
+
+		} catch (SQLException e) {
+			throw new BusinessDataException("Ha ocurrido un problema con la base de datos");
+		}
 	}
 
 	public static boolean estaEnListaDeEspera(String email, String id_carrera) throws BusinessDataException {
@@ -228,13 +257,13 @@ public class Check {
 				pst.close();
 				con.close();
 				return true;
-			} 
+			}
 			rs.close();
 			pst.close();
 			con.close();
 			return false;
 		} catch (SQLException e) {
 			throw new BusinessDataException("Ha ocurrido un problema con la base de datos");
-		}		
+		}
 	}
 }

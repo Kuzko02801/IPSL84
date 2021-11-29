@@ -57,4 +57,5 @@ public class SqlStatements {
 	public static final String SQL_TIENE_LISTA_ESPERA = "SELECT listadeespera from carrera where id = ?";
 	public static final String SQL_TIENE_CANCELACION = "SELECT cancelacionInscripcion from carrera where id = ?";
 	public static final String SQL_CANCELAR_INSCRIPCION = "DELETE FROM inscripcion WHERE email_atleta = ? AND id_carrera = ?";
+	public static final String SQL_INSCRIPCION_ESTADO_PAGO = "SELECT ESTADO FROM INSCRIPCION WHERE EMAIL_ATLETA = ? AND ID_CARRERA = ?";
 }
