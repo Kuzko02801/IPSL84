@@ -68,9 +68,12 @@ public class GuiLogic {
 
 	public static void crearCarrera(String nombre, String fecha, String tipo, String distancia, String plazas,
 			List<Categoria> categorias, List<Periodo> periodos, List<Integer> puntosCorte, boolean listaDeEspera,
-			boolean cancelacionInscripciones) throws BusinessDataException {
-		DataAccessFactory.forCarreraService().crearCarrera(DtoAssembler.forCarreraDto(nombre, fecha, tipo, distancia,
-				null, plazas, categorias, periodos, puntosCorte, listaDeEspera, cancelacionInscripciones));
+			boolean cancelacionInscripciones, String porcentajeADevolver, String fechaMaxCancelacion)
+			throws BusinessDataException {
+		DataAccessFactory.forCarreraService()
+				.crearCarrera(DtoAssembler.forCarreraDto(nombre, fecha, tipo, distancia, null, plazas, categorias,
+						periodos, puntosCorte, listaDeEspera, cancelacionInscripciones, porcentajeADevolver,
+						fechaMaxCancelacion));
 	}
 
 	public static void inscribirAtletaCarrera(String id, String email) throws BusinessDataException {

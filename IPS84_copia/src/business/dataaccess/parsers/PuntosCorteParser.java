@@ -20,7 +20,7 @@ public class PuntosCorteParser {
 		}
 		return partes.length;
 	}
-	
+
 	public static List<Integer> devolverPuntosCorte(String texto) throws BusinessDataException {
 		if (texto == null) {
 			return null;
@@ -39,11 +39,13 @@ public class PuntosCorteParser {
 	}
 
 	public static String puntosCorteToString(List<Integer> puntosCorte) {
-		String a= "";
+		if (puntosCorte.isEmpty())
+			return "no-puntoscorte";
+		String a = "";
 		for (Integer integer : puntosCorte) {
-			a+=integer+";";
+			a += integer + ";";
 		}
-		return a.substring(0,a.length()-1);
+		return a.substring(0, a.length() - 1);
 	}
 
 }

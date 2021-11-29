@@ -8,7 +8,7 @@ import java.time.format.DateTimeParseException;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 
-import business.dataaccess.exception.BusinessDataException;
+import business.gui.CarreraManager;
 
 public class Validadores {
 
@@ -32,6 +32,7 @@ public class Validadores {
 		}
 		return true;
 	}
+
 	public static boolean comprobarFechasValidas(String fechaCarrera, LocalDate apertura, LocalDate cierre) {
 		LocalDate carrera = null;
 		try {
@@ -64,14 +65,14 @@ public class Validadores {
 		if (string == null) {
 			return false;
 		}
-		if (string.trim().length() == 0) {
+		if (string.trim().isEmpty()) {
 			return false;
 		}
 		return true;
 	}
 
 	public static boolean comprobarFecha(String fecha) {
-		
+
 		try {
 			LocalDate.parse(fecha, formatter);
 			return true;
@@ -86,11 +87,29 @@ public class Validadores {
 
 		try {
 			d = Double.valueOf(string);
-			return d > 0;
+			return d > Numero;
 		} catch (NumberFormatException e) {
 			try {
 				i = Integer.valueOf(string);
-				return i > 0;
+				return i > Numero;
+			} catch (NumberFormatException a) {
+				return false;
+			}
+		}
+
+	}
+
+	public static boolean comprobarMenorNumero(String string, int Numero) {
+		Double d = null;
+		Integer i = null;
+
+		try {
+			d = Double.valueOf(string);
+			return d < Numero;
+		} catch (NumberFormatException e) {
+			try {
+				i = Integer.valueOf(string);
+				return i < Numero;
 			} catch (NumberFormatException a) {
 				return false;
 			}
@@ -102,7 +121,7 @@ public class Validadores {
 		try {
 
 			LocalDate fecha = LocalDate.parse(fechaNacimiento, formatter);
-			Period period = Period.between(fecha,LocalDate.now());
+			Period period = Period.between(fecha, LocalDate.now());
 			if (period.getYears() > 18) {
 				return true;
 			}
@@ -149,5 +168,27 @@ public class Validadores {
 		} catch (Exception e) {
 			return false;
 		}
+	}
+
+	public static boolean comprobarFechaCancelacion(CarreraManager carreraManager, String maxCancelacion,
+			String fechaCarrera) {
+		if (carreraManager.getPeriodos().isEmpty())
+			return false;
+
+		LocalDate cancelacion = null;
+		LocalDate primeraFecha = null;
+		LocalDate fechaFin = null;
+		try {
+			cancelacion = LocalDate.parse(maxCancelacion, formatter);
+			primeraFecha = carreraManager.getPeriodos().get(0).getFechaInicio().getDate();
+			fechaFin = LocalDate.parse(fechaCarrera, formatter);
+
+		} catch (DateTimeParseException e) {
+			return false;
+		}
+		if (!cancelacion.isAfter(primeraFecha) || !cancelacion.isBefore(fechaFin)) {
+			return false;
+		}
+		return true;
 	}
 }

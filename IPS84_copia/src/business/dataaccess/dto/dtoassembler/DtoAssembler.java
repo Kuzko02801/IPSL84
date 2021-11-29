@@ -20,34 +20,27 @@ public class DtoAssembler {
 	public static AtletaDto forAtletaDto(String email) {
 		return forAtletaDto(email, null, null, null, null);
 	}
-	
-	public static AtletaDto forAtletaDto(String email,String dni, String nombre, String fechaDeNacimiento, String genero) {
-		AtletaDto atleta = new AtletaDto();	
+
+	public static AtletaDto forAtletaDto(String email, String dni, String nombre, String fechaDeNacimiento,
+			String genero) {
+		AtletaDto atleta = new AtletaDto();
 		atleta.email = email;
-		atleta.dni=dni;
+		atleta.dni = dni;
 		atleta.nombre = nombre;
 		atleta.fechaDeNacimiento = new DateSqlite(fechaDeNacimiento);
 		atleta.genero = Genero.generoParser(genero);
 		return atleta;
 	}
-	
-	
+
 	public static CarreraDto forCarreraDto(String id) {
-		return forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>(), new ArrayList<Integer>(), false, false);
+		return forCarreraDto(null, null, null, "0", id, "0", new ArrayList<Categoria>(), new ArrayList<Periodo>(),
+				new ArrayList<Integer>(), false, false, "0.0", null);
 	}
-	
-	public static CarreraDto forCarreraDto(
-			String nombre,
-			String fecha,
-			String tipo,
-			String distance,			
-			String carrera_id,
-			String plazasMaximas,			
-			List<Categoria> categorias,
-			List<Periodo> periodos,
-			List<Integer> puntosCorte,
-			boolean listaDeEspera,
-			boolean cancelacionInscripciones) {
+
+	public static CarreraDto forCarreraDto(String nombre, String fecha, String tipo, String distance, String carrera_id,
+			String plazasMaximas, List<Categoria> categorias, List<Periodo> periodos, List<Integer> puntosCorte,
+			boolean listaDeEspera, boolean cancelacionInscripciones, String porcentajeADevolver,
+			String fechaMaxCancelacion) {
 		CarreraDto carrera = new CarreraDto();
 		carrera.nombre = nombre;
 		carrera.fecha = new DateSqlite(fecha);
@@ -57,15 +50,20 @@ public class DtoAssembler {
 		carrera.plazasMaximas = Integer.valueOf(plazasMaximas);
 		carrera.periodos = periodos;
 		carrera.categorias = categorias;
-		carrera.puntosCorte=puntosCorte;
+		carrera.puntosCorte = puntosCorte;
 		carrera.listaDeEspera = listaDeEspera;
 		carrera.cancelacionInscripciones = cancelacionInscripciones;
+		carrera.porcentajeADevolver = Double.valueOf(porcentajeADevolver);
+		if (cancelacionInscripciones)
+			carrera.fechaMaxCancelacion = fechaMaxCancelacion;
+		else
+			carrera.fechaMaxCancelacion = "no-cancelacion";
 		return carrera;
 	}
 
 	public static CarreraDto toCarreraDto(ResultSet rs) throws SQLException {
 		CarreraDto c = new CarreraDto();
-		
+
 		c.carrera_id = rs.getString("id");
 		c.distancia = rs.getDouble("distancia");
 		c.fecha = new DateSqlite(rs.getString("fecha"));
@@ -74,7 +72,7 @@ public class DtoAssembler {
 		c.tipo = Tipo.tipoParser(rs.getString("tipo"));
 		c.categorias = CategoriaParser.devolverCategorias(rs.getString("categorias"));
 		c.periodos = PeriodoParser.devolverPeriodos(rs.getString("periodos"));
-		
+
 		return c;
 	}
 }

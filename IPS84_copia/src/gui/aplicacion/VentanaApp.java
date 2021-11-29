@@ -144,6 +144,10 @@ public class VentanaApp extends JFrame {
 	private JScrollPane scrollPanePuntosCorte;
 	private JTextArea txPuntosCorte;
 	private JButton btComprobarPagos;
+	private JTextField txtPorcentajeADevolver;
+	private JLabel lblFechaCancelacion;
+	private JLabel lblCuota_1;
+	private JTextField txtFechaMaxCancelacion;
 
 	/**
 	 * Create the frame.
@@ -151,7 +155,7 @@ public class VentanaApp extends JFrame {
 	public VentanaApp(int mode) {
 		setTitle("Gestor carreras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 1000, 750);
+		setBounds(100, 100, 1042, 812);
 		setJMenuBar(getMenuBar_1());
 		pnPrincipal = new JPanel();
 		pnPrincipal.setBackground(new Color(8, 46, 70));
@@ -767,92 +771,25 @@ public class VentanaApp extends JFrame {
 		if (pnCrearCarrera == null) {
 			pnCrearCarrera = new JPanel();
 			pnCrearCarrera.setBackground(new Color(50, 130, 181));
-			GroupLayout gl_pnCrearCarrera = new GroupLayout(pnCrearCarrera);
-			gl_pnCrearCarrera.setHorizontalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-									.addComponent(getPnDatosCarrera(), GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE)
-									.addComponent(getPnCategoriasCarrera(), GroupLayout.DEFAULT_SIZE, 442,
-											Short.MAX_VALUE)
-									.addComponent(getPnTiemposCorte(), GroupLayout.DEFAULT_SIZE, 442, Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.RELATED)
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-									.addComponent(getPnInscripcionCarrera(), GroupLayout.DEFAULT_SIZE, 491,
-											Short.MAX_VALUE)
-									.addComponent(getBtCrearCarrera(), GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-									.addComponent(getBtResetCarrera(), GroupLayout.DEFAULT_SIZE, 491, Short.MAX_VALUE)
-									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-													.addComponent(getLbPuntosCorte(), GroupLayout.DEFAULT_SIZE, 246,
-															Short.MAX_VALUE)
-													.addComponent(getScrollPanePeriodos(), GroupLayout.DEFAULT_SIZE,
-															246, Short.MAX_VALUE)
-													.addComponent(getChBoxListaEspera(), GroupLayout.DEFAULT_SIZE, 246,
-															Short.MAX_VALUE)
-													.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-															.addComponent(getLblPeriodos(), GroupLayout.DEFAULT_SIZE,
-																	77, Short.MAX_VALUE)
-															.addGap(169)))
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-													.addComponent(getScrollPaneCategorias(), GroupLayout.DEFAULT_SIZE,
-															239, Short.MAX_VALUE)
-													.addComponent(getChBoxCancelacionInscripcion(),
-															GroupLayout.DEFAULT_SIZE, 239, Short.MAX_VALUE)
-													.addGroup(gl_pnCrearCarrera.createSequentialGroup().addGap(10)
-															.addComponent(getLblCategorias(), GroupLayout.DEFAULT_SIZE,
-																	229, Short.MAX_VALUE))
-													.addComponent(getScrollPanePuntosCorte(), GroupLayout.DEFAULT_SIZE,
-															239, Short.MAX_VALUE))))
-							.addContainerGap()));
-			gl_pnCrearCarrera.setVerticalGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnCrearCarrera.createSequentialGroup().addContainerGap()
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.TRAILING)
-									.addComponent(getPnInscripcionCarrera(), Alignment.LEADING, 0, 0, Short.MAX_VALUE)
-									.addComponent(getPnDatosCarrera(), Alignment.LEADING, GroupLayout.DEFAULT_SIZE, 205,
-											Short.MAX_VALUE))
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
-													.addComponent(getLblPeriodos(), GroupLayout.PREFERRED_SIZE, 23,
-															GroupLayout.PREFERRED_SIZE)
-													.addComponent(getLblCategorias(), GroupLayout.PREFERRED_SIZE, 23,
-															GroupLayout.PREFERRED_SIZE))
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING, false)
-													.addComponent(getScrollPaneCategorias())
-													.addComponent(getScrollPanePeriodos(), GroupLayout.DEFAULT_SIZE, 70,
-															Short.MAX_VALUE))
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-													.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-															.addComponent(getLbPuntosCorte(),
-																	GroupLayout.PREFERRED_SIZE, 23,
-																	GroupLayout.PREFERRED_SIZE)
-															.addGap(39))
-													.addComponent(getScrollPanePuntosCorte(), GroupLayout.DEFAULT_SIZE,
-															62, Short.MAX_VALUE)))
-									.addComponent(getPnCategoriasCarrera(), GroupLayout.DEFAULT_SIZE, 167,
-											Short.MAX_VALUE))
-							.addGap(18)
-							.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.LEADING)
-									.addGroup(gl_pnCrearCarrera.createSequentialGroup()
-											.addGroup(gl_pnCrearCarrera.createParallelGroup(Alignment.BASELINE)
-													.addComponent(getChBoxListaEspera(), GroupLayout.PREFERRED_SIZE, 38,
-															GroupLayout.PREFERRED_SIZE)
-													.addComponent(getChBoxCancelacionInscripcion(),
-															GroupLayout.PREFERRED_SIZE, 38, GroupLayout.PREFERRED_SIZE))
-											.addPreferredGap(ComponentPlacement.RELATED, 22, Short.MAX_VALUE)
-											.addComponent(getBtResetCarrera(), GroupLayout.PREFERRED_SIZE, 27,
-													GroupLayout.PREFERRED_SIZE)
-											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(getBtCrearCarrera(), GroupLayout.PREFERRED_SIZE, 27,
-													GroupLayout.PREFERRED_SIZE))
-									.addComponent(getPnTiemposCorte(), GroupLayout.PREFERRED_SIZE, 120,
-											Short.MAX_VALUE))
-							.addContainerGap()));
-			pnCrearCarrera.setLayout(gl_pnCrearCarrera);
+			pnCrearCarrera.setLayout(null);
+			pnCrearCarrera.add(getPnDatosCarrera());
+			pnCrearCarrera.add(getPnCategoriasCarrera());
+			pnCrearCarrera.add(getPnTiemposCorte());
+			pnCrearCarrera.add(getPnInscripcionCarrera());
+			pnCrearCarrera.add(getBtCrearCarrera());
+			pnCrearCarrera.add(getBtResetCarrera());
+			pnCrearCarrera.add(getChBoxCancelacionInscripcion());
+			pnCrearCarrera.add(getLbPuntosCorte());
+			pnCrearCarrera.add(getScrollPanePeriodos());
+			pnCrearCarrera.add(getLblPeriodos());
+			pnCrearCarrera.add(getChBoxListaEspera());
+			pnCrearCarrera.add(getLblFechaCancelacion());
+			pnCrearCarrera.add(getTxtPorcentajeADevolver());
+			pnCrearCarrera.add(getScrollPaneCategorias());
+			pnCrearCarrera.add(getLblCategorias());
+			pnCrearCarrera.add(getScrollPanePuntosCorte());
+			pnCrearCarrera.add(getLblCuota_1());
+			pnCrearCarrera.add(getTxtFechaMaxCancelacion());
 		}
 		return pnCrearCarrera;
 	}
@@ -973,6 +910,7 @@ public class VentanaApp extends JFrame {
 	private JPanel getPnDatosCarrera() {
 		if (pnDatosCarrera == null) {
 			pnDatosCarrera = new JPanel();
+			pnDatosCarrera.setBounds(10, 11, 461, 220);
 			pnDatosCarrera.setBackground(new Color(70, 130, 180));
 			GroupLayout gl_pnDatosCarrera = new GroupLayout(pnDatosCarrera);
 			gl_pnDatosCarrera.setHorizontalGroup(gl_pnDatosCarrera.createParallelGroup(Alignment.LEADING)
@@ -1059,6 +997,7 @@ public class VentanaApp extends JFrame {
 	private JPanel getPnInscripcionCarrera() {
 		if (pnInscripcionCarrera == null) {
 			pnInscripcionCarrera = new JPanel();
+			pnInscripcionCarrera.setBounds(477, 11, 509, 220);
 			pnInscripcionCarrera.setBackground(new Color(70, 130, 180));
 			GroupLayout gl_pnInscripcionCarrera = new GroupLayout(pnInscripcionCarrera);
 			gl_pnInscripcionCarrera.setHorizontalGroup(gl_pnInscripcionCarrera.createParallelGroup(Alignment.LEADING)
@@ -1176,6 +1115,7 @@ public class VentanaApp extends JFrame {
 	private JPanel getPnCategoriasCarrera() {
 		if (pnCategoriasCarrera == null) {
 			pnCategoriasCarrera = new JPanel();
+			pnCategoriasCarrera.setBounds(10, 242, 461, 191);
 			pnCategoriasCarrera.setBackground(new Color(70, 130, 180));
 			GroupLayout gl_pnCategoriasCarrera = new GroupLayout(pnCategoriasCarrera);
 			gl_pnCategoriasCarrera.setHorizontalGroup(gl_pnCategoriasCarrera.createParallelGroup(Alignment.LEADING)
@@ -1346,6 +1286,7 @@ public class VentanaApp extends JFrame {
 	private JButton getBtCrearCarrera() {
 		if (btCrearCarrera == null) {
 			btCrearCarrera = new JButton("Crear carrera");
+			btCrearCarrera.setBounds(481, 558, 509, 27);
 			btCrearCarrera.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -1360,6 +1301,7 @@ public class VentanaApp extends JFrame {
 	private JButton getBtResetCarrera() {
 		if (btResetCarrera == null) {
 			btResetCarrera = new JButton("Reset");
+			btResetCarrera.setBounds(481, 525, 509, 27);
 			btResetCarrera.addActionListener(new ActionListener() {
 				@Override
 				public void actionPerformed(ActionEvent e) {
@@ -1407,6 +1349,7 @@ public class VentanaApp extends JFrame {
 	private JScrollPane getScrollPanePeriodos() {
 		if (scrollPanePeriodos == null) {
 			scrollPanePeriodos = new JScrollPane();
+			scrollPanePeriodos.setBounds(477, 271, 254, 70);
 			scrollPanePeriodos.setViewportView(getTxPeriodos());
 		}
 		return scrollPanePeriodos;
@@ -1415,6 +1358,7 @@ public class VentanaApp extends JFrame {
 	private JLabel getLblPeriodos() {
 		if (lblPeriodos == null) {
 			lblPeriodos = new JLabel("Periodos");
+			lblPeriodos.setBounds(477, 242, 85, 23);
 			lblPeriodos.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
 		}
 		return lblPeriodos;
@@ -1423,6 +1367,7 @@ public class VentanaApp extends JFrame {
 	private JLabel getLblCategorias() {
 		if (lblCategorias == null) {
 			lblCategorias = new JLabel("Categorias");
+			lblCategorias.setBounds(747, 242, 239, 23);
 			lblCategorias.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
 		}
 		return lblCategorias;
@@ -1431,6 +1376,7 @@ public class VentanaApp extends JFrame {
 	private JScrollPane getScrollPaneCategorias() {
 		if (scrollPaneCategorias == null) {
 			scrollPaneCategorias = new JScrollPane();
+			scrollPaneCategorias.setBounds(737, 271, 249, 70);
 			scrollPaneCategorias.setViewportView(getTxCategorias());
 		}
 		return scrollPaneCategorias;
@@ -1484,6 +1430,7 @@ public class VentanaApp extends JFrame {
 	private JCheckBox getChBoxListaEspera() {
 		if (chBoxListaEspera == null) {
 			chBoxListaEspera = new JCheckBox("Lista de espera");
+			chBoxListaEspera.setBounds(736, 432, 254, 38);
 			chBoxListaEspera.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		}
 		return chBoxListaEspera;
@@ -1492,6 +1439,25 @@ public class VentanaApp extends JFrame {
 	private JCheckBox getChBoxCancelacionInscripcion() {
 		if (chBoxCancelacionInscripcion == null) {
 			chBoxCancelacionInscripcion = new JCheckBox("Cancelaci\u00F3n de inscripciones");
+			chBoxCancelacionInscripcion.setBounds(477, 432, 254, 38);
+			chBoxCancelacionInscripcion.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					if (chBoxCancelacionInscripcion.isSelected()) {
+						txtPorcentajeADevolver.setEnabled(true);
+						txtFechaMaxCancelacion.setEnabled(true);
+					}
+
+					else {
+						txtPorcentajeADevolver.setEnabled(false);
+						txtPorcentajeADevolver.setText("0");
+
+						txtFechaMaxCancelacion.setEnabled(false);
+						txtFechaMaxCancelacion.setText("yyyy/MM/dd");
+					}
+
+				}
+			});
 			chBoxCancelacionInscripcion.setFont(new Font("Segoe UI Black", Font.BOLD, 14));
 		}
 		return chBoxCancelacionInscripcion;
@@ -1500,34 +1466,42 @@ public class VentanaApp extends JFrame {
 	private JPanel getPnTiemposCorte() {
 		if (pnTiemposCorte == null) {
 			pnTiemposCorte = new JPanel();
+			pnTiemposCorte.setBounds(10, 446, 461, 139);
 			pnTiemposCorte.setBackground(new Color(70, 130, 180));
 			GroupLayout gl_pnTiemposCorte = new GroupLayout(pnTiemposCorte);
 			gl_pnTiemposCorte.setHorizontalGroup(gl_pnTiemposCorte.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnTiemposCorte.createSequentialGroup().addContainerGap()
-							.addGroup(gl_pnTiemposCorte.createParallelGroup(Alignment.TRAILING)
-									.addGroup(gl_pnTiemposCorte.createSequentialGroup()
-											.addComponent(getLbPuntoDeCorte(), GroupLayout.DEFAULT_SIZE, 124,
-													Short.MAX_VALUE)
-											.addGap(298))
-									.addGroup(gl_pnTiemposCorte.createSequentialGroup()
-											.addComponent(getLbKilometroPuntoCorte(), GroupLayout.DEFAULT_SIZE, 185,
-													Short.MAX_VALUE)
-											.addGap(91).addComponent(getTxKilometroCorte(), GroupLayout.PREFERRED_SIZE,
-													146, GroupLayout.PREFERRED_SIZE))
-									.addComponent(getBtnAadirPuntoDe(), GroupLayout.DEFAULT_SIZE, 422, Short.MAX_VALUE))
+					.addGroup(gl_pnTiemposCorte.createSequentialGroup().addGroup(gl_pnTiemposCorte
+							.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_pnTiemposCorte.createSequentialGroup().addContainerGap()
+									.addGroup(gl_pnTiemposCorte.createParallelGroup(Alignment.TRAILING)
+											.addGroup(gl_pnTiemposCorte.createSequentialGroup()
+													.addComponent(getLbPuntoDeCorte(), GroupLayout.DEFAULT_SIZE,
+															GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+													.addGap(298))
+											.addGroup(gl_pnTiemposCorte.createSequentialGroup()
+													.addComponent(getLbKilometroPuntoCorte(), GroupLayout.DEFAULT_SIZE,
+															183, Short.MAX_VALUE)
+													.addGap(91).addComponent(getTxKilometroCorte(),
+															GroupLayout.PREFERRED_SIZE, 146,
+															GroupLayout.PREFERRED_SIZE))))
+							.addGroup(Alignment.TRAILING,
+									gl_pnTiemposCorte.createSequentialGroup().addGap(151).addComponent(
+											getBtnAadirPuntoDe(), GroupLayout.DEFAULT_SIZE, 420, Short.MAX_VALUE)))
 							.addContainerGap()));
-			gl_pnTiemposCorte.setVerticalGroup(gl_pnTiemposCorte.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnTiemposCorte.createSequentialGroup().addGap(5)
-							.addComponent(getLbPuntoDeCorte(), GroupLayout.DEFAULT_SIZE, 65, Short.MAX_VALUE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addGroup(gl_pnTiemposCorte.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getLbKilometroPuntoCorte(), GroupLayout.PREFERRED_SIZE, 23,
+			gl_pnTiemposCorte
+					.setVerticalGroup(gl_pnTiemposCorte.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_pnTiemposCorte.createSequentialGroup().addGap(5)
+									.addComponent(getLbPuntoDeCorte(), GroupLayout.DEFAULT_SIZE,
+											GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addPreferredGap(ComponentPlacement.UNRELATED)
+									.addGroup(gl_pnTiemposCorte.createParallelGroup(Alignment.BASELINE)
+											.addComponent(getLbKilometroPuntoCorte(), GroupLayout.PREFERRED_SIZE, 23,
+													GroupLayout.PREFERRED_SIZE)
+											.addComponent(getTxKilometroCorte(), GroupLayout.PREFERRED_SIZE, 19,
+													GroupLayout.PREFERRED_SIZE))
+									.addGap(18).addComponent(getBtnAadirPuntoDe(), GroupLayout.PREFERRED_SIZE, 27,
 											GroupLayout.PREFERRED_SIZE)
-									.addComponent(getTxKilometroCorte(), GroupLayout.PREFERRED_SIZE, 19,
-											GroupLayout.PREFERRED_SIZE))
-							.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getBtnAadirPuntoDe(),
-									GroupLayout.PREFERRED_SIZE, 27, GroupLayout.PREFERRED_SIZE)
-							.addGap(22)));
+									.addGap(13)));
 			pnTiemposCorte.setLayout(gl_pnTiemposCorte);
 		}
 		return pnTiemposCorte;
@@ -1574,6 +1548,7 @@ public class VentanaApp extends JFrame {
 	private JLabel getLbPuntosCorte() {
 		if (lbPuntosCorte == null) {
 			lbPuntosCorte = new JLabel("Puntos corte");
+			lbPuntosCorte.setBounds(477, 347, 254, 23);
 			lbPuntosCorte.setHorizontalAlignment(SwingConstants.LEFT);
 			lbPuntosCorte.setFont(new Font("Segoe UI Black", Font.BOLD, 16));
 		}
@@ -1583,6 +1558,7 @@ public class VentanaApp extends JFrame {
 	private JScrollPane getScrollPanePuntosCorte() {
 		if (scrollPanePuntosCorte == null) {
 			scrollPanePuntosCorte = new JScrollPane();
+			scrollPanePuntosCorte.setBounds(737, 347, 249, 79);
 			scrollPanePuntosCorte.setViewportView(getTxPuntosCorte());
 		}
 		return scrollPanePuntosCorte;
@@ -1892,7 +1868,8 @@ public class VentanaApp extends JFrame {
 						getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
 						getTxPlazasCarrera().getText(), carreraManager.getCategorias(), carreraManager.getPeriodos(),
 						carreraManager.getPuntosCorte(), getChBoxListaEspera().isSelected(),
-						getChBoxCancelacionInscripcion().isSelected());
+						getChBoxCancelacionInscripcion().isSelected(), getTxtPorcentajeADevolver().getText(),
+						getTxtFechaMaxCancelacion().getText());
 				JOptionPane.showMessageDialog(this, "La carrera se ha creado con exito", "Exito",
 						JOptionPane.INFORMATION_MESSAGE);
 				vaciarCamposCrearCarrera();
@@ -1902,10 +1879,27 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
+	private boolean comprobarCamposCancelacion() {
+		if (getChBoxCancelacionInscripcion().isSelected()) {
+			return Validadores.comprobarNoVacio(getTxtPorcentajeADevolver().getText())
+					&& Validadores.comprobarNoVacio(getTxtFechaMaxCancelacion().getText())
+					&& Validadores.comprobarMayorNumero(getTxtPorcentajeADevolver().getText(), 0)
+					&& Validadores.comprobarMenorNumero(getTxtPorcentajeADevolver().getText(), 101)
+					&& Validadores.comprobarFecha(getTxtFechaMaxCancelacion().getText())
+					&& Validadores.comprobarFechaCancelacion(carreraManager, getTxtFechaMaxCancelacion().getText(),
+							getTxFechaCarrera().getText());
+
+		}
+		return true;
+
+	}
+
 	private boolean comprobarCamposCarrera() {
 		if (Validadores.comprobarNoVacio(getTxNombreCarrera().getText())
 				&& Validadores.comprobarMayorNumero(getTxDistanciaCarrera().getText(), 0)
-				&& Validadores.comprobarMayorNumero(getTxPlazasCarrera().getText(), 0)) {
+				&& Validadores.comprobarMayorNumero(getTxPlazasCarrera().getText(), 0)
+				&& comprobarCamposCancelacion()) {
+
 			if (carreraManager.comprobarDistanciaKilometro(Integer.parseInt(getTxDistanciaCarrera().getText()))) {
 				if (carreraManager.comprobarFechaCarrera(getTxFechaCarrera().getText())) {
 					return true;
@@ -2094,5 +2088,47 @@ public class VentanaApp extends JFrame {
 
 	private void comprobarPagosOrganizador() {
 
+	}
+
+	private JTextField getTxtPorcentajeADevolver() {
+		if (txtPorcentajeADevolver == null) {
+			txtPorcentajeADevolver = new JTextField();
+			txtPorcentajeADevolver.setBounds(906, 486, 61, 28);
+			txtPorcentajeADevolver.setText("1 - 100");
+			txtPorcentajeADevolver.setEnabled(false);
+			txtPorcentajeADevolver.setColumns(10);
+		}
+		return txtPorcentajeADevolver;
+	}
+
+	private JLabel getLblFechaCancelacion() {
+		if (lblFechaCancelacion == null) {
+			lblFechaCancelacion = new JLabel("Fecha maxima de cancelacion:");
+			lblFechaCancelacion.setBounds(481, 488, 194, 23);
+			lblFechaCancelacion.setHorizontalAlignment(SwingConstants.LEFT);
+			lblFechaCancelacion.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
+		}
+		return lblFechaCancelacion;
+	}
+
+	private JLabel getLblCuota_1() {
+		if (lblCuota_1 == null) {
+			lblCuota_1 = new JLabel("Porcentaje a devolver:");
+			lblCuota_1.setBounds(747, 488, 149, 23);
+			lblCuota_1.setHorizontalAlignment(SwingConstants.LEFT);
+			lblCuota_1.setFont(new Font("Segoe UI Black", Font.BOLD, 12));
+		}
+		return lblCuota_1;
+	}
+
+	private JTextField getTxtFechaMaxCancelacion() {
+		if (txtFechaMaxCancelacion == null) {
+			txtFechaMaxCancelacion = new JTextField();
+			txtFechaMaxCancelacion.setBounds(676, 486, 61, 28);
+			txtFechaMaxCancelacion.setText("yyyy/MM/dd");
+			txtFechaMaxCancelacion.setEnabled(false);
+			txtFechaMaxCancelacion.setColumns(10);
+		}
+		return txtFechaMaxCancelacion;
 	}
 }
