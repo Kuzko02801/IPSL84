@@ -53,7 +53,7 @@ public class DtoAssembler {
 		carrera.puntosCorte = puntosCorte;
 		carrera.listaDeEspera = listaDeEspera;
 		carrera.cancelacionInscripciones = cancelacionInscripciones;
-		carrera.porcentajeADevolver = Double.valueOf(porcentajeADevolver);
+		carrera.porcentajeADevolver = cancelacionInscripciones ? Double.valueOf(porcentajeADevolver) : 0.0;
 		if (cancelacionInscripciones)
 			carrera.fechaMaxCancelacion = fechaMaxCancelacion;
 		else

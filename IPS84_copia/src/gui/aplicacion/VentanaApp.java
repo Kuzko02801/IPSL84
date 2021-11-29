@@ -148,6 +148,7 @@ public class VentanaApp extends JFrame {
 	private JLabel lblFechaCancelacion;
 	private JLabel lblCuota_1;
 	private JTextField txtFechaMaxCancelacion;
+	private JButton bntCancelarInscripcion;
 
 	/**
 	 * Create the frame.
@@ -243,14 +244,24 @@ public class VentanaApp extends JFrame {
 					.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
 							.addComponent(getBtOrdenar(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getCbCarrerasParticipante(),
-									GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addGap(428)));
-			gl_pnBotonesOrdenarParticipante.setVerticalGroup(gl_pnBotonesOrdenarParticipante
-					.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtOrdenar(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-							.addComponent(getCbCarrerasParticipante(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)));
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(getCbCarrerasParticipante(), GroupLayout.PREFERRED_SIZE,
+									GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getBntCancelarInscripcion(),
+									GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(497, Short.MAX_VALUE)));
+			gl_pnBotonesOrdenarParticipante
+					.setVerticalGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.LEADING)
+							.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
+									.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.BASELINE)
+											.addComponent(getBtOrdenar(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+											.addComponent(getCbCarrerasParticipante(), GroupLayout.DEFAULT_SIZE, 37,
+													Short.MAX_VALUE))
+									.addGap(43))
+							.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
+									.addComponent(getBntCancelarInscripcion(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE)
+									.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
 			pnBotonesOrdenarParticipante.setLayout(gl_pnBotonesOrdenarParticipante);
 		}
 		return pnBotonesOrdenarParticipante;
@@ -2130,5 +2141,61 @@ public class VentanaApp extends JFrame {
 			txtFechaMaxCancelacion.setColumns(10);
 		}
 		return txtFechaMaxCancelacion;
+	}
+
+	private JButton getBntCancelarInscripcion() {
+		if (bntCancelarInscripcion == null) {
+			bntCancelarInscripcion = new JButton("<html>Cancelar<br>Inscripcion<html/>");
+			bntCancelarInscripcion.addActionListener(new ActionListener() {
+				@Override
+				public void actionPerformed(ActionEvent e) {
+					cancelarInscripcion();
+				}
+			});
+			bntCancelarInscripcion.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			bntCancelarInscripcion.setForeground(new Color(184, 220, 245));
+			bntCancelarInscripcion.setBackground(new Color(50, 130, 181));
+		}
+		return bntCancelarInscripcion;
+	}
+
+	private void cancelarInscripcion() {
+		try {
+			if (carreraSeleccionadaParticipante()) {
+				String id_carrera = getCarreraSeleccionadaParticipante();
+				if (checkHayCancelacion(id_carrera)) {
+					if (email == null) {
+						cargarEmail();
+						return;
+					}
+
+					if (!Check.existeInscripcion(email, id_carrera)) {
+						JOptionPane.showMessageDialog(this, "No estas inscrito en esta carrera.", "Error",
+								JOptionPane.WARNING_MESSAGE);
+						return;
+					}
+					Double cantidadPagada = GuiLogic.obtenerCantidadPagada(email, id_carrera);
+					Double porcentajeDevolver = GuiLogic.porcentajeADevolver(id_carrera);
+					cancelarInscripcion(email, id_carrera);
+
+					JOptionPane.showMessageDialog(this,
+							String.format("Su inscripcion ha sido cancelada, se le devolveran %d euros.",
+									cantidadPagada * (porcentajeDevolver / 100)));
+				} else {
+					JOptionPane.showMessageDialog(this, "No se puede cancelar inscripciones en esta carrera.", "Error",
+							JOptionPane.WARNING_MESSAGE);
+				}
+			}
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+		}
+	}
+
+	private void cancelarInscripcion(String email, String id_carrera) throws BusinessDataException {
+		GuiLogic.cancelarInscripcion(email, id_carrera);
+	}
+
+	private boolean checkHayCancelacion(String id_carrera) throws BusinessDataException {
+		return GuiLogic.tieneCancelacion(id_carrera);
 	}
 }

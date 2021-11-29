@@ -33,4 +33,10 @@ public interface CarreraService {
 	boolean carreraFinalizada(String id_carrera) throws BusinessDataException;
 
 	boolean isCarreraLlena(String id_carrera) throws BusinessDataException;
+
+	boolean tieneListaEspera(String id_carrera) throws BusinessDataException;
+
+	boolean tieneCancelacion(String id_carrera) throws BusinessDataException;
+
+	Double porcentajeADevolver(String id_carrera) throws BusinessDataException;
 }

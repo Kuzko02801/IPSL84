@@ -4,3 +4,6 @@
 2642c7;j2@gmail.com;3.0;3.0;Pagado con tarjeta. Correcto.
 77531f;j@gmail.com;3.0;3.0;Pagado con tarjeta. Correcto.
 02a89f;j6@gmail.com;3.0;3.0;Pagado con tarjeta. Correcto.
+99567c;j1@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
+99567c;j1@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
+99567c;j1@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.

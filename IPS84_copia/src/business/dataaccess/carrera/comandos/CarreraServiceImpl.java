@@ -75,7 +75,18 @@ public class CarreraServiceImpl implements CarreraService {
 		return new EstaCarreraLlena(id_carrera).execute();
 	}
 
+	@Override
 	public boolean tieneListaEspera(String id_carrera) throws BusinessDataException {
 		return new TieneListaEspera(id_carrera).execute();
+	}
+
+	@Override
+	public boolean tieneCancelacion(String id_carrera) throws BusinessDataException {
+		return new TieneCancelacion(id_carrera).execute();
+	}
+
+	@Override
+	public Double porcentajeADevolver(String id_carrera) throws BusinessDataException {
+		return new PorcentajeADevolver(id_carrera).execute();
 	}
 }

@@ -1,12 +1,9 @@
 package business.dataaccess.parsers;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
-import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.exception.BusinessDataException;
-import business.dataaccess.util.DateSqlite;
 import gui.validadoresGUI.Validadores;
 
 public class PuntosCorteParser {
@@ -22,10 +19,11 @@ public class PuntosCorteParser {
 	}
 
 	public static List<Integer> devolverPuntosCorte(String texto) throws BusinessDataException {
-		if (texto == null) {
-			return null;
-		}
 		List<Integer> puntosCorte = new ArrayList<>();
+		if (texto == null || texto.equals("no-puntoscorte")) {
+			return puntosCorte;
+		}
+
 		String[] partes = texto.split(";");
 		for (String s : partes) {
 			System.out.println(s);

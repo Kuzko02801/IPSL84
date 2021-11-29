@@ -151,4 +151,16 @@ public class GuiLogic {
 	public static boolean tieneListaEspera(String id_carrera) throws BusinessDataException {
 		return DataAccessFactory.forCarreraService().tieneListaEspera(id_carrera);
 	}
+
+	public static boolean tieneCancelacion(String id_carrera) throws BusinessDataException {
+		return DataAccessFactory.forCarreraService().tieneCancelacion(id_carrera);
+	}
+
+	public static void cancelarInscripcion(String email, String id_carrera) throws BusinessDataException {
+		DataAccessFactory.forInscripcionService().cancelarInscripcion(email, id_carrera);
+	}
+
+	public static Double porcentajeADevolver(String id_carrera) throws BusinessDataException {
+		return DataAccessFactory.forCarreraService().porcentajeADevolver(id_carrera);
+	}
 }
