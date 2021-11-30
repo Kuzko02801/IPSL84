@@ -2085,11 +2085,20 @@ public class VentanaApp extends JFrame {
 
 	private void comprobarPuedePagar(String id, String email) {
 		if (puedePagar(id, email)) {
-			VentanaEscogerPago pago = new VentanaEscogerPago(this, id, email);
-			pago.setVisible(true);
+			if ( estaATiempo(id, email)) {
+				VentanaEscogerPago pago = new VentanaEscogerPago(this, id, email);
+				pago.setVisible(true);
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Fecha tardía para el pago de la carrera: " + id);
+			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Ya se ha realizado el pago sobre la carrera: " + id);
 		}
+	}
+
+	private boolean estaATiempo(String id, String email) {
+		return GuiLogic.pagoATiempo(id, email);
 	}
 
 	private boolean puedePagar(String carrera_id, String email_atleta) {

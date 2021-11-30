@@ -31,12 +31,15 @@ public class ActualizarCantidadPagada {
 			pst = con.prepareStatement(SqlStatements.SQL_ACTUALIZAR_CANTIDAD_PAGADA);
 			
 			double nuevaCantidad = pagado + GuiLogic.obtenerCantidadPagada(email, id_carrera);
-			
 			pst.setDouble(1, nuevaCantidad);
 			pst.setString(2, id_carrera);
 			pst.setString(3, email);
 			
 			pst.executeUpdate();
+			
+			con.close();
+			pst.close();
+			
 		} catch (SQLException e) {
 			throw new RuntimeException(e);
 		}
