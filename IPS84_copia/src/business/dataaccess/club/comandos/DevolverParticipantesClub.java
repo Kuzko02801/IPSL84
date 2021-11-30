@@ -24,7 +24,15 @@ public class DevolverParticipantesClub {
 		List<AtletaDto> atletasFichero = LoteAtletaParser.parsearAtletas(file);
 
 		for (AtletaDto atletaDto : atletasFichero) {
-			atletas.add(atletaDto);
+			boolean b = true;
+			for (AtletaDto atleta : atletas) {
+				if (atletaDto.email.equals(atleta.email)) {
+					b = false;
+				}
+			}
+			if (b) {
+				atletas.add(atletaDto);
+			}
 		}
 		return TablaAtletasParser.parsearParticipantesTabla(atletas);
 	}

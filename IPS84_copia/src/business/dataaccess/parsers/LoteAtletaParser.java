@@ -23,7 +23,6 @@ public class LoteAtletaParser {
 			String line;
 			int linea = 1;
 			while ((line = br.readLine()) != null) {
-				linea++;
 				String[] args = line.split(";");
 				if (args.length != 5) {
 					throw new BusinessDataException("El archivo esta corrupto en la linea " + linea);
@@ -34,19 +33,19 @@ public class LoteAtletaParser {
 					//TODO continue; si quieres que se parseen los demas aunque 1 este corrupto
 				}
 				String dni = args[1];
-				if (Validadores.comprobarNoVacio(dni)) {
+				if (!Validadores.comprobarNoVacio(dni)) {
 					throw new BusinessDataException("El archivo esta corrupto (dni incorrecto) en la linea " + linea);
 				}
 				String nombre = args[2];
-				if (Validadores.comprobarNoVacio(nombre)) {
+				if (!Validadores.comprobarNoVacio(nombre)) {
 					throw new BusinessDataException(
 							"El archivo esta corrupto (nombre incorrecto) en la linea " + linea);
 				}
-				String sexo = args[3];
+				String sexo = args[4];
 				if (!(sexo.equals("mujer") || sexo.equals("hombre"))) {
 					throw new BusinessDataException("El archivo esta corrupto (sexo incorrecto) en la linea " + linea);
 				}
-				String fechaNacimiento = args[4];
+				String fechaNacimiento = args[3];
 				if (!Validadores.comprobarMayor18(fechaNacimiento)) {
 					throw new BusinessDataException(
 							"El archivo esta corrupto (fecha nacimiento incorrecta) en la linea " + linea);

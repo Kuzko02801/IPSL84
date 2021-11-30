@@ -16,7 +16,7 @@ public class TablaAtletasParser {
 	
 	public static List<AtletaDto> parsearTablaParticipantes(JTable tablaParticipantes){
 		 List<AtletaDto> atletas=new ArrayList<AtletaDto>();
-		 for (int i = 1; i < tablaParticipantes.getRowCount(); i++) {
+		 for (int i = 0; i < tablaParticipantes.getRowCount(); i++) {
 			String email= tablaParticipantes.getModel().getValueAt(i, 0).toString();
 			String dni=tablaParticipantes.getModel().getValueAt(i, 1).toString();
 			String nombre=tablaParticipantes.getModel().getValueAt(i, 2).toString();
@@ -29,7 +29,12 @@ public class TablaAtletasParser {
 	
 	public static TableModel parsearParticipantesTabla(List<AtletaDto> listaAtletas) {
 		String col[] = { "Email", "Dni", "Nombre", "Fecha Nacimiento", "Sexo"};
-		DefaultTableModel tableModel = new DefaultTableModel(col, 0);
+		DefaultTableModel tableModel = new DefaultTableModel(col, 0) {
+			@Override
+			public boolean isCellEditable(int row, int column) {
+				return false;
+			}
+		};
 		for (AtletaDto atleta : listaAtletas) {
 			Object[] row = new Object[5];
 			List<Object> lista = new ArrayList<Object>(Arrays.asList(atleta.email,atleta.dni,atleta.nombre,atleta.fechaDeNacimiento.toString(),atleta.genero.label));

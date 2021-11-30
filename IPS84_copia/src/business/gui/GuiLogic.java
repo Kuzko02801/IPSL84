@@ -169,4 +169,5 @@ public class GuiLogic {
 		List<AtletaDto> atletas=TablaAtletasParser.parsearTablaParticipantes(tablaParticipantesClub);
 		return DataAccessFactory.forClubService().devolverParticipantesClub(file, atletas);
 	}
+
 }
