@@ -23,12 +23,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -40,9 +42,6 @@ import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.pagos.VentanaEscogerPago;
 import gui.validadoresGUI.Validadores;
-import java.awt.GridLayout;
-import javax.swing.JSeparator;
-import javax.swing.border.LineBorder;
 
 public class VentanaApp extends JFrame {
 
@@ -152,7 +151,7 @@ public class VentanaApp extends JFrame {
 	private JPanel pnCardsParticipante;
 	private JScrollPane scrollPaneTabla;
 	private JTable tablaCarrerasParticipante;
-	
+
 	private JPanel pnClub;
 	private JPanel pnFormularioClub;
 	private JScrollPane scrollPaneParticipantesClub;
@@ -213,24 +212,20 @@ public class VentanaApp extends JFrame {
 			pnParticipante.setBackground(new Color(8, 46, 70));
 			pnParticipante.setBorder(new EmptyBorder(5, 5, 5, 5));
 			GroupLayout gl_pnParticipante = new GroupLayout(pnParticipante);
-			gl_pnParticipante.setHorizontalGroup(
-				gl_pnParticipante.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnParticipante.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_pnParticipante.createParallelGroup(Alignment.LEADING)
+			gl_pnParticipante.setHorizontalGroup(gl_pnParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnParticipante.createSequentialGroup().addContainerGap().addGroup(gl_pnParticipante
+							.createParallelGroup(Alignment.LEADING)
 							.addComponent(getPnCardsParticipante(), GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
-							.addGroup(gl_pnParticipante.createSequentialGroup()
-								.addComponent(getPnBotonesParticipante(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-								.addContainerGap())))
-			);
-			gl_pnParticipante.setVerticalGroup(
-				gl_pnParticipante.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnParticipante.createSequentialGroup()
-						.addContainerGap()
-						.addComponent(getPnBotonesParticipante(), GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getPnCardsParticipante(), GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
-			);
+							.addGroup(gl_pnParticipante
+									.createSequentialGroup().addComponent(getPnBotonesParticipante(),
+											GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+									.addContainerGap()))));
+			gl_pnParticipante.setVerticalGroup(gl_pnParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnParticipante.createSequentialGroup().addContainerGap()
+							.addComponent(getPnBotonesParticipante(), GroupLayout.PREFERRED_SIZE, 93,
+									GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED)
+							.addComponent(getPnCardsParticipante(), GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)));
 			pnParticipante.setLayout(gl_pnParticipante);
 		}
 		return pnParticipante;
@@ -270,26 +265,27 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrdenarParticipante = new JPanel();
 			pnBotonesOrdenarParticipante.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrdenarParticipante = new GroupLayout(pnBotonesOrdenarParticipante);
-			gl_pnBotonesOrdenarParticipante.setHorizontalGroup(
-				gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrdenarParticipante.setHorizontalGroup(gl_pnBotonesOrdenarParticipante
+					.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
-						.addComponent(getBtOrdenar(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getCbCarrerasParticipante(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getBntCancelarInscripcion(), GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(501, Short.MAX_VALUE))
-			);
-			gl_pnBotonesOrdenarParticipante.setVerticalGroup(
-				gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.TRAILING)
+							.addComponent(getBtOrdenar(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addComponent(getCbCarrerasParticipante(), GroupLayout.PREFERRED_SIZE,
+									GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getBntCancelarInscripcion(),
+									GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+							.addContainerGap(501, Short.MAX_VALUE)));
+			gl_pnBotonesOrdenarParticipante.setVerticalGroup(gl_pnBotonesOrdenarParticipante
+					.createParallelGroup(Alignment.TRAILING)
 					.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
-						.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.TRAILING)
-							.addComponent(getBntCancelarInscripcion(), Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
-							.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.BASELINE)
-								.addComponent(getBtOrdenar(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-								.addComponent(getCbCarrerasParticipante(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
-						.addGap(43))
-			);
+							.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.TRAILING)
+									.addComponent(getBntCancelarInscripcion(), Alignment.LEADING,
+											GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+									.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.BASELINE)
+											.addComponent(getBtOrdenar(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+											.addComponent(getCbCarrerasParticipante(), GroupLayout.DEFAULT_SIZE, 37,
+													Short.MAX_VALUE)))
+							.addGap(43)));
 			pnBotonesOrdenarParticipante.setLayout(gl_pnBotonesOrdenarParticipante);
 		}
 		return pnBotonesOrdenarParticipante;
@@ -365,25 +361,30 @@ public class VentanaApp extends JFrame {
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
 
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
-			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
-				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-						.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getBtInscribirClubPanel(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap(449, Short.MAX_VALUE))
-			);
-			gl_pnBotonesInscribirseParticipante.setVerticalGroup(
-				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-						.addGap(25)
-						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
-							.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
-							.addComponent(getBtInscribirClubPanel(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)))
-			);
+			gl_pnBotonesInscribirseParticipante
+					.setHorizontalGroup(
+							gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+									.addGroup(
+											gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+													.addComponent(getBtInscribirseParticipante(),
+															GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE,
+															137, GroupLayout.PREFERRED_SIZE)
+													.addPreferredGap(ComponentPlacement.UNRELATED)
+													.addComponent(getBtInscribirClubPanel(), GroupLayout.PREFERRED_SIZE,
+															186, GroupLayout.PREFERRED_SIZE)
+													.addContainerGap(449, Short.MAX_VALUE)));
+			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
+					.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup().addGap(25)
+							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24,
+											Short.MAX_VALUE)
+									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24,
+											Short.MAX_VALUE)
+									.addComponent(getBtInscribirClubPanel(), GroupLayout.PREFERRED_SIZE, 24,
+											Short.MAX_VALUE))));
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
@@ -492,23 +493,24 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrganizador2 = new JPanel();
 			pnBotonesOrganizador2.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrganizador2 = new GroupLayout(pnBotonesOrganizador2);
-			gl_pnBotonesOrganizador2.setHorizontalGroup(
-				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
-						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED)
-						.addComponent(getBtCargarTiempos())
-						.addContainerGap(513, Short.MAX_VALUE))
-			);
-			gl_pnBotonesOrganizador2.setVerticalGroup(
-				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrganizador2
+					.setHorizontalGroup(
+							gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+									.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
+											.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE,
+													153, GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 187,
+													GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(getBtCargarTiempos()).addContainerGap(513, Short.MAX_VALUE)));
+			gl_pnBotonesOrganizador2.setVerticalGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.BASELINE)
-						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-						.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
-						.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
-			);
+							.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+							.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37,
+									GroupLayout.PREFERRED_SIZE)
+							.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37,
+									GroupLayout.PREFERRED_SIZE)));
 			pnBotonesOrganizador2.setLayout(gl_pnBotonesOrganizador2);
 		}
 		return pnBotonesOrganizador2;
@@ -1549,11 +1551,12 @@ public class VentanaApp extends JFrame {
 		}
 		return txPuntosCorte;
 	}
-	
+
 	private JButton getBtInscribirClubPanel() {
 		if (btInscribirClubPanel == null) {
 			btInscribirClubPanel = new JButton("Inscribir club");
 			btInscribirClubPanel.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelInscribirClubParticipante();
 				}
@@ -1564,16 +1567,18 @@ public class VentanaApp extends JFrame {
 		}
 		return btInscribirClubPanel;
 	}
+
 	private JPanel getPnCardsParticipante() {
 		if (pnCardsParticipante == null) {
 			pnCardsParticipante = new JPanel();
 			pnCardsParticipante.setLayout(new CardLayout(0, 0));
 			pnCardsParticipante.add(getScrollPaneTabla(), "panelCarreras");
 			pnCardsParticipante.add(getPnClub(), "panelClub");
-			
+
 		}
 		return pnCardsParticipante;
 	}
+
 	private JScrollPane getScrollPaneTabla() {
 		if (scrollPaneTabla == null) {
 			scrollPaneTabla = new JScrollPane();
@@ -1582,38 +1587,33 @@ public class VentanaApp extends JFrame {
 		}
 		return scrollPaneTabla;
 	}
+
 	private JTable getTablaCarrerasParticipante() {
 		if (tablaCarrerasParticipante == null) {
 			tablaCarrerasParticipante = new JTable();
 		}
 		return tablaCarrerasParticipante;
 	}
-	
-	
-	
-	
+
 	private JPanel getPnClub() {
 		if (pnClub == null) {
 			pnClub = new JPanel();
 			pnClub.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnClub = new GroupLayout(pnClub);
-			gl_pnClub.setHorizontalGroup(
-				gl_pnClub.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnClub.createSequentialGroup()
-						.addComponent(getPnFormularioClub(), GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addComponent(getScrollPaneParticipantesClub(), GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
-						.addContainerGap())
-			);
-			gl_pnClub.setVerticalGroup(
-				gl_pnClub.createParallelGroup(Alignment.LEADING)
+			gl_pnClub.setHorizontalGroup(gl_pnClub.createParallelGroup(Alignment.LEADING).addGroup(gl_pnClub
+					.createSequentialGroup()
+					.addComponent(getPnFormularioClub(), GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+					.addPreferredGap(ComponentPlacement.UNRELATED)
+					.addComponent(getScrollPaneParticipantesClub(), GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+					.addContainerGap()));
+			gl_pnClub.setVerticalGroup(gl_pnClub.createParallelGroup(Alignment.LEADING)
 					.addComponent(getPnFormularioClub(), GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
-					.addComponent(getScrollPaneParticipantesClub(), GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
-			);
+					.addComponent(getScrollPaneParticipantesClub(), GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE));
 			pnClub.setLayout(gl_pnClub);
 		}
 		return pnClub;
 	}
+
 	private JPanel getPnFormularioClub() {
 		if (pnFormularioClub == null) {
 			pnFormularioClub = new JPanel();
@@ -1621,93 +1621,120 @@ public class VentanaApp extends JFrame {
 			pnFormularioClub.setBorder(new LineBorder(new Color(50, 130, 181), 2));
 			pnFormularioClub.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnFormularioClub = new GroupLayout(pnFormularioClub);
-			gl_pnFormularioClub.setHorizontalGroup(
-				gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnFormularioClub.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.TRAILING)
-							.addGroup(gl_pnFormularioClub.createSequentialGroup()
-								.addComponent(getLbNombreClub(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
-								.addComponent(getTxNombreClub(), GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
-							.addComponent(getSeparator(), GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getSeparator_1(), GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
-							.addGroup(gl_pnFormularioClub.createSequentialGroup()
-								.addComponent(getLbEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-								.addComponent(getTxEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_pnFormularioClub.createSequentialGroup()
-								.addComponent(getLbDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-								.addComponent(getTxDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_pnFormularioClub.createSequentialGroup()
-								.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
-									.addComponent(getLbNombreParticipante(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
-									.addComponent(getLblFechaDeNacimiento(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE))
-								.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-								.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING, false)
-									.addComponent(getTxFechaNacimientoAtletaClub())
-									.addComponent(getTxNombreAtletaClub(), GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)))
-							.addGroup(gl_pnFormularioClub.createSequentialGroup()
-								.addComponent(getLbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
-								.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
-								.addComponent(getCbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
-							.addGroup(gl_pnFormularioClub.createSequentialGroup()
-								.addComponent(getBtEliminarParticipanteClub())
-								.addPreferredGap(ComponentPlacement.RELATED)
-								.addComponent(getBtAñadirParticipanteClub()))
-							.addComponent(getSeparator_1_1(), GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getBtInscribirClub(), GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getBtCargarFicheroClub(), Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
-						.addContainerGap())
-			);
-			gl_pnFormularioClub.setVerticalGroup(
-				gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnFormularioClub.createSequentialGroup()
-						.addContainerGap()
-						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLbNombreClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getTxNombreClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addComponent(getSeparator(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addComponent(getBtCargarFicheroClub(), GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-						.addGap(18)
-						.addComponent(getSeparator_1(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
-							.addComponent(getLbEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getTxEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
-						.addGap(10)
-						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLbDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getTxDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLbNombreParticipante(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getTxNombreAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLblFechaDeNacimiento(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getTxFechaNacimientoAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
-						.addPreferredGap(ComponentPlacement.UNRELATED)
-						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getLbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getCbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
-							.addComponent(getBtAñadirParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-							.addComponent(getBtEliminarParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
-						.addGap(18)
-						.addComponent(getSeparator_1_1(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
-						.addPreferredGap(ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
-						.addComponent(getBtInscribirClub(), GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
-						.addContainerGap())
-			);
+			gl_pnFormularioClub.setHorizontalGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnFormularioClub.createSequentialGroup().addContainerGap()
+							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.TRAILING)
+									.addGroup(gl_pnFormularioClub.createSequentialGroup()
+											.addComponent(getLbNombreClub(), GroupLayout.PREFERRED_SIZE, 183,
+													GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+											.addComponent(getTxNombreClub(), GroupLayout.PREFERRED_SIZE, 190,
+													GroupLayout.PREFERRED_SIZE))
+									.addComponent(getSeparator(), GroupLayout.PREFERRED_SIZE, 480,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getSeparator_1(), GroupLayout.PREFERRED_SIZE, 480,
+											GroupLayout.PREFERRED_SIZE)
+									.addGroup(gl_pnFormularioClub.createSequentialGroup()
+											.addComponent(getLbEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 183,
+													GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+											.addComponent(getTxEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 238,
+													GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_pnFormularioClub.createSequentialGroup()
+											.addComponent(getLbDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 183,
+													GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+											.addComponent(getTxDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 238,
+													GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_pnFormularioClub.createSequentialGroup()
+											.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+													.addComponent(getLbNombreParticipante(), GroupLayout.PREFERRED_SIZE,
+															183, GroupLayout.PREFERRED_SIZE)
+													.addComponent(getLblFechaDeNacimiento(), GroupLayout.PREFERRED_SIZE,
+															183, GroupLayout.PREFERRED_SIZE))
+											.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+											.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING, false)
+													.addComponent(getTxFechaNacimientoAtletaClub())
+													.addComponent(getTxNombreAtletaClub(), GroupLayout.DEFAULT_SIZE,
+															238, Short.MAX_VALUE)))
+									.addGroup(gl_pnFormularioClub.createSequentialGroup()
+											.addComponent(getLbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 183,
+													GroupLayout.PREFERRED_SIZE)
+											.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+											.addComponent(getCbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 238,
+													GroupLayout.PREFERRED_SIZE))
+									.addGroup(gl_pnFormularioClub.createSequentialGroup()
+											.addComponent(getBtEliminarParticipanteClub())
+											.addPreferredGap(ComponentPlacement.RELATED)
+											.addComponent(getBtAñadirParticipanteClub()))
+									.addComponent(getSeparator_1_1(), GroupLayout.PREFERRED_SIZE, 480,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtInscribirClub(), GroupLayout.PREFERRED_SIZE, 173,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtCargarFicheroClub(), Alignment.LEADING,
+											GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+							.addContainerGap()));
+			gl_pnFormularioClub.setVerticalGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnFormularioClub.createSequentialGroup().addContainerGap()
+							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getLbNombreClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getTxNombreClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(getSeparator(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(getBtCargarFicheroClub(), GroupLayout.PREFERRED_SIZE, 35,
+									GroupLayout.PREFERRED_SIZE)
+							.addGap(18)
+							.addComponent(getSeparator_1(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLbEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getTxEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE))
+							.addGap(10)
+							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getLbDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getTxDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getLbNombreParticipante(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getTxNombreAtletaClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getLblFechaDeNacimiento(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getTxFechaNacimientoAtletaClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE))
+							.addPreferredGap(ComponentPlacement.UNRELATED)
+							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+									.addComponent(getLbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 34,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getCbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 31,
+											GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+									.addComponent(getBtAñadirParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35,
+											GroupLayout.PREFERRED_SIZE)
+									.addComponent(getBtEliminarParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35,
+											GroupLayout.PREFERRED_SIZE))
+							.addGap(18)
+							.addComponent(getSeparator_1_1(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+							.addPreferredGap(ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+							.addComponent(getBtInscribirClub(), GroupLayout.PREFERRED_SIZE, 35,
+									GroupLayout.PREFERRED_SIZE)
+							.addContainerGap()));
 			pnFormularioClub.setLayout(gl_pnFormularioClub);
 		}
 		return pnFormularioClub;
 	}
+
 	private JScrollPane getScrollPaneParticipantesClub() {
 		if (scrollPaneParticipantesClub == null) {
 			scrollPaneParticipantesClub = new JScrollPane();
@@ -1716,12 +1743,14 @@ public class VentanaApp extends JFrame {
 		}
 		return scrollPaneParticipantesClub;
 	}
+
 	private JTable getTablaParticipantesClub() {
 		if (tablaParticipantesClub == null) {
 			tablaParticipantesClub = new JTable();
 		}
 		return tablaParticipantesClub;
 	}
+
 	private JLabel getLbDniAtletaClub() {
 		if (lbDniAtletaClub == null) {
 			lbDniAtletaClub = new JLabel("DNI");
@@ -1730,6 +1759,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lbDniAtletaClub;
 	}
+
 	private JLabel getLbNombreParticipante() {
 		if (lbNombreParticipante == null) {
 			lbNombreParticipante = new JLabel("Nombre y apellidos");
@@ -1738,6 +1768,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lbNombreParticipante;
 	}
+
 	private JLabel getLblFechaDeNacimiento() {
 		if (lblFechaDeNacimiento == null) {
 			lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
@@ -1746,6 +1777,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lblFechaDeNacimiento;
 	}
+
 	private JLabel getLbSexoAtletaClub() {
 		if (lbSexoAtletaClub == null) {
 			lbSexoAtletaClub = new JLabel("Sexo");
@@ -1754,6 +1786,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lbSexoAtletaClub;
 	}
+
 	private JComboBox<String> getCbSexoAtletaClub() {
 		if (cbSexoAtletaClub == null) {
 			cbSexoAtletaClub = new JComboBox<String>();
@@ -1761,6 +1794,7 @@ public class VentanaApp extends JFrame {
 		}
 		return cbSexoAtletaClub;
 	}
+
 	private JTextField getTxFechaNacimientoAtletaClub() {
 		if (txFechaNacimientoAtletaClub == null) {
 			txFechaNacimientoAtletaClub = new JTextField();
@@ -1770,6 +1804,7 @@ public class VentanaApp extends JFrame {
 		}
 		return txFechaNacimientoAtletaClub;
 	}
+
 	private JLabel getLbNombreClub() {
 		if (lbNombreClub == null) {
 			lbNombreClub = new JLabel("Nombre club");
@@ -1778,6 +1813,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lbNombreClub;
 	}
+
 	private JTextField getTxNombreClub() {
 		if (txNombreClub == null) {
 			txNombreClub = new JTextField();
@@ -1786,33 +1822,38 @@ public class VentanaApp extends JFrame {
 		}
 		return txNombreClub;
 	}
+
 	private JSeparator getSeparator() {
 		if (separator == null) {
 			separator = new JSeparator();
 		}
 		return separator;
 	}
+
 	private JButton getBtCargarFicheroClub() {
 		if (btCargarFicheroClub == null) {
 			btCargarFicheroClub = new JButton("Cargar fichero");
 			btCargarFicheroClub.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					cargarFicheroClub();
 				}
 			});
-			btCargarFicheroClub.setForeground(new Color(184,220,245));
+			btCargarFicheroClub.setForeground(new Color(184, 220, 245));
 			btCargarFicheroClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
 			btCargarFicheroClub.setEnabled(true);
 			btCargarFicheroClub.setBackground(new Color(50, 130, 181));
 		}
 		return btCargarFicheroClub;
 	}
+
 	private JSeparator getSeparator_1() {
 		if (separator_1 == null) {
 			separator_1 = new JSeparator();
 		}
 		return separator_1;
 	}
+
 	private JLabel getLbEmailAtletaClub() {
 		if (lbEmailAtletaClub == null) {
 			lbEmailAtletaClub = new JLabel("E-mail");
@@ -1821,6 +1862,7 @@ public class VentanaApp extends JFrame {
 		}
 		return lbEmailAtletaClub;
 	}
+
 	private JTextField getTxEmailAtletaClub() {
 		if (txEmailAtletaClub == null) {
 			txEmailAtletaClub = new JTextField();
@@ -1829,6 +1871,7 @@ public class VentanaApp extends JFrame {
 		}
 		return txEmailAtletaClub;
 	}
+
 	private JTextField getTxDniAtletaClub() {
 		if (txDniAtletaClub == null) {
 			txDniAtletaClub = new JTextField();
@@ -1837,6 +1880,7 @@ public class VentanaApp extends JFrame {
 		}
 		return txDniAtletaClub;
 	}
+
 	private JTextField getTxNombreAtletaClub() {
 		if (txNombreAtletaClub == null) {
 			txNombreAtletaClub = new JTextField();
@@ -1845,6 +1889,7 @@ public class VentanaApp extends JFrame {
 		}
 		return txNombreAtletaClub;
 	}
+
 	private JButton getBtAñadirParticipanteClub() {
 		if (btAñadirParticipanteClub == null) {
 			btAñadirParticipanteClub = new JButton("A\u00F1adir participante");
@@ -1855,6 +1900,7 @@ public class VentanaApp extends JFrame {
 		}
 		return btAñadirParticipanteClub;
 	}
+
 	private JButton getBtEliminarParticipanteClub() {
 		if (btEliminarParticipanteClub == null) {
 			btEliminarParticipanteClub = new JButton("Eliminar participante");
@@ -1865,12 +1911,14 @@ public class VentanaApp extends JFrame {
 		}
 		return btEliminarParticipanteClub;
 	}
+
 	private JSeparator getSeparator_1_1() {
 		if (separator_1_1 == null) {
 			separator_1_1 = new JSeparator();
 		}
 		return separator_1_1;
 	}
+
 	private JButton getBtInscribirClub() {
 		if (btInscribirClub == null) {
 			btInscribirClub = new JButton("Inscribir club");
@@ -1881,9 +1929,6 @@ public class VentanaApp extends JFrame {
 		}
 		return btInscribirClub;
 	}
-
-
-	
 
 	// METODOS PARTICIPANTE
 	private void cargarEmail() {
@@ -1908,12 +1953,12 @@ public class VentanaApp extends JFrame {
 		CardLayout cl = (CardLayout) (pnPrincipal.getLayout());
 		cl.show(pnPrincipal, "pnParticipante");
 	}
-	
+
 	private void mostrarPanelCarrerasParticipante() {
 		CardLayout cl = (CardLayout) (pnCardsParticipante.getLayout());
 		cl.show(pnCardsParticipante, "panelCarreras");
 	}
-	
+
 	private void mostrarPanelInscribirClubParticipante() {
 		CardLayout cl = (CardLayout) (pnCardsParticipante.getLayout());
 		cl.show(pnCardsParticipante, "panelClub");
@@ -2021,7 +2066,7 @@ public class VentanaApp extends JFrame {
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		} else {
-			return true; 	
+			return true;
 		}
 	}
 
@@ -2057,9 +2102,8 @@ public class VentanaApp extends JFrame {
 		return false;
 	}
 
-	
 	private void cargarFicheroClub() {
-		//TODO
+		// TODO
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new FileNameExtensionFilter("Fichero Lote Atletas", "fla"));
 		int returnVal = fc.showOpenDialog(this);
@@ -2070,15 +2114,15 @@ public class VentanaApp extends JFrame {
 			} catch (BusinessDataException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			}
-		} else if (returnVal==JFileChooser.CANCEL_OPTION){
+		} else if (returnVal == JFileChooser.CANCEL_OPTION) {
 			JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun archivo", "Error",
 					JOptionPane.WARNING_MESSAGE);
 		}
 	}
+
 	private void cargaTablaParticipantes(File file) throws BusinessDataException {
-		tablaParticipantesClub.setModel(GuiLogic.cargaParticipantesClub(file,getTablaParticipantesClub()));
+		tablaParticipantesClub.setModel(GuiLogic.cargaParticipantesClub(file, getTablaParticipantesClub()));
 	}
-	
 
 	// METODOS ORGANIZADOR
 
@@ -2473,25 +2517,25 @@ public class VentanaApp extends JFrame {
 						return;
 					}
 
-					if (!Check.estaInscripcionPagada(email, id_carrera)) {
-						JOptionPane.showMessageDialog(this, "Estas pre-inscrito, por favor paga la inscripcion.",
-								"Error", JOptionPane.WARNING_MESSAGE);
-						return;
-					}
+					String mensaje;
 
-					Double cantidadPagada = GuiLogic.obtenerCantidadPagada(email, id_carrera);
-					Double porcentajeDevolver = GuiLogic.porcentajeADevolver(id_carrera);
+					if (!Check.estaInscripcionPagada(email, id_carrera)) {
+						mensaje = "Se ha cancelado su inscripcion.";
+					} else {
+						Double cantidadPagada = GuiLogic.obtenerCantidadPagada(email, id_carrera);
+						Double porcentajeDevolver = GuiLogic.porcentajeADevolver(id_carrera);
+						mensaje = String.format("Su inscripcion ha sido cancelada, se le devolveran %.2f euros.",
+								cantidadPagada * (porcentajeDevolver / 100));
+					}
 
 					cancelarInscripcion(email, id_carrera);
 
-					JOptionPane.showMessageDialog(this,
-							String.format("Su inscripcion ha sido cancelada, se le devolveran %.2f euros.",
-									cantidadPagada * (porcentajeDevolver / 100)));
+					JOptionPane.showMessageDialog(this, mensaje);
 				} else {
 					JOptionPane.showMessageDialog(this, "No se puede cancelar inscripciones en esta carrera.", "Error",
 							JOptionPane.WARNING_MESSAGE);
 				}
-			}else {
+			} else {
 				JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna carrera", "Error",
 						JOptionPane.WARNING_MESSAGE);
 			}
@@ -2507,5 +2551,5 @@ public class VentanaApp extends JFrame {
 	private boolean checkHayCancelacion(String id_carrera) throws BusinessDataException {
 		return GuiLogic.tieneCancelacion(id_carrera);
 	}
-	
+
 }

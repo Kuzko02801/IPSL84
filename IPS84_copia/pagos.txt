@@ -14,3 +14,4 @@
 99567c;j1@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
 99567c;j1@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
 74fe15;bycalitos@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
+99567c;j2@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
