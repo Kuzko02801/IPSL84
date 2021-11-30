@@ -12,6 +12,7 @@ import business.dataaccess.dto.carrera.Categoria;
 import business.dataaccess.dto.carrera.Periodo;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
 import business.dataaccess.exception.BusinessDataException;
+import business.dataaccess.parsers.TablaAtletasParser;
 import business.dataaccess.util.Check;
 
 /*
@@ -162,5 +163,10 @@ public class GuiLogic {
 
 	public static Double porcentajeADevolver(String id_carrera) throws BusinessDataException {
 		return DataAccessFactory.forCarreraService().porcentajeADevolver(id_carrera);
+	}
+
+	public static TableModel cargaParticipantesClub(File file, JTable tablaParticipantesClub) throws BusinessDataException {
+		List<AtletaDto> atletas=TablaAtletasParser.parsearTablaParticipantes(tablaParticipantesClub);
+		return DataAccessFactory.forClubService().devolverParticipantesClub(file, atletas);
 	}
 }

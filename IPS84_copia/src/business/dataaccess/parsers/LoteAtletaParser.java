@@ -14,20 +14,6 @@ import gui.validadoresGUI.Validadores;
 
 public class LoteAtletaParser {
 
-	public static String parsearIdCarrera(File atletas) throws BusinessDataException {
-		String id = null;
-		try {
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(atletas)));
-			id = br.readLine();
-			br.close();
-		} catch (Exception e) {
-			throw new BusinessDataException("Ha habido un problema leyendo el fichero");
-		}
-		if (id == null || id.trim().length() == 0) {
-			throw new BusinessDataException("El fichero está corrupto");
-		}
-		return id;
-	}
 
 	public static ArrayList<AtletaDto> parsearAtletas(File atletasFile) throws BusinessDataException {
 		ArrayList<AtletaDto> atletas = new ArrayList<AtletaDto>();

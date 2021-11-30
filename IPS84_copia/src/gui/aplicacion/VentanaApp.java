@@ -40,6 +40,9 @@ import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.pagos.VentanaEscogerPago;
 import gui.validadoresGUI.Validadores;
+import java.awt.GridLayout;
+import javax.swing.JSeparator;
+import javax.swing.border.LineBorder;
 
 public class VentanaApp extends JFrame {
 
@@ -48,8 +51,6 @@ public class VentanaApp extends JFrame {
 	private JPanel pnParticipante;
 	private JPanel pnBotonesParticipante;
 	private JPanel pnBotonesOrdenarParticipante;
-	private JScrollPane scrollPaneTabla;
-	private JTable tablaCarrerasParticipante;
 	private JButton btOrdenar;
 	private JComboBox<String> cbCarrerasParticipante;
 	private JMenuBar menuBar;
@@ -132,7 +133,6 @@ public class VentanaApp extends JFrame {
 
 	private CarreraManager carreraManager;
 	private String email;
-	private JButton btInscribirClubOrganizador;
 	private JCheckBox chBoxListaEspera;
 	private JCheckBox chBoxCancelacionInscripcion;
 	private JPanel pnTiemposCorte;
@@ -143,12 +143,39 @@ public class VentanaApp extends JFrame {
 	private JLabel lbPuntosCorte;
 	private JScrollPane scrollPanePuntosCorte;
 	private JTextArea txPuntosCorte;
-	private JButton btComprobarPagos;
 	private JTextField txtPorcentajeADevolver;
 	private JLabel lblFechaCancelacion;
 	private JLabel lblCuota_1;
 	private JTextField txtFechaMaxCancelacion;
 	private JButton bntCancelarInscripcion;
+	private JButton btInscribirClubPanel;
+	private JPanel pnCardsParticipante;
+	private JScrollPane scrollPaneTabla;
+	private JTable tablaCarrerasParticipante;
+	
+	private JPanel pnClub;
+	private JPanel pnFormularioClub;
+	private JScrollPane scrollPaneParticipantesClub;
+	private JTable tablaParticipantesClub;
+	private JLabel lbDniAtletaClub;
+	private JLabel lbNombreParticipante;
+	private JLabel lblFechaDeNacimiento;
+	private JLabel lbSexoAtletaClub;
+	private JComboBox<String> cbSexoAtletaClub;
+	private JTextField txFechaNacimientoAtletaClub;
+	private JLabel lbNombreClub;
+	private JTextField txNombreClub;
+	private JSeparator separator;
+	private JButton btCargarFicheroClub;
+	private JSeparator separator_1;
+	private JLabel lbEmailAtletaClub;
+	private JTextField txEmailAtletaClub;
+	private JTextField txDniAtletaClub;
+	private JTextField txNombreAtletaClub;
+	private JButton btAñadirParticipanteClub;
+	private JButton btEliminarParticipanteClub;
+	private JSeparator separator_1_1;
+	private JButton btInscribirClub;
 
 	/**
 	 * Create the frame.
@@ -186,21 +213,24 @@ public class VentanaApp extends JFrame {
 			pnParticipante.setBackground(new Color(8, 46, 70));
 			pnParticipante.setBorder(new EmptyBorder(5, 5, 5, 5));
 			GroupLayout gl_pnParticipante = new GroupLayout(pnParticipante);
-			gl_pnParticipante.setHorizontalGroup(gl_pnParticipante.createParallelGroup(Alignment.TRAILING)
-					.addGroup(Alignment.LEADING, gl_pnParticipante.createSequentialGroup().addContainerGap()
-							.addGroup(gl_pnParticipante.createParallelGroup(Alignment.LEADING)
-									.addComponent(getScrollPaneTabla(), GroupLayout.DEFAULT_SIZE, 756, Short.MAX_VALUE)
-									.addGroup(gl_pnParticipante
-											.createSequentialGroup().addComponent(getPnBotonesParticipante(),
-													GroupLayout.PREFERRED_SIZE, 746, Short.MAX_VALUE)
-											.addContainerGap()))));
-			gl_pnParticipante.setVerticalGroup(gl_pnParticipante.createParallelGroup(Alignment.LEADING)
-					.addGroup(gl_pnParticipante.createSequentialGroup().addContainerGap()
-							.addComponent(getPnBotonesParticipante(), GroupLayout.PREFERRED_SIZE, 93,
-									GroupLayout.PREFERRED_SIZE)
-							.addGap(18)
-							.addComponent(getScrollPaneTabla(), GroupLayout.DEFAULT_SIZE, 390, Short.MAX_VALUE)
-							.addContainerGap()));
+			gl_pnParticipante.setHorizontalGroup(
+				gl_pnParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnParticipante.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_pnParticipante.createParallelGroup(Alignment.LEADING)
+							.addComponent(getPnCardsParticipante(), GroupLayout.DEFAULT_SIZE, 998, Short.MAX_VALUE)
+							.addGroup(gl_pnParticipante.createSequentialGroup()
+								.addComponent(getPnBotonesParticipante(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+								.addContainerGap())))
+			);
+			gl_pnParticipante.setVerticalGroup(
+				gl_pnParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnParticipante.createSequentialGroup()
+						.addContainerGap()
+						.addComponent(getPnBotonesParticipante(), GroupLayout.PREFERRED_SIZE, 93, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getPnCardsParticipante(), GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE))
+			);
 			pnParticipante.setLayout(gl_pnParticipante);
 		}
 		return pnParticipante;
@@ -240,53 +270,29 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrdenarParticipante = new JPanel();
 			pnBotonesOrdenarParticipante.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrdenarParticipante = new GroupLayout(pnBotonesOrdenarParticipante);
-			gl_pnBotonesOrdenarParticipante.setHorizontalGroup(gl_pnBotonesOrdenarParticipante
-					.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrdenarParticipante.setHorizontalGroup(
+				gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
-							.addComponent(getBtOrdenar(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED)
-							.addComponent(getCbCarrerasParticipante(), GroupLayout.PREFERRED_SIZE,
-									GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
-							.addPreferredGap(ComponentPlacement.UNRELATED).addComponent(getBntCancelarInscripcion(),
-									GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
-							.addContainerGap(497, Short.MAX_VALUE)));
-			gl_pnBotonesOrdenarParticipante
-					.setVerticalGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.LEADING)
-							.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
-									.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.BASELINE)
-											.addComponent(getBtOrdenar(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-											.addComponent(getCbCarrerasParticipante(), GroupLayout.DEFAULT_SIZE, 37,
-													Short.MAX_VALUE))
-									.addGap(43))
-							.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
-									.addComponent(getBntCancelarInscripcion(), GroupLayout.PREFERRED_SIZE, 34,
-											GroupLayout.PREFERRED_SIZE)
-									.addContainerGap(GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)));
+						.addComponent(getBtOrdenar(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getCbCarrerasParticipante(), GroupLayout.PREFERRED_SIZE, GroupLayout.DEFAULT_SIZE, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getBntCancelarInscripcion(), GroupLayout.PREFERRED_SIZE, 135, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(501, Short.MAX_VALUE))
+			);
+			gl_pnBotonesOrdenarParticipante.setVerticalGroup(
+				gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnBotonesOrdenarParticipante.createSequentialGroup()
+						.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.TRAILING)
+							.addComponent(getBntCancelarInscripcion(), Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 37, Short.MAX_VALUE)
+							.addGroup(gl_pnBotonesOrdenarParticipante.createParallelGroup(Alignment.BASELINE)
+								.addComponent(getBtOrdenar(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+								.addComponent(getCbCarrerasParticipante(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)))
+						.addGap(43))
+			);
 			pnBotonesOrdenarParticipante.setLayout(gl_pnBotonesOrdenarParticipante);
 		}
 		return pnBotonesOrdenarParticipante;
-	}
-
-	private JScrollPane getScrollPaneTabla() {
-		if (scrollPaneTabla == null) {
-			scrollPaneTabla = new JScrollPane();
-			scrollPaneTabla.setBackground(new Color(50, 130, 181));
-			scrollPaneTabla.setViewportView(getTablaCarrerasParticipante());
-		}
-		return scrollPaneTabla;
-	}
-
-	private JTable getTablaCarrerasParticipante() {
-		if (tablaCarrerasParticipante == null) {
-			tablaCarrerasParticipante = new JTable();
-			tablaCarrerasParticipante.setSelectionBackground(new Color(50, 130, 181));
-			tablaCarrerasParticipante.setSelectionForeground(new Color(184, 220, 245));
-			tablaCarrerasParticipante.setForeground(Color.BLACK);
-			tablaCarrerasParticipante.setBackground(Color.WHITE);
-			tablaCarrerasParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			tablaCarrerasParticipante.setRowHeight(25);
-		}
-		return tablaCarrerasParticipante;
 	}
 
 	private JButton getBtOrdenar() {
@@ -358,36 +364,26 @@ public class VentanaApp extends JFrame {
 			pnBotonesInscribirseParticipante = new JPanel();
 			pnBotonesInscribirseParticipante.setBackground(new Color(8, 46, 70));
 
-			JButton btPagarParticipante_1 = new JButton("Pagar");
-			btPagarParticipante_1.setForeground(new Color(184, 220, 245));
-			btPagarParticipante_1.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			btPagarParticipante_1.setBackground(new Color(50, 130, 181));
-
 			GroupLayout gl_pnBotonesInscribirseParticipante = new GroupLayout(pnBotonesInscribirseParticipante);
-			gl_pnBotonesInscribirseParticipante
-					.setHorizontalGroup(
-							gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
-									.addGroup(
-											gl_pnBotonesInscribirseParticipante.createSequentialGroup()
-													.addComponent(getBtInscribirseParticipante(),
-															GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE,
-															137, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.UNRELATED)
-													.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE,
-															137, GroupLayout.PREFERRED_SIZE)
-													.addContainerGap(454, Short.MAX_VALUE)));
-			gl_pnBotonesInscribirseParticipante.setVerticalGroup(gl_pnBotonesInscribirseParticipante
-					.createParallelGroup(Alignment.TRAILING)
-					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup().addGap(25)
-							.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
-									.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24,
-											Short.MAX_VALUE)
-									.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24,
-											Short.MAX_VALUE)
-									.addComponent(btPagarParticipante_1, GroupLayout.PREFERRED_SIZE, 24,
-											GroupLayout.PREFERRED_SIZE))));
+			gl_pnBotonesInscribirseParticipante.setHorizontalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 137, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getBtInscribirClubPanel(), GroupLayout.PREFERRED_SIZE, 186, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap(449, Short.MAX_VALUE))
+			);
+			gl_pnBotonesInscribirseParticipante.setVerticalGroup(
+				gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.TRAILING)
+					.addGroup(gl_pnBotonesInscribirseParticipante.createSequentialGroup()
+						.addGap(25)
+						.addGroup(gl_pnBotonesInscribirseParticipante.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getBtInscribirseParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(getBtPagarParticipante(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)
+							.addComponent(getBtInscribirClubPanel(), GroupLayout.PREFERRED_SIZE, 24, Short.MAX_VALUE)))
+			);
 			pnBotonesInscribirseParticipante.setLayout(gl_pnBotonesInscribirseParticipante);
 		}
 		return pnBotonesInscribirseParticipante;
@@ -496,36 +492,23 @@ public class VentanaApp extends JFrame {
 			pnBotonesOrganizador2 = new JPanel();
 			pnBotonesOrganizador2.setBackground(new Color(8, 46, 70));
 			GroupLayout gl_pnBotonesOrganizador2 = new GroupLayout(pnBotonesOrganizador2);
-			gl_pnBotonesOrganizador2
-					.setHorizontalGroup(
-							gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
-									.addGroup(
-											gl_pnBotonesOrganizador2.createSequentialGroup()
-													.addComponent(getBtCrearCarreraOrganizador(),
-															GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE,
-															187, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(getBtCargarTiempos())
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(getBtInscribirClubOrganizador(),
-															GroupLayout.PREFERRED_SIZE, 123, GroupLayout.PREFERRED_SIZE)
-													.addPreferredGap(ComponentPlacement.RELATED)
-													.addComponent(getBtComprobarPagos(), GroupLayout.PREFERRED_SIZE,
-															169, GroupLayout.PREFERRED_SIZE)
-													.addContainerGap(167, Short.MAX_VALUE)));
-			gl_pnBotonesOrganizador2.setVerticalGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+			gl_pnBotonesOrganizador2.setHorizontalGroup(
+				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnBotonesOrganizador2.createSequentialGroup()
+						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.PREFERRED_SIZE, 153, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 187, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED)
+						.addComponent(getBtCargarTiempos())
+						.addContainerGap(513, Short.MAX_VALUE))
+			);
+			gl_pnBotonesOrganizador2.setVerticalGroup(
+				gl_pnBotonesOrganizador2.createParallelGroup(Alignment.LEADING)
 					.addGroup(gl_pnBotonesOrganizador2.createParallelGroup(Alignment.BASELINE)
-							.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
-							.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37,
-									GroupLayout.PREFERRED_SIZE)
-							.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37,
-									GroupLayout.PREFERRED_SIZE)
-							.addComponent(getBtInscribirClubOrganizador(), GroupLayout.DEFAULT_SIZE, 37,
-									Short.MAX_VALUE)
-							.addComponent(getBtComprobarPagos(), GroupLayout.PREFERRED_SIZE, 37,
-									GroupLayout.PREFERRED_SIZE)));
+						.addComponent(getBtCrearCarreraOrganizador(), GroupLayout.DEFAULT_SIZE, 37, Short.MAX_VALUE)
+						.addComponent(getBtGenerarDorsales(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE)
+						.addComponent(getBtCargarTiempos(), GroupLayout.PREFERRED_SIZE, 37, GroupLayout.PREFERRED_SIZE))
+			);
 			pnBotonesOrganizador2.setLayout(gl_pnBotonesOrganizador2);
 		}
 		return pnBotonesOrganizador2;
@@ -1422,22 +1405,6 @@ public class VentanaApp extends JFrame {
 		return mnItemEmail;
 	}
 
-	private JButton getBtInscribirClubOrganizador() {
-		if (btInscribirClubOrganizador == null) {
-			btInscribirClubOrganizador = new JButton("Inscribir club");
-			btInscribirClubOrganizador.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					inscribirClubOrganizador();
-				}
-			});
-			btInscribirClubOrganizador.setForeground(new Color(184, 220, 245));
-			btInscribirClubOrganizador.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			btInscribirClubOrganizador.setBackground(new Color(50, 130, 181));
-		}
-		return btInscribirClubOrganizador;
-	}
-
 	private JCheckBox getChBoxListaEspera() {
 		if (chBoxListaEspera == null) {
 			chBoxListaEspera = new JCheckBox("Lista de espera");
@@ -1582,6 +1549,341 @@ public class VentanaApp extends JFrame {
 		}
 		return txPuntosCorte;
 	}
+	
+	private JButton getBtInscribirClubPanel() {
+		if (btInscribirClubPanel == null) {
+			btInscribirClubPanel = new JButton("Inscribir club");
+			btInscribirClubPanel.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					mostrarPanelInscribirClubParticipante();
+				}
+			});
+			btInscribirClubPanel.setForeground(new Color(184, 220, 245));
+			btInscribirClubPanel.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
+			btInscribirClubPanel.setBackground(new Color(50, 130, 181));
+		}
+		return btInscribirClubPanel;
+	}
+	private JPanel getPnCardsParticipante() {
+		if (pnCardsParticipante == null) {
+			pnCardsParticipante = new JPanel();
+			pnCardsParticipante.setLayout(new CardLayout(0, 0));
+			pnCardsParticipante.add(getScrollPaneTabla(), "panelCarreras");
+			pnCardsParticipante.add(getPnClub(), "panelClub");
+			
+		}
+		return pnCardsParticipante;
+	}
+	private JScrollPane getScrollPaneTabla() {
+		if (scrollPaneTabla == null) {
+			scrollPaneTabla = new JScrollPane();
+			scrollPaneTabla.setBackground(new Color(50, 130, 181));
+			scrollPaneTabla.setViewportView(getTablaCarrerasParticipante());
+		}
+		return scrollPaneTabla;
+	}
+	private JTable getTablaCarrerasParticipante() {
+		if (tablaCarrerasParticipante == null) {
+			tablaCarrerasParticipante = new JTable();
+		}
+		return tablaCarrerasParticipante;
+	}
+	
+	
+	
+	
+	private JPanel getPnClub() {
+		if (pnClub == null) {
+			pnClub = new JPanel();
+			pnClub.setBackground(new Color(8, 46, 70));
+			GroupLayout gl_pnClub = new GroupLayout(pnClub);
+			gl_pnClub.setHorizontalGroup(
+				gl_pnClub.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnClub.createSequentialGroup()
+						.addComponent(getPnFormularioClub(), GroupLayout.PREFERRED_SIZE, 500, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addComponent(getScrollPaneParticipantesClub(), GroupLayout.DEFAULT_SIZE, 478, Short.MAX_VALUE)
+						.addContainerGap())
+			);
+			gl_pnClub.setVerticalGroup(
+				gl_pnClub.createParallelGroup(Alignment.LEADING)
+					.addComponent(getPnFormularioClub(), GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+					.addComponent(getScrollPaneParticipantesClub(), GroupLayout.DEFAULT_SIZE, 624, Short.MAX_VALUE)
+			);
+			pnClub.setLayout(gl_pnClub);
+		}
+		return pnClub;
+	}
+	private JPanel getPnFormularioClub() {
+		if (pnFormularioClub == null) {
+			pnFormularioClub = new JPanel();
+			pnFormularioClub.setForeground(new Color(220, 220, 220));
+			pnFormularioClub.setBorder(new LineBorder(new Color(50, 130, 181), 2));
+			pnFormularioClub.setBackground(new Color(8, 46, 70));
+			GroupLayout gl_pnFormularioClub = new GroupLayout(pnFormularioClub);
+			gl_pnFormularioClub.setHorizontalGroup(
+				gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnFormularioClub.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.TRAILING)
+							.addGroup(gl_pnFormularioClub.createSequentialGroup()
+								.addComponent(getLbNombreClub(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 107, Short.MAX_VALUE)
+								.addComponent(getTxNombreClub(), GroupLayout.PREFERRED_SIZE, 190, GroupLayout.PREFERRED_SIZE))
+							.addComponent(getSeparator(), GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getSeparator_1(), GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
+							.addGroup(gl_pnFormularioClub.createSequentialGroup()
+								.addComponent(getLbEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+								.addComponent(getTxEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_pnFormularioClub.createSequentialGroup()
+								.addComponent(getLbDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+								.addComponent(getTxDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_pnFormularioClub.createSequentialGroup()
+								.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+									.addComponent(getLbNombreParticipante(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+									.addComponent(getLblFechaDeNacimiento(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE))
+								.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+								.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING, false)
+									.addComponent(getTxFechaNacimientoAtletaClub())
+									.addComponent(getTxNombreAtletaClub(), GroupLayout.DEFAULT_SIZE, 238, Short.MAX_VALUE)))
+							.addGroup(gl_pnFormularioClub.createSequentialGroup()
+								.addComponent(getLbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 183, GroupLayout.PREFERRED_SIZE)
+								.addPreferredGap(ComponentPlacement.RELATED, 59, Short.MAX_VALUE)
+								.addComponent(getCbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 238, GroupLayout.PREFERRED_SIZE))
+							.addGroup(gl_pnFormularioClub.createSequentialGroup()
+								.addComponent(getBtEliminarParticipanteClub())
+								.addPreferredGap(ComponentPlacement.RELATED)
+								.addComponent(getBtAñadirParticipanteClub()))
+							.addComponent(getSeparator_1_1(), GroupLayout.PREFERRED_SIZE, 480, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getBtInscribirClub(), GroupLayout.PREFERRED_SIZE, 173, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getBtCargarFicheroClub(), Alignment.LEADING, GroupLayout.PREFERRED_SIZE, 200, GroupLayout.PREFERRED_SIZE))
+						.addContainerGap())
+			);
+			gl_pnFormularioClub.setVerticalGroup(
+				gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+					.addGroup(gl_pnFormularioClub.createSequentialGroup()
+						.addContainerGap()
+						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLbNombreClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getTxNombreClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addComponent(getSeparator(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addComponent(getBtCargarFicheroClub(), GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+						.addGap(18)
+						.addComponent(getSeparator_1(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+							.addComponent(getLbEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getTxEmailAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+						.addGap(10)
+						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLbDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getTxDniAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLbNombreParticipante(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getTxNombreAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLblFechaDeNacimiento(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getTxFechaNacimientoAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE))
+						.addPreferredGap(ComponentPlacement.UNRELATED)
+						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.BASELINE)
+							.addComponent(getLbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 34, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getCbSexoAtletaClub(), GroupLayout.PREFERRED_SIZE, 31, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
+							.addComponent(getBtAñadirParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+							.addComponent(getBtEliminarParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE))
+						.addGap(18)
+						.addComponent(getSeparator_1_1(), GroupLayout.PREFERRED_SIZE, 1, GroupLayout.PREFERRED_SIZE)
+						.addPreferredGap(ComponentPlacement.RELATED, 144, Short.MAX_VALUE)
+						.addComponent(getBtInscribirClub(), GroupLayout.PREFERRED_SIZE, 35, GroupLayout.PREFERRED_SIZE)
+						.addContainerGap())
+			);
+			pnFormularioClub.setLayout(gl_pnFormularioClub);
+		}
+		return pnFormularioClub;
+	}
+	private JScrollPane getScrollPaneParticipantesClub() {
+		if (scrollPaneParticipantesClub == null) {
+			scrollPaneParticipantesClub = new JScrollPane();
+			scrollPaneParticipantesClub.setBorder(new LineBorder(new Color(50, 130, 181), 2));
+			scrollPaneParticipantesClub.setViewportView(getTablaParticipantesClub());
+		}
+		return scrollPaneParticipantesClub;
+	}
+	private JTable getTablaParticipantesClub() {
+		if (tablaParticipantesClub == null) {
+			tablaParticipantesClub = new JTable();
+		}
+		return tablaParticipantesClub;
+	}
+	private JLabel getLbDniAtletaClub() {
+		if (lbDniAtletaClub == null) {
+			lbDniAtletaClub = new JLabel("DNI");
+			lbDniAtletaClub.setForeground(new Color(184, 220, 245));
+			lbDniAtletaClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		}
+		return lbDniAtletaClub;
+	}
+	private JLabel getLbNombreParticipante() {
+		if (lbNombreParticipante == null) {
+			lbNombreParticipante = new JLabel("Nombre y apellidos");
+			lbNombreParticipante.setForeground(new Color(184, 220, 245));
+			lbNombreParticipante.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		}
+		return lbNombreParticipante;
+	}
+	private JLabel getLblFechaDeNacimiento() {
+		if (lblFechaDeNacimiento == null) {
+			lblFechaDeNacimiento = new JLabel("Fecha de nacimiento");
+			lblFechaDeNacimiento.setForeground(new Color(184, 220, 245));
+			lblFechaDeNacimiento.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		}
+		return lblFechaDeNacimiento;
+	}
+	private JLabel getLbSexoAtletaClub() {
+		if (lbSexoAtletaClub == null) {
+			lbSexoAtletaClub = new JLabel("Sexo");
+			lbSexoAtletaClub.setForeground(new Color(184, 220, 245));
+			lbSexoAtletaClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		}
+		return lbSexoAtletaClub;
+	}
+	private JComboBox<String> getCbSexoAtletaClub() {
+		if (cbSexoAtletaClub == null) {
+			cbSexoAtletaClub = new JComboBox<String>();
+			cbSexoAtletaClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		}
+		return cbSexoAtletaClub;
+	}
+	private JTextField getTxFechaNacimientoAtletaClub() {
+		if (txFechaNacimientoAtletaClub == null) {
+			txFechaNacimientoAtletaClub = new JTextField();
+			txFechaNacimientoAtletaClub.setText("yyyy/MM/dd");
+			txFechaNacimientoAtletaClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			txFechaNacimientoAtletaClub.setColumns(10);
+		}
+		return txFechaNacimientoAtletaClub;
+	}
+	private JLabel getLbNombreClub() {
+		if (lbNombreClub == null) {
+			lbNombreClub = new JLabel("Nombre club");
+			lbNombreClub.setForeground(new Color(184, 220, 245));
+			lbNombreClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		}
+		return lbNombreClub;
+	}
+	private JTextField getTxNombreClub() {
+		if (txNombreClub == null) {
+			txNombreClub = new JTextField();
+			txNombreClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			txNombreClub.setColumns(10);
+		}
+		return txNombreClub;
+	}
+	private JSeparator getSeparator() {
+		if (separator == null) {
+			separator = new JSeparator();
+		}
+		return separator;
+	}
+	private JButton getBtCargarFicheroClub() {
+		if (btCargarFicheroClub == null) {
+			btCargarFicheroClub = new JButton("Cargar fichero");
+			btCargarFicheroClub.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					cargarFicheroClub();
+				}
+			});
+			btCargarFicheroClub.setForeground(new Color(184,220,245));
+			btCargarFicheroClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+			btCargarFicheroClub.setEnabled(true);
+			btCargarFicheroClub.setBackground(new Color(50, 130, 181));
+		}
+		return btCargarFicheroClub;
+	}
+	private JSeparator getSeparator_1() {
+		if (separator_1 == null) {
+			separator_1 = new JSeparator();
+		}
+		return separator_1;
+	}
+	private JLabel getLbEmailAtletaClub() {
+		if (lbEmailAtletaClub == null) {
+			lbEmailAtletaClub = new JLabel("E-mail");
+			lbEmailAtletaClub.setForeground(new Color(184, 220, 245));
+			lbEmailAtletaClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 16));
+		}
+		return lbEmailAtletaClub;
+	}
+	private JTextField getTxEmailAtletaClub() {
+		if (txEmailAtletaClub == null) {
+			txEmailAtletaClub = new JTextField();
+			txEmailAtletaClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			txEmailAtletaClub.setColumns(10);
+		}
+		return txEmailAtletaClub;
+	}
+	private JTextField getTxDniAtletaClub() {
+		if (txDniAtletaClub == null) {
+			txDniAtletaClub = new JTextField();
+			txDniAtletaClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			txDniAtletaClub.setColumns(10);
+		}
+		return txDniAtletaClub;
+	}
+	private JTextField getTxNombreAtletaClub() {
+		if (txNombreAtletaClub == null) {
+			txNombreAtletaClub = new JTextField();
+			txNombreAtletaClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			txNombreAtletaClub.setColumns(10);
+		}
+		return txNombreAtletaClub;
+	}
+	private JButton getBtAñadirParticipanteClub() {
+		if (btAñadirParticipanteClub == null) {
+			btAñadirParticipanteClub = new JButton("A\u00F1adir participante");
+			btAñadirParticipanteClub.setForeground(new Color(184, 220, 245));
+			btAñadirParticipanteClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			btAñadirParticipanteClub.setEnabled(true);
+			btAñadirParticipanteClub.setBackground(new Color(50, 130, 181));
+		}
+		return btAñadirParticipanteClub;
+	}
+	private JButton getBtEliminarParticipanteClub() {
+		if (btEliminarParticipanteClub == null) {
+			btEliminarParticipanteClub = new JButton("Eliminar participante");
+			btEliminarParticipanteClub.setForeground(new Color(184, 220, 245));
+			btEliminarParticipanteClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			btEliminarParticipanteClub.setEnabled(true);
+			btEliminarParticipanteClub.setBackground(new Color(50, 130, 181));
+		}
+		return btEliminarParticipanteClub;
+	}
+	private JSeparator getSeparator_1_1() {
+		if (separator_1_1 == null) {
+			separator_1_1 = new JSeparator();
+		}
+		return separator_1_1;
+	}
+	private JButton getBtInscribirClub() {
+		if (btInscribirClub == null) {
+			btInscribirClub = new JButton("Inscribir club");
+			btInscribirClub.setForeground(new Color(184, 220, 245));
+			btInscribirClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			btInscribirClub.setEnabled(true);
+			btInscribirClub.setBackground(new Color(50, 130, 181));
+		}
+		return btInscribirClub;
+	}
+
+
+	
 
 	// METODOS PARTICIPANTE
 	private void cargarEmail() {
@@ -1606,8 +1908,19 @@ public class VentanaApp extends JFrame {
 		CardLayout cl = (CardLayout) (pnPrincipal.getLayout());
 		cl.show(pnPrincipal, "pnParticipante");
 	}
+	
+	private void mostrarPanelCarrerasParticipante() {
+		CardLayout cl = (CardLayout) (pnCardsParticipante.getLayout());
+		cl.show(pnCardsParticipante, "panelCarreras");
+	}
+	
+	private void mostrarPanelInscribirClubParticipante() {
+		CardLayout cl = (CardLayout) (pnCardsParticipante.getLayout());
+		cl.show(pnCardsParticipante, "panelClub");
+	}
 
 	private void mostrarCarrerasParticipante() {
+		mostrarPanelCarrerasParticipante();
 		switch (getCbCarrerasParticipante().getSelectedIndex()) {
 		case 0:
 			mostrarTodasCarrerasParticipante();
@@ -1708,7 +2021,7 @@ public class VentanaApp extends JFrame {
 					JOptionPane.WARNING_MESSAGE);
 			return false;
 		} else {
-			return true;
+			return true; 	
 		}
 	}
 
@@ -1744,21 +2057,28 @@ public class VentanaApp extends JFrame {
 		return false;
 	}
 
-	private JButton getBtComprobarPagos() {
-		if (btComprobarPagos == null) {
-			btComprobarPagos = new JButton("Comprobar pagos");
-			btComprobarPagos.addActionListener(new ActionListener() {
-				@Override
-				public void actionPerformed(ActionEvent e) {
-					comprobarPagosOrganizador();
-				}
-			});
-			btComprobarPagos.setForeground(new Color(184, 220, 245));
-			btComprobarPagos.setFont(new Font("Segoe UI Black", Font.PLAIN, 12));
-			btComprobarPagos.setBackground(new Color(50, 130, 181));
+	
+	private void cargarFicheroClub() {
+		//TODO
+		JFileChooser fc = new JFileChooser();
+		fc.setFileFilter(new FileNameExtensionFilter("Fichero Lote Atletas", "fla"));
+		int returnVal = fc.showOpenDialog(this);
+		if (returnVal == JFileChooser.APPROVE_OPTION) {
+			File file = fc.getSelectedFile();
+			try {
+				cargaTablaParticipantes(file);
+			} catch (BusinessDataException e) {
+				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+			}
+		} else if (returnVal==JFileChooser.CANCEL_OPTION){
+			JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun archivo", "Error",
+					JOptionPane.WARNING_MESSAGE);
 		}
-		return btComprobarPagos;
 	}
+	private void cargaTablaParticipantes(File file) throws BusinessDataException {
+		tablaParticipantesClub.setModel(GuiLogic.cargaParticipantesClub(file,getTablaParticipantesClub()));
+	}
+	
 
 	// METODOS ORGANIZADOR
 
@@ -2080,27 +2400,6 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	private void inscribirClubOrganizador() {
-		JFileChooser fc = new JFileChooser();
-		fc.setFileFilter(new FileNameExtensionFilter("Fichero Lote Atletas", "fla"));
-		int returnVal = fc.showOpenDialog(this);
-		if (returnVal == JFileChooser.APPROVE_OPTION) {
-			File file = fc.getSelectedFile();
-			try {
-				GuiLogic.inscribeClubCarrera(file);
-			} catch (BusinessDataException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
-			}
-		} else {
-			JOptionPane.showMessageDialog(this, "No se ha seleccionado ningun archivo", "Error",
-					JOptionPane.WARNING_MESSAGE);
-		}
-	}
-
-	private void comprobarPagosOrganizador() {
-
-	}
-
 	private JTextField getTxtPorcentajeADevolver() {
 		if (txtPorcentajeADevolver == null) {
 			txtPorcentajeADevolver = new JTextField();
@@ -2192,6 +2491,9 @@ public class VentanaApp extends JFrame {
 					JOptionPane.showMessageDialog(this, "No se puede cancelar inscripciones en esta carrera.", "Error",
 							JOptionPane.WARNING_MESSAGE);
 				}
+			}else {
+				JOptionPane.showMessageDialog(this, "No se ha seleccionado ninguna carrera", "Error",
+						JOptionPane.WARNING_MESSAGE);
 			}
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
@@ -2205,4 +2507,5 @@ public class VentanaApp extends JFrame {
 	private boolean checkHayCancelacion(String id_carrera) throws BusinessDataException {
 		return GuiLogic.tieneCancelacion(id_carrera);
 	}
+	
 }

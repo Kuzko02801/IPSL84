@@ -2,6 +2,7 @@ package business.dataaccess;
 
 import business.dataaccess.atleta.comandos.AtletaServiceImpl;
 import business.dataaccess.carrera.comandos.CarreraServiceImpl;
+import business.dataaccess.club.comandos.ClubServiceImpl;
 import business.dataaccess.inscripcion.comandos.InscripcionServiceImpl;
 import business.dataaccess.listadeespera.comandos.ListaDeEsperaServiceImpl;
 
@@ -21,5 +22,8 @@ public class DataAccessFactory {
 
 	public static ListaDeEsperaServiceImpl forListaDeEsperaService() {
 		return new ListaDeEsperaServiceImpl();
+	}
+	public static ClubServiceImpl forClubService() {
+		return new ClubServiceImpl();
 	}
 }
