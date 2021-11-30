@@ -15,6 +15,7 @@ import javax.swing.JTextField;
 import javax.swing.SwingConstants;
 
 import business.dataaccess.exception.BusinessDataException;
+import business.dataaccess.util.Check;
 import business.gui.GuiLogic;
 import gui.login.VentanaRegistro;
 import gui.validadoresGUI.Validadores;
@@ -149,20 +150,39 @@ public class VentanaInscribirse extends JDialog {
 	}
 
 	private void inscribirAtleta() {
+		boolean existe;
+		boolean estaInscrito;
+		boolean estaEnListaDeEspera;
 		try {
 			if (Validadores.comprobarEmail(getTxtEmail().getText())) {
-				if (GuiLogic.existeUsuario(getTxtEmail().getText())) {
-					if (tieneLista) {
+				estaInscrito = Check.existeInscripcion(getTxtEmail().getText(), id_carrera);
+				if (estaInscrito) {
+					JOptionPane.showMessageDialog(rootPane, "Ya te has registrado para esta carrera");
+					return;
+				}
+				estaEnListaDeEspera = Check.estaEnListaDeEspera(getTxtEmail().getText(), id_carrera);
+
+				if (GuiLogic.isCarreraLlena(id_carrera)) {
+					if (estaEnListaDeEspera) {
+						JOptionPane.showMessageDialog(this, "Usted ya esta en la lista de espera.");
+						return;
+					} else {
+						meterseEnListaCarrera(id_carrera,getTxtEmail().getText());
+					}
+				}
+				existe = Check.atletaExists(getTxtEmail().getText());
+				if (existe) {
+					if(GuiLogic.isCarreraLlena(id_carrera)) {
+
 						meterseEnListaCarrera(id_carrera, getTxtEmail().getText());
 						JOptionPane.showMessageDialog(this,
-								String.format("Estas en la lista de espera, tu posición es: %d",
+								String.format("Estas en la lista de espera, tu posiciï¿½n es: %d",
 										GuiLogic.numeroListaDeEspera(id_carrera)));
 						dispose();
 					} else {
 						inscribirAtleta(id_carrera);
-						dispose();
-					}
-				} else {
+					}					
+				} else { // No se sabe si el atleta puede no estar registrado.
 					int input = JOptionPane.showConfirmDialog(this,
 							"Tu e-mail no esta registrado pero puedes inscribirte aportando datos adicionales", "Datos",
 							JOptionPane.DEFAULT_OPTION);
