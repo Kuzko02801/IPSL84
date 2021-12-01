@@ -118,11 +118,41 @@ public class AtletaInscripcion {
 	 * 
 	 * @throws SQLException
 	 */
-	private void añadirListaEspera() throws SQLException {
+	private void añadirListaEspera() throws SQLException, BusinessDataException {
+		if (checkEstaEnlista()) {
+			throw new BusinessDataException("Ya estas en la lista de espera de esta carrera.");
+		}
 		PreparedStatement listaEspera = con.prepareStatement(SqlStatements.SQL_INSERTAR_LISTA_ESPERA);
 		listaEspera.setString(1, atleta.email);
 		listaEspera.setString(2, carrera.carrera_id);
 		listaEspera.executeUpdate();
+	}
+
+	private boolean checkEstaEnlista() throws BusinessDataException {
+		PreparedStatement pst = null;
+		Connection con = null;
+		ResultSet rs = null;
+		boolean estaEnLista;
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+
+			pst = con.prepareStatement(SqlStatements.SQL_ENCONTRAR_EN_LISTA_ESPERA);
+			pst.setString(1, atleta.email);
+			pst.setString(2, carrera.carrera_id);
+
+			rs = pst.executeQuery();
+			estaEnLista = rs.next();
+			rs.close();
+			pst.close();
+			con.close();
+
+			return estaEnLista;
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BusinessDataException("Ha ocurrido un error con la base de datos");
+		}
+
 	}
 
 	private String seleccionarCategoria(List<Categoria> listaCat, int age) {
