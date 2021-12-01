@@ -154,6 +154,9 @@ public class Validadores {
 		} catch (Exception e) {
 			return false;
 		}
+		if(fin>100) {
+			return false;
+		}
 		if (fin >= inicio) {
 			return true;
 		} else {

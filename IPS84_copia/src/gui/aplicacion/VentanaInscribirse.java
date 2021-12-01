@@ -181,6 +181,8 @@ public class VentanaInscribirse extends JDialog {
 						dispose();
 					} else {
 						inscribirAtleta(id_carrera);
+						JOptionPane.showMessageDialog(this, "Te has pre-inscrito en la carrera.");
+						dispose();
 					}					
 				} else { // No se sabe si el atleta puede no estar registrado.
 					int input = JOptionPane.showConfirmDialog(this,

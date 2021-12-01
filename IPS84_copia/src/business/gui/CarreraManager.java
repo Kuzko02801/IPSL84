@@ -130,4 +130,13 @@ public class CarreraManager {
 		return res;
 	}
 
+	public void reset() {
+		cleanCategorias();
+
+		cleanPeriodos();
+
+		cleanPuntosCorte();
+
+	}
+
 }

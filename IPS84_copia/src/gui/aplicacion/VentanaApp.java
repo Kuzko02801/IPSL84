@@ -2354,6 +2354,10 @@ public class VentanaApp extends JFrame {
 		vaciarCamposPlazoInscripcion();
 		// Resetea puntosCorte
 		vaciarCamposPuntoCorte();
+		getTxCategorias().setText("");
+		getTxPeriodos().setText("");
+		getTxPuntosCorte().setText("");
+
 		
 	}
 
@@ -2361,20 +2365,19 @@ public class VentanaApp extends JFrame {
 		getTxNombreCategoria().setText("");
 		getTxEdadInicioCategoria().setText("");
 		getTxEdadFinCategoria().setText("");
-		getTxCategorias().setText("");
+		
 	}
 
 	private void vaciarCamposPlazoInscripcion() {
 		getTxFechaInicioPlazo().setText("");
 		getTxFechaFinPlazo().setText("");
 		getTxCuotaCarrera().setText("");
-		getTxPeriodos().setText("");
+		
 	}
 
 	private void vaciarCamposPuntoCorte() {
 		getTxKilometroCorte().setText("");
-		getTxPuntosCorte().setText("");
-
+		
 	}
 
 	private void crearCarrera() {
@@ -2393,6 +2396,8 @@ public class VentanaApp extends JFrame {
 					JOptionPane.showMessageDialog(this, "La carrera se ha creado con exito", "Exito",
 							JOptionPane.INFORMATION_MESSAGE);
 					vaciarCamposCrearCarrera();
+					mostrarPanelOrganizador();
+					carreraManager.reset();
 				} catch (BusinessDataException e) {
 					JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 				}

@@ -28,7 +28,7 @@ public class DevolverCarrerasOrganizador {
 			ps = con.prepareStatement(SqlStatements.SQL_CARRERAS_ORGANIZADOR);
 			ResultSet rs = ps.executeQuery();
 			t = DbUtils.resultSetToTableModel(rs);
-
+			
 			ps.close();
 			con.close();
 			rs.close();
