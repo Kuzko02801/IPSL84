@@ -59,4 +59,5 @@ public class SqlStatements {
 	public static final String SQL_CANCELAR_INSCRIPCION = "DELETE FROM inscripcion WHERE email_atleta = ? AND id_carrera = ?";
 	public static final String SQL_INSCRIPCION_ESTADO_PAGO = "SELECT ESTADO FROM INSCRIPCION WHERE EMAIL_ATLETA = ? AND ID_CARRERA = ?";
 	public static final String SQL_CHECKEAR_PAGO_A_TIEMPO = "select fecha_inscripcion from inscripcion where id_carrera = ? and email_atleta = ?";
+	public static final String SQL_ACTUALIZAR_ESTADO_INSCRITO ="UPDATE inscripcion SET estado= 'INSCRITO', club = ? WHERE inscripcion.id_Carrera = ? AND email_atleta = ?";
 }

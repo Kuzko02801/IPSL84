@@ -6,6 +6,7 @@ import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.sql.SQLException;
 
 import javax.swing.DefaultComboBoxModel;
@@ -37,7 +38,9 @@ import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
+import business.dataaccess.dto.pago.HistorialPago;
 import business.dataaccess.exception.BusinessDataException;
+import business.dataaccess.parsers.HistorialSerializer;
 import business.dataaccess.util.Check;
 import business.gui.CarreraManager;
 import business.gui.GuiLogic;
@@ -1944,6 +1947,11 @@ public class VentanaApp extends JFrame {
 	private JButton getBtInscribirClub() {
 		if (btInscribirClub == null) {
 			btInscribirClub = new JButton("Inscribir club");
+			btInscribirClub.addActionListener(new ActionListener() {
+				public void actionPerformed(ActionEvent e) {
+					inscribirClub();
+				}
+			});
 			btInscribirClub.setForeground(new Color(184, 220, 245));
 			btInscribirClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
 			btInscribirClub.setEnabled(true);
@@ -1982,8 +1990,11 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelInscribirClubParticipante() {
-		CardLayout cl = (CardLayout) (pnCardsParticipante.getLayout());
-		cl.show(pnCardsParticipante, "panelClub");
+		if (carreraSeleccionadaParticipante()) {
+			CardLayout cl = (CardLayout) (pnCardsParticipante.getLayout());
+			cl.show(pnCardsParticipante, "panelClub");
+		}
+
 	}
 
 	private void mostrarCarrerasParticipante() {
@@ -2029,11 +2040,6 @@ public class VentanaApp extends JFrame {
 	private void inscribirse() {
 		if (carreraSeleccionadaParticipante()) {
 			try {
-				/**
-				 * Si la carrera esta llena se mira si tiene una lista de espera. Si la tiene se
-				 * le pregunta al atleta si quiere meterse en la lista de espera. Si quiere se
-				 * mete en la lista, si no se cancela la inscripcion.
-				 */
 				if (GuiLogic.isCarreraLlena(getCarreraSeleccionadaParticipante())) {
 					if (GuiLogic.tieneListaEspera(getCarreraSeleccionadaParticipante())) {
 						int result = JOptionPane.showConfirmDialog(this,
@@ -2048,18 +2054,6 @@ public class VentanaApp extends JFrame {
 				} else {
 					mostrarVentanaInscripcion(SIN_LISTA);
 				}
-
-//				if (GuiLogic.isCarreraLlena(getCarreraSeleccionadaParticipante())) {
-//					int result = JOptionPane.showConfirmDialog(this,
-//							"La carrera esta llena pero tiene una lista de espera, ï¿½quieres inscribirte en ella?",
-//							"alert", JOptionPane.OK_CANCEL_OPTION);
-//					if (result == JOptionPane.OK_OPTION) {
-//						mostrarVentanaInscripcion();
-//					}
-//				} else {
-//					mostrarVentanaInscripcion();
-//				}
-
 			} catch (BusinessDataException e) {
 				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 			}
@@ -2151,7 +2145,7 @@ public class VentanaApp extends JFrame {
 		}
 	}
 
-	// TODO
+	// TODO club
 
 	private void aï¿½adirParticipanteClub() {
 		if (Validadores.comprobarEmail(getTxEmailAtletaClub().getText())
@@ -2176,7 +2170,6 @@ public class VentanaApp extends JFrame {
 
 	private boolean compruebaEmailListaClub(String email) {
 		for (int i = 0; i < tablaParticipantesClub.getModel().getRowCount(); i++) {
-			System.out.println(tablaParticipantesClub.getModel().getValueAt(i, 0).toString());
 			if (tablaParticipantesClub.getModel().getValueAt(i, 0).toString().equals(email)) {
 				return true;
 			}
@@ -2192,16 +2185,59 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void eliminaParticipanteClub() {
-		if (participanteSeleccionadoClub()) {
-			((DefaultTableModel) tablaParticipantesClub.getModel()).removeRow(tablaParticipantes.getSelectedRow());
+		int row = tablaParticipantesClub.getSelectedRow();
+		if (row != -1) {
+			((DefaultTableModel) tablaParticipantesClub.getModel()).removeRow(row);
+		} else {
+			JOptionPane.showMessageDialog(this, "No has seleccionado ningun atleta", "Error",
+					JOptionPane.WARNING_MESSAGE);
 		}
 	}
 
-	private boolean participanteSeleccionadoClub() {
-		if (tablaParticipantesClub.getSelectedRow() == -1 || tablaParticipantesClub.getSelectedRow() == 0) {
-			return false;
+	private void inscribirClub() {
+		if (Validadores.comprobarNoVacio(getTxNombreClub().getText())) {
+			if (tablaParticipantesClub.getRowCount() > 0) {
+				try {
+					double cuota=GuiLogic.cuotaActualCarrera(getCarreraSeleccionadaParticipante());
+					double dineroDeber = GuiLogic.inscribirClubCarrera(getCarreraSeleccionadaParticipante(),
+							tablaParticipantesClub, getTxNombreClub().getText());
+					if (dineroDeber > 0) {
+						try {
+							HistorialSerializer.serializarPagos(new HistorialPago(
+									getCarreraSeleccionadaParticipante(),"club: "+getTxNombreClub().getText(),
+									cuota+"",dineroDeber+"","Este dinero debe reclamarse al club en cuestión."));
+						} catch (IOException e) {
+							JOptionPane.showMessageDialog(this, "Ha ocurrido un problema guardando el pago,"
+									+ " contactar con el organizador", "Error", JOptionPane.WARNING_MESSAGE);
+						}
+						JOptionPane.showMessageDialog(this,
+								"Se ha realizado la inscripcion del club.\n La deuda del club son: " + dineroDeber
+										+ " euros.",
+								"Exito", JOptionPane.INFORMATION_MESSAGE);
+					} else {
+						JOptionPane.showMessageDialog(this,
+								"No se ha inscrito ningún atleta,si se han inscrito"
+										+ " por su cuenta no pueden inscribirse con el club.",
+								"Error", JOptionPane.WARNING_MESSAGE);
+					}
+					resetPanelClub();
+				} catch (BusinessDataException e) {
+					JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+				}
+			}else {
+				JOptionPane.showMessageDialog(this, "El club no tiene atletas", "Error", JOptionPane.WARNING_MESSAGE);
+			}
+		} else {
+			JOptionPane.showMessageDialog(this, "El club no tiene nombre", "Error", JOptionPane.WARNING_MESSAGE);
 		}
-		return true;
+	}
+
+	private void resetPanelClub() {
+		((DefaultTableModel) tablaParticipantesClub.getModel()).setRowCount(0);
+		getTxNombreClub().setText("");
+		vaciarCamposClub();
+		mostrarCarrerasParticipante();
+
 	}
 
 	// METODOS ORGANIZADOR

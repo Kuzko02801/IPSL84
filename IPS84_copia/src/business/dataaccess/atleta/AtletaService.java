@@ -11,5 +11,4 @@ public interface AtletaService {
 	public AtletaDto encontrarAtleta(String email) throws BusinessDataException;
 	public void atletaAdd(AtletaDto atleta)  throws BusinessDataException;
 	public boolean existeAtleta(String email) throws BusinessDataException;
-	public void inscribirClub(File ficheroAtleta) throws BusinessDataException;
 }

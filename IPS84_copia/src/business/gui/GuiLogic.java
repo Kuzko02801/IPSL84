@@ -123,11 +123,6 @@ public class GuiLogic {
 				comentario);
 	}
 
-	public static void inscribeClubCarrera(File ficheroAtletas) throws BusinessDataException {
-		DataAccessFactory.forAtletaService().inscribirClub(ficheroAtletas);
-
-	}
-
 	public static boolean isCarreraLlena(String id_carrera) throws BusinessDataException {
 		return DataAccessFactory.forCarreraService().isCarreraLlena(id_carrera);
 	}
@@ -168,6 +163,12 @@ public class GuiLogic {
 	public static TableModel cargaParticipantesClub(File file, JTable tablaParticipantesClub) throws BusinessDataException {
 		List<AtletaDto> atletas=TablaAtletasParser.parsearTablaParticipantes(tablaParticipantesClub);
 		return DataAccessFactory.forClubService().devolverParticipantesClub(file, atletas);
+	}
+
+	public static double inscribirClubCarrera(String idCarrera, JTable tablaParticipantesClub,String nombreClub) throws BusinessDataException {
+		List<AtletaDto> atletas=TablaAtletasParser.parsearTablaParticipantes(tablaParticipantesClub);
+		return DataAccessFactory.forClubService().inscribirClubCarrera(idCarrera,atletas,nombreClub);
+		
 	}
 
 	public static boolean pagoATiempo(String id, String email) {

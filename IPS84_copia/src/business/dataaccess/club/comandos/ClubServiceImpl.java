@@ -16,4 +16,10 @@ public class ClubServiceImpl implements ClubService{
 		return new DevolverParticipantesClub(file,atletas).devolverParticipantes();
 	}
 
+	@Override
+	public double inscribirClubCarrera(String idCarrera, List<AtletaDto> atletas,String nombreClub) throws BusinessDataException {
+		return new InscribirClubCarrera(idCarrera,atletas,nombreClub).inscribirClub();
+		
+	}
+
 }

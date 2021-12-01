@@ -12,5 +12,6 @@ import business.dataaccess.exception.BusinessDataException;
 public interface ClubService {
 	
 	public TableModel devolverParticipantesClub(File file,List<AtletaDto> atletas) throws BusinessDataException;
+	public double inscribirClubCarrera(String idCarrera,List<AtletaDto> atletas,String nombreClub) throws BusinessDataException ;
 
 }
