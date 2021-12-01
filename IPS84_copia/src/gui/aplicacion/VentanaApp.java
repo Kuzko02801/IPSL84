@@ -46,8 +46,6 @@ import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.pagos.VentanaEscogerPago;
 import gui.validadoresGUI.Validadores;
-import java.awt.event.ComponentAdapter;
-import java.awt.event.ComponentEvent;
 
 public class VentanaApp extends JFrame {
 
@@ -2098,6 +2096,9 @@ public class VentanaApp extends JFrame {
 			String email_atleta;
 			if (email == null) {
 				email_atleta = JOptionPane.showInputDialog(this, "Introduce tu email", "E-mail");
+				if (email_atleta == null) {
+					return;
+				}
 			} else {
 				email_atleta = email;
 			}
@@ -2290,7 +2291,7 @@ public class VentanaApp extends JFrame {
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 		}
-		
+
 	}
 
 	private void mostrarPanelOrganizadorCrearCarrera() {
@@ -2358,26 +2359,25 @@ public class VentanaApp extends JFrame {
 		getTxPeriodos().setText("");
 		getTxPuntosCorte().setText("");
 
-		
 	}
 
 	private void vaciarCamposCategoria() {
 		getTxNombreCategoria().setText("");
 		getTxEdadInicioCategoria().setText("");
 		getTxEdadFinCategoria().setText("");
-		
+
 	}
 
 	private void vaciarCamposPlazoInscripcion() {
 		getTxFechaInicioPlazo().setText("");
 		getTxFechaFinPlazo().setText("");
 		getTxCuotaCarrera().setText("");
-		
+
 	}
 
 	private void vaciarCamposPuntoCorte() {
 		getTxKilometroCorte().setText("");
-		
+
 	}
 
 	private void crearCarrera() {

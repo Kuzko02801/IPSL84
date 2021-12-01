@@ -99,14 +99,11 @@ public class AtletaInscripcion {
 
 		inscribirAtleta = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 
-		Double cantidadAPagar = getCuotaPeriodo();
-
 		inscribirAtleta.setString(1, email_atleta); // atleta.email
 		inscribirAtleta.setString(2, carrera_id);
 		inscribirAtleta.setString(3, EstadoInscripcion.PENDIENTE_DE_PAGO.label);
 		inscribirAtleta.setString(4, seleccionarCategoria(listaCat, age));// seleccionarCategoria());
 		inscribirAtleta.setString(5, fechaActual());// fechaActual());
-		inscribirAtleta.setDouble(6, cantidadAPagar);
 
 		inscribirAtleta.executeUpdate();
 
@@ -154,16 +151,16 @@ public class AtletaInscripcion {
 		return false;
 	}
 
-	private Double getCuotaPeriodo() {
-		for (Periodo periodo : carrera.periodos) {
-			// Si la fecha actual esta en el rango de algun periodo devuelve true, false en
-			// caso contrario.
-			if (periodo.getFechaInicio().isBefore(new DateSqlite().actual())
-					&& periodo.getFechaFin().isAfter(new DateSqlite().actual())) {
-				return periodo.getCuota();
-			}
-		}
-		return null;
-	}
+//	private Double getCuotaPeriodo() {
+//		for (Periodo periodo : carrera.periodos) {
+//			// Si la fecha actual esta en el rango de algun periodo devuelve true, false en
+//			// caso contrario.
+//			if (periodo.getFechaInicio().isBefore(new DateSqlite().actual())
+//					&& periodo.getFechaFin().isAfter(new DateSqlite().actual())) {
+//				return periodo.getCuota();
+//			}
+//		}
+//		return null;
+//	}
 
 }
