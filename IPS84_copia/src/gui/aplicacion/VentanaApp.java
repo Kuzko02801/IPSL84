@@ -3,6 +3,7 @@ package gui.aplicacion;
 import java.awt.CardLayout;
 import java.awt.Color;
 import java.awt.Font;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
@@ -183,6 +184,8 @@ public class VentanaApp extends JFrame {
 	 * Create the frame.
 	 */
 	public VentanaApp(int mode) {
+		setIconImage(Toolkit.getDefaultToolkit()
+				.getImage(VentanaApp.class.getResource("/business/dataaccess/datainformation/rotodos.png")));
 		setTitle("Gestor carreras");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 1042, 812);
