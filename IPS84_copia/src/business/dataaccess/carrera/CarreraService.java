@@ -20,9 +20,9 @@ public interface CarreraService {
 
 	public TableModel devolverClasificacionAbsoluta(String id) throws BusinessDataException;
 
-	public TableModel devolverClasificacionFemenina(String id);
+	public TableModel devolverClasificacionFemenina(String id) throws BusinessDataException;
 
-	public TableModel devolverClasificacionMasculina(String id);
+	public TableModel devolverClasificacionMasculina(String id) throws BusinessDataException;
 
 	public void cargarTiempos(String id, File tiempos) throws BusinessDataException;
 

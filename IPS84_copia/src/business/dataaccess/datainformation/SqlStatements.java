@@ -20,12 +20,15 @@ public class SqlStatements {
 			+ "FROM carrera, inscripcion, atleta \r\n" + "WHERE carrera.id = ?\r\n"
 			+ "AND carrera.id = inscripcion.id_carrera\r\n" + "AND atleta.email = inscripcion.email_atleta\r\n";
 
-	public static final String SQL_CLASIFICACION_FEMENINA = "SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
-			+ "FROM carrera, inscripcion, atleta \r\n" + "WHERE carrera.id = ?\r\n" + "AND atleta.sexo = 'mujer'\r\n"
-			+ "AND carrera.id = inscripcion.id_carrera\r\n" + "AND atleta.email = inscripcion.email_atleta\r\n";
-	public static final String SQL_CLASIFICACION_MASCULINA = "SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre, atleta.sexo, inscripcion.tiempo \r\n"
-			+ "FROM carrera, inscripcion, atleta \r\n" + "WHERE carrera.id = ?\r\n" + "AND atleta.sexo = 'hombre'\r\n"
-			+ "AND carrera.id = inscripcion.id_carrera\r\n" + "AND atleta.email = inscripcion.email_atleta\r\n";
+	public static final String SQL_CLASIFICACION_FEMENINA = "SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre as nombre, atleta.sexo as sexo, inscripcion.tiempo as tiempo,"
+			+ "inscripcion.tiemposCorte as tiemposCorte, inscripcion.club as club, inscripcion.dorsal as dorsal \r\n"
+			+ "FROM carrera, inscripcion, atleta \r\n" + "WHERE carrera.id = ?\r\n"
+			+ "AND carrera.id = inscripcion.id_carrera\r\n" + "AND atleta.email = inscripcion.email_atleta AND atleta.sexo = 'mujer'\r\n";
+	
+	public static final String SQL_CLASIFICACION_MASCULINA = "SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre as nombre, atleta.sexo as sexo, inscripcion.tiempo as tiempo,"
+			+ "inscripcion.tiemposCorte as tiemposCorte, inscripcion.club as club, inscripcion.dorsal as dorsal \r\n"
+			+ "FROM carrera, inscripcion, atleta \r\n" + "WHERE carrera.id = ?\r\n"
+			+ "AND carrera.id = inscripcion.id_carrera\r\n" + "AND atleta.email = inscripcion.email_atleta AND atleta.sexo = 'hombre'\r\n";
 	public static final String SQL_CLASIFICACION_CATEGORIA = "SELECT ROW_NUMBER() over(order by inscripcion.tiempo) as posicion, atleta.nombre as nombre, atleta.sexo as sexo, inscripcion.tiempo as tiempo \r\n"
 			+ " inscripcion.tiemposCorte as tiemposCorte, inscripcion.club as club, inscripcion.dorsal as dorsal "
 			+ "FROM carrera, inscripcion, atleta \r\n" + "WHERE carrera.id = ?\r\n"
@@ -45,7 +48,7 @@ public class SqlStatements {
 	public static final String SQL_INSCRIPCION_CONCRETA = "select * from inscripcion where email_atleta = ? and id_carrera = ?";
 	public static final String SQL_PARTICIPANTES_CARRERA = "select count(*) from inscripcion where id_carrera = ? and estado = 'INSCRITO'";
 	public static final String SQL_INSCRIPCION_DORSAL = "select * from inscripcion where id_carrera = ?";
-	public static final String SQL_INSCRIPCION_ACTUALIZAR_TIEMPOS = "UPDATE inscripcion SET tiempo= ?,tiempoInicio = ?, tiempoFin = ?,tiemposCorte = ? where id_carrera=? AND dorsal=?";
+	public static final String SQL_INSCRIPCION_ACTUALIZAR_TIEMPOS = "UPDATE inscripcion SET tiempo= ?,tiempoInicio = ?, tiempoFin = ?, tiemposCorte = ? where id_carrera=? AND dorsal=?";
 	public static final String SQL_INSCRIPCION_CARRERA = "select * from inscripcion where id_carrera = ? ";
 	public static final String SQL_INSCRIPCION_ACTUALIZAR_DORSALES = "UPDATE inscripcion SET dorsal = ? where id_carrera = ? and email_atleta = ?";
 	public static final String SQL_INSERTAR_LISTA_ESPERA = "INSERT INTO LISTADEESPERA (email_atleta, id_carrera) VALUES (?, ?)";

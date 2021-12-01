@@ -46,6 +46,8 @@ import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.pagos.VentanaEscogerPago;
 import gui.validadoresGUI.Validadores;
+import java.awt.event.ComponentAdapter;
+import java.awt.event.ComponentEvent;
 
 public class VentanaApp extends JFrame {
 
@@ -2280,10 +2282,15 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesSexo(String id) {
-		GuiLogic.cargarClasificacionesFemeninas(id, tablaClasificacionesHombre);
-		GuiLogic.cargarClasificacionesMasculinas(id, tablaClasificacionesMujer);
-		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
-		cl.show(pnTablasOrganizador, "pnClasificacionesSexo");
+		try {
+			GuiLogic.cargarClasificacionesFemeninas(id, tablaClasificacionesHombre);
+			GuiLogic.cargarClasificacionesMasculinas(id, tablaClasificacionesMujer);
+			CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
+			cl.show(pnTablasOrganizador, "pnClasificacionesSexo");
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		
 	}
 
 	private void mostrarPanelOrganizadorCrearCarrera() {
@@ -2347,22 +2354,26 @@ public class VentanaApp extends JFrame {
 		vaciarCamposPlazoInscripcion();
 		// Resetea puntosCorte
 		vaciarCamposPuntoCorte();
+		
 	}
 
 	private void vaciarCamposCategoria() {
 		getTxNombreCategoria().setText("");
 		getTxEdadInicioCategoria().setText("");
 		getTxEdadFinCategoria().setText("");
+		getTxCategorias().setText("");
 	}
 
 	private void vaciarCamposPlazoInscripcion() {
 		getTxFechaInicioPlazo().setText("");
 		getTxFechaFinPlazo().setText("");
 		getTxCuotaCarrera().setText("");
+		getTxPeriodos().setText("");
 	}
 
 	private void vaciarCamposPuntoCorte() {
 		getTxKilometroCorte().setText("");
+		getTxPuntosCorte().setText("");
 
 	}
 

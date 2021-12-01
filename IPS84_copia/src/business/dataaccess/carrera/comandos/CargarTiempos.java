@@ -51,13 +51,12 @@ public class CargarTiempos {
 				statement1.setString(1, "DNS");
 				statement1.setString(2, "0");
 				statement1.setString(3, "0");
-				statement1.setString(4, "-");
+				statement1.setString(4, "DNS");
 				statement1.setString(5, id);
 				statement1.setInt(6, rs.getInt("dorsal"));
 				statement1.executeUpdate();
 				statement1.close();
 				for (List<String> listaTiempos : todosLosTiempos) {
-
 					int dorsal = Integer.parseInt(listaTiempos.get(0));
 					if (dorsal == rs.getInt("dorsal")) {
 						PreparedStatement statement = con
@@ -91,7 +90,8 @@ public class CargarTiempos {
 				result+="-;";
 			}
 		}
-		return result.substring(result.length() - 1);
+		
+		return result.substring(0,result.length() - 1);
 	}
 
 	private String calculaTiempo(String tiempoInicio, String tiempoFin) throws BusinessDataException {

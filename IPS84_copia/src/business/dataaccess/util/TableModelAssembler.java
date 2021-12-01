@@ -37,8 +37,8 @@ public class TableModelAssembler {
 	}
 
 	public static TableModel clasificacionesAssembler(int numeroPuntosCorte, List<ArrayList<String>> clasificaciones) {
-
-		//Establecemos model
+		
+		// Establecemos model
 		ArrayList<String> aux = new ArrayList<String>();
 		aux.add("Posicion");
 		aux.add("Dorsal");
@@ -50,29 +50,34 @@ public class TableModelAssembler {
 		}
 		aux.add("Tiempo Final");
 		DefaultTableModel tableModel = new DefaultTableModel(aux.toArray(), 0);
-		
-		
+
 		for (ArrayList<String> clasificacion : clasificaciones) {
-			
-			ArrayList<String> listaAuxiliar=new ArrayList<String>();
-			//Añade la posicion
-			if(clasificacion.get(clasificacion.size()-1).equals("DNF")||clasificacion.get(clasificacion.size()-1).equals("DNS")) {
+
+			ArrayList<String> listaAuxiliar = new ArrayList<String>();
+			// Añade la posicion
+			if (clasificacion.get(clasificacion.size() - 1).equals("DNF")
+					|| clasificacion.get(clasificacion.size() - 1).equals("DNS")) {
 				listaAuxiliar.add(" - ");
-			}else {
+			} else {
 				listaAuxiliar.add(clasificacion.get(0));
 			}
-			listaAuxiliar.add(clasificacion.get(1)); //añade dorsal
-			listaAuxiliar.add(clasificacion.get(2)); //añade nombre
-			listaAuxiliar.add(clasificacion.get(3)); //añade sexo
-			listaAuxiliar.add(clasificacion.get(4)); //añade club
-			//Añade los tiempos de corte
-			String[] tiemposCorte=clasificacion.get(5).split(";");
-			
-			for (int i = 0; i < tiemposCorte.length; i++) {
-				System.out.println(tiemposCorte[i]);
-				listaAuxiliar.add(tiemposCorte[i]);
+			listaAuxiliar.add(clasificacion.get(1)); // añade dorsal
+			listaAuxiliar.add(clasificacion.get(2)); // añade nombre
+			listaAuxiliar.add(clasificacion.get(3)); // añade sexo
+			listaAuxiliar.add(clasificacion.get(4)); // añade club
+			// Añade los tiempos de corte
+			String[] tiemposCorte = clasificacion.get(5).split(";");
+
+			if (tiemposCorte[0].equals("DNS")) {
+				for (int i = 0; i < numeroPuntosCorte; i++) {
+					listaAuxiliar.add("-");
+				}
+			} else {
+				for (int i = 0; i < tiemposCorte.length; i++) {
+					listaAuxiliar.add(tiemposCorte[i]);
+				}
 			}
-			listaAuxiliar.add(clasificacion.get(clasificacion.size()-1)); //añade tiempoFinal
+			listaAuxiliar.add(clasificacion.get(clasificacion.size() - 1)); // añade tiempoFinal
 			tableModel.addRow(listaAuxiliar.toArray());
 		}
 		return tableModel;
