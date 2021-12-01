@@ -56,7 +56,7 @@ public class CarreraServiceImpl implements CarreraService {
 	}
 
 	@Override
-	public TableModel cargarClasificacionCategoria(String idCarrera, String categoria) {
+	public TableModel cargarClasificacionCategoria(String idCarrera, String categoria) throws BusinessDataException {
 		return new CargarClasificacionCategoria(idCarrera, categoria).devolverClasificacionCategoria();
 	}
 

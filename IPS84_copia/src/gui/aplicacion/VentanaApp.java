@@ -2293,9 +2293,13 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesCategoria(String idCarrera, String categoria) {
-		GuiLogic.cargarClasificacionCategoria(tablaClasificacionesAbsoluta, idCarrera, categoria);
-		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
-		cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
+		try {
+			GuiLogic.cargarClasificacionCategoria(tablaClasificacionesAbsoluta, idCarrera, categoria);
+			CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
+			cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+		}
 	}
 
 	private void mostrarClasificaciones() {

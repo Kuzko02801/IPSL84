@@ -97,7 +97,7 @@ public class GuiLogic {
 		DataAccessFactory.forCarreraService().cargarTiempos(id_carrera, tiempos);
 	}
 
-	public static void cargarClasificacionCategoria(JTable tabla, String idCarrera, String categoria) {
+	public static void cargarClasificacionCategoria(JTable tabla, String idCarrera, String categoria) throws BusinessDataException {
 		TableModel tm = DataAccessFactory.forCarreraService().cargarClasificacionCategoria(idCarrera, categoria);
 		tabla.setModel(tm);
 	}
