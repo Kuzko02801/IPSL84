@@ -175,7 +175,7 @@ public class VentanaApp extends JFrame {
 	private JTextField txEmailAtletaClub;
 	private JTextField txDniAtletaClub;
 	private JTextField txNombreAtletaClub;
-	private JButton btA�adirParticipanteClub;
+	private JButton btAddParticipanteClub;
 	private JButton btEliminarParticipanteClub;
 	private JSeparator separator_1_1;
 	private JButton btInscribirClub;
@@ -1671,7 +1671,7 @@ public class VentanaApp extends JFrame {
 									.addGroup(gl_pnFormularioClub.createSequentialGroup()
 											.addComponent(getBtEliminarParticipanteClub())
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(getBtA�adirParticipanteClub()))
+											.addComponent(getBtAddParticipanteClub()))
 									.addComponent(getSeparator_1_1(), GroupLayout.PREFERRED_SIZE, 480,
 											GroupLayout.PREFERRED_SIZE)
 									.addComponent(getBtInscribirClub(), GroupLayout.PREFERRED_SIZE, 173,
@@ -1725,7 +1725,7 @@ public class VentanaApp extends JFrame {
 											GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
-									.addComponent(getBtA�adirParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35,
+									.addComponent(getBtAddParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35,
 											GroupLayout.PREFERRED_SIZE)
 									.addComponent(getBtEliminarParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35,
 											GroupLayout.PREFERRED_SIZE))
@@ -1905,20 +1905,20 @@ public class VentanaApp extends JFrame {
 		return txNombreAtletaClub;
 	}
 
-	private JButton getBtA�adirParticipanteClub() {
-		if (btA�adirParticipanteClub == null) {
-			btA�adirParticipanteClub = new JButton("A\u00F1adir participante");
-			btA�adirParticipanteClub.addActionListener(new ActionListener() {
+	private JButton getBtAddParticipanteClub() {
+		if (btAddParticipanteClub == null) {
+			btAddParticipanteClub = new JButton("A\u00F1adir participante");
+			btAddParticipanteClub.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					a�adirParticipanteClub();
+					addParticipanteClub();
 				}
 			});
-			btA�adirParticipanteClub.setForeground(new Color(184, 220, 245));
-			btA�adirParticipanteClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
-			btA�adirParticipanteClub.setEnabled(true);
-			btA�adirParticipanteClub.setBackground(new Color(50, 130, 181));
+			btAddParticipanteClub.setForeground(new Color(184, 220, 245));
+			btAddParticipanteClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			btAddParticipanteClub.setEnabled(true);
+			btAddParticipanteClub.setBackground(new Color(50, 130, 181));
 		}
-		return btA�adirParticipanteClub;
+		return btAddParticipanteClub;
 	}
 
 	private JButton getBtEliminarParticipanteClub() {
@@ -2147,7 +2147,7 @@ public class VentanaApp extends JFrame {
 
 	// TODO club
 
-	private void a�adirParticipanteClub() {
+	private void addParticipanteClub() {
 		if (Validadores.comprobarEmail(getTxEmailAtletaClub().getText())
 				&& Validadores.comprobarNoVacio(getTxDniAtletaClub().getText())
 				&& Validadores.comprobarNoVacio(getTxNombreAtletaClub().getText())
