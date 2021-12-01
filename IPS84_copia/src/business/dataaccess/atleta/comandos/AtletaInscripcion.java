@@ -97,13 +97,6 @@ public class AtletaInscripcion {
 		categorias = getCategorias.executeQuery();
 		listaCat = CategoriaParser.devolverCategorias(categorias.getString(1));
 
-		for (Categoria c : listaCat) {
-			if (c.getEdadMinima() > age || c.getEdadMaxima() < age) {
-				getCategorias.close();
-				throw new BusinessDataException("No existe ninguna categoria adecuada para el atleta.");
-			}
-		}
-
 		inscribirAtleta = con.prepareStatement(SqlStatements.SQL_INSCRIBIR_ATLETA);
 
 		Double cantidadAPagar = getCuotaPeriodo();
