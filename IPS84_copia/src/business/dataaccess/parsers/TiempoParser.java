@@ -3,8 +3,11 @@ package business.dataaccess.parsers;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
+import java.util.List;
 
 import business.dataaccess.exception.BusinessDataException;
 
@@ -29,47 +32,51 @@ public class TiempoParser {
 
 	}
 
-	public static ArrayList<String> parsearTiempos(File tiempos) throws BusinessDataException {
-		ArrayList<String> result = new ArrayList<String>();
+	@SuppressWarnings("resource")
+	public static List<List<String>> parsearTiempos(File tiempos, int numeroPuntosCorte) throws BusinessDataException {
+		ArrayList<List<String>> result = new ArrayList<List<String>>();
+		BufferedReader br;
 		try {
-			@SuppressWarnings("resource")
-			BufferedReader br = new BufferedReader(new InputStreamReader(new FileInputStream(tiempos)));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(tiempos)));
+			br.readLine();
 			String line;
 			int linea = 0;
 			while ((line = br.readLine()) != null) {
 				linea++;
 				String[] args = line.split(";");
-				if (args.length == 2) {
-					comprobarPrimerosCampos(args, linea);
-				} else if (args.length == 3) {
-					comprobarPrimerosCampos(args, linea);
-					int t1 = Integer.parseInt(args[1]);
-					int t2 = Integer.parseInt(args[2]);
-					if (t2 - t1 <= 0) {
-						throw new BusinessDataException("La linea" + linea + " contiene un error");
-					}
-				} else {
-					throw new BusinessDataException("El archivo está corrupto");
-				}
 
-				result.add(line);
+				if (args.length != numeroPuntosCorte + 3) {
+					throw new BusinessDataException(
+							"El archivo esta corrupto en la linea " + linea + ", el numero de campos es incorrecto.");
+				}
+				for (int i = 0; i < args.length; i++) {
+					if (!args[i].equals("-")) {
+						try {
+							Integer.parseInt(args[i]);
+						} catch (Exception e) {
+							throw new BusinessDataException("El archivo esta corrupto en la linea" + linea);
+						}
+					}
+
+				}
+				ArrayList<String> aux = new ArrayList<String>(); // cada linea
+				aux.add(args[0]); // dorsal
+				aux.add(args[1]); // tiempoInicio
+				aux.add(args[args.length - 1]); // tiempoFin
+				String auxString = "";
+				for (int i = 2; i < args.length - 1; i++) {
+					auxString += args[i] + ";";
+				}
+				auxString.substring(0, auxString.length() - 1); // tiemposCorte
+				aux.add(auxString);
+				result.add(aux);
 			}
 			br.close();
-		} catch (Exception e) {
+		} catch (FileNotFoundException e) {
+			throw new BusinessDataException("No se ha encontrado el archivo");
+		} catch (IOException e) {
 			throw new BusinessDataException("El archivo esta corrupto");
 		}
-
 		return result;
-
-	}
-
-	private static void comprobarPrimerosCampos(String[] args, int linea) {
-		try {
-			Integer.parseInt(args[0]);
-			Integer.parseInt(args[1]);
-		} catch (Exception e) {
-			System.out.println("La linea" + linea + " no esta bien escrita");
-		}
-
 	}
 }

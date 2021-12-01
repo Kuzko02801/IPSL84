@@ -31,7 +31,7 @@ public class CarreraServiceImpl implements CarreraService {
 	}
 
 	@Override
-	public TableModel devolverClasificacionAbsoluta(String id) {
+	public TableModel devolverClasificacionAbsoluta(String id) throws BusinessDataException {
 		return new DevolverClasificacionAbsoluta(id).devolverClasificacionAbsoluta();
 	}
 

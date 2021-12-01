@@ -41,7 +41,7 @@ public class GuiLogic {
 		tablaInscritosOrganizador.setModel(tm);
 	}
 
-	public static void cargarClasificacionesAbsolutas(String idCarrera, JTable tablaClasificacionesAbsoluta) {
+	public static void cargarClasificacionesAbsolutas(String idCarrera, JTable tablaClasificacionesAbsoluta) throws BusinessDataException {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionAbsoluta(idCarrera);
 		tablaClasificacionesAbsoluta.setModel(tm);
 	}

@@ -18,7 +18,7 @@ public interface CarreraService {
 
 	public CarreraDto findCarreraById(String id) throws BusinessDataException;
 
-	public TableModel devolverClasificacionAbsoluta(String id);
+	public TableModel devolverClasificacionAbsoluta(String id) throws BusinessDataException;
 
 	public TableModel devolverClasificacionFemenina(String id);
 

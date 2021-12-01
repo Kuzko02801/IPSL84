@@ -7,6 +7,7 @@ import java.util.List;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
+import business.dataaccess.dto.InscripcionDto;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.parsers.CategoriaParser;
 
@@ -32,6 +33,48 @@ public class TableModelAssembler {
 				row[i] = lista.get(i);
 			}
 			tableModel.addRow(row);
+		}
+		return tableModel;
+	}
+
+	public static TableModel clasificacionesAssembler(int numeroPuntosCorte, List<ArrayList<String>> clasificaciones) {
+
+		//Establecemos model
+		ArrayList<String> aux = new ArrayList<String>();
+		aux.add("Posicion");
+		aux.add("Dorsal");
+		aux.add("Nombre");
+		aux.add("Sexo");
+		aux.add("Club");
+		for (int i = 0; i < numeroPuntosCorte; i++) {
+			aux.add("Punto corte " + i);
+		}
+		aux.add("Tiempo Final");
+		DefaultTableModel tableModel = new DefaultTableModel(aux.toArray(), 0);
+		
+		
+		for (ArrayList<String> clasificacion : clasificaciones) {
+			
+			ArrayList<String> listaAuxiliar=new ArrayList<String>();
+			//Añade la posicion
+			if(clasificacion.get(clasificacion.size()-1).equals("DNF")||clasificacion.get(clasificacion.size()-1).equals("DNS")) {
+				listaAuxiliar.add(" - ");
+			}else {
+				listaAuxiliar.add(clasificacion.get(0));
+			}
+			listaAuxiliar.add(clasificacion.get(1)); //añade dorsal
+			listaAuxiliar.add(clasificacion.get(2)); //añade nombre
+			listaAuxiliar.add(clasificacion.get(3)); //añade sexo
+			listaAuxiliar.add(clasificacion.get(4)); //añade club
+			//Añade los tiempos de corte
+			String[] tiemposCorte=clasificacion.get(5).split(";");
+			
+			for (int i = 0; i < tiemposCorte.length; i++) {
+				System.out.println(tiemposCorte[i]);
+				listaAuxiliar.add(tiemposCorte[i]);
+			}
+			listaAuxiliar.add(clasificacion.get(clasificacion.size()-1)); //añade tiempoFinal
+			tableModel.addRow(listaAuxiliar.toArray());
 		}
 		return tableModel;
 	}

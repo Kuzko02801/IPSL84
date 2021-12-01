@@ -2264,9 +2264,14 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesAbsolutas(String id) {
-		GuiLogic.cargarClasificacionesAbsolutas(id, tablaClasificacionesAbsoluta);
-		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
-		cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
+		try {
+			GuiLogic.cargarClasificacionesAbsolutas(id, tablaClasificacionesAbsoluta);
+			CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
+			cl.show(pnTablasOrganizador, "pnClasificacionesAbsolutas");
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesSexo(String id) {
