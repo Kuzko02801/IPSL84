@@ -46,12 +46,12 @@ public class GuiLogic {
 		tablaClasificacionesAbsoluta.setModel(tm);
 	}
 
-	public static void cargarClasificacionesMasculinas(String idCarrera, JTable tablaClasificacionesHombre) {
+	public static void cargarClasificacionesMasculinas(String idCarrera, JTable tablaClasificacionesHombre) throws BusinessDataException {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionMasculina(idCarrera);
 		tablaClasificacionesHombre.setModel(tm);
 	}
 
-	public static void cargarClasificacionesFemeninas(String idCarrera, JTable tablaClasificacionesMujer) {
+	public static void cargarClasificacionesFemeninas(String idCarrera, JTable tablaClasificacionesMujer) throws BusinessDataException {
 		TableModel tm = DataAccessFactory.forCarreraService().devolverClasificacionFemenina(idCarrera);
 		tablaClasificacionesMujer.setModel(tm);
 	}

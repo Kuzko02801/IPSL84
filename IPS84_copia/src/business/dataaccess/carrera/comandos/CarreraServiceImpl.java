@@ -41,12 +41,12 @@ public class CarreraServiceImpl implements CarreraService {
 	}
 
 	@Override
-	public TableModel devolverClasificacionFemenina(String id) {
+	public TableModel devolverClasificacionFemenina(String id) throws BusinessDataException {
 		return new DevolverClasificacionFemenina(id).devolverClasificacionFemenina();
 	}
 
 	@Override
-	public TableModel devolverClasificacionMasculina(String id) {
+	public TableModel devolverClasificacionMasculina(String id) throws BusinessDataException {
 		return new DevolverClasificacionMasculina(id).devolverClasificacionMasculina();
 	}
 

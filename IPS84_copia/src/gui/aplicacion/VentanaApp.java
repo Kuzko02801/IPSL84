@@ -2275,10 +2275,15 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesSexo(String id) {
-		GuiLogic.cargarClasificacionesFemeninas(id, tablaClasificacionesHombre);
-		GuiLogic.cargarClasificacionesMasculinas(id, tablaClasificacionesMujer);
-		CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
-		cl.show(pnTablasOrganizador, "pnClasificacionesSexo");
+		try {
+			GuiLogic.cargarClasificacionesFemeninas(id, tablaClasificacionesHombre);
+			GuiLogic.cargarClasificacionesMasculinas(id, tablaClasificacionesMujer);
+			CardLayout cl = (CardLayout) (pnTablasOrganizador.getLayout());
+			cl.show(pnTablasOrganizador, "pnClasificacionesSexo");
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		
 	}
 
 	private void mostrarPanelOrganizadorCrearCarrera() {
