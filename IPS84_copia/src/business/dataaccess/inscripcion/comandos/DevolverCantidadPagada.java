@@ -23,7 +23,7 @@ public class DevolverCantidadPagada {
 		PreparedStatement pst = null;
 		ResultSet rs = null;
 		Connection con = null;
-		Double cantidadPagada;
+		double cantidadPagada = 0.0;
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 
@@ -34,12 +34,12 @@ public class DevolverCantidadPagada {
 
 			rs = pst.executeQuery();
 			cantidadPagada = rs.getDouble("cantidadPagada");
-			pst.close();
 			rs.close();
+			pst.close();
 			con.close();
-
+			
 			return cantidadPagada;
-		} catch (SQLException e) {
+		} catch(SQLException e) {
 			throw new RuntimeException(e);
 		}
 	}

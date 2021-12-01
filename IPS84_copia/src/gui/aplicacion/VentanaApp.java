@@ -23,12 +23,14 @@ import javax.swing.JMenuItem;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSeparator;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 import javax.swing.LayoutStyle.ComponentPlacement;
 import javax.swing.SwingConstants;
 import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -41,9 +43,6 @@ import business.gui.CarreraManager;
 import business.gui.GuiLogic;
 import gui.pagos.VentanaEscogerPago;
 import gui.validadoresGUI.Validadores;
-import java.awt.GridLayout;
-import javax.swing.JSeparator;
-import javax.swing.border.LineBorder;
 
 public class VentanaApp extends JFrame {
 
@@ -173,7 +172,7 @@ public class VentanaApp extends JFrame {
 	private JTextField txEmailAtletaClub;
 	private JTextField txDniAtletaClub;
 	private JTextField txNombreAtletaClub;
-	private JButton btAñadirParticipanteClub;
+	private JButton btAï¿½adirParticipanteClub;
 	private JButton btEliminarParticipanteClub;
 	private JSeparator separator_1_1;
 	private JButton btInscribirClub;
@@ -1558,6 +1557,7 @@ public class VentanaApp extends JFrame {
 		if (btInscribirClubPanel == null) {
 			btInscribirClubPanel = new JButton("Inscribir club");
 			btInscribirClubPanel.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					mostrarPanelInscribirClubParticipante();
 				}
@@ -1668,7 +1668,7 @@ public class VentanaApp extends JFrame {
 									.addGroup(gl_pnFormularioClub.createSequentialGroup()
 											.addComponent(getBtEliminarParticipanteClub())
 											.addPreferredGap(ComponentPlacement.RELATED)
-											.addComponent(getBtAñadirParticipanteClub()))
+											.addComponent(getBtAï¿½adirParticipanteClub()))
 									.addComponent(getSeparator_1_1(), GroupLayout.PREFERRED_SIZE, 480,
 											GroupLayout.PREFERRED_SIZE)
 									.addComponent(getBtInscribirClub(), GroupLayout.PREFERRED_SIZE, 173,
@@ -1722,7 +1722,7 @@ public class VentanaApp extends JFrame {
 											GroupLayout.PREFERRED_SIZE))
 							.addGap(18)
 							.addGroup(gl_pnFormularioClub.createParallelGroup(Alignment.LEADING)
-									.addComponent(getBtAñadirParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35,
+									.addComponent(getBtAï¿½adirParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35,
 											GroupLayout.PREFERRED_SIZE)
 									.addComponent(getBtEliminarParticipanteClub(), GroupLayout.PREFERRED_SIZE, 35,
 											GroupLayout.PREFERRED_SIZE))
@@ -1846,6 +1846,7 @@ public class VentanaApp extends JFrame {
 		if (btCargarFicheroClub == null) {
 			btCargarFicheroClub = new JButton("Cargar fichero");
 			btCargarFicheroClub.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					cargarFicheroClub();
 				}
@@ -1901,20 +1902,20 @@ public class VentanaApp extends JFrame {
 		return txNombreAtletaClub;
 	}
 
-	private JButton getBtAñadirParticipanteClub() {
-		if (btAñadirParticipanteClub == null) {
-			btAñadirParticipanteClub = new JButton("A\u00F1adir participante");
-			btAñadirParticipanteClub.addActionListener(new ActionListener() {
+	private JButton getBtAï¿½adirParticipanteClub() {
+		if (btAï¿½adirParticipanteClub == null) {
+			btAï¿½adirParticipanteClub = new JButton("A\u00F1adir participante");
+			btAï¿½adirParticipanteClub.addActionListener(new ActionListener() {
 				public void actionPerformed(ActionEvent e) {
-					añadirParticipanteClub();
+					aï¿½adirParticipanteClub();
 				}
 			});
-			btAñadirParticipanteClub.setForeground(new Color(184, 220, 245));
-			btAñadirParticipanteClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
-			btAñadirParticipanteClub.setEnabled(true);
-			btAñadirParticipanteClub.setBackground(new Color(50, 130, 181));
+			btAï¿½adirParticipanteClub.setForeground(new Color(184, 220, 245));
+			btAï¿½adirParticipanteClub.setFont(new Font("Segoe UI Black", Font.PLAIN, 14));
+			btAï¿½adirParticipanteClub.setEnabled(true);
+			btAï¿½adirParticipanteClub.setBackground(new Color(50, 130, 181));
 		}
-		return btAñadirParticipanteClub;
+		return btAï¿½adirParticipanteClub;
 	}
 
 	private JButton getBtEliminarParticipanteClub() {
@@ -2106,11 +2107,20 @@ public class VentanaApp extends JFrame {
 
 	private void comprobarPuedePagar(String id, String email) {
 		if (puedePagar(id, email)) {
-			VentanaEscogerPago pago = new VentanaEscogerPago(this, id, email);
-			pago.setVisible(true);
+			if ( estaATiempo(id, email)) {
+				VentanaEscogerPago pago = new VentanaEscogerPago(this, id, email);
+				pago.setVisible(true);
+			}
+			else {
+				JOptionPane.showMessageDialog(this, "Fecha tardï¿½a para el pago de la carrera: " + id);
+			}
 		} else {
 			JOptionPane.showMessageDialog(this, "Ya se ha realizado el pago sobre la carrera: " + id);
 		}
+	}
+
+	private boolean estaATiempo(String id, String email) {
+		return GuiLogic.pagoATiempo(id, email);
 	}
 
 	private boolean puedePagar(String carrera_id, String email_atleta) {
@@ -2124,6 +2134,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void cargarFicheroClub() {
+		//TODO
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new FileNameExtensionFilter("Fichero Lote Atletas", "fla"));
 		int returnVal = fc.showOpenDialog(this);
@@ -2142,7 +2153,7 @@ public class VentanaApp extends JFrame {
 
 	// TODO
 
-	private void añadirParticipanteClub() {
+	private void aï¿½adirParticipanteClub() {
 		if (Validadores.comprobarEmail(getTxEmailAtletaClub().getText())
 				&& Validadores.comprobarNoVacio(getTxDniAtletaClub().getText())
 				&& Validadores.comprobarNoVacio(getTxNombreAtletaClub().getText())
@@ -2586,20 +2597,20 @@ public class VentanaApp extends JFrame {
 						return;
 					}
 
-					if (!Check.estaInscripcionPagada(email, id_carrera)) {
-						JOptionPane.showMessageDialog(this, "Estas pre-inscrito, por favor paga la inscripcion.",
-								"Error", JOptionPane.WARNING_MESSAGE);
-						return;
-					}
+					String mensaje;
 
-					Double cantidadPagada = GuiLogic.obtenerCantidadPagada(email, id_carrera);
-					Double porcentajeDevolver = GuiLogic.porcentajeADevolver(id_carrera);
+					if (!Check.estaInscripcionPagada(email, id_carrera)) {
+						mensaje = "Se ha cancelado su inscripcion.";
+					} else {
+						Double cantidadPagada = GuiLogic.obtenerCantidadPagada(email, id_carrera);
+						Double porcentajeDevolver = GuiLogic.porcentajeADevolver(id_carrera);
+						mensaje = String.format("Su inscripcion ha sido cancelada, se le devolveran %.2f euros.",
+								cantidadPagada * (porcentajeDevolver / 100));
+					}
 
 					cancelarInscripcion(email, id_carrera);
 
-					JOptionPane.showMessageDialog(this,
-							String.format("Su inscripcion ha sido cancelada, se le devolveran %.2f euros.",
-									cantidadPagada * (porcentajeDevolver / 100)));
+					JOptionPane.showMessageDialog(this, mensaje);
 				} else {
 					JOptionPane.showMessageDialog(this, "No se puede cancelar inscripciones en esta carrera.", "Error",
 							JOptionPane.WARNING_MESSAGE);

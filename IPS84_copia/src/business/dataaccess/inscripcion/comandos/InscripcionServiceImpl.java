@@ -2,7 +2,6 @@ package business.dataaccess.inscripcion.comandos;
 
 import javax.swing.table.TableModel;
 
-import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.inscripcion.InscripcionService;
 
 public class InscripcionServiceImpl implements InscripcionService {
@@ -46,9 +45,16 @@ public class InscripcionServiceImpl implements InscripcionService {
 	}
 
 	@Override
-	public void cancelarInscripcion(String email, String id_carrera) throws BusinessDataException {
-		new CancelarInscripcion(email, id_carrera).execute();
-
+	public boolean estaATiempo(String id, String email) {
+		return new EstaATiempo(id, email).execute();
 	}
 
+	@Override
+	public void cancelarInscripcion(String email, String id_carrera) {
+		new CancelarInscripcion(email, id_carrera).execute();
+		
+	}
+
+	
+	
 }

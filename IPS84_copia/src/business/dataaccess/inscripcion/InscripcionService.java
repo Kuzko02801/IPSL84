@@ -5,7 +5,9 @@ import javax.swing.table.TableModel;
 import business.dataaccess.exception.BusinessDataException;
 
 public interface InscripcionService {
-
+	
+	void cancelarInscripcion(String email, String id_carrera);
+	
 	TableModel devolverParticipantesCarrera(String id);
 
 	void pasarDePendienteDePagoAInscrito(String id, String email);
@@ -20,6 +22,5 @@ public interface InscripcionService {
 	void actualizarCantidadPagada(String id_carrera, String email, double pagado);
 
 	double devolverCantidadPagada(String email, String id_carrera);
-
-	void cancelarInscripcion(String email, String id_carrera) throws BusinessDataException;
+	boolean estaATiempo(String id, String email);
 }

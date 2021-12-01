@@ -19,7 +19,7 @@ public class CancelarInscripcion {
 		this.id_carrera = id_carrera;
 	}
 
-	public void execute() throws BusinessDataException {
+	public void execute() {
 		PreparedStatement pst = null;
 		Connection con = null;
 
@@ -35,7 +35,7 @@ public class CancelarInscripcion {
 
 		} catch (SQLException e) {
 			e.printStackTrace();
-			throw new BusinessDataException("Ha ocurrido un error con la base de datos");
+			//throw new BusinessDataException("Ha ocurrido un error con la base de datos");
 		}
 
 	}

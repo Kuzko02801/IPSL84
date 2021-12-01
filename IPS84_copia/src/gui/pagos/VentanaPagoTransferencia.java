@@ -5,6 +5,8 @@ import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
+import business.dataaccess.exception.BusinessDataException;
+import business.dataaccess.util.Check;
 import business.gui.GuiLogic;
 import gui.aplicacion.VentanaApp;
 import gui.validadoresGUI.Validadores;
@@ -52,7 +54,7 @@ public class VentanaPagoTransferencia extends JDialog {
 		this.v=v;
 		this.id_carrera=id_carrera;
 		this.email=email;
-		this.cuotaActual=GuiLogic.cuotaActualCarrera(id_carrera);
+		this.cuotaActual=GuiLogic.cuotaActualCarrera(id_carrera) - GuiLogic.obtenerCantidadPagada(email, id_carrera);
 		setTitle("Tranferencia");
 		setModal(true);
 		setResizable(false);
@@ -184,29 +186,46 @@ public class VentanaPagoTransferencia extends JDialog {
 	private void pagar() {
 		if(comprobarCampos()) {
 			double pagado=Double.parseDouble(getTxCantidad().getText());
-			
-			if(pagado>this.cuotaActual) {
-				GuiLogic.pagarInscripcion(id_carrera, email);
-				JOptionPane.showMessageDialog(this, "Has pagado más dinero que la cuota actual", "Error", JOptionPane.WARNING_MESSAGE);
-				GuiLogic.procesarPagos
-				(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Ha pagado "+(pagado-cuotaActual)+"de más");
-				GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
-				cerrar();
-			}else if(pagado==this.cuotaActual) {
-				GuiLogic.pagarInscripcion(id_carrera, email);
-				GuiLogic.procesarPagos
-				(id_carrera,email,cuotaActual,cuotaActual,"Pagado con transferencia. Pagado correctamente");
-				GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
-				cerrar();
-			}else{
-				JOptionPane.showMessageDialog(this, "Has pagado menos dinero que la cuota actual", "Error", JOptionPane.WARNING_MESSAGE);
-				GuiLogic.procesarPagos
-				(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Pagado "+(cuotaActual-pagado)+" no se le inscribe aún.");
-				GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
-				cerrar();
+			if (pagoFueraDePlazo()) {
+				JOptionPane.showMessageDialog(this, "Te hemos desinscrito de la carrera por no poder realizar el pago a tiempo");
+				GuiLogic.cancelarInscripcion(email, id_carrera);
+			}
+			else {
+				if(pagado>this.cuotaActual) {
+					GuiLogic.pagarInscripcion(id_carrera, email);
+					GuiLogic.procesarPagos
+					(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Ha pagado "+(pagado-cuotaActual)+" de más");
+					GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
+					JOptionPane.showMessageDialog(this, "Has pagado más de la cuota total. "
+							+ "Atleta inscrito correctamente. Se le remunera con " + (pagado-cuotaActual) + "€", "Info", JOptionPane.INFORMATION_MESSAGE);
+					cerrar();
+				}else if(pagado==this.cuotaActual) {
+					GuiLogic.pagarInscripcion(id_carrera, email);
+					GuiLogic.procesarPagos
+					(id_carrera,email,cuotaActual,cuotaActual,"Pagado con transferencia. Pagado correctamente");
+					GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
+					JOptionPane.showMessageDialog(this, "Has pagado la cuota total. Atleta inscrito correctamente", "Info", JOptionPane.INFORMATION_MESSAGE);
+					cerrar();
+				}else{
+					JOptionPane.showMessageDialog(this, "Has pagado menos dinero que la cuota actual", "Error", JOptionPane.ERROR_MESSAGE);
+					GuiLogic.procesarPagos
+					(id_carrera,email,cuotaActual,pagado,"Pagado con transferencia. Pagado "+(cuotaActual-pagado)+" no se le inscribe aún.");
+					GuiLogic.actualizarCantidadPagada(id_carrera, email, pagado);
+					cerrar();
+				}
 			}
 		}
 	}
+	private boolean pagoFueraDePlazo() {
+		try {
+			return Check.pagoFueraDePlazo(id_carrera, email);
+		} catch (BusinessDataException e) {
+			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+		}
+		return false;
+	}
+
+
 	private void cerrar(){
 		v.mostrarTodasCarrerasParticipante();
 		dispose();

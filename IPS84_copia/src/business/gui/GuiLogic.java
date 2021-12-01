@@ -157,7 +157,7 @@ public class GuiLogic {
 		return DataAccessFactory.forCarreraService().tieneCancelacion(id_carrera);
 	}
 
-	public static void cancelarInscripcion(String email, String id_carrera) throws BusinessDataException {
+	public static void cancelarInscripcion(String email, String id_carrera) {
 		DataAccessFactory.forInscripcionService().cancelarInscripcion(email, id_carrera);
 	}
 
@@ -170,4 +170,7 @@ public class GuiLogic {
 		return DataAccessFactory.forClubService().devolverParticipantesClub(file, atletas);
 	}
 
+	public static boolean pagoATiempo(String id, String email) {
+		return DataAccessFactory.forInscripcionService().estaATiempo(id, email);
+	}
 }
