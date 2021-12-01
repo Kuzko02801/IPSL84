@@ -37,7 +37,6 @@ public class DevolverClasificacionAbsoluta {
 		PreparedStatement ps = null;
 		Connection con = null;
 		ResultSet rs = null;
-
 		try {
 			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
 			ps = con.prepareStatement(SqlStatements.SQL_CLASIFICACION_ABSOLUTA);

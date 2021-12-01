@@ -38,7 +38,7 @@ public class TableModelAssembler {
 	}
 
 	public static TableModel clasificacionesAssembler(int numeroPuntosCorte, List<ArrayList<String>> clasificaciones) {
-
+		
 		// Establecemos model
 		ArrayList<String> aux = new ArrayList<String>();
 		aux.add("Posicion");
