@@ -13,6 +13,7 @@ public class CarreraManager {
 	private List<Periodo> periodos = new ArrayList<>();
 	private List<Categoria> categorias = new ArrayList<>();
 	private List<Integer> puntosCorte = new ArrayList<>();
+	private static final int FROM_18_TO_100 = sumFromTo(18, 100);
 
 	public List<Periodo> getPeriodos() {
 		return periodos;
@@ -48,8 +49,8 @@ public class CarreraManager {
 		if (categorias.isEmpty())
 			return;
 		for (Categoria c : categorias) {
-			if (edadInicio > c.getEdadMinima() && edadInicio <= c.getEdadMaxima()
-					|| edadFin >= c.getEdadMinima() && edadFin < c.getEdadMaxima())
+			if (edadInicio >= c.getEdadMinima() && edadInicio <= c.getEdadMaxima()
+					|| edadFin >= c.getEdadMinima() && edadFin <= c.getEdadMaxima())
 				throw new BusinessDataException("Las edades de las categorias no se pueden solapar.");
 		}
 	}
@@ -110,6 +111,23 @@ public class CarreraManager {
 			}
 		}
 		return true;
+	}
+
+	public boolean comprobarCategoriasCompletaRango() {
+		int sum = 0;
+		for (Categoria c : categorias) {
+			sum += sumFromTo(c.getEdadMinima(), c.getEdadMaxima());
+		}
+		return sum == FROM_18_TO_100;
+	}
+
+	private static int sumFromTo(int beg, int end) {
+		int res = 0;
+
+		for (int i = beg; i <= end; i++) {
+			res += i;
+		}
+		return res;
 	}
 
 }

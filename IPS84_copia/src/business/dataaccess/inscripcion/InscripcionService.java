@@ -2,8 +2,6 @@ package business.dataaccess.inscripcion;
 
 import javax.swing.table.TableModel;
 
-import business.dataaccess.exception.BusinessDataException;
-
 public interface InscripcionService {
 	
 	void cancelarInscripcion(String email, String id_carrera);

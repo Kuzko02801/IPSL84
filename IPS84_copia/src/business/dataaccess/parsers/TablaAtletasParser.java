@@ -9,7 +9,6 @@ import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableModel;
 
 import business.dataaccess.dto.AtletaDto;
-import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.dto.dtoassembler.DtoAssembler;
 
 public class TablaAtletasParser {

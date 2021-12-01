@@ -15,16 +15,12 @@ import business.dataaccess.datainformation.SqliteConnectionInfo;
 import business.dataaccess.dto.carrera.CarreraDto;
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.util.TableModelAssembler;
-import net.proteanit.sql.DbUtils;
 
 public class CargarClasificacionCategoria {
-	private String categoria;
 	private String idCarrera;
 
-
 	public CargarClasificacionCategoria(String idCarrera, String categoria) {
-		this.idCarrera=idCarrera;
-		this.categoria=categoria;
+		this.idCarrera = idCarrera;
 	}
 
 	public TableModel devolverClasificacionCategoria() throws BusinessDataException {
@@ -44,20 +40,25 @@ public class CargarClasificacionCategoria {
 			ps = con.prepareStatement(SqlStatements.SQL_CLASIFICACION_ABSOLUTA);
 			ps.setString(1, idCarrera);
 			rs = ps.executeQuery();
-			ArrayList<ArrayList<String>> listaInscripciones=new ArrayList<ArrayList<String>>();
-			int contador=0;
+			ArrayList<ArrayList<String>> listaInscripciones = new ArrayList<ArrayList<String>>();
+			int contador = 0;
 			while (rs.next()) {
-				
-				contador++;//contador para la posicion, si no acabo se parsea luego
+
+				contador++;// contador para la posicion, si no acabo se parsea luego
 				// Sacar de la query
-				String posicion=contador+"";
-				String dorsal=rs.getString("dorsal");
-				String nombre=rs.getString("nombre");
-				String sexo=rs.getString("sexo");
-				String club=rs.getString("club");
-				String tiemposCorte=rs.getString("tiemposCorte");
-				String tiempoFinal=rs.getString("tiempo");
+				String posicion = contador + "";
+				String dorsal = rs.getString("dorsal");
+				String nombre = rs.getString("nombre");
+				String sexo = rs.getString("sexo");
+				String club = rs.getString("club");
+				String tiemposCorte = rs.getString("tiemposCorte");
+				String tiempoFinal = rs.getString("tiempo");
 				ArrayList<String> listaString = new ArrayList<String>() {
+					/**
+					 * 
+					 */
+					private static final long serialVersionUID = 1L;
+
 					{
 						add(posicion);
 						add(dorsal);

@@ -3,7 +3,6 @@ package business.dataaccess.club;
 import java.io.File;
 import java.util.List;
 
-import javax.swing.JTable;
 import javax.swing.table.TableModel;
 
 import business.dataaccess.dto.AtletaDto;

@@ -1,7 +1,5 @@
 package business.dataaccess.atleta;
 
-import java.io.File;
-
 import business.dataaccess.dto.AtletaDto;
 import business.dataaccess.exception.BusinessDataException;
 

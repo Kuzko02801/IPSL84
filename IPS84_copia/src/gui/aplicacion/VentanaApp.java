@@ -37,7 +37,6 @@ import javax.swing.event.ListSelectionListener;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import javax.swing.table.DefaultTableModel;
 
-import business.dataaccess.dto.dtoassembler.DtoAssembler;
 import business.dataaccess.dto.pago.HistorialPago;
 import business.dataaccess.exception.BusinessDataException;
 import business.dataaccess.parsers.HistorialSerializer;
@@ -1909,6 +1908,7 @@ public class VentanaApp extends JFrame {
 		if (btAddParticipanteClub == null) {
 			btAddParticipanteClub = new JButton("A\u00F1adir participante");
 			btAddParticipanteClub.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					addParticipanteClub();
 				}
@@ -1925,6 +1925,7 @@ public class VentanaApp extends JFrame {
 		if (btEliminarParticipanteClub == null) {
 			btEliminarParticipanteClub = new JButton("Eliminar participante");
 			btEliminarParticipanteClub.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					eliminaParticipanteClub();
 				}
@@ -1948,6 +1949,7 @@ public class VentanaApp extends JFrame {
 		if (btInscribirClub == null) {
 			btInscribirClub = new JButton("Inscribir club");
 			btInscribirClub.addActionListener(new ActionListener() {
+				@Override
 				public void actionPerformed(ActionEvent e) {
 					inscribirClub();
 				}
@@ -2101,11 +2103,10 @@ public class VentanaApp extends JFrame {
 
 	private void comprobarPuedePagar(String id, String email) {
 		if (puedePagar(id, email)) {
-			if ( estaATiempo(id, email)) {
+			if (estaATiempo(id, email)) {
 				VentanaEscogerPago pago = new VentanaEscogerPago(this, id, email);
 				pago.setVisible(true);
-			}
-			else {
+			} else {
 				JOptionPane.showMessageDialog(this, "Fecha tardï¿½a para el pago de la carrera: " + id);
 			}
 		} else {
@@ -2128,7 +2129,7 @@ public class VentanaApp extends JFrame {
 	}
 
 	private void cargarFicheroClub() {
-		//TODO
+		// TODO
 		JFileChooser fc = new JFileChooser();
 		fc.setFileFilter(new FileNameExtensionFilter("Fichero Lote Atletas", "fla"));
 		int returnVal = fc.showOpenDialog(this);
@@ -2198,17 +2199,18 @@ public class VentanaApp extends JFrame {
 		if (Validadores.comprobarNoVacio(getTxNombreClub().getText())) {
 			if (tablaParticipantesClub.getRowCount() > 0) {
 				try {
-					double cuota=GuiLogic.cuotaActualCarrera(getCarreraSeleccionadaParticipante());
+					double cuota = GuiLogic.cuotaActualCarrera(getCarreraSeleccionadaParticipante());
 					double dineroDeber = GuiLogic.inscribirClubCarrera(getCarreraSeleccionadaParticipante(),
 							tablaParticipantesClub, getTxNombreClub().getText());
 					if (dineroDeber > 0) {
 						try {
-							HistorialSerializer.serializarPagos(new HistorialPago(
-									getCarreraSeleccionadaParticipante(),"club: "+getTxNombreClub().getText(),
-									cuota+"",dineroDeber+"","Este dinero debe reclamarse al club en cuestión."));
+							HistorialSerializer.serializarPagos(new HistorialPago(getCarreraSeleccionadaParticipante(),
+									"club: " + getTxNombreClub().getText(), cuota + "", dineroDeber + "",
+									"Este dinero debe reclamarse al club en cuestión."));
 						} catch (IOException e) {
-							JOptionPane.showMessageDialog(this, "Ha ocurrido un problema guardando el pago,"
-									+ " contactar con el organizador", "Error", JOptionPane.WARNING_MESSAGE);
+							JOptionPane.showMessageDialog(this,
+									"Ha ocurrido un problema guardando el pago," + " contactar con el organizador",
+									"Error", JOptionPane.WARNING_MESSAGE);
 						}
 						JOptionPane.showMessageDialog(this,
 								"Se ha realizado la inscripcion del club.\n La deuda del club son: " + dineroDeber
@@ -2224,7 +2226,7 @@ public class VentanaApp extends JFrame {
 				} catch (BusinessDataException e) {
 					JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 				}
-			}else {
+			} else {
 				JOptionPane.showMessageDialog(this, "El club no tiene atletas", "Error", JOptionPane.WARNING_MESSAGE);
 			}
 		} else {
@@ -2271,7 +2273,7 @@ public class VentanaApp extends JFrame {
 		} catch (BusinessDataException e) {
 			JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
 		}
-		
+
 	}
 
 	private void mostrarPanelOrganizadorClasificacionesSexo(String id) {
@@ -2363,18 +2365,23 @@ public class VentanaApp extends JFrame {
 
 	private void crearCarrera() {
 		if (comprobarCamposCarrera()) {
-			try {
-				GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
-						getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
-						getTxPlazasCarrera().getText(), carreraManager.getCategorias(), carreraManager.getPeriodos(),
-						carreraManager.getPuntosCorte(), getChBoxListaEspera().isSelected(),
-						getChBoxCancelacionInscripcion().isSelected(), getTxtPorcentajeADevolver().getText(),
-						getTxtFechaMaxCancelacion().getText());
-				JOptionPane.showMessageDialog(this, "La carrera se ha creado con exito", "Exito",
-						JOptionPane.INFORMATION_MESSAGE);
-				vaciarCamposCrearCarrera();
-			} catch (BusinessDataException e) {
-				JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+			if (!carreraManager.comprobarCategoriasCompletaRango()) {
+				JOptionPane.showMessageDialog(this, "Las categorias deben cubrir desde 18 a 100 años.", "Error",
+						JOptionPane.WARNING_MESSAGE);
+			} else {
+				try {
+					GuiLogic.crearCarrera(getTxNombreCarrera().getText(), getTxFechaCarrera().getText(),
+							getCbTipoCarrera().getSelectedItem().toString(), getTxDistanciaCarrera().getText(),
+							getTxPlazasCarrera().getText(), carreraManager.getCategorias(),
+							carreraManager.getPeriodos(), carreraManager.getPuntosCorte(),
+							getChBoxListaEspera().isSelected(), getChBoxCancelacionInscripcion().isSelected(),
+							getTxtPorcentajeADevolver().getText(), getTxtFechaMaxCancelacion().getText());
+					JOptionPane.showMessageDialog(this, "La carrera se ha creado con exito", "Exito",
+							JOptionPane.INFORMATION_MESSAGE);
+					vaciarCamposCrearCarrera();
+				} catch (BusinessDataException e) {
+					JOptionPane.showMessageDialog(this, e.getMessage(), "Error", JOptionPane.WARNING_MESSAGE);
+				}
 			}
 		}
 	}
