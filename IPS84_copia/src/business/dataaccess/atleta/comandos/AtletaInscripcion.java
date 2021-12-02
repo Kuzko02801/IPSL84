@@ -122,10 +122,25 @@ public class AtletaInscripcion {
 		if (checkEstaEnlista()) {
 			throw new BusinessDataException("Ya estas en la lista de espera de esta carrera.");
 		}
-		PreparedStatement listaEspera = con.prepareStatement(SqlStatements.SQL_INSERTAR_LISTA_ESPERA);
-		listaEspera.setString(1, atleta.email);
-		listaEspera.setString(2, carrera.carrera_id);
-		listaEspera.executeUpdate();
+
+		PreparedStatement listaEspera = null;
+		Connection con = null;
+
+		try {
+			con = DriverManager.getConnection(SqliteConnectionInfo.URL);
+
+			listaEspera = con.prepareStatement(SqlStatements.SQL_INSERTAR_LISTA_ESPERA);
+			listaEspera.setString(1, atleta.email);
+			listaEspera.setString(2, carrera.carrera_id);
+			listaEspera.executeUpdate();
+
+			listaEspera.close();
+			con.close();
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+			throw new BusinessDataException("Ha ocurrido un error con la base de datos");
+		}
 	}
 
 	private boolean checkEstaEnlista() throws BusinessDataException {

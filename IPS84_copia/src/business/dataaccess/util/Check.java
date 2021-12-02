@@ -133,13 +133,6 @@ public class Check {
 			rs = ps.executeQuery();
 
 			while (rs.next()) {
-//				plazasLibres++;
-//				if (plazasLibres >= plazas) {
-//					rs.close();
-//					ps.close();
-//					con.close();
-//					return true;
-//				}
 				plazasLibres = carrera.plazasMaximas - rs.getInt("numeroInscripciones");
 			}
 			if (plazasLibres > 0) {
