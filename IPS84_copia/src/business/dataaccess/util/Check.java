@@ -151,6 +151,9 @@ public class Check {
 		}
 	}
 
+	public static boolean hayPlazasLibresClub(int plazas,CarreraDto carrera) {
+		return plazas<=carrera.plazasMaximas;
+	}
 	public static boolean checkCarreraAbierta(List<Periodo> periodos) {
 		for (Periodo periodo : periodos) {
 			if (periodo.getFechaInicio().isBefore(new DateSqlite().actual())

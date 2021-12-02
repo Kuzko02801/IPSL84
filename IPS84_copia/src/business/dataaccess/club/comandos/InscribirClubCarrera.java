@@ -36,7 +36,7 @@ public class InscribirClubCarrera {
 		}
 
 		int numeroDeAtletas = atletas.size();
-		if (!Check.hayPlazasLibres(numeroDeAtletas, carrera)) {
+		if (!Check.hayPlazasLibresClub(numeroDeAtletas, carrera)) {
 			throw new BusinessDataException("La carrera no tiene plazas para tantos atletas");
 		}
 		int numeroAtletasInscritos=0;
@@ -62,11 +62,12 @@ public class InscribirClubCarrera {
 			ps.setString(1, nombreClub);
 			ps.setString(2, idCarrera);
 			ps.setString(3, email);
-			ps.executeQuery();
+			ps.executeUpdate();
 			
 			ps.close();
 			con.close();
 		} catch (SQLException e) {
+			System.out.println(e.getMessage());
 			throw new RuntimeException("Ha ocurrido un error al cambiar el estado de los atletas del club a inscrito");
 		}
 	}
