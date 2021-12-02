@@ -16,3 +16,8 @@
 74fe15;bycalitos@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
 74fe15;federico@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
 99567c;federico@gmail.com;10.0;10.0;Pagado con tarjeta. Correcto.
+2dd27e;fff@gmail.com;2.0;3.0;Pagado con transferencia. Pagado 1.0 no se le inscribe aún.
+2dd27e;fff@gmail.com;1.0;1.0;Pagado con transferencia. Pagado correctamente
+41f262;g@gmail.com;13.0;5.0;Pagado con transferencia. Ha pagado 8.0 de más
+28c72d;t@gmail.com;12.0;5.0;Pagado con transferencia. Ha pagado 7.0 de más
+d6d5d4;x@gmail.com;3.0;3.0;Pagado con tarjeta. Correcto.

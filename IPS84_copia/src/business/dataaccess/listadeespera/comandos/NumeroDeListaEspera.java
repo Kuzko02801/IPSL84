@@ -29,7 +29,7 @@ public class NumeroDeListaEspera {
 			pst = con.prepareStatement(SqlStatements.SQL_PUESTO_LISTA_ESPERA);
 			pst.setString(1, id_carrera);
 			rs = pst.executeQuery();
-			puesto = rs.getInt(1) + 1;
+			puesto = rs.getInt(1);
 
 			rs.close();
 			pst.close();

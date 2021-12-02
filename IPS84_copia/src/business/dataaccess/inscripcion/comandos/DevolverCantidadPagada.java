@@ -31,8 +31,8 @@ public class DevolverCantidadPagada {
 
 			pst.setString(1, id_carrera);
 			pst.setString(2, email);
-
 			rs = pst.executeQuery();
+			
 			cantidadPagada = rs.getDouble("cantidadPagada");
 			rs.close();
 			pst.close();
