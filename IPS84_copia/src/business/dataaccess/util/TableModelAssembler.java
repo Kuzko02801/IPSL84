@@ -52,8 +52,12 @@ public class TableModelAssembler {
 		DefaultTableModel tableModel = new DefaultTableModel(aux.toArray(), 0);
 
 		for (ArrayList<String> clasificacion : clasificaciones) {
-
+			
+			if(clasificacion.get(5)==null) {
+				continue;
+			}
 			ArrayList<String> listaAuxiliar = new ArrayList<String>();
+			
 			// Añade la posicion
 			if (clasificacion.get(clasificacion.size() - 1).equals("DNF")
 					|| clasificacion.get(clasificacion.size() - 1).equals("DNS")) {
