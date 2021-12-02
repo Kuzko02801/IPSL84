@@ -160,30 +160,25 @@ public class VentanaInscribirse extends JDialog {
 					JOptionPane.showMessageDialog(rootPane, "Ya te has registrado para esta carrera");
 					return;
 				}
-				estaEnListaDeEspera = Check.estaEnListaDeEspera(getTxtEmail().getText(), id_carrera);
-
-				if (GuiLogic.isCarreraLlena(id_carrera)) {
-					if (estaEnListaDeEspera) {
-						JOptionPane.showMessageDialog(this, "Usted ya esta en la lista de espera.");
-						return;
-					} else {
-						meterseEnListaCarrera(id_carrera,getTxtEmail().getText());
-					}
-				}
 				existe = Check.atletaExists(getTxtEmail().getText());
+				estaEnListaDeEspera = Check.estaEnListaDeEspera(getTxtEmail().getText(), id_carrera);
 				if (existe) {
-					if(GuiLogic.isCarreraLlena(id_carrera)) {
-
-						meterseEnListaCarrera(id_carrera, getTxtEmail().getText());
-						JOptionPane.showMessageDialog(this,
-								String.format("Estas en la lista de espera, tu posici�n es: %d",
-										GuiLogic.numeroListaDeEspera(id_carrera)));
-						dispose();
+					if (GuiLogic.isCarreraLlena(id_carrera)) {
+						if (estaEnListaDeEspera) {
+							JOptionPane.showMessageDialog(this, "Usted ya esta en la lista de espera.");
+							return;
+						} else {
+							meterseEnListaCarrera(id_carrera, getTxtEmail().getText());
+							JOptionPane.showMessageDialog(this,
+									String.format("Estas en la lista de espera, tu posici�n es: %d",
+											GuiLogic.numeroListaDeEspera(id_carrera)));
+							dispose();
+						}
 					} else {
 						inscribirAtleta(id_carrera);
 						JOptionPane.showMessageDialog(this, "Te has pre-inscrito en la carrera.");
 						dispose();
-					}					
+					}
 				} else { // No se sabe si el atleta puede no estar registrado.
 					int input = JOptionPane.showConfirmDialog(this,
 							"Tu e-mail no esta registrado pero puedes inscribirte aportando datos adicionales", "Datos",
@@ -191,7 +186,6 @@ public class VentanaInscribirse extends JDialog {
 					if (input == 0) {
 						mostrarVentanaRegistro(getTxtEmail().getText(), tieneLista);
 					}
-
 				}
 			} else {
 				JOptionPane.showMessageDialog(this, "El email no es valido.");
