@@ -222,12 +222,16 @@ public class VentanaRegistro extends JDialog {
 		try {
 			if (comprobarCampos()) {
 				if (registraParticipante()) {
-					if (tieneLista) {
-						GuiLogic.meterseEnListaDeEspera(idCarrera, email);
-						JOptionPane.showMessageDialog(this,
-								String.format("Estas en la lista de espera, tu posición es: %d",
-										GuiLogic.numeroListaDeEspera(idCarrera)));
-						dispose();
+					if (GuiLogic.isCarreraLlena(idCarrera)) {
+						if (tieneLista) {
+							GuiLogic.meterseEnListaDeEspera(idCarrera, email);
+							JOptionPane.showMessageDialog(this,
+									String.format("Estas en la lista de espera, tu posición es: %d",
+											GuiLogic.numeroListaDeEspera(idCarrera)));
+							dispose();
+						} else {
+							JOptionPane.showMessageDialog(this, "La carrera esta llena.");
+						}
 					} else {
 						inscribeParticipante();
 						dispose();
